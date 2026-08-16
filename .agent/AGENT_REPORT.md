@@ -21,11 +21,11 @@ Set up the planner-executor infrastructure only. No research task was started.
 ## Git
 
 - Infrastructure commit: `d0bf3a7a43225f227812a28ce9def3b8ff6e3670`
-- Push: blocked; no Git remote is configured in this repository.
+- Remote target: `git@github.com:zyh1999/procgen-research.git`.
+- Push target: public GitHub repository, branch `agent-work`.
 
 ## Planner action required
 
-Provide or approve the GitHub remote URL/repository so `agent-work` can be
-pushed. Replace `TASK.md` only when a bounded research task is ready.
+Replace `TASK.md` only when a bounded research task is ready.
 
-NEED_DECISION
+TASK_COMPLETE
