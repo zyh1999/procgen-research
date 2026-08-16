@@ -1,0 +1,13 @@
+task_id	environment	seed	bundle	algorithm	budget
+PPO_DMLP1024_BIGFISH_S0	bigfish-easy-0-10	0	bigfish	pure_ppo	6000000
+PPO_DMLP1024_BIGFISH_S1	bigfish-easy-0-10	1	bigfish	pure_ppo	6000000
+PPO_DMLP1024_BIGFISH_S2	bigfish-easy-0-10	2	bigfish	pure_ppo	6000000
+PPO_DMLP1024_BOSSFIGHT_S0	bossfight-easy-0-10	0	bossfight	pure_ppo	6000000
+PPO_DMLP1024_BOSSFIGHT_S1	bossfight-easy-0-10	1	bossfight	pure_ppo	6000000
+PPO_DMLP1024_BOSSFIGHT_S2	bossfight-easy-0-10	2	bossfight	pure_ppo	6000000
+PPO_DMLP1024_CAVEFLYER_S0	caveflyer-easy-0-10	0	caveflyer	pure_ppo	6000000
+PPO_DMLP1024_CAVEFLYER_S1	caveflyer-easy-0-10	1	caveflyer	pure_ppo	6000000
+PPO_DMLP1024_CAVEFLYER_S2	caveflyer-easy-0-10	2	caveflyer	pure_ppo	6000000
+PPO_DMLP1024_COINRUN_S0	coinrun-easy-0-10	0	coinrun	pure_ppo	6000000
+PPO_DMLP1024_COINRUN_S1	coinrun-easy-0-10	1	coinrun	pure_ppo	6000000
+PPO_DMLP1024_COINRUN_S2	coinrun-easy-0-10	2	coinrun	pure_ppo	6000000

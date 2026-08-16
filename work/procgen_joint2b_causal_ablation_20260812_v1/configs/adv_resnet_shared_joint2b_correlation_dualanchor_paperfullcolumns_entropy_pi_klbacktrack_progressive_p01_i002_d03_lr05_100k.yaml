@@ -1,0 +1,87 @@
+algo: adv
+
+algo_config:
+  ent_coef: 0.0
+  norm_obj: adv
+  optimizer: sgd
+  optimizer_momentum: 0.0
+  is_kaczmarz: false
+  lr: 0.05
+  adaptive_lr_max: 0.05
+  use_kl_adaptive_lr: true
+  adaptive_kl_mode: procgen_rollout
+  adaptive_kl_lower: 0.005
+  adaptive_kl_upper: 0.02
+  adaptive_lr_min: 0.0001
+  epochs: 4
+  minibatches: 8
+  vf_coef: 1.0
+
+  joint_ablation_mode: full_joint
+  joint_critic_objective_coef: 1.0
+  joint_critic_curvature_coef: 1.0
+  joint_critic_score_mode: clean
+  joint_critic_rhs_mode: paper_weight_residual_reconstruct
+  joint_reconstruction_mode: paper_full_joint_columns
+  joint_critic_param_scope: all
+  joint_critic_reconstruction_scope: all
+  causal_diagnostic_interval: 32
+
+  joint_block_normalization: none
+  joint_block_normalization_eps: 1.0e-12
+  joint_block_normalization_min_scale: 1.0e-4
+  joint_block_normalization_max_scale: 1.0e4
+  cg_damping: 0.30
+  joint_damping_mode: correlation_relative
+  joint_correlation_damping_eps: 1.0e-12
+  joint_correlation_row_floor_fraction: 0.01
+  joint_correlation_actor_fisher_floor: 0.50
+  joint_correlation_actor_kernel_anchor_fraction: 0.001
+  joint_damping_to_median_floor: 0.0
+  joint_actor_damping_from_critic_floor: 0.0
+  joint_critic_damping_to_median_floor: 0.0
+  joint_diagonal_damping_floor: 0.0
+  joint_block_imbalance_guard_enabled: false
+  joint_schur_guard_enabled: false
+
+  with_popart: true
+  adv_type: gae
+  clamp_ratio: true
+  max_ratio: 10.0
+  min_ratio: 0.1
+  sigma_type: vector
+  linear_solve_dtype: float64
+  max_grad_norm: 0.5
+
+  joint_entropy_rhs_target: 2.50
+  joint_entropy_rhs_gain: 0.10
+  joint_entropy_rhs_integral_gain: 0.02
+  joint_entropy_rhs_max_coef: 0.50
+
+  joint_behavior_kl_guard_enabled: true
+  joint_behavior_kl_guard_upper: 0.005
+  joint_behavior_kl_guard_backoff: 0.50
+  joint_behavior_kl_guard_mode: sqrt_backtrack_accept_progressive_rollout_lr
+  joint_behavior_kl_guard_safety: 0.90
+  joint_behavior_kl_guard_max_backtracks: 8
+  joint_behavior_kl_guard_reference: full_rollout
+
+env_config:
+  env_name: bigfish-easy-0-10
+  num_envs: 16
+  nsteps: 256
+  norm_ret: false
+  timesteps_per_proc_easy: 100_000
+  timesteps_per_proc_hard: 100_000_000
+
+nets_config:
+  type: resnet
+  norm_obs: false
+  with_bn: false
+  dropout: 0.0
+  hidden_size: 256
+  decision_hidden_size: 1024
+
+log_config:
+  log_interval: 10
+  n_eval_trials: 20

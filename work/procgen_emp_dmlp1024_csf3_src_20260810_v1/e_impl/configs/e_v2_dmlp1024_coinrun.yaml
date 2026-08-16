@@ -1,0 +1,80 @@
+algo: ppo
+
+algo_config:
+  variant_name: E_V2_DMLP1024_coinrun
+  ent_coef: 0.01
+  norm_obj: adv
+  optimizer: adam
+  optimizer_momentum: 0.0
+  weight_decay: 0.0
+  is_kaczmarz: false
+  lr: 0.0005
+  adaptive_lr_max: 0.0005
+  use_kl_adaptive_lr: false
+  adaptive_kl_mode: procgen_rollout
+  adaptive_kl_lower: 0.005
+  adaptive_kl_upper: 0.04
+  adaptive_lr_min: 0.0001
+  cliprange: 0.2
+  epochs: 1
+  minibatches: 8
+  vf_coef: 0.5
+  with_popart: true
+  adv_type: gae
+  clamp_ratio: true
+  max_ratio: 10.0
+  min_ratio: 0.1
+  sigma_type: vector
+  cg_damping: 0.5
+  linear_solve_dtype: float64
+  max_grad_norm: null
+  separate_policy_critic_steps: false
+  policy_critic_lr: 0.0005
+  policy_critic_max_grad_norm: null
+  adam_eps: 1.0e-8
+  use_phasic_training: true
+  use_official_ppg_auxiliary: true
+  use_critic_ggn_auxiliary: false
+  use_actor_fisher_aux_clip: false
+  use_full_gradient_anchor_curvature: false
+  use_joint_2b_auxiliary_system: false
+  use_gaussian_critic_sampling: false
+  require_official_ppg_policy_defaults: true
+  policy_updates_per_cycle: 32
+  auxiliary_steps_per_cycle: 1
+  aux_store_per_policy_update: 256
+  aux_batch_size: 512
+  official_aux_epochs: 6
+  official_aux_minibatch_size: 1024
+  official_aux_lr: 0.0005
+  beta_clone: 1.0
+  vf_true_weight: 1.0
+  curvature_anchor_size: 512
+  aux_diagnostic_size: 2048
+  actor_fisher_batch_size: 256
+  critic_ggn_damping: 0.01
+  aux_learning_rate: 0.01
+  actor_target_kl: 0.01
+  jacobian_chunk_size: 16
+  cholesky_max_retries: 5
+  cholesky_damping_multiplier: 10.0
+
+env_config:
+  env_name: coinrun-easy-0-10
+  num_envs: 16
+  nsteps: 256
+  norm_ret: false
+  timesteps_per_proc_easy: 6_000_000
+  timesteps_per_proc_hard: 100_000_000
+
+nets_config:
+  type: resnet
+  norm_obs: false
+  with_bn: false
+  dropout: 0.0
+  hidden_size: 256
+  decision_hidden_size: 1024
+
+log_config:
+  log_interval: 10
+  n_eval_trials: 20

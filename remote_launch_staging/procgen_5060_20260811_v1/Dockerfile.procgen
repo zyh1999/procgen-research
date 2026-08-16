@@ -1,0 +1,18 @@
+FROM rlstack5060/mujoco-sb3:cu128
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+       qtbase5-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN python -m pip install --no-deps \
+       gym==0.26.2 \
+       gym3==0.3.3 \
+       einops==0.8.1 \
+    && python -m pip install --no-deps \
+       https://github.com/openai/procgen/archive/37b521dbb530f0734fd82f72d921f5e0e715c0d1.zip
+
+WORKDIR /workspace/procgen

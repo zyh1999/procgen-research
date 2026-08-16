@@ -1,0 +1,9 @@
+E_BIGFISH	0	2677	e_v2_dmlp1024_bigfish.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/E_BIGFISH.log
+E_BOSSFIGHT	1	2678	e_v2_dmlp1024_bossfight.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/E_BOSSFIGHT.log
+E_CAVEFLYER	2	2679	e_v2_dmlp1024_caveflyer.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/E_CAVEFLYER.log
+E_COINRUN	3	2680	e_v2_dmlp1024_coinrun.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/E_COINRUN.log
+J_BIGFISH	4	2681	actor_j_dmlp1024_bigfish.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/J_BIGFISH.log
+J_BOSSFIGHT	5	2682	actor_j_dmlp1024_bossfight.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/J_BOSSFIGHT.log
+J_CAVEFLYER	6	2683	actor_j_dmlp1024_caveflyer.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/J_CAVEFLYER.log
+J_COINRUN	7	2684	actor_j_dmlp1024_coinrun.yaml	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/J_COINRUN.log
+WATCHER	NA	3822	NA	/root/procgen_ppg_dmlp1024_20260810_v1/supervisor/WATCHER.log

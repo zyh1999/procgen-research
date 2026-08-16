@@ -1,0 +1,6 @@
+repository=git@github.com:agent-lab/trust-region.git
+source_commit=2b5affd64cbb3c624b4bc1f4767f449df231ffb2
+scope=procgen_only
+controlled_override=configs/adv_resnet_shared.yaml:timesteps_per_proc_easy=6000000
+controlled_override=configs/ppo_resnet_shared.yaml:timesteps_per_proc_easy=6000000
+reason=match_arxiv_2605.18591_Figure_4_Procgen_budget

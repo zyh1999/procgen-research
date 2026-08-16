@@ -1,0 +1,2 @@
+CUDA_VISIBLE_DEVICES=1
+/home/yihe/.venv/bin/python -u train_shared_procgen_maincfg_pklbranch.py --config adv_resnet_shared_procgen_maincfg_pklbranch.yaml --env_name caveflyer-easy-0-10 --seed 0 --device 0

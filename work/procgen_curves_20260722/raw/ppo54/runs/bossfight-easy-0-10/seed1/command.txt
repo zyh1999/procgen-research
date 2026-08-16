@@ -1,0 +1,2 @@
+CUDA_VISIBLE_DEVICES=0
+/home/yihe/rat_procgen_env/bin/python -u train_shared.py --config ppo_resnet_shared.yaml --env_name bossfight-easy-0-10 --seed 1 --device 0

@@ -1,0 +1,4 @@
+task_id	program	config_id	seed	environment	gpu	queue_position	replacement_for
+J_DMLP1024_BIGFISH_S0	ACTOR_J_DMLP1024_1464804param_EF_NPG	actor_j_dmlp1024_bigfish.yaml	0	bigfish-easy-0-10	0	1	procgen-3090 former2681 incomplete4505600
+J_DMLP1024_CAVEFLYER_S0	ACTOR_J_DMLP1024_1464804param_EF_NPG	actor_j_dmlp1024_caveflyer.yaml	0	caveflyer-easy-0-10	1	1	procgen-3090 former2683 incomplete4423680
+J_DMLP1024_COINRUN_S0	ACTOR_J_DMLP1024_1464804param_EF_NPG	actor_j_dmlp1024_coinrun.yaml	0	coinrun-easy-0-10	0	2	procgen-3090 former2684 incomplete4464640
