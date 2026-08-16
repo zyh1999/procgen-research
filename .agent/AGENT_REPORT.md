@@ -22,10 +22,12 @@ Set up the planner-executor infrastructure only. No research task was started.
 
 - Infrastructure commit: `d0bf3a7a43225f227812a28ce9def3b8ff6e3670`
 - Remote target: `git@github.com:zyh1999/procgen-research.git`.
-- Push target: public GitHub repository, branch `agent-work`.
+- Push: not performed; explicit approval is required before publishing the
+  research-state and infrastructure context in `.agent/STATE.md`.
 
 ## Planner action required
 
-Replace `TASK.md` only when a bounded research task is ready.
+Confirm whether the current `.agent/` payload may be published to the public
+repository. Replace `TASK.md` only when a bounded research task is ready.
 
-TASK_COMPLETE
+NEED_DECISION
