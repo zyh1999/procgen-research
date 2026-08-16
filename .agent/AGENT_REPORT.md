@@ -20,8 +20,8 @@ Set up the planner-executor infrastructure only. No research task was started.
 
 ## Git
 
-- Infrastructure commit: PENDING
-- Push: pending; no Git remote is configured in this repository.
+- Infrastructure commit: `d0bf3a7a43225f227812a28ce9def3b8ff6e3670`
+- Push: blocked; no Git remote is configured in this repository.
 
 ## Planner action required
 
