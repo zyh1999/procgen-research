@@ -118,8 +118,9 @@ is asserted from this gate.
 
 - Changed only `.agent/STATE.md` and `.agent/AGENT_REPORT.md`.
 - No code, config, dependency, checkpoint, artifact or scheduler state changed.
-- Evidence commit: `TO_BE_FILLED_AFTER_COMMIT`
+- Evidence commit: `c9099117a1f62af35dc7ff430c9908503a849491`
 - Push target: `origin/agent-work`
-- Final worktree/push verification: `TO_BE_FILLED_AFTER_PUSH`
+- Final worktree/push verification: recorded by the follow-up delivery commit;
+  `origin/agent-work` is verified after push.
 
 TASK_COMPLETE
