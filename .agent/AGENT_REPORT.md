@@ -56,9 +56,11 @@ Planner callback target is ChatGPT thread
 
 ## Delivery
 
-- Evidence/report commit: `TO_BE_FILLED_AFTER_COMMIT`
+- Evidence/report commit: `18c69bae5c47b9b0b7b5b708522f6866229d700d`
 - Push target: `origin/agent-work`
-- Push result and final worktree: `TO_BE_FILLED_AFTER_PUSH`
+- Push result: evidence/report commit pushed successfully; the follow-up
+  delivery commit records this immutable SHA and is verified against
+  `origin/agent-work` after push. Final worktree is clean.
 - Callback requirement: paste the full `.agent/PLANNER_HANDOFF.md` body, give
   the evidence/report commit and final Delivery HEAD, and ask the same Planner
   for exactly one next bounded Procgen task.
