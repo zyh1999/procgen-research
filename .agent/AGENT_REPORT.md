@@ -59,10 +59,12 @@ promotion-evidence assessment:
 
 ## Delivery
 
-- Evidence/report commit: `PENDING_COMMIT_SHA`
+- Evidence/report commit: `e17ba43f325175cbccd7ab20a716aece41b9a465`
 - Push target: `origin/agent-work`
-- Push verification: `PENDING_PUSH_VERIFICATION`
-- Final worktree: `PENDING_FINAL_CHECK`
+- Push verification: `git ls-remote origin refs/heads/agent-work` returned
+  `e17ba43f325175cbccd7ab20a716aece41b9a465` before the follow-up delivery
+  record was created.
+- Final worktree: clean after the follow-up delivery commit and push.
 - Callback: after push, the same ChatGPT Planner receives the conclusion,
   provenance matrix, strict-match diff table, failure ledger, commit SHA, and
   a request for exactly one next bounded Procgen task.
