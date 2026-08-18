@@ -4,123 +4,123 @@ Status: READY
 Planner-Kind: ChatGPT
 Planner-Thread-ID: 6a8309ee-bb34-83eb-9512-72acc5913334
 Executor-Callback: Wake this same Planner after AGENT_REPORT is pushed.
-Task-ID: PROCGEN-PLANNER-HANDOFF-20260817-02
+Task-ID: PROCGEN-JOINT-PROVENANCE-MAP-20260817-03
 
 ## 唯一目标
 
-将 `PROCGEN-READONLY-REFRESH-20260817-01` 已采集的证据整理成一份完整、可直接随 Executor callback 交付给 Planner 的 Procgen 证据包，并对易过期状态做一次只读增量核验。
+只读重建近期 Joint/PAP/FADP/RAT/Schur/RHS 作业的完整科学 provenance，确定已完成的 seed0 500k/1M Joint-B gate 是否存在严格匹配的 parent/control；在此结论明确前不得规划或启动正式扩展实验。
 
-本任务不决定或启动下一项实验。
+本任务仅属于 PPG/curvature 研究线，不改变 Pure-PPO DMLP1024 控制线。完成后必须把结论回传同一 ChatGPT Planner，由 Planner 决定哪个有希望的 deterministic critic-GGN 候选晋级正式 6M × 3 seeds。
 
-## 输入与范围
+## 范围
 
-仅限 `zyh1999/procgen-research` 的 `agent-work` 分支。
+以 Delivery HEAD `f850e1d439642108763c630f137a9e97ebf07e76` 及 evidence/report commit `18c69bae5c47b9b0b7b5b708522f6866229d700d` 为输入，完整读取 `.agent/GOAL.md`、`STATE.md`、`TASK.md`、`AGENT_REPORT.md` 和 `PLANNER_HANDOFF.md`。
 
-必须以以下已交付版本为起点：
+必须核验以下有限作业集合：
 
-- Delivery HEAD：`62371cb`
-- Evidence commit：`c9099117a1f62af35dc7ff430c9908503a849491`
+- CSF3 cancelled：`18642230`, `18624888`, `18666591`
+- CSF3 recent：`18666610`, `18667225`, `18667467`, `18667627`, `18667792`, `18667941`, `18668461`, `18669377`, `18669429`, `18669454`, `18669530`, `18669613`, `18669615`, `18669725`, `18670437`, `18670696`, `18672560`
+- Bede：`1072327`, `1072329`, `1072331`, `1072333`, `1072337`, `1072338`, `1072342-1072351`
 
-完整读取并交叉核对：
+其中 `18642230` 与 `18624888` 已于 2026-08-18 按用户授权取消，均为零运行时间、无科学产物的旧 Jupyter 数组；必须记录其精确身份、被替代关系和取消证据，不得删除历史记录。
 
-- `.agent/GOAL.md`
-- `.agent/STATE.md`
-- `.agent/TASK.md`
-- `.agent/AGENT_REPORT.md`
-- 上述文件直接引用的配置、结果表、日志和 artifact
+不得扩大到无关作业或其他研究仓库。
 
-不得涉及 MuJoCo 或 Isaac。
+## 严格匹配要求
+
+不得仅凭 job name、scheduler completion 或相似算法名称认定匹配。每个 parent/control 必须与目标 Joint-B gate 核对：
+
+- 相同 Procgen environment 和 seed；
+- 相同网络、encoder、decision trunk、heads/PopArt/auxiliary 身份；
+- 相同 rollout、minibatch、epoch、预算和终止更新语义；
+- 相同数据、reward、evaluation 和 checkpoint 协议；
+- 明确 actor Fisher、critic GGN、cross blocks、RHS、damping、clip、precision、solver/reduction、momentum/Kaczmarz 身份；
+- exact source、trainer、config、launcher SHA256；
+- 非目标差异只能是预先定义的单一 causal ablation。
+
+Pure-PPO baseline、E-v2、P1、Joint-2B 和 Joint-B 不得互相替代。
 
 ## 允许动作
 
-- 只读核验上述提交、控制文件及直接引用证据；
-- 以 CSF3 为控制面刷新 Procgen 相关 scheduler、GPU、进程和最新日志状态；
-- 必要时只读检查 Bede、双 5060 或其他已登记远端；
-- 生成 `.agent/PLANNER_HANDOFF.md`；
-- 更新 `.agent/AGENT_REPORT.md`，记录本次核验和交付；
-- 提交并推送这些控制面文件到 `agent-work`。
-
-除报告文件外，不得产生持久修改。
+- 只读查询 scheduler/accounting、日志、命令、环境快照和 artifact；
+- 只读解析现有 `progress.csv`、JSONL、stdout/stderr、status、rc、checkpoint 及提交历史；
+- 以 CSF3 为控制面，只读核验 Bede、gpuA、gpuH、三台已授权 4090 和其他已登记远端；`.54/ws4090-31` 仍隔离；
+- 更新 `.agent/AGENT_REPORT.md`、`.agent/STATE.md`；
+- 新建 `.agent/reports/PROCGEN-JOINT-PROVENANCE-MAP-20260817-03.md`；
+- 提交并推送控制面报告到 `agent-work`。
 
 ## 必需证据
 
-`.agent/PLANNER_HANDOFF.md` 必须自包含，并明确列出：
+先刷新并记录 UTC 时间、主机和查询命令：
 
-1. 两条既定 Procgen 研究线的准确名称、目标和边界；
-2. 每条研究线最高严格匹配 baseline；
-3. 严格匹配字段：环境、算法、网络、训练预算、seed、评估协议和指标语义；
-4. 每个已完成、运行中、排队、失败及未开始配置；
-5. 每配置、每 seed 的 reward、KL 和核心 Procgen 指标；
-6. baseline 对照及达到严格 baseline 的 seed 数；
-7. checkpoint、日志、结果表等 artifact 路径和完整性；
-8. 所有历史失败配置、证据、原因和分类；
-9. `early-stop-candidate` 及其 3/5 或前期崩溃依据；
-10. 当前缺失证据、矛盾和阻塞项；
-11. Evidence commit 与本次增量刷新之间的状态变化。
+- 当前 Procgen scheduler、GPU、进程及最新日志状态；
+- 两组旧 held 数组的取消状态和零运行时间；
+- 是否出现新的 Procgen trainer 或 artifact 变化；
+- `.54`、`ws4090-31` 不得访问。
 
-易过期部分必须重新记录 UTC 时间、主机及只读查询证据：
+对范围内每个 job 及其可枚举 cell，报告：
 
-- scheduler job ID、状态、节点、运行时间和退出码；
-- GPU 型号、利用率、显存及 PID/job 对应；
-- 相关进程及启动时间；
-- 最新日志 mtime、最后有效进度；
-- traceback、NaN/Inf、OOM、磁盘、通信、配置错误和停滞扫描；
-- artifact 新增、缺失或损坏情况。
+1. job/raw ID、环境、seed、状态、节点、runtime、exit code；
+2. 完整启动命令、工作目录、artifact root；
+3. trainer/config/launcher 路径及 SHA256；
+4. 方法的准确身份，不用简称猜测；
+5. rollout、minibatch、epochs、预算和实际 transitions；
+6. actor/critic/cross/RHS/damping/clip/precision/solver 语义；
+7. reward、behavior KL、current-step KL、solver residual 及辅助健康指标；
+8. status、rc、日志、trace、checkpoint 完整性；
+9. traceback、NaN/Inf、OOM、CUDA、NCCL、磁盘、配置和停滞扫描；
+10. 与 1M Joint-B gate 的逐字段匹配表；
+11. 科学状态和失败分类。
 
-## 失败分类
+无法恢复的字段必须写成 `unknown/insufficient-evidence`，并记录尝试读取的确切路径或查询；不得从 scheduler 名称推断。
 
-必须保留并区分：
+## 历史失败保护
 
-- algorithm-failure
-- numerical-failure
-- infrastructure-failure
-- queued/quota-waiting
-- unknown/insufficient-evidence
+- ACTOR_J BossFight seed0：`algorithm-failure/EARLY_STOPPED_FAILED`，5.7933 对严格 E-v2 10.60，比例 0.5465；
+- ACTOR_J BigFish/CaveFlyer/CoinRun 原始尝试：`infrastructure-failure`；
+- P1 四个 seed1 根目录：`infrastructure-failure`；
+- `18642230`、`18624888`：`cancelled-obsolete-unstarted`，零运行时间；
+- `18666591` 及尚未映射作业：证据充分前保持 `unknown/insufficient-evidence`。
 
-不得删除、覆盖或弱化历史失败。低于最高严格匹配 baseline 的 3/5，
-或前期明显崩溃，只能记录为 `early-stop-candidate`，不得执行早停。
+3/5 规则只评估，不执行 early stop。
 
 ## Required Outputs
 
-1. `.agent/PLANNER_HANDOFF.md`：上述完整证据包；
-2. `.agent/AGENT_REPORT.md`：记录核验时间、输入提交、变化摘要、输出路径、
-   commit SHA、push 结果和最终工作树状态；
-3. Executor callback 必须直接粘贴 `.agent/PLANNER_HANDOFF.md` 全文，
-   不能只提供 GitHub URL、commit SHA 或一句“已完成”；
-4. callback 同时给出新的 Delivery HEAD 和 evidence/report commit SHA。
+1. 全部目标 job/cell 的 provenance matrix；
+2. 1M Joint-B 与每个候选 parent/control 的逐字段差异表；
+3. 每个候选判定：`strict-match`、`not-strict-match` 或 `insufficient-evidence`；
+4. 唯一匹配结论：`STRICT_PARENT_COMPLETE`、`STRICT_PARENT_DEFINED_BUT_INCOMPLETE` 或 `NO_STRICT_PARENT_FOUND`；
+5. 若存在严格 parent，提供同环境同 seed 同预算指标对照；不存在则明确缺少的最小因果对照，但不得自行提交实验；
+6. 更新后的失败账本、artifact 清单、取消账本和当前运行状态；
+7. 向 Planner 明确列出哪些配置满足或不满足晋级正式四环境 × 6M × seeds 0,1,2 的证据条件；晋级决策仍由 Planner 作出；
+8. commit SHA、push 证据和最终工作树状态。
+
+Executor callback 必须直接粘贴结论、provenance matrix、严格匹配差异表及失败账本，不能只返回文件链接或 commit SHA。
 
 ## Acceptance Criteria
 
-- Evidence commit `c9099117...` 与 Delivery HEAD `62371cb` 已验证；
-- 两条研究线分别呈现，边界及严格匹配语义未被改写；
-- 历史失败和 interrupted/不完整 provenance 全部保留；
-- 易过期状态已做带时间戳的只读增量刷新；
-- 配置、seed、指标、日志和 artifact 可以相互追溯；
-- 不确定事实明确标为 `unknown/insufficient-evidence`；
-- 未选择、启动、续跑、取消或重新排队任何实验；
-- callback 中包含完整证据包正文；
-- 报告提交已推送至远端 `agent-work`。
+- 所有枚举 job 均被逐项核验，没有静默遗漏；
+- 500k/1M Joint-B 保持原身份，不被宣传为 6M 性能胜利；
+- scheduler 完成与科学完成明确区分；
+- 每个候选有可复核的严格匹配判定；
+- 历史失败和取消 provenance 完整保留；
+- 易过期状态已刷新；
+- 本任务未启动、恢复、取消、重排或 early-stop 任何额外实验；
+- 仅报告文件发生变更；
+- 报告已提交并推送到 `origin/agent-work`。
 
 ## Prohibited Actions
 
-- 不得启动、续跑、重启、取消或调度实验；
-- 不得修改算法、代码、配置、依赖或长期研究方向；
-- 不得合并两条 Procgen 研究线；
-- 不得放宽或重解释严格匹配；
-- 不得使用 `.54` 或 `ws4090-31`；
-- 不得启动或使用 Jupyter；
-- 不得执行 early stop；
-- 不得删除失败记录、日志、checkpoint 或 artifact；
-- 不得把基础设施失败或调度等待归为算法失败；
-- 不得规划或检查 MuJoCo、Isaac；
+- 不得启动、续跑、重启、取消、release hold 或重新排队任何额外实验；
+- 不得修改训练代码、配置、依赖、checkpoint 或 artifact；
+- 不得使用 Jupyter；
+- 不得访问 `.54`、`ws4090-31` 或 `10.49.7.54`；
+- 不得将 idle GPU 视为授权容量；
+- 不得混合两条 Procgen 研究线或改变长期目标；
+- 不得删除、弱化或重分类无充分证据的历史失败；
+- 不得规划 MuJoCo 或 Isaac；
 - 不得提交无关文件。
 
 ## 提交与推送要求
 
-提交信息必须包含：
-
-`PROCGEN-PLANNER-HANDOFF-20260817-02`
-
-提交前检查 diff，确认仅包含 `.agent/PLANNER_HANDOFF.md`、
-`.agent/AGENT_REPORT.md` 及必要的事实性 `.agent/STATE.md` 更新。
-推送至远端 `agent-work`，并在报告和 callback 中记录最终 commit SHA。
+提交信息包含 `PROCGEN-JOINT-PROVENANCE-MAP-20260817-03`。推送至 `origin/agent-work`，并在 AGENT_REPORT 及 callback 中记录 Delivery HEAD、evidence/report commit、push 验证和最终工作树状态。
