@@ -2,67 +2,69 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-PLANNER-HANDOFF-20260817-02`
-- Inspection window: `2026-08-17T13:52:54Z` to `2026-08-17T13:56:41Z`
-- Executor: Codex, bounded by `.agent/TASK.md`
-- Repository branch target: `origin/agent-work`
-- Starting assigned-task commit: `be356556d7d273253f831197af2fafb7f5244404`
-- Required prior Delivery HEAD verified:
-  `62371cb789c98e814b767c0f2188155df7eaa433`
-- Required Evidence commit verified:
-  `c9099117a1f62af35dc7ff430c9908503a849491`
-- Starting worktree: clean, detached because `agent-work` is attached to the
-  primary worktree; delivery uses an explicit `HEAD:agent-work` push.
+- Task-ID: `PROCGEN-JOINT-PROVENANCE-MAP-20260817-03`
+- Planner: ChatGPT thread `6a8309ee-bb34-83eb-9512-72acc5913334`
+- Inspection window: `2026-08-18T13:11:16Z` to `2026-08-18T13:22:09Z`
+- Assigned task commit: `6c6829801a70202179cfd820d0883e3881cfc01e`
+- Prior Delivery HEAD: `f850e1d439642108763c630f137a9e97ebf07e76`
+- Prior evidence/report commit: `18c69bae5c47b9b0b7b5b708522f6866229d700d`
+- Repository target: `origin/agent-work`
 
-## Control and evidence reconciliation
+## Contract and scope
 
-`.agent/GOAL.md`, `.agent/STATE.md`, `.agent/TASK.md`, and
-`.agent/AGENT_REPORT.md` were read completely before action. Directly cited
-Procgen configuration, result, scheduler, log and artifact evidence was then
-read and cross-checked. MuJoCo and Isaac were not inspected.
+The assigned checkout was updated to the exact pushed task commit without
+overwriting user work. `.agent/GOAL.md`, `STATE.md`, `TASK.md`,
+`AGENT_REPORT.md`, and `PLANNER_HANDOFF.md` were read completely. The Task-ID
+was exactly the requested task and its status was exactly `READY`.
 
-The assigned Task-ID is exactly
-`PROCGEN-PLANNER-HANDOFF-20260817-02`, its status is exactly `READY`, and the
-Planner callback target is ChatGPT thread
-`6a8309ee-bb34-83eb-9512-72acc5913334`.
+Only the enumerated CSF3 and Bede jobs were evaluated. No Jupyter service was
+used; no experiment or scheduler state was changed; no quarantined host was
+accessed; no training code, config, checkpoint, or remote artifact was changed.
 
-## Incremental refresh
+## Result
 
-- CSF3 at `2026-08-17T13:52:54Z`: no Procgen GPU job or trainer running;
-  `18642230_0-3` and `18624888_0-3` remain user-held, unstarted duplicate
-  guards; the four `18670696_0-3` 1M cells remain completed on node847 with
-  zero exit code.
-- The 1M run roots remain PASS/rc0 at 1,007,616 transitions. Their trace/log
-  mtimes are unchanged; direct hard-error and NaN/Inf scans are clean; no
-  checkpoint exists by launcher design.
-- Bede at `2026-08-17T13:56:21Z-13:56:41Z`: jobs `1070573-1070576` freshly
-  verified completed/0:0. All 12 children are PASS/rc0 at 5,980,160; each has
-  a 5,869,545-byte terminal checkpoint. Per-seed terminal reward and PPO KL
-  were recovered. No targeted hard error or NaN/Inf token was found.
-- Dual-5060 at `2026-08-17T13:55:15Z`: RTX 5060 Ti GPUs remain 33/16311 MiB
-  and 15/16311 MiB at 0%; three ACTOR_J recoveries and both workers remain
-  complete with empty queues and no active owned Procgen PID exposed.
-- No new numerical or hard failure was found. Historical ACTOR_J and P1
-  infrastructure failures and ACTOR_J BossFight early-stop failure are
-  preserved without weakening or overwrite.
+Unique conclusion: `STRICT_PARENT_COMPLETE`.
 
-## Required output
+CSF3 `18672560` is a completed strict single-causal-ablation control for the
+completed 1M Joint-B gate `18670696`. The exact config diff adds only four
+low-Fisher guard settings; the exact trainer diff adds only their validation,
+damping interpolation and telemetry. All non-target identity fields match.
+All eight target/control cells are PASS/rc0 at 1,007,616 transitions.
 
-- Full self-contained evidence package: `.agent/PLANNER_HANDOFF.md`
-- Report/control changes only: `.agent/PLANNER_HANDOFF.md` and
-  `.agent/AGENT_REPORT.md`
-- No code, config, dependency, experiment, checkpoint, scheduler state,
-  artifact, Jupyter session or quarantined host changed.
+This does not select a formal candidate and does not turn a 500k/1M seed-0
+gate into a 6M x 3-seed result. The Planner retains the promotion decision.
+
+## Fresh state and preservation
+
+- CSF3 at `2026-08-18T13:22:09Z`: no Procgen queue row or live Procgen
+  trainer. Login A2 idle; not treated as capacity.
+- User-authorized cancellations `18642230` and `18624888` are preserved as
+  `cancelled-obsolete-unstarted`: zero elapsed time, Start=None, no node, no
+  scientific artifact. `18666591` is also zero-runtime cancelled and replaced
+  by `18666610`.
+- Bede was freshly queried at `2026-08-18T13:19:36Z`. Every bounded scheduler
+  cell was mapped. `1072347` is not a Procgen parent ID; it resolves to the raw
+  child ID of an unrelated job and remains `insufficient-evidence` for the
+  requested Procgen slot.
+- Historical ACTOR_J/P1 failures remain unchanged. Bede import failure
+  `1072329_0` and OOM `1072331_0` remain failures despite successful retry
+  `1072333`.
+
+## Evidence package
+
+Full scheduler-cell matrix, command/root/hash provenance, scientific metrics,
+integrity scan, strict-match table, cancellation ledger, failure ledger, and
+promotion-evidence assessment:
+`.agent/reports/PROCGEN-JOINT-PROVENANCE-MAP-20260817-03.md`.
 
 ## Delivery
 
-- Evidence/report commit: `18c69bae5c47b9b0b7b5b708522f6866229d700d`
+- Evidence/report commit: `PENDING_COMMIT_SHA`
 - Push target: `origin/agent-work`
-- Push result: evidence/report commit pushed successfully; the follow-up
-  delivery commit records this immutable SHA and is verified against
-  `origin/agent-work` after push. Final worktree is clean.
-- Callback requirement: paste the full `.agent/PLANNER_HANDOFF.md` body, give
-  the evidence/report commit and final Delivery HEAD, and ask the same Planner
-  for exactly one next bounded Procgen task.
+- Push verification: `PENDING_PUSH_VERIFICATION`
+- Final worktree: `PENDING_FINAL_CHECK`
+- Callback: after push, the same ChatGPT Planner receives the conclusion,
+  provenance matrix, strict-match diff table, failure ledger, commit SHA, and
+  a request for exactly one next bounded Procgen task.
 
 TASK_COMPLETE

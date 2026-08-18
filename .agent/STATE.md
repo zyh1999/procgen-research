@@ -1,54 +1,74 @@
 # Current Project State
 
-Updated: 2026-08-17T13:37:08Z
+Updated: 2026-08-18T13:22:09Z
 
 ## Research lines
 
-1. Pure-PPO DMLP1024: IMPALA/ResNet encoder, shared `256 -> 1024 -> 256`
-   decision trunk, PopArt critic, no PPG auxiliary phase. Bede jobs
-   `1070573-1070576` are the recorded four-environment, three-seed control.
-2. PPG/curvature line: matched `E_v2` and ACTOR_G/H/J/K actor ablations,
-   followed by shared Exact-GGN/RAT and strict Joint-2B/Joint-B causal
-   diagnostics. `E_v2` is the recorded actor-ablation baseline; exact
-   cross-host source/config hashes remain a proof requirement.
+1. Pure-PPO DMLP1024 remains a separate control line and was not changed or
+   reinterpreted by this task.
+2. The PPG/curvature line now has a complete provenance map for the bounded
+   CSF3/Bede Joint/PAP/FADP/RAT/Schur/RHS job set in task
+   `PROCGEN-JOINT-PROVENANCE-MAP-20260817-03`.
+
+## Provenance conclusion
+
+- Unique conclusion: `STRICT_PARENT_COMPLETE`.
+- Target `18670696` is the seed-0, four-environment, 1M RHS-aligned Joint-B
+  gate. All cells are scheduler-complete and scientifically complete at
+  1,007,616 transitions with PASS/rc0.
+- Completed successor/control `18672560` is a strict single-causal-ablation
+  match. Environment, seed, architecture, rollout 4096, minibatch 512, four
+  epochs, 1M budget/termination, data/reward/evaluation protocol, full Joint-B
+  actor-Fisher/critic-GGN/cross/RHS semantics, float64 solver, momentum=0 and
+  Kaczmarz=false are unchanged. The only scientific change is the predeclared
+  low-Fisher actor-from-critic damping guard (high 0.50, low 0.20, max 0.05),
+  plus its validation and telemetry.
+- The guard was inactive in BigFish, BossFight and CoinRun, which reproduced
+  target terminal metrics bit-for-bit. It activated in CaveFlyer (terminal
+  fraction 0.594445; actor-from-critic floor 0.033778), where terminal reward
+  was 2.06 versus 2.78 in the unguarded target. This is a completed causal
+  control, not evidence of a performance improvement.
+- The 250k/500k/1M gates are gates only. None is a 6M, multi-seed performance
+  result, and no candidate is authorized for formal expansion by this state.
 
 ## Fresh live state
 
-- Control plane: CSF3 `login1.csf3.man.alces.network`, sampled
-  `2026-08-17T13:25Z-13:37Z`.
-- No Procgen GPU training job is running on CSF3.
-- Arrays `18642230_0-3` (`pg-j2b-acguardA`) and `18624888_0-3`
-  (`pg-j2b-block05`) are unstarted `PENDING (JobHeldUser)` duplicate guards.
-- The former 1M Joint-B RHS-aligned array `18670696_0-3` is complete at both
-  scheduler and scientific-log levels: all four cells exited `0:0`, contain
-  `PASS`, and reached 1,007,616 transitions.
-- Terminal seed-0 rewards for that 1M gate are BigFish 3.68, BossFight 0.36,
-  CaveFlyer 2.78, and CoinRun 6.90. Terminal behavior KL values are 0.00368,
-  0.00266, 0.00844, and 0.00600 respectively; joint solve residuals are
-  `3.36e-13` to `5.90e-13`.
-- Dual-5060 host `47.114.81.212:60023` is reachable. Both RTX 5060 Ti GPUs
-  sampled idle (33/16311 MiB and 15/16311 MiB, 0%); no Procgen process exists.
-- Bede is not directly reachable noninteractively in this cycle. Its recorded
-  pure-PPO results are historical verified evidence, not a fresh resource
-  sample.
-- `procgen-3090` has no fresh direct telemetry. Do not infer capacity.
-- `ws4090-31` / `10.49.7.54` remains quarantined and is zero capacity.
+- CSF3 control plane `login1.csf3.man.alces.network`, refreshed at
+  `2026-08-18T13:22:09Z`: no queued/running Procgen job and no live Procgen
+  trainer. Login A2 was idle at 0%, 116/15356 MiB; this is not launch capacity.
+- Old arrays `18642230` and `18624888` were user-authorized cancellations at
+  CSF3 local `2026-08-18 14:08`; every cell has Start=None, no node, elapsed
+  00:00:00 and no scientific artifact. They are
+  `cancelled-obsolete-unstarted`.
+- `18666591` is likewise cancelled/unstarted at zero runtime and was replaced
+  by completed gpuA array `18666610`.
+- Bede accounting was refreshed at `2026-08-18T13:19:36Z`. Bounded jobs have
+  been mapped to scientific artifacts or an explicit failure/cancellation.
+  Numeric ID `1072347` resolves only to raw child `1072326_0` of an unrelated,
+  out-of-scope job; no Procgen parent job `1072347` is evidenced.
+- No experiment was launched, resumed, cancelled, released, requeued or
+  early-stopped. No Jupyter service was used. Quarantined `.54`,
+  `ws4090-31`, and `10.49.7.54` were not accessed.
 
-## Failure and early-stop preservation
+## Failure and cancellation preservation
 
-- ACTOR_J BossFight seed 0 remains `EARLY_STOPPED_FAILED` at 4,096,000
-  transitions (recorded robust ratio 0.5465). Do not relaunch automatically.
-- The three original ACTOR_J infrastructure-interrupted attempts and the
-  P1 shared Exact-GGN/RAT seed-1 interrupted roots remain failed provenance.
-- No new early stop was performed. The current 1M gate has only seed 0 and
-  cannot support a strict five-seed 3/5 decision.
+- ACTOR_J BossFight seed0 remains `algorithm-failure/EARLY_STOPPED_FAILED`
+  (5.7933 versus strict E-v2 10.60; ratio 0.5465).
+- Original ACTOR_J BigFish/CaveFlyer/CoinRun attempts and P1 seed1 roots remain
+  `infrastructure-failure`.
+- Bede `1072329_0` failed before a trace because `utils` was absent;
+  `1072331_0` failed before a trace with a V100 CUDA OOM. Retry `1072333`
+  completed all four cells, but does not erase either failure.
+- CSF3 PAP full-column job `18667792`, all other mapped recent CSF3 smoke
+  arrays, and gates `18669725/18670437/18670696/18672560` are scientifically
+  complete. RAT block-trace CoinRun has terminal behavior KL 0.212908 and is a
+  health concern, not a strict-match control or a formal-performance result.
 
-## Planner blockers
+## Planner boundary
 
-- Exact per-cell identities for the two held arrays and several historical
-  recent CSF3 studies are still unmapped.
-- The approved-task catalog is header-only and the launcher registry is empty;
-  therefore the old CSF3 controller can propose work but cannot submit it.
-- A new task must preserve nonoverwriting roots, exact trainer/config hashes,
-  environment, architecture, rollout 4096, minibatch 512, four epochs, budget,
-  seed and evaluation semantics.
+- The complete evidence package is
+  `.agent/reports/PROCGEN-JOINT-PROVENANCE-MAP-20260817-03.md`.
+- Scientific evidence is sufficient to identify a completed strict causal
+  control, but insufficient for any four-environment 6M x seeds 0,1,2
+  promotion: all mapped candidates lack that formal budget/seed evidence.
+- Only the ChatGPT Planner may issue the next bounded Procgen task.
