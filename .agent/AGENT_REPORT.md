@@ -2,48 +2,43 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-BXB-GGN-VS-PAPER-RAT-FORMAL-6M-X3-20260824-05`
+- Task-ID: `PROCGEN-PAPER-MATCHED-DETERMINISTIC-GGN-1M-GATE-20260824-06`
 - Planner: ChatGPT thread `6a8309ee-bb34-83eb-9512-72acc5913334`
-- Assigned task commit: `cc4e144261dd5e652e3e2399d51f696d795a00c2`
-- Audit refresh: CSF3 `2026-08-24T11:05:32Z`; Bede
-  `2026-08-24T11:05:50Z`
+- Assigned task commit: `0383903`
+- Frozen scientific commit: `da34ce7c7d964765f336ac02111c9fde95aed1ec`
+- Resource-race commits: `4bf406dec7619ecbe4e4b120660b8f0895cbd2be`,
+  `31db1cb35910afac47121fcb0a2cae04e308a0cd`
 - Repository target: `origin/agent-work`
 
-## Scope and precheck
+## Result
 
-The READY task, control files and referenced reports were read completely.
-Exact P1 and original Paper RAT source/config/launcher/artifact evidence was
-recovered. The 24 logical cells were classified before any scheduler mutation.
-Live CSF3/Bede state was refreshed; authorized ws4090/procgen-3090 aliases were
-unresolvable. No Jupyter or quarantined host was used.
+The strict identity audit and regression test passed. The gpuH race winner
+produced 24 complete PASS/rc0 cells for BigFish, BossFight, and CaveFlyer.
+CoinRun's eight children were explicitly early-stopped by the user after the
+three completed seed0 comparisons made the value gate mathematically
+impossible; scheduler cancellation is authoritative over stale RUNNING child
+markers.
 
-Original Paper RAT is commit `2b5affd...`, trainer `cbcd6811...`, config
-`1ed4eab5...`, Bede formal array `1063880`. Its 12 requested cells are
-PASS/rc0 at 5,980,160 with checkpoints and clean hard-error scans.
+At the exact 983,040 transition progress row, Target/Paper seed0 reward ratios
+are `.2583`, `0`, and `.2188` for BigFish, BossFight, and CaveFlyer. All three
+are below `.60`, while solvers are finite and hard-error scans are clean. This
+is an algorithmic/step-calibration failure, not an infrastructure or numerical
+solver failure.
 
-Historical P1 is trainer `2b50f8cc...`, config `c177ac09...`, wrapper
-`9c7806fc...`, deterministic critic-GGN 2B with symmetric FP64/Jacobi. It is
-not a strict causal pair: initial LR `.004` vs `.5`, adaptive-KL timing once
-per rollout vs every minibatch, and momentum/history `0/disabled` vs
-`1e-6/enabled`. These are actor optimizer/schedule changes outside the allowed
-critic-curvature/direct-solver/telemetry difference. P1 seed0 artifacts also
-cannot be freshly revalidated because `procgen-3090` is unresolvable.
+The full identity diff, tests, scheduler/artifact reconciliation, user-expanded
+32-run matrix, exact same-transition table, failure/cancellation ledger and
+standing next-task protocol are recorded in:
+`.agent/reports/PROCGEN-PAPER-MATCHED-DETERMINISTIC-GGN-1M-GATE-20260824-06.md`.
 
-## Result and evidence
-
-The mandatory gate blocked all launch work. No new root was created and no
-cell was submitted, rerun, cancelled, early-stopped, or altered.
-
-The complete identity diff, 24-cell manifest, recovered Paper RAT endpoints,
-3/5 not-evaluable accounting, resource snapshot and immutable failure ledger
-are in:
-`.agent/reports/PROCGEN-BXB-GGN-VS-PAPER-RAT-FORMAL-6M-X3-20260824-05.md`.
+No second candidate or follow-on experiment was created. Only the ChatGPT
+Planner may return one new bounded READY task; the Executor retains ownership
+of live resource placement and monitoring.
 
 ## Delivery
 
-- Evidence/report commit: `94d4be2e73844f09650712369b391c8f42b36b23`.
+- Evidence/report commit: recorded in the follow-up delivery commit.
 - Push target: `origin/agent-work`.
-- Delivery HEAD: the follow-up commit containing this record; its SHA, remote
-  verification and Planner callback are reported after push.
+- Delivery HEAD and remote verification: reported in the callbacks after the
+  final push.
 
-PRECHECK_BLOCKED
+GATE_FAIL

@@ -21,8 +21,8 @@
   `dfd52c1d18484f8974103d48d6e813d1e1e4a391d53d5605e78156d959caa6e5`
 - H200 environment-bundle launcher SHA256:
   `29987a1f48f3d8df04a0eb4eb9e6179e1d5f82b7fac2a65e5813e1aa75c4ed54`
-- Explicit user race override SHA256:
-  `94820e10e8029399734964ff0327c4f22d2fe50220b691bc12b775a75e759473`
+- Final explicit user race override SHA256:
+  `19f24f8f15be2483d969d921ba34d43e0edd6df47044c66945d48114c3445c72`
 - Scheduler-only diff SHA256:
   `1ca369021fa73b45cdd848f9e660f252367366761b1fad18c486d29f2a24e75b`
 - Scientific delta: sampled critic score and two independent Paper inverses are

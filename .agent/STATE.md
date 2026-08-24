@@ -1,6 +1,30 @@
 # Current Project State
 
-Updated: 2026-08-24T11:05:50Z
+Updated: 2026-08-24T16:46:47Z
+
+## Current Paper-matched deterministic-GGN gate
+
+- Task `PROCGEN-PAPER-MATCHED-DETERMINISTIC-GGN-1M-GATE-20260824-06` has the
+  unique conclusion `GATE_FAIL`.
+- Machine audit and regression tests passed for the single frozen method
+  `PAPER_MATCHED_DETERMINISTIC_GGN_V1`: Paper actor/network/schedule semantics
+  are retained, while only deterministic critic J_v/residual, lambda `.1`,
+  joint-2B symmetric FP64/Jacobi/Cholesky and telemetry are migrated.
+- The explicit user resource-race override expanded the scientific execution
+  to seeds0--7 on gpuH. BigFish `19203172`, BossFight `19203173`, and CaveFlyer
+  `19203174` completed all 24 children PASS/rc0 at 1,007,616 with checkpoints.
+  CoinRun `19203175` was later user-authorized early-stopped for scientific
+  futility; scheduler state is CANCELLED after 58:17 on node821, while its
+  eight stale RUNNING child markers and absent rc/copies are preserved.
+- At the exact 983,040 progress row, seed0 Target/Paper reward ratios are
+  BigFish `.2583`, BossFight `0`, and CaveFlyer `.2188`. All are below `.60`,
+  so the required 3-of-4 gate is mathematically impossible regardless of
+  CoinRun. Residuals remain finite near `1e-14--1e-12`, hard-error scans are
+  clean, and the failure is algorithmic/step-calibration rather than solver or
+  infrastructure failure.
+- gpuL race loser array `19203054` remains
+  `cancelled-race-loser-unstarted`: Start=None, elapsed0, no node or root.
+  The gpuA and gpuL preflight infrastructure failures remain immutable.
 
 ## Research lines
 
