@@ -1,140 +1,150 @@
 Status: READY
 
-# Task-ID: PROCGEN-HYBRID-HEAD-STRUCTURAL-MANIFEST-RECOVERY-6M-MISSING3-20260824-12
+# Task-ID: PROCGEN-HYBRID-HEAD-ROOT-OVERRIDE-6M-MISSING3-20260824-13
 
 ## 唯一目标
 
-修正per-job preflight错误地将环境相关connectivity probe数值纳入结构manifest哈希的问题；保持科学候选完全不变，仅为BossFight、CaveFlyer和CoinRun补齐seed 0、预定6M的科学证据，并与既有BigFish结果合并判定候选。
+授权一个仅改变artifact destination的launcher变体，使已通过全部科学预检的Hybrid-Head候选能够在三个全新、非覆盖root中运行BossFight、CaveFlyer和CoinRun seed 0预定6M实验；不得改变训练命令或科学语义。
 
-## 结果解释
+## 控制矛盾及决策
 
-BigFish是有效算法失败：
+Task 12的四环境科学预检已经全部通过。当前阻塞仅来自：
 
-- 2,007,040：`6.53/9.28=0.70366`，通过。
-- 4,014,080：`6.23/13.28=0.46913`，严格早停。
-- 求解器有限、Cholesky `info=0`、hard-error为零。
+- 原launcher `ae7104e7...` 将campaign/root硬编码到Task 11路径；
+- 该launcher在root已存在时正确退出；
+- Task 12同时禁止修改launcher和覆盖既有root。
 
-这说明即使单步policy、shared-trunk更新与Paper bit-identical，value-head变化仍可通过后续value estimate、GAE和训练轨迹产生长期影响。2M通过不能排除4M失败。
-
-其余三格没有科学数据。它们的模型结构、参数名称和partition一致，但完整JSON包含环境观测产生的probe值，导致整文件SHA不同。因此属于`infrastructure-failure/per-job-preflight-design`，不能与BigFish一起构成两环境算法拒绝。
+因此现有约束无法同时满足。明确授权创建一个root-override launcher变体。其新SHA必须记录，原launcher及Task 11 roots保持不可变。该变化仅属于artifact routing/provenance，不是新算法或第二候选。
 
 ## 冻结科学身份
 
-以下SHA256必须保持不变：
+必须保持字节不变：
 
 - Trainer：`7bcf9bb6f25a6e40206bb2b08404423992ecdf088cf0f64f806c4a8e7a521e54`
 - Config：`9497be42db0bac8abb504721677ca6608d9f698f101587980c1a726c1dd81fda`
-- Scientific launcher：`ae7104e7b0118cab902d173cd6bb1ea634dc3eb9586fbb5e055c7b8477cceb8e`
 - Stage monitor：`536b87201191f81a44fc3aa6564565653572df523080b0952b11d6347152572e`
+- Corrected preflight harness：`704278e8b5802498b8e065b9f12945e2cb72a665cdd28845b2401091b2e993ea`
+- Structural manifest：`3f91f5c313480c089d300a7dd5aff4a664f28ff9d9f4718bbab430200298d623`
 
-方法仍为原始Paper actor及sampled shared critic，加仅作用于257个critic-exclusive value-head参数的deterministic normalized-residual `J_v` GGN、`lambda=0.1`、独立head-only `B×B` symmetric FP64/Jacobi/Cholesky。
+原scientific launcher `ae7104e7...`必须保留，不能修改或重写。
 
-## 唯一允许的代码修正
+## 唯一允许的代码变更
 
-将preflight输出拆分为：
+复制原scientific launcher，创建一个版本化的root-override变体。相对原launcher，只允许：
 
-### Structural manifest
+1. 将硬编码`CAMPAIGN`替换为必填的显式artifact-root参数或环境变量，例如：
 
-只包含环境无关字段：
+```text
+PROCGEN_CAMPAIGN_ROOT
+```
 
-- 参数有序名称、partition标签、shape、dtype、`requires_grad`和numel；
-- trainable/optimizer成员关系；
-- tensor及参数计数；
-- critic-exclusive精确名称。
+2. 若该值为空、非绝对路径、解析到Task 11 campaign/root或目标root已经存在，必须在训练前失败。
+3. 允许增加仅用于记录base-launcher SHA、override-root和Task-ID的provenance字段。
+4. 必须继续生成：
 
-必须严格满足：
+```text
+$CAMPAIGN_ROOT/runs/$METHOD/$ENV_NAME/seed0/6m
+```
 
-- total：938,979
-- policy-exclusive：2 tensors / 3,855
-- shared：22 tensors / 934,864
-- critic-exclusive：2 tensors / 257
-- trainable：26 tensors / 938,976
-- critic-exclusive仅为`last_v_layer.weight`、`last_v_layer.bias`
+5. 除campaign/root解析与provenance外，launcher的trainer、config、参数、环境ID、seed、budget、Python入口、preflight、monitor和训练命令不得变化。
 
-四环境structural manifest必须字节一致并产生相同的新SHA256。
+不得修改trainer来接受新的科学参数；root routing应完全位于launcher层。
 
-### Connectivity evidence
+## Launcher等价审计
 
-环境/输入相关probe值写入独立的`connectivity_probe.json`。每个环境分别保存SHA256，不要求跨环境相等，但必须分别通过：
+科学提交前必须：
 
-- critic-exclusive policy autograd disconnected或Jacobian L2严格为零；
-- value路径connected且有限；
-- partition与structural manifest一致；
-- 无NaN、Inf或fallback。
+- 提供原launcher与变体的逐行diff。
+- 证明所有非root/provenance行字节相同。
+- 分别dry-run原launcher和变体，并将绝对artifact路径归一化为占位符。
+- 证明归一化后的trainer命令、参数顺序、环境、seed、预算、配置和preflight调用字节一致。
+- 证明变体绑定corrected harness `704278e8...`。
+- 记录新launcher完整SHA256。
+- 证明三个目标root均为全新且不存在。
+- 证明Task 11四个root及其文件、mtime、状态未被修改。
 
-禁止硬编码已观察到的环境SHA、建立白名单、跳过manifest检查或放宽结构不变量。
+若等价审计失败，结束为`PRECHECK_BLOCKED`，不得启动科学运行。
 
-## 有界执行
+## 已接受且无需重复的预检证据
 
-1. 从Task 11 harness freeze `26b2252527076df4bfe537a8612446317cbdcf3a`开始，仅实现上述证据拆分。
-2. 对四个环境各进行一次无训练compatibility validation。
-3. 任一结构manifest不同或connectivity语义失败，立即结束为`PRECHECK_BLOCKED`；不得继续修补。
-4. 全部通过后，只启动先前没有科学数据的三个seed-0 cell：
+Task 12以下证据可严格复用，不得重新解释为缺失：
 
-   - `bossfight-easy-0-10`
-   - `caveflyer-easy-0-10`
-   - `coinrun-easy-0-10`
-
-5. 不得重跑BigFish。`19228676`的4M算法早停永久保留。
-6. 三格分别使用全新、非覆盖root；intended horizon为6M，终点`5,980,160`。
-7. 每个缺失环境仅允许一次科学提交；不得retry、requeue或resubmit。
-8. Executor负责实时资源检查及全部host、GPU、partition、卡数、并发和queue placement决策。
-
-## 强制预检
-
-启动科学单元前必须证明：
-
-- 全部科学文件哈希未变。
-- 三方resolved configuration继续字节一致，SHA256为  
-  `61f8ebe38443acbdbf141981f4e9921435dccd5d4abb6a63959e3d4bdb9232ab`。
 - 四环境structural manifest字节一致。
-- 四环境connectivity probe分别通过语义检查。
-- trainable集合与production optimizer逐项一致。
-- PopArt非训练状态保留且不进入optimizer、autograd或方向更新。
-- Paper actor、sampled shared critic、one-step policy/logits/shared delta继续bit-identical。
+- 四环境connectivity probes均通过。
+- 三方resolved config在各环境内部字节一致。
+- trainable/optimizer集合一致，PopArt非训练状态正确隔离。
+- Paper actor、sampled shared critic、one-step policy/logits/shared delta bit-identical。
 - 仅value-head delta不同。
-- FP64/Jacobi/Cholesky `info=0`且残差有限。
-- 内存及OOM、CUDA、NaN/Inf、hard-error检查通过。
-- 新root不存在且没有重复active objective。
+- H200内存检查、Cholesky `info=0`、FP64 residual和hard-error检查通过。
+
+除launcher等价审计外，不需要再次运行GPU科学预检。
+
+## 科学执行范围
+
+launcher等价审计通过后，仅启动：
+
+- `bossfight-easy-0-10`，seed 0
+- `caveflyer-easy-0-10`，seed 0
+- `coinrun-easy-0-10`，seed 0
+
+每格：
+
+- intended horizon：6M
+- terminal transition：`5,980,160`
+- 一个全新非覆盖root
+- 最多一次科学提交
+
+不得重跑BigFish。`19228676`在4,014,080的`EARLY_STOPPED_ALGORITHM`结果永久保留。
+
+Executor必须在提交前刷新授权资源的scheduler、GPU、进程、ownership、capacity、已有root和重复任务状态。具体host、GPU、partition、卡数、并发和queue placement完全由Executor决定。
 
 ## 严格比较与早停
 
-三个新cell仅与不可变原始Paper RAT的同环境、seed 0、同evaluation semantics和同transition记录比较：
+三个新cell只与不可变原始Paper RAT的同环境、seed 0、同evaluation semantics、同transition记录比较：
 
-- 首个共同点`>=2,000,000`
-- 首个共同点`>=4,000,000`
+- 第一个共同点`>=2,000,000`
+- 第一个共同点`>=4,000,000`
 - 终点`5,980,160`
 
-仅当`Target reward / Paper reward < 0.60`时取消对应cell并记录`EARLY_STOPPED_ALGORITHM`。不得使用Paper终点比较中间Target；没有精确共同记录时不得取消。
+仅当：
 
-## 验收标准
+```text
+Target reward / Paper reward < 0.60
+```
 
-合并BigFish既有结果后，唯一结论必须为：
+时取消对应cell并记录`EARLY_STOPPED_ALGORITHM`。没有精确共同记录时不得采取动作；不得用Paper终点比较中间Target。
 
-- `CANDIDATE_PROMOTE_TO_3SEED`：三个新环境全部到达终点且终点ratio均不低于0.60；BigFish失败仍保留。
-- `CANDIDATE_REJECT`：三个新环境中至少一个严格触发早停，从而形成至少两个环境算法失败；或完整终点证据明确否定候选。
-- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：预检通过并开始科学运行，但基础设施故障仍阻止充分判定。
-- `PRECHECK_BLOCKED`：cross-environment预检未全部通过。
+## 合并验收标准
+
+必须合并既有BigFish算法早停与三个新结果，输出以下唯一结论之一：
+
+- `CANDIDATE_PROMOTE_TO_3SEED`：BossFight、CaveFlyer和CoinRun全部达到终点，且各自终点ratio均不低于0.60；BigFish失败继续保留。
+- `CANDIDATE_REJECT`：三个新环境中至少一个严格触发`<0.60`，从而累计至少两个环境算法失败；或完整终点证据明确否定候选。
+- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：科学运行开始后，基础设施故障仍阻止充分判定。
+- `PRECHECK_BLOCKED`：root-only launcher等价审计未通过。
+- `LAUNCH_BLOCKED_NONOVERWRITE`：无法建立三个经过验证的全新root，但没有科学身份问题。
 
 ## 必需证据
 
-- 修正diff、旧/新harness SHA256及科学哈希不变证明。
-- 四环境structural manifest、新SHA及逐字段一致性表。
-- 四份connectivity probe、各自SHA和语义判定。
-- Task 11全部结果及preflight failure ledger原样保留。
-- 三个新cell的root、命令、scheduler、return code、transitions和artifacts。
-- 2M、4M、终点的Target/Paper reward、ratio、KL、LR、entropy、head/solve residual和Cholesky info。
-- checkpoint及OOM、CUDA、NCCL、disk、stall、Traceback、NaN/Inf扫描。
-- 明确区分算法失败、preflight设计失败和其他基础设施失败。
+- 原launcher、新launcher及逐行diff和SHA256。
+- 路径归一化后的命令等价证明。
+- trainer/config/monitor/harness哈希不变证明。
+- 新旧root存在性、inode/mtime或等价完整性证据。
+- Task 11和Task 12全部failure ledger原样保留。
+- 三个新cell的root、command、scheduler、return code、transitions和artifact清单。
+- 2M、4M、终点的Target/Paper reward、ratio、KL、LR、entropy、head residual、solve residual和Cholesky info。
+- checkpoint及OOM、CUDA、NCCL、disk/quota、stall、Traceback、NaN/Inf扫描。
+- 明确区分BigFish算法失败、旧per-job preflight设计失败及任何新基础设施失败。
 
 ## 禁止事项
 
-- 不得改变算法、trainer、config、scientific launcher或monitor。
-- 不得重跑BigFish或覆盖四个既有root。
-- 不得引入第二候选、sweep或Paper重跑。
+- 不得修改算法、trainer、config、monitor或corrected preflight harness。
+- 不得修改或覆盖原launcher和Task 11 roots。
+- 不得重跑BigFish、Paper RAT或启动第二候选。
+- 不得retry、requeue或resubmit任何新科学cell。
 - 不得使用Jupyter。
 - 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
-- 不得指定具体计算资源或触碰无关任务。
+- Planner不指定任何计算资源；不得触碰无关任务。
 
 ## 报告、提交与推送
 
@@ -142,6 +152,6 @@ BigFish是有效算法失败：
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-HYBRID-HEAD-STRUCTURAL-MANIFEST-RECOVERY-6M-MISSING3-20260824-12.md`
+- `.agent/reports/PROCGEN-HYBRID-HEAD-ROOT-OVERRIDE-6M-MISSING3-20260824-13.md`
 
-提交允许的preflight修正、model-free证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、assignment/freeze/evidence/Delivery commits、四环境manifest/probe结果、三个新cell终态、严格阶段比率及failure-ledger增量。
+提交launcher变体、model-free证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、assignment/launcher-freeze/evidence/Delivery commits、新launcher SHA、等价审计、三个新cell终态、严格阶段比率及failure-ledger增量。
