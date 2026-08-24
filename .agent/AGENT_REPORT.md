@@ -39,7 +39,7 @@ the Executor's responsibility.
 
 ## Delivery
 
-- Evidence/report commit: recorded after the terminal push and verified on
+- Evidence/report commit: `eda4a2a6019245e919d152724c989d7e9e4939be` on
   `origin/agent-work`.
 - Push target: `origin/agent-work`.
 

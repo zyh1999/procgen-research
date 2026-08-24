@@ -206,5 +206,5 @@ authorize a sweep or duplicate objective.
 ## Delivery
 
 - Frozen implementation commit: `8a956130fe661aa41286a9b36ffe10965c223082`.
-- Evidence/report commit: recorded after the terminal evidence push.
+- Evidence/report commit: `eda4a2a6019245e919d152724c989d7e9e4939be`.
 - Push target: `origin/agent-work` only.
