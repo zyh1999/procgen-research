@@ -105,3 +105,24 @@ task terminates `PRECHECK_BLOCKED`.
 Task 10 explicitly allowed no field repair or retry after any failure. No
 resubmission or scientific launch followed. The terminal conclusion remains
 `PRECHECK_BLOCKED`.
+
+## Successful bounded recovery 19227905
+
+- Authorization: the one trainable-gradient recovery authorized by
+  `PROCGEN-HYBRID-HEAD-TRAINABLE-GRAD-PREFLIGHT-AND-6M-S0-20260824-11`.
+- Scheduler: `COMPLETED`, exit `0:0`, elapsed `00:02:02`, node822, CSF3 local
+  start/end `2026-08-24T21:43--21:45`.
+- Result: durable `PRECHECK_PASS`, rc0. This success does not erase or
+  reclassify any of the four prior failures above.
+- Trainable audit: 26 tensors/938,976 elements; exact item-by-item optimizer
+  identity by name/order/shape/dtype/device/object; no `allow_unused`, error
+  swallowing, or zero fill.
+- PopArt audit: `mean`, `mean_sq`, and `debiasing_term` remain model state,
+  excluded from optimizer/autograd/direction/update and unchanged before/after
+  both audited one-step paths.
+- Mandatory network proof: canonical config/model path, exact three-way config
+  SHA, exact partition/manifest, zero critic-head policy Jacobian, actor and
+  shared-critic direction identity, one-step policy/logit identity, head-only
+  delta, H200 memory headroom, and FP64/Jacobi/Cholesky checks all passed.
+- Scientific work: none occurred inside the preflight. No target root,
+  transition, progress, trace, checkpoint, or model was created.

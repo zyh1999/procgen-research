@@ -59,3 +59,46 @@ actual model constructor stopped because the harness namespace omitted required
 never ran. No scientific root or trainer existed after either preflight. The
 mandatory gate therefore terminates `PRECHECK_BLOCKED`; no third preflight or
 scientific submission was attempted.
+
+## Task 11 trainable-gradient recovery
+
+Planner task `PROCGEN-HYBRID-HEAD-TRAINABLE-GRAD-PREFLIGHT-AND-6M-S0-20260824-11`
+authorized exactly one further preflight after preserving jobs
+`19220448/19220752/19225085/19225707` as immutable pre-training harness
+failures. The allowed harness-only fix is frozen at commit
+`26b2252527076df4bfe537a8612446317cbdcf3a`:
+
+- harness SHA256 `df297a9305312cd8dc8e4b0811331ade762e3487f33548fc296b8ce667d080fd`;
+- static-test SHA256 `1115f6c534bdcb695d5fb56e53ce81f245b50157f656f8b4431cac76da2697ef`;
+- trainer/config/scientific-launcher/monitor hashes remain byte-identical to
+  the frozen scientific identity.
+
+The single authorized production preflight was CSF3 gpuH job `19227905`. It
+completed `0:0` in `00:02:02` on node822 and wrote durable status
+`PRECHECK_PASS` with rc0. Its complete model-free output is preserved under
+`evidence/preflight_19227905/`. Mandatory results:
+
+- all three resolved JSON files are byte-identical, each SHA256
+  `61f8ebe38443acbdbf141981f4e9921435dccd5d4abb6a63959e3d4bdb9232ab`;
+- production partition is total938,979, policy2/3,855, shared22/934,864,
+  critic2/257, with manifest SHA256
+  `b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087`;
+- the ordered 26-tensor/938,976-element `requires_grad=True` set is identical
+  item-by-item to the audited production update set in name, order, shape,
+  dtype, device and object identity;
+- PopArt `mean`, `mean_sq`, and `debiasing_term` remain non-trainable model
+  state, are excluded from optimizer/autograd/direction/update, and are
+  unchanged across both audited one-step paths;
+- actual-network Paper actor and sampled shared-critic directions are
+  bit-identical; one-step policy parameters and logits are bit-identical; only
+  the value-head delta differs;
+- the critic-exclusive head is exactly `last_v_layer.weight/bias`, its policy
+  Jacobian is zero/disconnected, and its value path is connected;
+- on a genuine NVIDIA H200, peak allocated memory was 2,045,893,120 of
+  150,111,977,472 bytes; head Cholesky info max was0 and FP64 relative residual
+  was `8.627e-16` with no fallback or hard error.
+
+Immediately before this job, no target scheduler job, process or run root
+existed. The preflight created no scientific root. A scientific submission is
+therefore permitted under Task11 only after this PASS evidence is committed
+and pushed.

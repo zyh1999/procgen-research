@@ -1,0 +1,25 @@
+Setting seed: 0
+Logging to logs/shared.adv.resnet.dropout_0.0.damping_0.5.lr_0.5/bigfish-easy-0-10.20260824-214440_0
+creating environment
+Running on device: cuda:0
+training...
+
+Number of parameters: 938979.0
+
+GPUH_HYBRID_HEAD_COMPATIBILITY_PASS
+canonical_production_config_path=PASS
+resolved_configuration_three_way=BIT_IDENTICAL
+resolved_config_sha256=0f34624bdbb1eae181cbfd35a08e1e413c7c9aea73c10f63b75dec0cedb9afdc
+actual_network_partition=EXHAUSTIVE_MUTUALLY_EXCLUSIVE_STABLE
+critic_exclusive_policy_jacobian=EXACT_ZERO_DISCONNECTED
+actual_network_paper_actor_direction=BIT_IDENTICAL
+actual_network_paper_shared_critic_direction=BIT_IDENTICAL
+actual_network_one_step_policy_parameters=BIT_IDENTICAL
+actual_network_one_step_policy_logits=BIT_IDENTICAL
+actual_network_only_value_head_delta=DIFFERS
+gpu=NVIDIA H200 total_bytes=150111977472 peak_bytes=2045893120
+paper_rows=(512, 938976) head_rows=(512, 257)
+head_fp64_cholesky_info_max=0
+head_fp64_relative_residual=8.627e-16
+partition_policy=3855 shared=934864 head=257
+torch=2.5.1+cu121 cuda=12.1
