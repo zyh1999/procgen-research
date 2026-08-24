@@ -1,6 +1,40 @@
 # Current Project State
 
-Updated: 2026-08-24T19:28:00Z
+Updated: 2026-08-24T19:32:01Z
+
+## Current hybrid-head deterministic-GGN candidate
+
+- Task `PROCGEN-PAPER-HYBRID-HEAD-DETGGN-6M-S0-20260824-08` terminates at its
+  mandatory preflight gate with unique conclusion `PRECHECK_BLOCKED`.
+- Frozen method `PAPER_HYBRID_SHARED_PAPER_HEAD_DETGGN_V1` starts from exact
+  Paper RAT. It retains Paper actor and sampled critic direction on all shared
+  trunk parameters, and changes only the 257-parameter critic-exclusive value
+  head to deterministic normalized-residual J_v GGN lambda `.1`, independent
+  head-only BxB symmetric FP64/Jacobi/Cholesky.
+- Frozen commit `fe4b8a58812e80689705abec11364457cae31e26`; preserved
+  infrastructure correction/evidence commit
+  `896f54459b53f9f489951fb3c9f9ed5fec32c11e`. Trainer/config hashes are
+  `7bcf9bb6...` / `9497be42...`.
+- Static audit and CSF3 numerical regression passed: exhaustive disjoint
+  parameter groups, exact zero-disconnected critic-head policy Jacobian,
+  bit-identical actor matrix/RHS/direction, sampled shared-trunk critic,
+  one-step policy parameters/logits, and only the value-head delta differs.
+  Head solver relative residual was `2.616e-16`; historical formula
+  distinctness passed.
+- Persistent gpuH preflight `19220448` failed before compatibility testing
+  because the staged `utils` package was absent from Python's import path.
+  Corrected preflight `19220752` imported the target but failed before the
+  actual-network partition/memory proof because its constructor namespace
+  omitted required `norm_obs`. Both are immutable
+  `infrastructure-failure/preflight-design`, scheduler FAILED/1:0 in 15s on
+  node820, not scientific or hardware-incompatibility results.
+- At final reconciliation there was no live target job, scientific root,
+  trainer process, transition, progress, trace, checkpoint, or model. The
+  four-environment 6M matrix was not submitted. No further retry, Jupyter,
+  quarantined access, duplicate, sweep, Paper rerun, or unrelated job mutation
+  occurred.
+- The next action requires a Planner-authored READY task or explicit decision;
+  the Executor must not silently repair/relaunch this blocked candidate.
 
 ## Current separate-B deterministic-GGN 6M candidate
 

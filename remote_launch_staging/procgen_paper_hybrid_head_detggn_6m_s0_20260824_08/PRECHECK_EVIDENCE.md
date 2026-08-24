@@ -51,3 +51,11 @@ preserved as `infrastructure-failure/preflight-design`; see
 `PREFLIGHT_FAILURE_LEDGER.md`. The corrected launcher changes only import-path
 and evidence-output handling. Scientific trainer/config hashes remain
 `7bcf9bb6...` / `9497be42...`.
+
+Corrected job `19220752` also returned scheduler FAILED/1:0 after 15 seconds
+on node820. Target import succeeded and the regression passed again, but the
+actual model constructor stopped because the harness namespace omitted required
+`norm_obs`. Thus the actual-network partition/Jacobian and H200 memory proof
+never ran. No scientific root or trainer existed after either preflight. The
+mandatory gate therefore terminates `PRECHECK_BLOCKED`; no third preflight or
+scientific submission was attempted.
