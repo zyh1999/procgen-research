@@ -1,0 +1,11 @@
+source_host=bede.dur.ac.uk
+source_root=/nobackup/projects/bdman37/yihe/procgen_rat_papercritic_ablation_20260724
+source_commit=2b5affd64cbb3c624b4bc1f4767f449df231ffb2
+trainer_sha256=cbcd68118a2901fdcdf3bf2de55841d01b330e7a6cb38996ed8ba791eb2ab1e7
+config_sha256=1ed4eab5bcaf41e6c5fa99e75ab26cf04bbac42107e03f8f4fa12a95b344f6ea
+array_job=1063880
+bigfish_seed0=1063880_0/1064035
+bossfight_seed0=1063880_5/1064047
+caveflyer_seed0=1063880_10/1064067
+coinrun_seed0=1063880_15/1064074
+copy_policy=progress_csv_only_no_model

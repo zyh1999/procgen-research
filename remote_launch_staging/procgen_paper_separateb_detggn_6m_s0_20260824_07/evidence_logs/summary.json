@@ -1,0 +1,34 @@
+{
+  "cells": {
+    "bigfish": {
+      "classification": "EARLY_STOPPED_ALGORITHM",
+      "job": 19210448,
+      "paper": 9.28,
+      "target": 3.22,
+      "transition": 2007040
+    },
+    "bossfight": {
+      "classification": "EARLY_STOPPED_ALGORITHM",
+      "job": 19210449,
+      "paper": 2.92,
+      "target": 0.05,
+      "transition": 2007040
+    },
+    "caveflyer": {
+      "classification": "EARLY_STOPPED_ALGORITHM",
+      "job": 19210450,
+      "paper": 4.45,
+      "target": 0.73,
+      "transition": 2007040
+    },
+    "coinrun": {
+      "classification": "PASS",
+      "job": 19210451,
+      "paper": 9.4,
+      "target": 6.4,
+      "transition": 5980160
+    }
+  },
+  "conclusion": "CANDIDATE_NOT_READY",
+  "task": "PROCGEN-PAPER-SEPARATEB-DETGGN-6M-S0-20260824-07"
+}

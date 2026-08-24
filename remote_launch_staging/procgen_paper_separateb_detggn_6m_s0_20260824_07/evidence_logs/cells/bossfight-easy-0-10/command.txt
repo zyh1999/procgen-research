@@ -1,0 +1,1 @@
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/bin/python -u /scratch/h99859yz/procgen_paper_separateb_detggn_6m_s0_20260824_07/code/train_shared_paper_separateb_detggn_v1.py --config adv_resnet_shared_paper_separateb_detggn_v1_6m.yaml --env_name bossfight-easy-0-10 --seed 0 --device 0 

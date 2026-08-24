@@ -1,0 +1,4 @@
+19210448|pg-sepB-bigfish|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|CANCELLED by 778916|0:0|24/08/26 17:27|24/08/26 17:58|00:30:29|node822|billing=9,cpu=8,energy=10040892,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19210449|pg-sepB-bossfight|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|CANCELLED by 778916|0:0|24/08/26 17:27|24/08/26 17:58|00:30:30|node822|billing=9,cpu=8,energy=10040892,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19210450|pg-sepB-caveflyer|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|CANCELLED by 778916|0:0|24/08/26 18:13|24/08/26 18:42|00:28:37|node822|billing=9,cpu=8,energy=8971676,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19210451|pg-sepB-coinrun|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|COMPLETED|0:0|24/08/26 18:14|24/08/26 19:20|01:06:17|node822|billing=9,cpu=8,energy=20206274,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1

@@ -1,0 +1,4 @@
+GPUH_SEPARATEB_COMPATIBILITY_PASS
+gpu=NVIDIA H200 total_bytes=150111977472 peak_bytes=15032582144
+shape=(512, 1464544) fp64_relative_residual=5.632e-16
+torch=2.5.1+cu121 cuda=12.1

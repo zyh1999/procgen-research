@@ -1,6 +1,37 @@
 # Current Project State
 
-Updated: 2026-08-24T16:46:47Z
+Updated: 2026-08-24T19:28:00Z
+
+## Current separate-B deterministic-GGN 6M candidate
+
+- Task `PROCGEN-PAPER-SEPARATEB-DETGGN-6M-S0-20260824-07` has the unique
+  conclusion `CANDIDATE_NOT_READY`.
+- Frozen method `PAPER_MATCHED_SEPARATE_B_DET_GGN_V1` passed strict Paper
+  actor-equivalence, independent deterministic critic-B identity, historical
+  formula distinctness, numerical regression, and H200 compatibility. Frozen
+  commit is `8a956130fe661aa41286a9b36ffe10965c223082`; trainer/config hashes are
+  `b0dad110...` / `9497be42...`.
+- Exact 2,007,040 Target/Paper seed0 reward ratios are BigFish `.3469827586`,
+  BossFight `.0171232877`, and CaveFlyer `.1640449438`. Frozen monitor ledgers
+  classified each `EARLY_STOPPED_ALGORITHM`; Slurm cancellations on node822
+  are authoritative over stale root RUNNING markers and absent rc files.
+- CoinRun passed exact stages at 2,007,040 (`1.8648648649`) and 4,014,080
+  (`.8875`), then completed rc0 at 5,980,160 with target/Paper `6.40/9.40 =
+  .6808510638`. It has terminal PASS, trace/progress/checkpoint, finite solver
+  telemetry, and zero hard-error hits.
+- Jobs were BigFish `19210448`, BossFight `19210449`, CaveFlyer `19210450`,
+  CoinRun `19210451`, all one H200 on node822. There was no retry, requeue,
+  resubmission, Jupyter use, quarantined access, duplicate root, or unrelated
+  job mutation.
+- The complete evidence package, including immutable Paper seed0 baseline
+  provenance/hashes, exact rows, telemetry, compressed logs/traces, stage
+  ledgers, scheduler state, and error scans, is in
+  `remote_launch_staging/procgen_paper_separateb_detggn_6m_s0_20260824_07/evidence_logs`.
+  No checkpoint/model is included.
+- The Executor must push this evidence and callback the same ChatGPT Planner.
+  It must not invent a next algorithm or launch a sweep while awaiting exactly
+  one Planner-authored READY task. Planner owns algorithm/code direction;
+  Executor owns live resource placement and monitoring.
 
 ## Current Paper-matched deterministic-GGN gate
 
