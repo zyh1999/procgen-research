@@ -46,5 +46,16 @@ scientific submission.
 - Corrected four-environment preflight launcher SHA256:
   `6dcd0757b88b065eef2befbe862bc28a6da269eb86ea733a24c92919f39ad76b`.
 
-Remote four-environment validation evidence and its structural/probe hashes
-will be appended only after the four one-shot allocations reach terminal state.
+## Remote validation result
+
+Exactly four one-shot gpuH no-training validations completed rc0:
+BigFish `19232320`, BossFight `19232321`, CaveFlyer `19232322`, CoinRun
+`19232323`. Their structural manifests are byte-identical with SHA256
+`3f91f5c313480c089d300a7dd5aff4a664f28ff9d9f4718bbab430200298d623`.
+Connectivity SHA256 values are respectively `7e475693...`, `f54549e6...`,
+`76759122...`, and `2558c07c...`; all semantic checks pass.
+
+Science was not launched because the byte-frozen launcher has no root override
+and hard-codes the already-existing Task 11 roots, while Task 12 forbids both a
+launcher change and any overwrite/move of those roots. See the dedicated Task
+12 report for the exact bounded blocker and full evidence.

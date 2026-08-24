@@ -1,0 +1,5 @@
+CANONICAL_PREFLIGHT_STATIC_TEST_PASS
+scientific_identity_hashes=UNCHANGED
+hand_built_namespace=ABSENT
+trainer_main_and_original_train_fn=CANONICAL_PATH
+exact_frozen_production_partition_invariant=ENFORCED

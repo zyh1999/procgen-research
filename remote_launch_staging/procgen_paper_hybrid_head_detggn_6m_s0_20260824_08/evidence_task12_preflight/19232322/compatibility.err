@@ -1,0 +1,8 @@
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:242: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.
+  interpolation: int = Image.BILINEAR,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:288: DeprecationWarning: NEAREST is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.NEAREST or Dither.NONE instead.
+  interpolation: int = Image.NEAREST,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:321: DeprecationWarning: BICUBIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BICUBIC instead.
+  interpolation: int = Image.BICUBIC,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torch/autograd/graph.py:825: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at ../aten/src/ATen/cuda/CublasHandlePool.cpp:135.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass

@@ -1,6 +1,46 @@
 # Current Project State
 
-Updated: 2026-08-24T21:34:14Z
+Updated: 2026-08-24T23:04:27+01:00
+
+## Current structural-manifest recovery for the three missing hybrid-head cells
+
+- Task `PROCGEN-HYBRID-HEAD-STRUCTURAL-MANIFEST-RECOVERY-6M-MISSING3-20260824-12`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no scientific cell was
+  submitted and no Task 11 root was changed.
+- Assignment `05fe72ba8d13217217a3039990cdba2ec5432279` was safely synchronized.
+  The authorized preflight-only freeze
+  `570cca72136a8a8dc1972d0eadee7167d236f93a` splits deterministic structure
+  from environment-specific connectivity. Trainer/config/scientific-launcher/
+  stage-monitor SHA256 values remain exactly
+  `7bcf9bb6...`, `9497be42...`, `ae7104e7...`, and `536b8720...`.
+- Exactly four no-training gpuH validations were submitted once:
+  BigFish `19232320`, BossFight `19232321`, CaveFlyer `19232322`, CoinRun
+  `19232323`. All completed `0:0` on nodes820/822/820/823. Each independently
+  passed the canonical production model, optimizer/PopArt, actor/shared-critic,
+  one-step policy/logit/shared-delta, head-only difference, memory, hard-error,
+  and FP64/Jacobi/Cholesky checks.
+- All four `structural_manifest.json` files are byte-identical with SHA256
+  `3f91f5c313480c089d300a7dd5aff4a664f28ff9d9f4718bbab430200298d623`.
+  Counts are total29 tensors/938,979 elements, trainable26/938,976,
+  policy2/3,855, shared22/934,864, critic2/257, and PopArt state3/3. Critic
+  names are exactly `last_v_layer.weight` and `last_v_layer.bias`.
+- Connectivity probes independently pass with SHA256 BigFish `7e475693...`,
+  BossFight `f54549e6...`, CaveFlyer `76759122...`, CoinRun `2558c07c...`.
+  Every critic-head policy Jacobian is disconnected/exact-zero, every value
+  path is connected/finite, partitions match structure, and no NaN/Inf or
+  fallback is present.
+- The final mandatory non-overwrite/launchability gate is blocked by a control
+  contradiction: the frozen scientific launcher SHA `ae7104e7...` hard-codes
+  `CAMPAIGN=/scratch/..._20260824_08` and
+  `ROOT=$CAMPAIGN/runs/$METHOD/$ENV_NAME/seed0/6m`, exposes no root override,
+  and all four such Task 11 roots exist. Task 12 simultaneously forbids
+  changing that launcher and forbids overwriting/moving any Task 11 root.
+  Launching the requested missing cells would require an unauthorized launcher
+  change or mutation of immutable provenance, so none was submitted.
+- Model-free validation evidence is under
+  `remote_launch_staging/procgen_paper_hybrid_head_detggn_6m_s0_20260824_08/evidence_task12_preflight/`.
+  No model/checkpoint, retry, requeue, Jupyter, quarantined access, duplicate,
+  sweep, Paper rerun, or unrelated mutation occurred.
 
 ## Current hybrid-head trainable-gradient recovery and 6M seed0 matrix
 
