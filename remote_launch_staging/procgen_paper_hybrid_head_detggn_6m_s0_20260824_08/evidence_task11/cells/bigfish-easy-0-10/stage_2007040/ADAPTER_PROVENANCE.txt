@@ -1,0 +1,1 @@
+Adapter provenance: header-only alias misc/total_timesteps -> transitions_so_far; every data row and all other fields preserved byte-for-byte.

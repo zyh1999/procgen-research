@@ -1,0 +1,2 @@
+{"decision": "PASS", "paper_reward": 9.28, "ratio": 0.7036637931034484, "stage_floor": 2000000, "target_reward": 6.53, "transition": 2007040}
+{"decision": "EARLY_STOPPED_ALGORITHM", "paper_reward": 13.28, "ratio": 0.46912650602409645, "stage_floor": 4000000, "target_reward": 6.23, "transition": 4014080}

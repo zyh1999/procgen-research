@@ -1,0 +1,1 @@
+No model or checkpoint is included. BigFish root RUNNING marker and absent rc are stale after scheduler-enforced scientific early stop; sacct is authoritative.

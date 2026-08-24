@@ -1,0 +1,247 @@
+{
+  "CRITIC_EXCLUSIVE": {
+    "connectivity": {
+      "last_v_layer.bias": {
+        "policy_connected": false,
+        "policy_jacobian_probe_l2": 0.0,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 10.0
+      },
+      "last_v_layer.weight": {
+        "policy_connected": false,
+        "policy_jacobian_probe_l2": 0.0,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 33.02279281616211
+      }
+    },
+    "names": [
+      "last_v_layer.weight",
+      "last_v_layer.bias"
+    ],
+    "numel": 257,
+    "tensors": 2
+  },
+  "POLICY_EXCLUSIVE": {
+    "connectivity": {
+      "pi_head.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 477.22113037109375,
+        "value_connected": false,
+        "value_jacobian_probe_l2": 0.0
+      },
+      "pi_head.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 1576.398193359375,
+        "value_connected": false,
+        "value_jacobian_probe_l2": 0.0
+      }
+    },
+    "names": [
+      "pi_head.weight",
+      "pi_head.bias"
+    ],
+    "numel": 3855,
+    "tensors": 2
+  },
+  "POPART_NONCURVATURE_STATE": [
+    "mean",
+    "mean_sq",
+    "debiasing_term"
+  ],
+  "SHARED": {
+    "connectivity": {
+      "backbone_net.conv_layers.0.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 40.58909225463867,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 1.5649305582046509
+      },
+      "backbone_net.conv_layers.0.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 159.10211181640625,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 8.09240436553955
+      },
+      "backbone_net.conv_layers.2.conv1.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 17.507028579711914,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 0.5586913228034973
+      },
+      "backbone_net.conv_layers.2.conv1.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 132.3206329345703,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 4.438266277313232
+      },
+      "backbone_net.conv_layers.2.conv2.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 42.4439582824707,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 1.581225872039795
+      },
+      "backbone_net.conv_layers.2.conv2.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 126.95426940917969,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 4.511541366577148
+      },
+      "backbone_net.conv_layers.3.conv1.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 15.456748008728027,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 0.5724456906318665
+      },
+      "backbone_net.conv_layers.3.conv1.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 124.66319274902344,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 4.474116802215576
+      },
+      "backbone_net.conv_layers.3.conv2.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 42.507991790771484,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 1.4936176538467407
+      },
+      "backbone_net.conv_layers.3.conv2.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 100.52214050292969,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 3.3869993686676025
+      },
+      "backbone_net.conv_layers.4.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 87.0507583618164,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 3.502262830734253
+      },
+      "backbone_net.conv_layers.4.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 663.7384643554688,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 26.558895111083984
+      },
+      "backbone_net.conv_layers.6.conv1.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 24.437480926513672,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 1.575309157371521
+      },
+      "backbone_net.conv_layers.6.conv1.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 148.32936096191406,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 9.599075317382812
+      },
+      "backbone_net.conv_layers.6.conv2.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 81.37427520751953,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 3.406637191772461
+      },
+      "backbone_net.conv_layers.6.conv2.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 275.54547119140625,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 10.106677055358887
+      },
+      "backbone_net.conv_layers.7.conv1.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 32.41242218017578,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 1.3269364833831787
+      },
+      "backbone_net.conv_layers.7.conv1.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 188.20840454101562,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 7.699349880218506
+      },
+      "backbone_net.conv_layers.7.conv2.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 85.18295288085938,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 4.041364669799805
+      },
+      "backbone_net.conv_layers.7.conv2.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 203.42715454101562,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 8.894980430603027
+      },
+      "backbone_net.linear.bias": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 188.663330078125,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 10.215127944946289
+      },
+      "backbone_net.linear.weight": {
+        "policy_connected": true,
+        "policy_jacobian_probe_l2": 5320.2890625,
+        "value_connected": true,
+        "value_jacobian_probe_l2": 287.7956237792969
+      }
+    },
+    "names": [
+      "backbone_net.conv_layers.0.weight",
+      "backbone_net.conv_layers.0.bias",
+      "backbone_net.conv_layers.2.conv1.weight",
+      "backbone_net.conv_layers.2.conv1.bias",
+      "backbone_net.conv_layers.2.conv2.weight",
+      "backbone_net.conv_layers.2.conv2.bias",
+      "backbone_net.conv_layers.3.conv1.weight",
+      "backbone_net.conv_layers.3.conv1.bias",
+      "backbone_net.conv_layers.3.conv2.weight",
+      "backbone_net.conv_layers.3.conv2.bias",
+      "backbone_net.conv_layers.4.weight",
+      "backbone_net.conv_layers.4.bias",
+      "backbone_net.conv_layers.6.conv1.weight",
+      "backbone_net.conv_layers.6.conv1.bias",
+      "backbone_net.conv_layers.6.conv2.weight",
+      "backbone_net.conv_layers.6.conv2.bias",
+      "backbone_net.conv_layers.7.conv1.weight",
+      "backbone_net.conv_layers.7.conv1.bias",
+      "backbone_net.conv_layers.7.conv2.weight",
+      "backbone_net.conv_layers.7.conv2.bias",
+      "backbone_net.linear.weight",
+      "backbone_net.linear.bias"
+    ],
+    "numel": 934864,
+    "tensors": 22
+  },
+  "production_learn_entry": {
+    "algo": "adv",
+    "algo_config": {
+      "adv_type": "gae",
+      "cg_damping": 0.5,
+      "clamp_ratio": true,
+      "critic_curvature_coef": 0.1,
+      "critic_objective_coef": 1.0,
+      "dual_jacobi_eps": 1e-18,
+      "ent_coef": 0.0,
+      "epochs": 4,
+      "fp64_gram_chunk_cols": 32768,
+      "lr": 0.5,
+      "max_grad_norm": 0.5,
+      "max_ratio": 10.0,
+      "min_ratio": 0.1,
+      "minibatches": 8,
+      "norm_obj": "adv",
+      "optimizer": "sgd",
+      "sigma_type": "vector",
+      "use_kl_adaptive_lr": true,
+      "vf_coef": 1.0,
+      "with_popart": true
+    },
+    "device": "cuda:0",
+    "log_config": {
+      "log_interval": 10,
+      "n_eval_trials": 20
+    },
+    "nsteps": 256,
+    "total_timesteps": 6000000,
+    "world_size": 1
+  },
+  "resolved_config_sha256": "a4c372e3f5ebd5725117413dbf6fc09c9c30845e350ade565f3966a9515e6d36"
+}

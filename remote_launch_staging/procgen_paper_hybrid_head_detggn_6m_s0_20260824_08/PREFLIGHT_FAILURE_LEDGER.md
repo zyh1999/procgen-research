@@ -126,3 +126,28 @@ resubmission or scientific launch followed. The terminal conclusion remains
   delta, H200 memory headroom, and FP64/Jacobi/Cholesky checks all passed.
 - Scientific work: none occurred inside the preflight. No target root,
   transition, progress, trace, checkpoint, or model was created.
+
+## Frozen per-job preflight failures 19228677--19228679
+
+After successful full preflight `19227905`, all four frozen scientific jobs
+were submitted exactly once. The immutable scientific launcher repeats the
+same compatibility harness inside each allocation. BossFight `19228677`,
+CaveFlyer `19228678`, and CoinRun `19228679` constructed the production
+938,979-parameter network, then failed the exact full-file
+`parameter_partition.json` SHA assertion before `scientific_started.marker`.
+
+| Job | Environment | Scheduler | Actual manifest SHA |
+|---:|---|---|---|
+| `19228677` | BossFight | FAILED/70:0,24s,node820 | `c22a3e2abace067a51efdd6df33ee782b2325f0750636a308e8d14948835426d` |
+| `19228678` | CaveFlyer | FAILED/70:0,31s,node822 | `53bc06f3c758350ef51aa6a33e05369039ad86f42ad848cc9e06e9871fb1d026` |
+| `19228679` | CoinRun | FAILED/70:0,31s,node822 | `77dd50d16a54edbe9d5a7807b56385756dbeef7cde8691bc119643299516d9f1` |
+
+The asserted BigFish SHA was
+`b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087`.
+The structural names/counts remain invariant, while observation-derived
+connectivity probe magnitudes make the serialized full-file SHA
+environment-sensitive. All frozen scientific hashes were exact. These three
+states are `infrastructure-failure/per-job-preflight-design`, not scientific,
+algorithm, numerical, solver or H200 evidence. No transition, progress, trace,
+checkpoint or model exists, and no retry, repair, requeue or resubmission was
+performed.

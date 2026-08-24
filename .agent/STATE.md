@@ -1,6 +1,48 @@
 # Current Project State
 
-Updated: 2026-08-24T20:31:21Z
+Updated: 2026-08-24T21:34:14Z
+
+## Current hybrid-head trainable-gradient recovery and 6M seed0 matrix
+
+- Task `PROCGEN-HYBRID-HEAD-TRAINABLE-GRAD-PREFLIGHT-AND-6M-S0-20260824-11`
+  terminates with unique conclusion `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`.
+- Allowed harness-only fix commit
+  `26b2252527076df4bfe537a8612446317cbdcf3a` uses the ordered 26-tensor,
+  938,976-element `requires_grad=True` parameter set for gradients, directions
+  and one-step updates. It proves item-by-item production-update identity and
+  separately preserves/audits non-trainable PopArt state. Frozen scientific
+  trainer/config/launcher/monitor hashes remained unchanged.
+- The only authorized full preflight, job `19227905`, completed `0:0` in
+  `00:02:02` on node822 with durable `PRECHECK_PASS`. Canonical config/model,
+  exact partition/manifest, policy-Jacobian zero, actor/shared-critic and
+  one-step equivalences, H200 memory, finite FP64/Jacobi/Cholesky and hard-error
+  checks all passed. Evidence was pushed before launch at
+  `dcfd7b08e1827de1cb23dec0241149dd30632d79`.
+- BigFish job `19228676` passed its frozen per-job compatibility gate and
+  started science on node820. At exact2,007,040 its reward was6.53 versus
+  Paper9.28, ratio `.7036637931`, so the frozen monitor recorded PASS. At
+  exact4,014,080 it was6.23 versus Paper13.28, ratio `.4691265060`; frozen
+  monitor rc3 applied the required scientific early stop. Scheduler state
+  `CANCELLED by 778916`, elapsed `00:44:52`, is authoritative over stale root
+  RUNNING/absent-rc markers. Exact-row telemetry remained finite and hard-error
+  scan count was zero.
+- BossFight `19228677`, CaveFlyer `19228678`, and CoinRun `19228679` never
+  reached `scientific_started.marker`. They are terminal `FAILED/70:0` after
+  24/31/31 seconds because the immutable per-job preflight asserted the
+  BigFish full-file partition-manifest SHA against environment-sensitive
+  connectivity serialization. Preserve these as
+  `infrastructure-failure/per-job-preflight-design`; they contain no scientific
+  transition, progress, trace, checkpoint or model and were not retried.
+- With three cells lacking scientific evidence, the candidate cannot satisfy
+  promotion. One BigFish algorithm early stop alone does not satisfy the
+  two-environment rejection criterion, so the bounded result is infrastructure
+  inconclusive rather than candidate rejection.
+- Complete model-free evidence is under
+  `remote_launch_staging/procgen_paper_hybrid_head_detggn_6m_s0_20260824_08/evidence_task11/`.
+  It includes scheduler accounting, exact stage ledgers/adapters/hashes,
+  immutable Paper provenance, progress, compressed traces/logs and all three
+  pre-training failures; no checkpoint/model is included. No retry, requeue,
+  Jupyter, quarantine access, duplicate, sweep, or unrelated mutation occurred.
 
 ## Current final hybrid-head assertion-fix recovery
 
