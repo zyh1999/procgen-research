@@ -36,9 +36,10 @@ of live resource placement and monitoring.
 
 ## Delivery
 
-- Evidence/report commit: recorded in the follow-up delivery commit.
+- Evidence/report commit: `73750676daeab812e9d5e5c3f6e61e956149ecd8`,
+  pushed and verified on `origin/agent-work`.
 - Push target: `origin/agent-work`.
-- Delivery HEAD and remote verification: reported in the callbacks after the
-  final push.
+- Delivery HEAD: the follow-up commit containing this record; its SHA and
+  remote verification are reported in the callbacks after the final push.
 
 GATE_FAIL

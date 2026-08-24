@@ -228,7 +228,8 @@ return exactly one bounded READY Procgen task before any new experiment.
 - Frozen identity commit: `da34ce7c7d964765f336ac02111c9fde95aed1ec`.
 - Race package commits: `4bf406dec7619ecbe4e4b120660b8f0895cbd2be`,
   `31db1cb35910afac47121fcb0a2cae04e308a0cd`.
-- Evidence/report commit: recorded in the follow-up delivery commit.
+- Evidence/report commit: `73750676daeab812e9d5e5c3f6e61e956149ecd8`,
+  pushed and verified on `origin/agent-work`.
 - Push target: `origin/agent-work`.
-- Delivery HEAD, remote verification and final clean worktree are reported in
-  the callbacks after the final push.
+- Delivery HEAD is the follow-up commit containing this immutable record; its
+  SHA, remote verification and final worktree state are reported in callbacks.
