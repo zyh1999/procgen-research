@@ -30,6 +30,14 @@ assert "scientific_launcher_dry_run" in text
 assert "trainer_entry" in text
 assert "capture_model=True" in text
 assert "norm_obs" not in text
+assert "allow_unused=True" not in text
+assert "torch.zeros_like" not in text
+assert "if parameter.requires_grad" in text
+assert "trainable_named_params" in text
+assert "object_identity_equal" in text
+assert "trainable_optimizer_popart_manifest.json" in text
+assert "last_v_layer.mean_sq" in text
+assert "last_v_layer.debiasing_term" in text
 assert 'manifest["SHARED"]["numel"] > 1_000_000' not in text
 for exact_invariant in (
     "938_979", 'manifest["POLICY_EXCLUSIVE"]["tensors"] == 2',

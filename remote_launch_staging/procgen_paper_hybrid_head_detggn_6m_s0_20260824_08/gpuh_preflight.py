@@ -178,6 +178,76 @@ for item in manifest["CRITIC_EXCLUSIVE"]["connectivity"].values():
     assert item["policy_connected"] is False
     assert item["policy_jacobian_probe_l2"] == 0.0
 
+# The gradient/update vector is exactly the ordered trainable production set.
+trainable_named_params = [
+    (name, parameter)
+    for name, parameter in model.named_parameters()
+    if parameter.requires_grad
+]
+production_optimizer = torch.optim.SGD(
+    [parameter for _, parameter in trainable_named_params],
+    lr=resolved_trainer["algo_config"]["lr"], momentum=1e-6,
+)
+optimizer_params = [
+    parameter
+    for group in production_optimizer.param_groups
+    for parameter in group["params"]
+]
+assert len(trainable_named_params) == len(optimizer_params)
+optimizer_items = []
+for position, ((name, parameter), optimizer_parameter) in enumerate(
+    zip(trainable_named_params, optimizer_params)
+):
+    assert parameter is optimizer_parameter
+    optimizer_items.append({
+        "position": position,
+        "name": name,
+        "shape": list(parameter.shape),
+        "dtype": str(parameter.dtype),
+        "device": str(parameter.device),
+        "requires_grad": parameter.requires_grad,
+        "object_identity": hex(id(parameter)),
+        "optimizer_object_identity": hex(id(optimizer_parameter)),
+        "object_identity_equal": parameter is optimizer_parameter,
+    })
+trainable_names = [name for name, _ in trainable_named_params]
+trainable_name_set = set(trainable_names)
+
+popart_names = [
+    name for name, parameter in model.named_parameters()
+    if not parameter.requires_grad
+]
+assert popart_names == [
+    "last_v_layer.mean", "last_v_layer.mean_sq",
+    "last_v_layer.debiasing_term",
+]
+assert trainable_name_set.isdisjoint(popart_names)
+assert all(parameter.requires_grad for parameter in optimizer_params)
+model_state_names = set(model.state_dict())
+assert set(popart_names).issubset(model_state_names)
+trainer_text = trainer.read_text()
+assert "actor_critic.last_v_layer.update(ret)" in trainer_text
+assert "ret = actor_critic.last_v_layer.normalize(ret)" in trainer_text
+assert "adv = actor_critic.last_v_layer.normalize(adv)" in trainer_text
+popart_initial = {
+    name: parameter.detach().cpu().tolist()
+    for name, parameter in model.named_parameters()
+    if name in popart_names
+}
+trainable_audit = {
+    "trainable_count": len(trainable_named_params),
+    "trainable_numel": sum(parameter.numel() for _, parameter in trainable_named_params),
+    "optimizer_count": len(optimizer_params),
+    "optimizer_numel": sum(parameter.numel() for parameter in optimizer_params),
+    "itemwise": optimizer_items,
+    "popart_nontrainable_names": popart_names,
+    "popart_excluded_from_optimizer_autograd_direction_update": True,
+    "popart_original_paper_semantics": [
+        "last_v_layer.update(ret)", "normalize(ret)", "normalize(adv)",
+    ],
+    "popart_before": popart_initial,
+}
+
 # Actual production-network one-step isolation proof.
 torch.manual_seed(824)
 paper_model = copy.deepcopy(model)
@@ -185,20 +255,37 @@ target_model = copy.deepcopy(model)
 obs = torch.randn(8, 3, 64, 64, device=device)
 actions = torch.randint(0, 15, (8,), device=device)
 returns = torch.randn(8, device=device)
+policy_names = manifest["POLICY_EXCLUSIVE"]["names"]
+shared_names = manifest["SHARED"]["names"]
+head_names = manifest["CRITIC_EXCLUSIVE"]["names"]
 
 
 def raw_grads(net):
     values, logits = net(obs)
     actor_loss = nn.functional.cross_entropy(logits, actions)
     critic_loss = nn.functional.mse_loss(values, returns)
-    params = list(net.parameters())
-    actor = torch.autograd.grad(actor_loss, params, retain_graph=True, allow_unused=True)
-    critic = torch.autograd.grad(critic_loss, params, allow_unused=True)
-    full = [
-        (a if a is not None else torch.zeros_like(p))
-        + (c if c is not None else torch.zeros_like(p))
-        for p, a, c in zip(params, actor, critic)
-    ]
+    named = [(name, parameter) for name, parameter in net.named_parameters() if parameter.requires_grad]
+    assert [name for name, _ in named] == trainable_names
+    actor_named = [(name, parameter) for name, parameter in named if name in set(policy_names + shared_names)]
+    critic_named = [(name, parameter) for name, parameter in named if name in set(shared_names + head_names)]
+    actor_values = torch.autograd.grad(
+        actor_loss, [parameter for _, parameter in actor_named], retain_graph=True
+    )
+    critic_values = torch.autograd.grad(
+        critic_loss, [parameter for _, parameter in critic_named]
+    )
+    actor = dict(zip([name for name, _ in actor_named], actor_values))
+    critic = dict(zip([name for name, _ in critic_named], critic_values))
+    full = {}
+    for name, _ in named:
+        if name in actor and name in critic:
+            full[name] = actor[name] + critic[name]
+        elif name in actor:
+            full[name] = actor[name]
+        else:
+            assert name in critic
+            full[name] = critic[name]
+    assert list(full) == trainable_names
     return actor, critic, full
 
 
@@ -206,28 +293,22 @@ paper_actor, paper_critic, paper_full = raw_grads(paper_model)
 target_actor, target_critic, target_full = raw_grads(target_model)
 paper_named = dict(paper_model.named_parameters())
 target_named = dict(target_model.named_parameters())
-ordered_names = list(paper_named)
-index = {name: i for i, name in enumerate(ordered_names)}
-policy_names = manifest["POLICY_EXCLUSIVE"]["names"]
-shared_names = manifest["SHARED"]["names"]
-head_names = manifest["CRITIC_EXCLUSIVE"]["names"]
 for name in policy_names + shared_names:
-    i = index[name]
-    if paper_actor[i] is not None or target_actor[i] is not None:
-        assert torch.equal(paper_actor[i], target_actor[i])
+    assert torch.equal(paper_actor[name], target_actor[name])
 for name in shared_names:
-    i = index[name]
-    assert torch.equal(paper_critic[i], target_critic[i])
+    assert torch.equal(paper_critic[name], target_critic[name])
 
-paper_norm = torch.linalg.vector_norm(torch.cat([value.flatten() for value in paper_full]))
+paper_norm = torch.linalg.vector_norm(torch.cat([paper_full[name].flatten() for name in trainable_names]))
 clip = min(1.0, 0.5 / float(paper_norm + 1e-6))
 replacement = {name: torch.randn_like(target_named[name]) for name in head_names}
 with torch.no_grad():
-    for parameter, gradient in zip(paper_model.parameters(), paper_full):
-        parameter.add_(gradient, alpha=-0.5 * clip)
+    for name, parameter in paper_model.named_parameters():
+        if parameter.requires_grad:
+            parameter.add_(paper_full[name], alpha=-0.5 * clip)
     for name, parameter in target_model.named_parameters():
-        gradient = replacement[name] if name in replacement else target_full[index[name]]
-        parameter.add_(gradient, alpha=-0.5 * clip)
+        if parameter.requires_grad:
+            gradient = replacement[name] if name in replacement else target_full[name]
+            parameter.add_(gradient, alpha=-0.5 * clip)
 for name in policy_names + shared_names:
     assert torch.equal(dict(paper_model.named_parameters())[name], dict(target_model.named_parameters())[name])
 assert all(
@@ -237,29 +318,41 @@ assert all(
 paper_logits = paper_model(obs)[1]
 target_logits = target_model(obs)[1]
 assert torch.equal(paper_logits, target_logits)
+paper_popart_after = {
+    name: parameter.detach().cpu().tolist()
+    for name, parameter in paper_model.named_parameters()
+    if name in popart_names
+}
+target_popart_after = {
+    name: parameter.detach().cpu().tolist()
+    for name, parameter in target_model.named_parameters()
+    if name in popart_names
+}
+assert paper_popart_after == popart_initial
+assert target_popart_after == popart_initial
+trainable_audit["paper_popart_after"] = paper_popart_after
+trainable_audit["target_popart_after"] = target_popart_after
+(manifest_path.parent / "trainable_optimizer_popart_manifest.json").write_text(
+    json.dumps(trainable_audit, indent=2, sort_keys=True) + "\n"
+)
 
 # Paper actor and sampled shared-critic systems use real production-model rows
 # and remain literally identical between Paper and Target.
 B = 4
-P = sum(parameter.numel() for parameter in model.parameters() if parameter.requires_grad)
+P = sum(parameter.numel() for _, parameter in trainable_named_params)
 torch.manual_seed(825)
 score_rows = []
 score_obs = obs[:B]
 score_actions = actions[:B]
 score_noise = torch.randn(B, device=device)
-score_params = list(model.parameters())
+score_params = [parameter for _, parameter in trainable_named_params]
 for row_index in range(B):
     values, logits = model(score_obs[row_index:row_index + 1])
     policy_score = nn.functional.log_softmax(logits, dim=-1)[0, score_actions[row_index]]
     sampled_value = (values.reshape(-1)[0] + score_noise[row_index]).detach()
     value_score = -(values.reshape(-1)[0] - sampled_value).pow(2)
-    row_grads = torch.autograd.grad(
-        policy_score + value_score, score_params, allow_unused=True
-    )
-    score_rows.append(torch.cat([
-        (gradient if gradient is not None else torch.zeros_like(parameter)).reshape(-1)
-        for parameter, gradient in zip(score_params, row_grads)
-    ]))
+    row_grads = torch.autograd.grad(policy_score + value_score, score_params)
+    score_rows.append(torch.cat([gradient.reshape(-1) for gradient in row_grads]))
 actual_rows = torch.stack(score_rows)
 assert actual_rows.shape == (B, P)
 adv = torch.randn(B, device=device)
