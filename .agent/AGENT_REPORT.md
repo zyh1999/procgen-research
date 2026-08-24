@@ -46,9 +46,10 @@ artifact was overwritten or reinterpreted.
 
 ## Delivery
 
-- Evidence/report commit: pending creation.
+- Evidence/report commit: `2facf8a3c4c444a74ded14ca67570db6a7fa99ba`.
 - Push target: `origin/agent-work`.
-- Remote-head verification and callback: performed after the evidence commit
-  and follow-up delivery record are pushed.
+- Delivery HEAD: the follow-up commit containing this record; verified and
+  supplied in the callback after push.
+- Final worktree: required clean after delivery push.
 
 TASK_COMPLETE

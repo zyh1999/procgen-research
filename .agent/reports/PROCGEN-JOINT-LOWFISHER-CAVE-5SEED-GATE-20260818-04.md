@@ -189,9 +189,8 @@ ledger in `PROCGEN-JOINT-PROVENANCE-MAP-20260817-03.md`:
 
 - Frozen launch-material commit: `489cc23ba265a0941778399b9a0caaf6b71b00f0`
   (already pushed before submission).
-- Evidence/report commit: recorded in the follow-up delivery record after the
-  evidence commit is created.
-- Delivery HEAD and remote verification: recorded in the Executor callback
-  after `origin/agent-work` is verified.
+- Evidence/report commit: `2facf8a3c4c444a74ded14ca67570db6a7fa99ba`.
+- Delivery HEAD: the follow-up commit containing this immutable delivery
+  record; its SHA is reported in the Executor callback after
+  `origin/agent-work` is verified.
 - Final worktree: required clean after delivery push.
-
