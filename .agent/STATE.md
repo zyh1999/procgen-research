@@ -1,6 +1,31 @@
 # Current Project State
 
-Updated: 2026-08-24T19:32:01Z
+Updated: 2026-08-24T20:19:47Z
+
+## Current canonical hybrid-head preflight recovery
+
+- Task `PROCGEN-HYBRID-HEAD-CANONICAL-PREFLIGHT-AND-6M-S0-20260824-09`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no scientific cell was
+  launched.
+- Canonical recovery commit `9a56a6aba6d70ce7a16b9e81cf105dccbd43d638`
+  changes only the preflight harness/launcher and its test. Frozen scientific
+  trainer/config/launcher/monitor hashes remain `7bcf9bb6...`, `9497be42...`,
+  `ae7104e7...`, `536b8720...`.
+- Recovery preflight `19225085` used the trainer's real `main()` config path,
+  original `train_fn()`, and production `SharedActorCritic`. Three resolved
+  configs were byte-identical. Actual partition proved 3,855 policy-exclusive,
+  934,864 shared, and 257 critic-exclusive parameters; the value head was
+  autograd-disconnected from policy logits with exact zero Jacobian probe.
+- The job then FAILED/1:0 after 20s on node820 because the recovery harness
+  carried a stale assertion that shared numel exceed 1,000,000. The frozen
+  production network reports 934,864 shared and 938,979 total. This is an
+  immutable `infrastructure-failure/preflight-design`, not scientific,
+  numerical, partition, config, solver, or H200-incompatibility evidence.
+- Actual-network one-step equivalence and production-scale memory/final solve
+  checks remained unreached. The single Planner-authorized recovery was
+  consumed, so no retry or four-cell launch occurred. Final queue/root/process
+  reconciliation found no target job, run root, trainer, transition, artifact,
+  checkpoint, or model.
 
 ## Current hybrid-head deterministic-GGN candidate
 
