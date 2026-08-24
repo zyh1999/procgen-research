@@ -1,0 +1,24 @@
+# Frozen scientific identity
+
+- Method: `PAPER_MATCHED_DETERMINISTIC_GGN_V1`
+- Environments: BigFish, BossFight, CaveFlyer, CoinRun easy 0-10
+- Seed/budget: seed 0, 1,000,000 requested transitions only
+- Paper base commit: `2b5affd64cbb3c624b4bc1f4767f449df231ffb2`
+- Paper trainer SHA256: `cbcd68118a2901fdcdf3bf2de55841d01b330e7a6cb38996ed8ba791eb2ab1e7`
+- Paper config SHA256: `1ed4eab5bcaf41e6c5fa99e75ab26cf04bbac42107e03f8f4fa12a95b344f6ea`
+- P1 solver donor SHA256: `2b50f8cc26bb8c85f91e0b394acc7535f5564ac70036403597d3738d3dab9c1b`
+- Target trainer SHA256: `41334b59aa98e03920571251da8498a1ecb816ea72afff72d8134fa8fd314f9a`
+- Target config SHA256: `69d12937debb8ef8b4531e79b8f9613185b26e4e9056a51e67754129b269391d`
+- Diff audit SHA256: `5acb70c6b77580ed766414c9d99c5b910fdaca2b115ba054dc57f50dd98451b4`
+- Regression test SHA256: `0d6e475f42716e4809019faa80a431f8238fd0134b5db8d38e140e9e3a53339b`
+- Launcher SHA256: `d7581c58e89f52eb38603ac435e8c09abe2bbb6a0dbb651e1bc96a0e9912b48f`
+- Scientific delta: sampled critic score and two independent Paper inverses are
+  replaced by deterministic value Jacobian/residual, critic curvature lambda
+  0.1, stacked joint-2B kernel, symmetric FP64 Jacobi Cholesky solve, and
+  solver telemetry.
+- Paper invariants: ResNet hidden256, actor score/ratio/advantage normalization,
+  SGD LR .5, momentum 1e-6, Paper `rhs - H @ momentum_buffer` history rule,
+  per-minibatch adaptive KL thresholds .005/.04, rollout 4096, minibatch 512,
+  four epochs, damping .5, global clip .5, PopArt/GAE/log/checkpoint semantics.
+- Forbidden: P1 LR .004, rollout adaptive KL, momentum 0, disabled history,
+  Jupyter, retries, Paper rerun, seeds1/2, 6M, or a second candidate.
