@@ -37,12 +37,15 @@ finalize() {
 }
 trap finalize EXIT
 export PYTHONPATH="$CODE${PYTHONPATH:+:$PYTHONPATH}"
+export PROCGEN_ENV=bigfish-easy-0-10
 date -Is > "$OUT/start_time.txt"
 printf '%s\n' "$SLURM_JOB_ID" > "$OUT/job_id"
 hostname -f > "$OUT/hostname"
 nvidia-smi -L > "$OUT/gpu.txt" 2>&1
-sha256sum "$TRAINER" "$CONFIG" "$FROZEN/gpuh_preflight.py" "$FROZEN/test_hybrid_head_detggn_v1.py" "$FROZEN/hybrid_head_preflight_gpuh.sbatch" > "$OUT/input.sha256"
+sha256sum "$TRAINER" "$CONFIG" "$FROZEN/gpuh_preflight.py" "$FROZEN/test_hybrid_head_detggn_v1.py" "$FROZEN/test_canonical_preflight.py" "$FROZEN/hybrid_head_preflight_gpuh.sbatch" > "$OUT/input.sha256"
 
+"$PY" "$FROZEN/test_canonical_preflight.py" > "$OUT/canonical_static.out" 2> "$OUT/canonical_static.err"
+grep -q CANONICAL_PREFLIGHT_STATIC_TEST_PASS "$OUT/canonical_static.out"
 "$PY" "$FROZEN/test_hybrid_head_detggn_v1.py" > "$OUT/regression.out" 2> "$OUT/regression.err"
 grep -q HYBRID_HEAD_REGRESSION_PASS "$OUT/regression.out"
 "$PY" "$FROZEN/gpuh_preflight.py" "$TRAINER" "$CONFIG" "$OUT/parameter_partition.json" "$TRAINER_SHA" "$CONFIG_SHA" > "$OUT/compatibility.out" 2> "$OUT/compatibility.err"
