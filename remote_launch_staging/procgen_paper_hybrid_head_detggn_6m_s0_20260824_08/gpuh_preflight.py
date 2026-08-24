@@ -162,9 +162,17 @@ groups, manifest = module.partition_manifest(model, probe)
 manifest["resolved_config_sha256"] = resolved_sha
 manifest["production_learn_entry"] = trainer_capture["learn"]
 manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
+assert sum(parameter.numel() for parameter in model.parameters()) == 938_979
+assert manifest["POLICY_EXCLUSIVE"]["tensors"] == 2
+assert manifest["POLICY_EXCLUSIVE"]["numel"] == 3_855
+assert manifest["SHARED"]["tensors"] == 22
+assert manifest["SHARED"]["numel"] == 934_864
+assert manifest["CRITIC_EXCLUSIVE"]["tensors"] == 2
 assert manifest["CRITIC_EXCLUSIVE"]["numel"] == 257
-assert manifest["POLICY_EXCLUSIVE"]["numel"] == 3855
-assert manifest["SHARED"]["numel"] > 1_000_000
+assert manifest["CRITIC_EXCLUSIVE"]["names"] == [
+    "last_v_layer.weight", "last_v_layer.bias",
+]
+assert sha(manifest_path) == "b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087"
 assert set(groups) == {"POLICY_EXCLUSIVE", "SHARED", "CRITIC_EXCLUSIVE"}
 for item in manifest["CRITIC_EXCLUSIVE"]["connectivity"].values():
     assert item["policy_connected"] is False

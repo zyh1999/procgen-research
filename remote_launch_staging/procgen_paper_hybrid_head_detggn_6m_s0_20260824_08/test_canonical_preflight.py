@@ -30,6 +30,18 @@ assert "scientific_launcher_dry_run" in text
 assert "trainer_entry" in text
 assert "capture_model=True" in text
 assert "norm_obs" not in text
+assert 'manifest["SHARED"]["numel"] > 1_000_000' not in text
+for exact_invariant in (
+    "938_979", 'manifest["POLICY_EXCLUSIVE"]["tensors"] == 2',
+    'manifest["POLICY_EXCLUSIVE"]["numel"] == 3_855',
+    'manifest["SHARED"]["tensors"] == 22',
+    'manifest["SHARED"]["numel"] == 934_864',
+    'manifest["CRITIC_EXCLUSIVE"]["tensors"] == 2',
+    'manifest["CRITIC_EXCLUSIVE"]["numel"] == 257',
+    '"last_v_layer.weight", "last_v_layer.bias"',
+    "b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087",
+):
+    assert exact_invariant in text
 assert sum(
     isinstance(node, ast.FunctionDef) and node.name == "invoke_main"
     for node in ast.walk(tree)
@@ -40,3 +52,4 @@ print("CANONICAL_PREFLIGHT_STATIC_TEST_PASS")
 print("scientific_identity_hashes=UNCHANGED")
 print("hand_built_namespace=ABSENT")
 print("trainer_main_and_original_train_fn=CANONICAL_PATH")
+print("exact_frozen_production_partition_invariant=ENFORCED")
