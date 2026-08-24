@@ -36,6 +36,12 @@ assert "if parameter.requires_grad" in text
 assert "trainable_named_params" in text
 assert "object_identity_equal" in text
 assert "trainable_optimizer_popart_manifest.json" in text
+assert '"structural_manifest.json"' in text
+assert '"connectivity_probe.json"' in text
+assert '"hybrid_head_structural_manifest_v1"' in text
+assert '"hybrid_head_connectivity_probe_v1"' in text
+assert '"nan_inf_or_fallback": False' in text
+assert '"semantic_pass": True' in text
 assert "last_v_layer.mean_sq" in text
 assert "last_v_layer.debiasing_term" in text
 assert 'manifest["SHARED"]["numel"] > 1_000_000' not in text
@@ -47,14 +53,16 @@ for exact_invariant in (
     'manifest["CRITIC_EXCLUSIVE"]["tensors"] == 2',
     'manifest["CRITIC_EXCLUSIVE"]["numel"] == 257',
     '"last_v_layer.weight", "last_v_layer.bias"',
-    "b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087",
 ):
     assert exact_invariant in text
+assert "b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087" not in text
 assert sum(
     isinstance(node, ast.FunctionDef) and node.name == "invoke_main"
     for node in ast.walk(tree)
 ) == 1
 assert "test_canonical_preflight.py" in launcher.read_text()
+assert 'PROCGEN_ENV=${PROCGEN_ENV:?PROCGEN_ENV required}' in launcher.read_text()
+assert '"$OUT/structural_manifest.json"' in launcher.read_text()
 
 print("CANONICAL_PREFLIGHT_STATIC_TEST_PASS")
 print("scientific_identity_hashes=UNCHANGED")

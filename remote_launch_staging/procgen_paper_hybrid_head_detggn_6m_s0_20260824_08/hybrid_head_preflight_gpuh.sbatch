@@ -37,7 +37,8 @@ finalize() {
 }
 trap finalize EXIT
 export PYTHONPATH="$CODE${PYTHONPATH:+:$PYTHONPATH}"
-export PROCGEN_ENV=bigfish-easy-0-10
+export PROCGEN_ENV=${PROCGEN_ENV:?PROCGEN_ENV required}
+case "$PROCGEN_ENV" in bigfish-easy-0-10|bossfight-easy-0-10|caveflyer-easy-0-10|coinrun-easy-0-10) ;; *) exit 64;; esac
 date -Is > "$OUT/start_time.txt"
 printf '%s\n' "$SLURM_JOB_ID" > "$OUT/job_id"
 hostname -f > "$OUT/hostname"
@@ -48,7 +49,8 @@ sha256sum "$TRAINER" "$CONFIG" "$FROZEN/gpuh_preflight.py" "$FROZEN/test_hybrid_
 grep -q CANONICAL_PREFLIGHT_STATIC_TEST_PASS "$OUT/canonical_static.out"
 "$PY" "$FROZEN/test_hybrid_head_detggn_v1.py" > "$OUT/regression.out" 2> "$OUT/regression.err"
 grep -q HYBRID_HEAD_REGRESSION_PASS "$OUT/regression.out"
-"$PY" "$FROZEN/gpuh_preflight.py" "$TRAINER" "$CONFIG" "$OUT/parameter_partition.json" "$TRAINER_SHA" "$CONFIG_SHA" > "$OUT/compatibility.out" 2> "$OUT/compatibility.err"
+"$PY" "$FROZEN/gpuh_preflight.py" "$TRAINER" "$CONFIG" "$OUT/structural_manifest.json" "$TRAINER_SHA" "$CONFIG_SHA" > "$OUT/compatibility.out" 2> "$OUT/compatibility.err"
 grep -q GPUH_HYBRID_HEAD_COMPATIBILITY_PASS "$OUT/compatibility.out"
+grep -q connectivity_semantic_check=PASS "$OUT/compatibility.out"
 
 echo HYBRID_HEAD_PREFLIGHT_PASS

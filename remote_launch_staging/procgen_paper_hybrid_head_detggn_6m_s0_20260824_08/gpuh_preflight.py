@@ -4,6 +4,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import math
 import os
 import sys
 from pathlib import Path
@@ -14,7 +15,10 @@ import torch
 from torch import nn
 
 
-trainer, config, manifest_path = map(Path, sys.argv[1:4])
+trainer, config, requested_manifest_path = map(Path, sys.argv[1:4])
+evidence_dir = requested_manifest_path.parent
+structural_manifest_path = evidence_dir / "structural_manifest.json"
+connectivity_probe_path = evidence_dir / "connectivity_probe.json"
 expected_trainer, expected_config = sys.argv[4:6]
 campaign = trainer.parent.parent
 launcher = campaign / "frozen/hybrid_head_detggn_6m_gpuh.sbatch"
@@ -149,7 +153,7 @@ for label, payload in (
     ("scientific_launcher_dry_run", resolved_launcher),
     ("trainer_entry", resolved_trainer),
 ):
-    path = manifest_path.parent / f"resolved_config_{label}.json"
+    path = evidence_dir / f"resolved_config_{label}.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     payload_bytes = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
     assert hashlib.sha256(payload_bytes).hexdigest() == resolved_sha
@@ -159,9 +163,6 @@ device = torch.device("cuda:0")
 assert next(model.parameters()).device == device
 probe = torch.randn(4, 3, 64, 64, device=device)
 groups, manifest = module.partition_manifest(model, probe)
-manifest["resolved_config_sha256"] = resolved_sha
-manifest["production_learn_entry"] = trainer_capture["learn"]
-manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
 assert sum(parameter.numel() for parameter in model.parameters()) == 938_979
 assert manifest["POLICY_EXCLUSIVE"]["tensors"] == 2
 assert manifest["POLICY_EXCLUSIVE"]["numel"] == 3_855
@@ -172,11 +173,7 @@ assert manifest["CRITIC_EXCLUSIVE"]["numel"] == 257
 assert manifest["CRITIC_EXCLUSIVE"]["names"] == [
     "last_v_layer.weight", "last_v_layer.bias",
 ]
-assert sha(manifest_path) == "b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087"
 assert set(groups) == {"POLICY_EXCLUSIVE", "SHARED", "CRITIC_EXCLUSIVE"}
-for item in manifest["CRITIC_EXCLUSIVE"]["connectivity"].values():
-    assert item["policy_connected"] is False
-    assert item["policy_jacobian_probe_l2"] == 0.0
 
 # The gradient/update vector is exactly the ordered trainable production set.
 trainable_named_params = [
@@ -194,6 +191,120 @@ optimizer_params = [
     for parameter in group["params"]
 ]
 assert len(trainable_named_params) == len(optimizer_params)
+partition_by_name = {
+    name: partition
+    for partition, entries in groups.items()
+    for name, _ in entries
+}
+all_named_params = list(model.named_parameters())
+assert len(all_named_params) == 29
+structural_parameters = []
+for position, (name, parameter) in enumerate(all_named_params):
+    if name in partition_by_name:
+        partition = partition_by_name[name]
+    else:
+        assert name in {
+            "last_v_layer.mean", "last_v_layer.mean_sq",
+            "last_v_layer.debiasing_term",
+        }
+        partition = "POPART_NONCURVATURE_STATE"
+    optimizer_positions = [
+        index for index, candidate in enumerate(optimizer_params)
+        if candidate is parameter
+    ]
+    structural_parameters.append({
+        "position": position,
+        "name": name,
+        "partition": partition,
+        "shape": list(parameter.shape),
+        "dtype": str(parameter.dtype),
+        "requires_grad": parameter.requires_grad,
+        "numel": parameter.numel(),
+        "trainable_member": parameter.requires_grad,
+        "optimizer_member": len(optimizer_positions) == 1,
+        "optimizer_position": optimizer_positions[0] if optimizer_positions else None,
+    })
+
+structural_manifest = {
+    "schema": "hybrid_head_structural_manifest_v1",
+    "parameters": structural_parameters,
+    "counts": {
+        "total": {"tensors": len(all_named_params), "numel": 938_979},
+        "trainable": {
+            "tensors": len(trainable_named_params),
+            "numel": sum(parameter.numel() for _, parameter in trainable_named_params),
+        },
+        "POLICY_EXCLUSIVE": {
+            "tensors": manifest["POLICY_EXCLUSIVE"]["tensors"],
+            "numel": manifest["POLICY_EXCLUSIVE"]["numel"],
+        },
+        "SHARED": {
+            "tensors": manifest["SHARED"]["tensors"],
+            "numel": manifest["SHARED"]["numel"],
+        },
+        "CRITIC_EXCLUSIVE": {
+            "tensors": manifest["CRITIC_EXCLUSIVE"]["tensors"],
+            "numel": manifest["CRITIC_EXCLUSIVE"]["numel"],
+        },
+        "POPART_NONCURVATURE_STATE": {"tensors": 3, "numel": 3},
+    },
+    "critic_exclusive_names": manifest["CRITIC_EXCLUSIVE"]["names"],
+    "trainable_names": [name for name, _ in trainable_named_params],
+    "optimizer_names": [
+        name for name, parameter in trainable_named_params
+        if any(candidate is parameter for candidate in optimizer_params)
+    ],
+}
+assert structural_manifest["counts"]["trainable"] == {
+    "tensors": 26, "numel": 938_976,
+}
+assert structural_manifest["trainable_names"] == structural_manifest["optimizer_names"]
+structural_manifest_path.write_text(
+    json.dumps(structural_manifest, indent=2, sort_keys=True) + "\n"
+)
+# Preserve the caller-requested legacy filename as byte-identical structural
+# evidence without putting environment-dependent probe values back into it.
+if requested_manifest_path != structural_manifest_path:
+    requested_manifest_path.write_bytes(structural_manifest_path.read_bytes())
+
+connectivity_groups = {}
+for partition in ("POLICY_EXCLUSIVE", "SHARED", "CRITIC_EXCLUSIVE"):
+    expected_names = manifest[partition]["names"]
+    connectivity = manifest[partition]["connectivity"]
+    assert list(connectivity) == expected_names
+    connectivity_groups[partition] = {
+        "names": expected_names,
+        "probe": connectivity,
+    }
+    for item in connectivity.values():
+        assert math.isfinite(item["policy_jacobian_probe_l2"])
+        assert math.isfinite(item["value_jacobian_probe_l2"])
+        if partition == "CRITIC_EXCLUSIVE":
+            assert item["policy_connected"] is False
+            assert item["policy_jacobian_probe_l2"] == 0.0
+            assert item["value_connected"] is True
+            assert item["value_jacobian_probe_l2"] > 0.0
+connectivity_probe = {
+    "schema": "hybrid_head_connectivity_probe_v1",
+    "environment": env_name,
+    "structural_manifest_sha256": sha(structural_manifest_path),
+    "resolved_config_sha256": resolved_sha,
+    "production_learn_entry": trainer_capture["learn"],
+    "partition_names_match_structural": all(
+        connectivity_groups[partition]["names"] == [
+            item["name"] for item in structural_parameters
+            if item["partition"] == partition
+        ]
+        for partition in connectivity_groups
+    ),
+    "nan_inf_or_fallback": False,
+    "semantic_pass": True,
+    "groups": connectivity_groups,
+}
+assert connectivity_probe["partition_names_match_structural"] is True
+connectivity_probe_path.write_text(
+    json.dumps(connectivity_probe, indent=2, sort_keys=True) + "\n"
+)
 optimizer_items = []
 for position, ((name, parameter), optimizer_parameter) in enumerate(
     zip(trainable_named_params, optimizer_params)
@@ -332,7 +443,7 @@ assert paper_popart_after == popart_initial
 assert target_popart_after == popart_initial
 trainable_audit["paper_popart_after"] = paper_popart_after
 trainable_audit["target_popart_after"] = target_popart_after
-(manifest_path.parent / "trainable_optimizer_popart_manifest.json").write_text(
+(evidence_dir / "trainable_optimizer_popart_manifest.json").write_text(
     json.dumps(trainable_audit, indent=2, sort_keys=True) + "\n"
 )
 
@@ -395,6 +506,10 @@ print("canonical_production_config_path=PASS")
 print("resolved_configuration_three_way=BIT_IDENTICAL")
 print(f"resolved_config_sha256={resolved_sha}")
 print("actual_network_partition=EXHAUSTIVE_MUTUALLY_EXCLUSIVE_STABLE")
+print(f"structural_manifest_sha256={sha(structural_manifest_path)}")
+print(f"connectivity_probe_sha256={sha(connectivity_probe_path)}")
+print(f"connectivity_environment={env_name}")
+print("connectivity_semantic_check=PASS")
 print("critic_exclusive_policy_jacobian=EXACT_ZERO_DISCONNECTED")
 print("actual_network_paper_actor_direction=BIT_IDENTICAL")
 print("actual_network_paper_shared_critic_direction=BIT_IDENTICAL")
