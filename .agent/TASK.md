@@ -1,227 +1,254 @@
 # Procgen Task
 
 Status: READY
-Task-ID: PROCGEN-PAPER-MATCHED-DETERMINISTIC-GGN-1M-GATE-20260824-06
+Task-ID: PROCGEN-PAPER-SEPARATEB-DETGGN-6M-S0-20260824-07
 
 ## 唯一科学目标
 
-定义并验证唯一的新方法：
+构造并评估一个新的、唯一的 deterministic critic-GGN 候选：
 
-`PAPER_MATCHED_DETERMINISTIC_GGN_V1`
+`PAPER_MATCHED_SEPARATE_B_DET_GGN_V1`
 
-它必须完整保留 original Paper RAT 的网络、actor优化器和训练schedule，仅将
-Paper RAT的critic-curvature/solve替换为P1的deterministic critic-GGN构造、
-symmetric-FP64/Jacobi求解及必要遥测。
+它必须从 exact original Paper RAT 出发，完整保留 Paper RAT actor 系统，只将
+Paper RAT 的 sampled critic curvature 替换为 deterministic critic GGN。
+四个环境的 seed0 均以 6M 为预定训练终点，并按照严格同阶段 Paper RAT 指标执行
+不早于 2M 的 3/5 early-stop。
 
-完成四环境、seed0、1M的严格因果执行门控。此任务不启动6M正式矩阵；通过后，
-下一轮才可将该唯一配置推进至四环境 × 6M × seeds0,1,2。
+上一候选的 joint-2B coupling 导致高KL和LR快速降至`.0001`，结论为
+`GATE_FAIL`；本候选通过取消joint coupling来隔离critic-GGN本身，不得调整LR、
+KL阈值或其他actor超参数补偿失败。
 
-## 重新定义的冻结身份
+## 冻结算法身份
 
-必须从已验证的original Paper RAT trainer/config出发进行最小修改，不得从历史
-P1代码出发再反向修补actor字段。
+### 必须与 original Paper RAT 完全一致
 
-### 必须保持与Paper RAT完全一致
-
-- shared ResNet hidden256网络及全部heads；
-- rollout `4096`、minibatch `512`、epochs `4`；
-- PopArt、GAE、entropy、ratio范围及数据/evaluation语义；
+- shared IMPALA/ResNet hidden256 网络及全部 heads；
+- actor sampled score、actor RHS及actor B×B系统；
+- actor inverse/solve、update composition和更新顺序；
 - initial LR `.5`；
 - adaptive-KL在每个minibatch后执行；
-- momentum `1e-6`；
-- original history correction启用；
 - KL thresholds `.005/.04`；
+- SGD momentum `1e-6`；
+- original `rhs - H @ momentum_buffer` history correction；
+- rollout `4096`、minibatch `512`、epochs `4`；
 - damping/global clip `.5/.5`；
-- seed传播、停止协议、reward和checkpoint语义。
+- PopArt、GAE、entropy、ratio、reward、evaluation及checkpoint语义；
+- seed传播和6M正式停止协议。
 
-### 唯一允许改变的科学部分
+### 唯一允许的科学替换
 
-从P1准确移植并冻结：
+只替换critic分支：
 
-- deterministic `J_v`/critic residual构造；
-- critic lambda `.1`；
-- 已验证的joint-2B deterministic critic-GGN系统；
-- symmetric FP64；
-- Jacobi；
-- Cholesky/直接求解语义；
-- residual、Jacobi、GGN健康遥测。
+- sampled value score/unit pseudo-advantage critic system
+  → deterministic `J_v`/critic residual GGN；
+- critic lambda `.1`、objective coefficient `1`；
+- critic使用独立B×B系统；
+- critic solve采用symmetric FP64、Jacobi和Cholesky；
+- 增加必要的critic GGN、Jacobi和relative-residual telemetry。
 
-不得带入P1的initial LR `.004`、rollout-level adaptive-KL、momentum `0`或
-disabled history correction。
+明确禁止：
 
-原Paper RAT和历史P1文件不得原位修改；必须新增独立trainer/config/manifest。
+- joint-2B stacking；
+- actor-critic cross blocks；
+- 从critic系统改变actor matrix、RHS或actor direction；
+- P1 LR `.004`、rollout-level KL、momentum `0`或disabled history；
+- low-Fisher guard或任何新的step-calibration超参数。
 
-## 严格因果审计门
+## 实现与身份Preflight
 
-启动前必须生成机器可审计diff，逐项证明：
+必须从original Paper RAT trainer/config复制出独立文件，不原位修改Paper RAT、
+P1或上一失败候选。
 
-1. Paper actor/network/schedule代码路径保持不变；
-2. adaptive-KL调用频率仍为每minibatch；
-3. momentum/history状态创建、更新和修正与Paper RAT一致；
-4. 唯一执行差异属于critic curvature、joint solve及必要telemetry；
-5. 没有隐含的LR、clip、epoch、loss weighting或optimizer差异；
-6. 新方法的source/trainer/config/launcher SHA256已冻结；
-7. original Paper RAT的12个6M cells及artifact未被修改。
+启动前生成机器可审计diff及回归测试，证明：
 
-同时增加最小回归测试，验证：
+1. actor matrix、RHS、solve、momentum/history和adaptive-KL路径与Paper RAT一致；
+2. 在固定synthetic batch且禁用critic贡献时，新Target与Paper RAT的actor
+   direction、LR/KL状态更新达到bit-identical或明确容差内一致；
+3. critic matrix维度为B×B，而不是2B×2B；
+4. deterministic `J_v`、residual、lambda `.1`及critic RHS正确；
+5. actor/critic cross blocks不存在；
+6. FP64/Jacobi/Cholesky solve有限且relative residual满足现有严格容差；
+7. 非法P1字段、joint-2B和low-Fisher字段会被配置校验拒绝；
+8. 新trainer/config/launcher/manifest SHA256冻结；
+9. 四个新root不存在，且无相同method/env/seed/budget任务。
 
-- initial LR、KL更新时间、momentum和history correction；
-- deterministic critic score/RHS、lambda和joint-2B维度；
-- FP64/Jacobi/solver路径；
-- 非法P1 actor字段不能通过配置验证。
+若任何条件失败，以`PRECHECK_BLOCKED`结束，不得启动训练。
 
-若严格diff或测试失败，任务以`REDEFINITION_BLOCKED`结束，不得启动训练。
+## 6M候选矩阵
 
-## 1M执行门控
+仅运行：
 
-仅运行新Target：
-
-| Environment | Seed | Budget |
+| Environment | Seed | Intended horizon |
 |---|---:|---:|
-| `bigfish-easy-0-10` | 0 | 1M |
-| `bossfight-easy-0-10` | 0 | 1M |
-| `caveflyer-easy-0-10` | 0 | 1M |
-| `coinrun-easy-0-10` | 0 | 1M |
+| `bigfish-easy-0-10` | 0 | 6M |
+| `bossfight-easy-0-10` | 0 | 6M |
+| `caveflyer-easy-0-10` | 0 | 6M |
+| `coinrun-easy-0-10` | 0 | 6M |
 
-使用既定完整更新语义，预期终点约`1,007,616` transitions。
+正式完整终点使用仓库既定语义，预期最后完整更新约`5,980,160` transitions。
 
-Baseline不重跑：从已验证original Paper RAT seed0进度文件中抽取完全相同
-transition点的在线指标。不得用6M terminal值与1M Target直接比较。
+Original Paper RAT不重跑；使用现有strict-complete相同环境、seed0进度文件。
 
-所有Target使用全新、不可碰撞、包含方法/environment/seed/budget的root。
+## Stage-matched Early-stop协议
+
+Executor必须实现持久化monitor，但不得在Target低于2M transitions时进行
+scientific-futility取消。
+
+预声明检查阶段：
+
+- 首个双方共有且不低于2M的完整logged transition；
+- 首个双方共有且不低于4M的完整logged transition；
+- 6M正式终点。
+
+每次检查必须使用：
+
+- 同一环境；
+- 同一seed；
+- 完全相同transition；
+- 相同`eprewmean`/evaluation window语义；
+- 对应Paper RAT中间行，而非Paper 6M终值。
+
+若在任一不早于2M的检查点：
+
+`Target reward < 0.60 × Paper RAT reward`
+
+则允许并要求取消该Target cell，保存：
+
+- method/config/seed/environment；
+- 检查transition；
+- Target与Paper reward；
+- ratio；
+- scheduler、日志、trace、checkpoint和取消时间；
+- `EARLY_STOPPED_ALGORITHM`分类。
+
+基础设施失败、用户取消、race取消和算法early-stop必须分开记录。不得删除或把
+stale RUNNING marker解释为仍在运行。
 
 ## 计算要求与调度边界
 
-- 计算需求：四个独立1M Procgen训练cell，需支持FP64 joint solve、完整trace和
-  checkpoint；
-- Executor先刷新全部授权资源的scheduler、GPU、进程、所有权、容量、依赖、
-  重复任务和artifact，再自主决定主机、partition、GPU数、并发和队列；
-- 资源安排不得改变冻结算法、四环境、seed0、预算或评估语义；
+- 需求：最多四个独立、6M intended-horizon Procgen cells；
+- 需要支持critic FP64 B×B直接求解、完整trace、stage monitor及checkpoint；
+- Executor刷新全部授权资源的scheduler、GPU、进程、所有权、容量、依赖、
+  artifact和重复任务后，自主决定主机、partition、GPU数量、并发和队列；
+- 资源选择不得改变算法、环境、seed、预算、检查阶段或evaluation语义；
 - 不得使用Jupyter；
 - `.54`、`ws4090-31`和`10.49.7.54`继续隔离。
 
 ## 允许动作
 
-- 新增独立trainer、config、manifest、测试和launcher；
-- 运行非训练式import/config/unit/regression preflight；
-- 严格审计通过后提交四个1M Target cells；
-- 监控至终态并解析现有Paper RAT的匹配1M行；
+- 新增此单一候选的trainer、config、manifest、测试、launcher和monitor；
+- 运行非科学训练式import/config/regression preflight；
+- preflight通过后提交四个6M-horizon cells；
+- 执行上述stage-matched monitor和授权的逐cell early-stop；
+- 只读解析original Paper RAT匹配行；
 - 更新`.agent/STATE.md`、`.agent/AGENT_REPORT.md`及专属报告；
 - 提交并推送`agent-work`。
 
-基础设施失败只记录，不得自动修改配置或覆盖root重跑。
+除预声明3/5 early-stop外，不得自动改变配置或重启失败cell。
 
 ## 必需证据
 
-### 身份证据
+### 方法身份
 
-- original Paper RAT、historical P1及新Target的source/config SHA256；
+- Paper、donor、上一失败候选及新Target的source/config SHA256；
 - Paper→Target逐字段和执行路径diff；
-- 回归测试命令、输出及覆盖字段；
-- 新Target完整命令和冻结依赖。
+- actor-equivalence及critic-GGN回归测试输出；
+- 完整冻结命令和依赖。
 
 ### 每个Target cell
 
-- environment、seed、预算和实际transitions；
-- job/raw ID及Executor记录的调度证据；
+- environment、seed、intended budget和实际transitions；
+- Executor记录的job及调度证据；
 - 唯一root、status、rc、progress、trace、stdout/stderr和checkpoint；
-- reward、准确KL字段、terminal LR；
-- critic loss/EV；
-- GGN/Jacobi/solve residual、condition/health及clip telemetry；
-- actor momentum/history和adaptive-KL执行计数；
-- Traceback、NaN/Inf、OOM、通信、磁盘、依赖、配置和停滞扫描。
+- 每个stage的Target/Paper reward、ratio、KL及LR；
+- actor direction/clip、momentum/history和adaptive-KL telemetry；
+- critic loss/EV、GGN/Jacobi/Cholesky residual及数值健康；
+- Traceback、NaN/Inf、OOM、通信、磁盘、依赖、配置和停滞扫描；
+- terminal或early-stop的准确原因和时间。
 
-### 严格1M比较
-
-对每个环境报告相同transition点的：
-
-- Target reward与Paper reward；
-- Target/Paper reward比例；
-- KL及actor-update健康；
-- critic/solver健康；
-- 不得跨环境聚合reward后再比较。
-
-失败分类必须区分：
+失败分类：
 
 - `algorithm-failure`
+- `EARLY_STOPPED_ALGORITHM`
 - `numerical-failure`
 - `infrastructure-failure`
 - `queued/quota-waiting`
+- `cancelled-nonscientific`
 - `unknown/insufficient-evidence`
 
-## 门控结论
+## 唯一候选结论
 
 报告只能给出一个：
 
-- `GATE_PASS`
-  - 严格diff和测试通过；
-  - 四个Target均科学完成、PASS/rc0；
-  - 无数值/solver/actor-schedule异常；
-  - 至少3/4环境的Target/Paper reward比例不低于`3/5`。
-- `GATE_FAIL`
-  - 严格身份成立，但出现算法/数值崩溃，或至少2/4环境低于`3/5`。
-- `GATE_INCONCLUSIVE_INFRASTRUCTURE`
-  - 身份成立，但基础设施使科学结果不完整。
-- `REDEFINITION_BLOCKED`
-  - 无法实现唯一critic-side差异，或actor/schedule严格匹配失败。
+- `CANDIDATE_PROMOTE_TO_3SEED`：
+  4/4 cells达到6M正式终点、PASS/rc0，无算法/数值异常，且各环境所有检查点均
+  不低于strict Paper RAT的3/5。
+- `CANDIDATE_NOT_READY`：
+  任一cell触发scientific early-stop或出现算法/数值失败。
+- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：
+  方法身份成立，但仅因基础设施导致矩阵不完整。
+- `PRECHECK_BLOCKED`：
+  无法证明Paper actor等价或独立B×B critic-GGN身份。
 
-`3/5`仅用于核算和下一轮决策；本任务不得据此执行early stop。
+不得将部分环境成功表述为四环境正式成功。
 
 ## Required Outputs
 
 生成：
 
-`.agent/reports/PROCGEN-PAPER-MATCHED-DETERMINISTIC-GGN-1M-GATE-20260824-06.md`
+`.agent/reports/PROCGEN-PAPER-SEPARATEB-DETGGN-6M-S0-20260824-07.md`
 
-报告必须包含：
+必须包含：
 
-1. 新方法精确定义；
+1. 新候选精确定义和全部SHA256；
 2. Paper→Target严格diff；
-3. 回归测试结果；
-4. 四环境Target与同进度Paper RAT表；
-5. reward比例、KL及critic/solver/actor健康；
-6. 失败分类和唯一门控结论；
-7. 完整历史失败/取消账本，包括：
-   - 历史P1 seed0不可新鲜复用；
-   - P1 seed1四个基础设施失败；
-   - ACTOR_J历史失败；
-   - 已取消的旧arrays；
+3. actor-equivalence和critic-GGN测试；
+4. 四环境各stage的严格对照表；
+5. 终点/early-stop状态、reward、KL、LR和solver健康；
+6. 所有失败及取消分类；
+7. 唯一候选结论；
+8. 不可变历史账本，包括：
+   - joint-2B Paper-matched candidate `GATE_FAIL`；
+   - CoinRun用户授权futility early-stop；
+   - gpuL race-loser cancellation；
+   - gpuA/gpuL preflight基础设施失败；
+   - P1、ACTOR_J、旧cancelled arrays及Bede失败；
    - low-Fisher `GUARD_NOT_HELPFUL`；
-8. Delivery HEAD、evidence/report commit、push验证及最终工作树状态。
+9. Delivery HEAD、evidence/report commit、push验证和最终工作树状态。
 
-Executor callback必须直接粘贴严格diff、测试结果、四环境对照表、失败账本和唯一结论。
+Executor callback必须直接粘贴严格diff、测试结果、stage表、失败账本和唯一结论。
 
 ## Acceptance Criteria
 
-- 只定义一个新的deterministic critic-GGN配置；
-- Paper actor optimizer和schedule严格保留；
-- P1仅贡献允许的critic/solve/telemetry部分；
-- 原Paper RAT和历史P1源码/artifact未被修改；
-- 四个1M Target roots唯一且非覆盖；
-- Baseline来自同seed、同环境、同transition点的original Paper RAT；
-- 未把1M gate表述为6M正式结论；
-- 历史失败和取消provenance完整保留；
+- 只定义一个separate-B deterministic critic-GGN候选；
+- actor路径经测试与Paper RAT严格一致；
+- critic GGN为独立B×B且无cross blocks；
+- 四个任务均以6M为intended horizon；
+- scientific early-stop只在>=2M、严格同阶段比较后执行；
+- 未使用Paper 6M终值检查中间Target；
+- 所有root非碰撞，历史artifact和失败记录未被覆盖；
 - Planner未指定具体资源放置；
 - 报告已提交并推送至`origin/agent-work`。
 
 ## Prohibited Actions
 
-- 不得恢复或推进历史P1原配置；
-- 不得测试第二种deterministic-GGN候选；
-- 不得改变Paper initial LR、adaptive-KL timing、momentum或history correction；
-- 不得运行low-Fisher guard、Joint-B、Joint-2B变体或其他actor ablation；
-- 不得启动6M或seeds1/2；
-- 不得重跑Paper RAT baseline；
-- 不得覆盖、删除或弱化历史root和失败记录；
-- 不得自动重试失败cell或执行early stop；
+- 不得重新测试上一joint-2B失败候选；
+- 不得定义第二个新候选或进行超参数sweep；
+- 不得改变Paper actor LR、KL timing、momentum/history或网络schedule；
+- 不得加入cross blocks、joint-2B、low-Fisher或Kaczmarz；
+- 不得增加seeds1/2；
+- 不得重跑Paper RAT；
+- 不得在2M前按reward执行early-stop；
+- 不得自动重试基础设施失败；
+- 不得覆盖、删除或弱化历史root、日志和失败；
 - 不得使用Jupyter或隔离资源；
 - 不得规划MuJoCo或Isaac；
 - 不得提交无关文件。
 
 ## 提交与推送
 
-训练前先提交冻结的新trainer/config/manifest/tests/launcher，提交信息包含：
+训练前提交冻结的trainer/config/manifest/tests/launcher/monitor，提交信息包含：
 
-`PROCGEN-PAPER-MATCHED-DETERMINISTIC-GGN-1M-GATE-20260824-06`
+`PROCGEN-PAPER-SEPARATEB-DETGGN-6M-S0-20260824-07`
 
 终态后提交报告和状态，推送至`origin/agent-work`，验证远端HEAD并在callback中报告。
