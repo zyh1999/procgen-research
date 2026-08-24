@@ -245,9 +245,8 @@ failure was created, because the mandatory precheck stopped before submission.
 
 ## Delivery
 
-- Evidence/report commit: recorded by the follow-up delivery record.
+- Evidence/report commit: `94d4be2e73844f09650712369b391c8f42b36b23`.
 - Push target: `origin/agent-work`.
-- Delivery HEAD and remote verification: reported after push in the Executor
-  callback.
+- Delivery HEAD: the follow-up commit containing this record; its SHA and
+  remote verification are reported after push in the Executor callback.
 - Final worktree: required clean after delivery push.
-

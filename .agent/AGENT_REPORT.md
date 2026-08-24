@@ -41,9 +41,9 @@ are in:
 
 ## Delivery
 
-- Evidence/report commit: pending creation.
+- Evidence/report commit: `94d4be2e73844f09650712369b391c8f42b36b23`.
 - Push target: `origin/agent-work`.
-- Delivery HEAD, remote verification and Planner callback are recorded after
-  push.
+- Delivery HEAD: the follow-up commit containing this record; its SHA, remote
+  verification and Planner callback are reported after push.
 
 PRECHECK_BLOCKED
