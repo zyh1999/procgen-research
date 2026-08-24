@@ -12,6 +12,19 @@
 - Diff audit SHA256: `5acb70c6b77580ed766414c9d99c5b910fdaca2b115ba054dc57f50dd98451b4`
 - Regression test SHA256: `0d6e475f42716e4809019faa80a431f8238fd0134b5db8d38e140e9e3a53339b`
 - Launcher SHA256: `d7581c58e89f52eb38603ac435e8c09abe2bbb6a0dbb651e1bc96a0e9912b48f`
+- Corrected gpuL launcher SHA256: `d0e7c7928ceefc9ba7f6eec78a17606d050c25467f05a532c49ab8d8ad17266e`
+- Corrected persistent gpuL preflight script SHA256:
+  `024ebe2b1ba715b618f755986c811cd265b5d737953e9c6ca91a53a6cbbceaba`
+- Persistent gpuL preflight sbatch SHA256:
+  `a0ffe6bb0f6896be1cfc81a857fffe557f46a5b151ba557452638381c47615ce`
+- H200 eight-child aggregate preflight SHA256:
+  `dfd52c1d18484f8974103d48d6e813d1e1e4a391d53d5605e78156d959caa6e5`
+- H200 environment-bundle launcher SHA256:
+  `e4f4435b77ed0be5ff612691eff4a41757a4ee36194bbbee91c478b4a9e443b1`
+- Explicit user race override SHA256:
+  `7198558936ce18fdc88a588177331dc94b4a8f18118019f6b4d6b2402a96d245`
+- Scheduler-only diff SHA256:
+  `1ca369021fa73b45cdd848f9e660f252367366761b1fad18c486d29f2a24e75b`
 - Scientific delta: sampled critic score and two independent Paper inverses are
   replaced by deterministic value Jacobian/residual, critic curvature lambda
   0.1, stacked joint-2B kernel, symmetric FP64 Jacobi Cholesky solve, and
