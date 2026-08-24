@@ -1,0 +1,4 @@
+JobIDRaw|State|ExitCode|Start|End|Elapsed|NodeList
+19233037|RUNNING|0:0|24/08/26 23:21|Unknown|00:26:04|node823
+19233037.batch|RUNNING|0:0|24/08/26 23:21|Unknown|00:26:04|node823
+19233037.extern|RUNNING|0:0|24/08/26 23:21|Unknown|00:26:04|node823

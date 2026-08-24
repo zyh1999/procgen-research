@@ -1,0 +1,1 @@
+paper_step=2007040 paper_reward=4.45

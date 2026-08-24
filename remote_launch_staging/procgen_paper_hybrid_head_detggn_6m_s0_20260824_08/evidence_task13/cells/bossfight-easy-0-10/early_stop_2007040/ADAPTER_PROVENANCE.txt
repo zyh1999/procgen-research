@@ -1,0 +1,1 @@
+Adapter aliases only misc/total_timesteps to transitions_so_far in the header; all rows and other fields are unchanged.

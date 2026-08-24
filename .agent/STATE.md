@@ -1,6 +1,42 @@
 # Current Project State
 
-Updated: 2026-08-24T23:04:27+01:00
+Updated: 2026-08-25T00:26:00+01:00
+
+## Current hybrid-head root-override missing-three completion
+
+- Task `PROCGEN-HYBRID-HEAD-ROOT-OVERRIDE-6M-MISSING3-20260824-13`
+  terminates with unique conclusion `CANDIDATE_REJECT`.
+- Assignment `6f7032a8fe3f3350efd7d2df7e68b597f8384332` authorized only a
+  versioned root-routing launcher. Freeze
+  `c64040672893a2048953b94d5b6be1dc6366d3d0` passed the full line-diff and
+  normalized dry-run audit. Original launcher `ae7104e7...` remained
+  byte-identical; variant `26f06ec9...` changes only validated campaign/root
+  selection and provenance. Trainer/config/monitor/corrected-preflight/
+  structural hashes remain exactly frozen.
+- Exactly three new jobs were submitted once: BossFight `19233036` node822,
+  CaveFlyer `19233037` node823, CoinRun `19233038` node820. Every job passed
+  compatibility and began science in a fresh non-overwriting Task13 root.
+  Task11 roots and immutable BigFish `19228676` were not touched or rerun.
+- BossFight exact2M was `1.24/2.92=.4246575342`; CoinRun exact2M was
+  `.10/3.70=.0270270270`. Frozen monitor rc3 cancelled only each failing cell;
+  Slurm records `CANCELLED by 778916` after25:38 and23:39. Scheduler state is
+  authoritative over their stale root RUNNING/absent-rc markers. Both are
+  `EARLY_STOPPED_ALGORITHM`, not infrastructure failures.
+- CaveFlyer passed exact2M `5.20/4.45=1.168539326`, exact4M
+  `5.50/5.85=.9401709402`, and endpoint5,980,160
+  `6.60/6.62=.9969788520`. It completed `0:0` after1:04:25 with root PASS/rc0,
+  progress, trace and remote checkpoint. The checkpoint is represented only by
+  metadata/hash and is not committed.
+- Exact-stage KL/LR/entropy and deterministic-head relative/absolute residual
+  telemetry are finite, Cholesky info is zero, post-head policy KL is zero,
+  and all three hard-error scans are empty.
+- Combined with immutable Task11 BigFish's exact4M
+  `6.23/13.28=.4691265060` early stop, at least three environments fail. This
+  satisfies the task's rejection rule without infrastructure ambiguity.
+- Complete model-free evidence is under
+  `remote_launch_staging/procgen_paper_hybrid_head_detggn_6m_s0_20260824_08/evidence_task13/`.
+  No retry, requeue, resubmit, duplicate, sweep, Paper rerun, Jupyter,
+  quarantined access or unrelated mutation occurred.
 
 ## Current structural-manifest recovery for the three missing hybrid-head cells
 
