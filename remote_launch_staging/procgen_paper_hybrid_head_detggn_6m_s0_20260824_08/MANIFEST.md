@@ -26,7 +26,7 @@
 | identity audit | `d6d268e4fc8e28f34ec4a7c60ae97c8a0e85183ae96f4bd7135d5258a20e1bca` |
 | regression | `8a774ee31e49157556a2e4454227114f033a76d410acd796c240d43c6bae5465` |
 | gpuH compatibility test | `4bcbff44137ddf66c76a8ad06a357459411726d6f9dc1fa7d10897a473027292` |
-| gpuH persistent preflight launcher | `6cf90a9811b9c9b271cc787c468724bc70e05bd173ec6db26e92f2043ea43e28` |
+| gpuH persistent preflight launcher | `39bd8a40891c8c1dcfd46440b499b626be92172a7bdb1ef84c577113040ce64d` |
 | gpuH scientific launcher | `ae7104e7b0118cab902d173cd6bb1ea634dc3eb9586fbb5e055c7b8477cceb8e` |
 | frozen stage monitor | `536b87201191f81a44fc3aa6564565653572df523080b0952b11d6347152572e` |
 | historical provenance | `4c361d494792caf4ed76f5dc556bb5e1e67e11ad9f6b3b2bbfe8da315672caa1` |

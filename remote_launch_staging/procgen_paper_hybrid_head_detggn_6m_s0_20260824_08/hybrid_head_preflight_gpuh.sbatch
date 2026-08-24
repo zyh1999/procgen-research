@@ -17,7 +17,7 @@ set -euo pipefail
 CAMPAIGN=/scratch/h99859yz/procgen_paper_hybrid_head_detggn_6m_s0_20260824_08
 CODE="$CAMPAIGN/code"
 FROZEN="$CAMPAIGN/frozen"
-OUT="$CAMPAIGN/preflight"
+OUT="$CAMPAIGN/preflight/$SLURM_JOB_ID"
 PY=/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/bin/python
 TRAINER="$CODE/train_shared_paper_hybrid_head_detggn_v1.py"
 CONFIG="$CODE/configs/adv_resnet_shared_paper_hybrid_head_detggn_v1_6m.yaml"
@@ -25,6 +25,18 @@ TRAINER_SHA=7bcf9bb6f25a6e40206bb2b08404423992ecdf088cf0f64f806c4a8e7a521e54
 CONFIG_SHA=9497be42db0bac8abb504721677ca6608d9f698f101587980c1a726c1dd81fda
 
 mkdir -p "$OUT"
+finalize() {
+  RC=$?
+  date -Is > "$OUT/end_time.txt"
+  printf '%s\n' "$RC" > "$OUT/rc"
+  if [ "$RC" -eq 0 ]; then
+    printf 'PRECHECK_PASS\n' > "$OUT/status"
+  else
+    printf 'INFRASTRUCTURE_PREFLIGHT_FAIL\n' > "$OUT/status"
+  fi
+}
+trap finalize EXIT
+export PYTHONPATH="$CODE${PYTHONPATH:+:$PYTHONPATH}"
 date -Is > "$OUT/start_time.txt"
 printf '%s\n' "$SLURM_JOB_ID" > "$OUT/job_id"
 hostname -f > "$OUT/hostname"
@@ -36,7 +48,4 @@ grep -q HYBRID_HEAD_REGRESSION_PASS "$OUT/regression.out"
 "$PY" "$FROZEN/gpuh_preflight.py" "$TRAINER" "$CONFIG" "$OUT/parameter_partition.json" "$TRAINER_SHA" "$CONFIG_SHA" > "$OUT/compatibility.out" 2> "$OUT/compatibility.err"
 grep -q GPUH_HYBRID_HEAD_COMPATIBILITY_PASS "$OUT/compatibility.out"
 
-date -Is > "$OUT/end_time.txt"
-printf 'PRECHECK_PASS\n' > "$OUT/status"
-printf '0\n' > "$OUT/rc"
 echo HYBRID_HEAD_PREFLIGHT_PASS

@@ -43,3 +43,11 @@ exact zero policy-logit Jacobian for the critic head, Procgen imports, frozen
 hashes, H200 identity/memory, aggregate Paper/head row footprint, and finite
 FP64/Jacobi/Cholesky residual below `1e-10`. A scientific job may be submitted
 only after its durable status is `PRECHECK_PASS` with rc0.
+
+Initial preflight job `19220448` acquired a genuine H200 and reran the
+regression successfully, but the compatibility test did not begin because the
+launcher omitted the staged code directory from Python's import path. It is
+preserved as `infrastructure-failure/preflight-design`; see
+`PREFLIGHT_FAILURE_LEDGER.md`. The corrected launcher changes only import-path
+and evidence-output handling. Scientific trainer/config hashes remain
+`7bcf9bb6...` / `9497be42...`.
