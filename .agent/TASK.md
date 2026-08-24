@@ -1,14 +1,22 @@
 Status: READY
 
-# Task-ID: PROCGEN-HYBRID-HEAD-TRAINABLE-GRAD-PREFLIGHT-AND-6M-S0-20260824-11
+# Task-ID: PROCGEN-HYBRID-HEAD-STRUCTURAL-MANIFEST-RECOVERY-6M-MISSING3-20260824-12
 
 ## 唯一目标
 
-修正preflight one-step harness，使 `raw_grads` 只对生产优化器实际更新的 `requires_grad=True` 参数计算；PopArt非训练状态必须保留并单独审计。随后仅执行一次完整preflight；只有全部预检通过，才运行冻结Hybrid-Head候选四环境、seed 0、预定6M实验。
+修正per-job preflight错误地将环境相关connectivity probe数值纳入结构manifest哈希的问题；保持科学候选完全不变，仅为BossFight、CaveFlyer和CoinRun补齐seed 0、预定6M的科学证据，并与既有BigFish结果合并判定候选。
 
-## 证据判断
+## 结果解释
 
-`19225707` 的唯一阻塞是将 `requires_grad=False` 的PopArt `mean`、`mean_sq`、`debiasing`传给 `torch.autograd.grad`。错误发生在更新和训练之前，属于 `infrastructure-failure/preflight-design`，不是算法、数值、求解器、分区或硬件失败。
+BigFish是有效算法失败：
+
+- 2,007,040：`6.53/9.28=0.70366`，通过。
+- 4,014,080：`6.23/13.28=0.46913`，严格早停。
+- 求解器有限、Cholesky `info=0`、hard-error为零。
+
+这说明即使单步policy、shared-trunk更新与Paper bit-identical，value-head变化仍可通过后续value estimate、GAE和训练轨迹产生长期影响。2M通过不能排除4M失败。
+
+其余三格没有科学数据。它们的模型结构、参数名称和partition一致，但完整JSON包含环境观测产生的probe值，导致整文件SHA不同。因此属于`infrastructure-failure/per-job-preflight-design`，不能与BigFish一起构成两环境算法拒绝。
 
 ## 冻结科学身份
 
@@ -17,96 +25,116 @@ Status: READY
 - Trainer：`7bcf9bb6f25a6e40206bb2b08404423992ecdf088cf0f64f806c4a8e7a521e54`
 - Config：`9497be42db0bac8abb504721677ca6608d9f698f101587980c1a726c1dd81fda`
 - Scientific launcher：`ae7104e7b0118cab902d173cd6bb1ea634dc3eb9586fbb5e055c7b8477cceb8e`
-- Monitor：`536b87201191f81a44fc3aa6564565653572df523080b0952b11d6347152572e`
+- Stage monitor：`536b87201191f81a44fc3aa6564565653572df523080b0952b11d6347152572e`
 
-科学方法保持为：Paper actor及shared-trunk sampled Paper critic完全不变；deterministic normalized-residual `J_v` GGN、`lambda=0.1` 仅作用于257个critic-exclusive value-head参数；独立head-only `B×B` symmetric FP64/Jacobi/Cholesky。
+方法仍为原始Paper actor及sampled shared critic，加仅作用于257个critic-exclusive value-head参数的deterministic normalized-residual `J_v` GGN、`lambda=0.1`、独立head-only `B×B` symmetric FP64/Jacobi/Cholesky。
 
-## 唯一允许的修正
+## 唯一允许的代码修正
 
-从 `a22f1a51bbcc953881e780f4dc00da16b2fc317f` 开始，仅修改preflight harness：
+将preflight输出拆分为：
 
-```python
-trainable_named_params = [
-    (name, parameter)
-    for name, parameter in net.named_parameters()
-    if parameter.requires_grad
-]
-```
+### Structural manifest
 
-要求：
+只包含环境无关字段：
 
-1. `raw_grads`、方向向量及one-step更新仅使用上述有序集合。
-2. 逐项证明该集合与production optimizer参数集合在名称、顺序、shape、dtype、device及object identity上完全一致。
-3. PopArt `mean`、`mean_sq`、`debiasing`继续保留在model/state中，但不得进入optimizer、`autograd.grad`、方向向量或参数更新。
-4. 单独记录这些PopArt状态在one-step前后的值及其原始Paper更新语义。
-5. 禁止使用全局 `allow_unused=True`、异常吞掉、零梯度填充或删除检查来制造PASS。
-6. 对预期连接的任一trainable参数，`None` gradient必须使预检失败。
+- 参数有序名称、partition标签、shape、dtype、`requires_grad`和numel；
+- trainable/optimizer成员关系；
+- tensor及参数计数；
+- critic-exclusive精确名称。
 
-不得修改trainer、科学config、scientific launcher、monitor或其他算法语义。
+必须严格满足：
+
+- total：938,979
+- policy-exclusive：2 tensors / 3,855
+- shared：22 tensors / 934,864
+- critic-exclusive：2 tensors / 257
+- trainable：26 tensors / 938,976
+- critic-exclusive仅为`last_v_layer.weight`、`last_v_layer.bias`
+
+四环境structural manifest必须字节一致并产生相同的新SHA256。
+
+### Connectivity evidence
+
+环境/输入相关probe值写入独立的`connectivity_probe.json`。每个环境分别保存SHA256，不要求跨环境相等，但必须分别通过：
+
+- critic-exclusive policy autograd disconnected或Jacobian L2严格为零；
+- value路径connected且有限；
+- partition与structural manifest一致；
+- 无NaN、Inf或fallback。
+
+禁止硬编码已观察到的环境SHA、建立白名单、跳过manifest检查或放宽结构不变量。
 
 ## 有界执行
 
-1. 增加针对trainable/optimizer集合一致性和PopArt非训练状态的静态或CPU真实模型回归。
-2. 执行且仅执行一次修正后的完整production preflight。
-3. 若该preflight任一检查失败，立即结束为 `PRECHECK_BLOCKED`；不得再次现场修补、重试或启动科学单元。
-4. 仅在preflight全部通过后，运行seed 0：
+1. 从Task 11 harness freeze `26b2252527076df4bfe537a8612446317cbdcf3a`开始，仅实现上述证据拆分。
+2. 对四个环境各进行一次无训练compatibility validation。
+3. 任一结构manifest不同或connectivity语义失败，立即结束为`PRECHECK_BLOCKED`；不得继续修补。
+4. 全部通过后，只启动先前没有科学数据的三个seed-0 cell：
 
-   - `bigfish-easy-0-10`
    - `bossfight-easy-0-10`
    - `caveflyer-easy-0-10`
    - `coinrun-easy-0-10`
 
-5. 每格intended horizon为6M，终点为`5,980,160`。
-6. 科学job/root实际存在前不得创建科学monitor。
-7. Executor负责实时资源刷新及全部host、GPU、partition、卡数、并发和queue placement决定。
+5. 不得重跑BigFish。`19228676`的4M算法早停永久保留。
+6. 三格分别使用全新、非覆盖root；intended horizon为6M，终点`5,980,160`。
+7. 每个缺失环境仅允许一次科学提交；不得retry、requeue或resubmit。
+8. Executor负责实时资源检查及全部host、GPU、partition、卡数、并发和queue placement决策。
 
-## 强制预检证据
+## 强制预检
 
-必须证明：
+启动科学单元前必须证明：
 
-- 三方resolved JSON继续字节一致，SHA256为  
+- 全部科学文件哈希未变。
+- 三方resolved configuration继续字节一致，SHA256为  
   `61f8ebe38443acbdbf141981f4e9921435dccd5d4abb6a63959e3d4bdb9232ab`。
-- 参数分区仍为total 938,979；policy-exclusive 2/3,855；shared 22/934,864；critic-exclusive 2/257。
-- Partition manifest SHA256仍为  
-  `b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087`。
-- critic-exclusive仅为 `last_v_layer.weight/bias`，policy Jacobian为零或disconnected，value connected。
-- trainable参数与production optimizer集合逐项相同。
-- Paper actor matrix、RHS、direction bit-identical。
-- shared-trunk sampled Paper critic direction bit-identical。
-- one-step后policy参数、logits及shared delta bit-identical；仅value-head delta允许不同。
-- PopArt非训练状态未被错误加入梯度或参数更新。
-- head-only GGN公式、RHS、阻尼及维度正确。
-- FP64/Jacobi/Cholesky `info=0`、残差有限且无fallback。
-- production-scale内存检查和NaN/Inf、OOM、CUDA、hard-error扫描通过。
-- 无重复root或active objective。
+- 四环境structural manifest字节一致。
+- 四环境connectivity probe分别通过语义检查。
+- trainable集合与production optimizer逐项一致。
+- PopArt非训练状态保留且不进入optimizer、autograd或方向更新。
+- Paper actor、sampled shared critic、one-step policy/logits/shared delta继续bit-identical。
+- 仅value-head delta不同。
+- FP64/Jacobi/Cholesky `info=0`且残差有限。
+- 内存及OOM、CUDA、NaN/Inf、hard-error检查通过。
+- 新root不存在且没有重复active objective。
 
 ## 严格比较与早停
 
-仅与不可变原始Paper RAT的同环境、seed 0、同evaluation semantics、同transition记录比较：
+三个新cell仅与不可变原始Paper RAT的同环境、seed 0、同evaluation semantics和同transition记录比较：
 
-- 首个共同点 `>=2,000,000`
-- 首个共同点 `>=4,000,000`
-- 终点 `5,980,160`
+- 首个共同点`>=2,000,000`
+- 首个共同点`>=4,000,000`
+- 终点`5,980,160`
 
-仅当 `Target reward / Paper reward < 0.60` 时取消对应cell并记录 `EARLY_STOPPED_ALGORITHM`。不得使用Paper终点比较中间Target。
+仅当`Target reward / Paper reward < 0.60`时取消对应cell并记录`EARLY_STOPPED_ALGORITHM`。不得使用Paper终点比较中间Target；没有精确共同记录时不得取消。
 
 ## 验收标准
 
-唯一结论必须为：
+合并BigFish既有结果后，唯一结论必须为：
 
-- `CANDIDATE_PROMOTE_TO_3SEED`：预检全部通过，至少3/4环境达到终点，且这些终点ratio均不低于0.60。
-- `CANDIDATE_REJECT`：至少两个环境触发严格早停，或终点证据明确否定候选。
-- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：科学运行开始后因基础设施故障无法形成充分结论。
-- `PRECHECK_BLOCKED`：本次唯一授权preflight未完整通过。
+- `CANDIDATE_PROMOTE_TO_3SEED`：三个新环境全部到达终点且终点ratio均不低于0.60；BigFish失败仍保留。
+- `CANDIDATE_REJECT`：三个新环境中至少一个严格触发早停，从而形成至少两个环境算法失败；或完整终点证据明确否定候选。
+- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：预检通过并开始科学运行，但基础设施故障仍阻止充分判定。
+- `PRECHECK_BLOCKED`：cross-environment预检未全部通过。
+
+## 必需证据
+
+- 修正diff、旧/新harness SHA256及科学哈希不变证明。
+- 四环境structural manifest、新SHA及逐字段一致性表。
+- 四份connectivity probe、各自SHA和语义判定。
+- Task 11全部结果及preflight failure ledger原样保留。
+- 三个新cell的root、命令、scheduler、return code、transitions和artifacts。
+- 2M、4M、终点的Target/Paper reward、ratio、KL、LR、entropy、head/solve residual和Cholesky info。
+- checkpoint及OOM、CUDA、NCCL、disk、stall、Traceback、NaN/Inf扫描。
+- 明确区分算法失败、preflight设计失败和其他基础设施失败。
 
 ## 禁止事项
 
-- 不得改变科学身份或引入第二候选、sweep、Paper重跑。
-- 不得用 `allow_unused=True` 或零填充掩盖错误。
-- 不得覆盖旧root或弱化四次preflight失败及其他历史记录。
+- 不得改变算法、trainer、config、scientific launcher或monitor。
+- 不得重跑BigFish或覆盖四个既有root。
+- 不得引入第二候选、sweep或Paper重跑。
 - 不得使用Jupyter。
 - 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
-- 不得指定计算资源或触碰无关任务。
+- 不得指定具体计算资源或触碰无关任务。
 
 ## 报告、提交与推送
 
@@ -114,6 +142,6 @@ trainable_named_params = [
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-HYBRID-HEAD-TRAINABLE-GRAD-PREFLIGHT-AND-6M-S0-20260824-11.md`
+- `.agent/reports/PROCGEN-HYBRID-HEAD-STRUCTURAL-MANIFEST-RECOVERY-6M-MISSING3-20260824-12.md`
 
-报告必须包含修正diff及哈希、科学哈希不变证明、trainable/optimizer/PopArt manifests、完整preflight证据、不可变failure ledger，以及若启动科学单元时的2M/4M/终点严格比较表。提交允许的model-free证据，保持worktree干净，推送并验证`origin/agent-work`，然后回调唯一结论及全部commit身份。
+提交允许的preflight修正、model-free证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、assignment/freeze/evidence/Delivery commits、四环境manifest/probe结果、三个新cell终态、严格阶段比率及failure-ledger增量。
