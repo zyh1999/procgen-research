@@ -1,16 +1,32 @@
 # Current Project State
 
-Updated: 2026-08-18T13:22:09Z
+Updated: 2026-08-24T10:12:20Z
 
 ## Research lines
 
 1. Pure-PPO DMLP1024 remains a separate control line and was not changed or
    reinterpreted by this task.
-2. The PPG/curvature line now has a complete provenance map for the bounded
-   CSF3/Bede Joint/PAP/FADP/RAT/Schur/RHS job set in task
-   `PROCGEN-JOINT-PROVENANCE-MAP-20260817-03`.
+2. The PPG/curvature line now includes the completed strict five-seed
+   CaveFlyer 1M low-Fisher guard gate
+   `PROCGEN-JOINT-LOWFISHER-CAVE-5SEED-GATE-20260818-04`, while preserving the
+   complete provenance map from `PROCGEN-JOINT-PROVENANCE-MAP-20260817-03`.
 
-## Provenance conclusion
+## Current bounded conclusion
+
+- Unique conclusion: `GUARD_NOT_HELPFUL`.
+- Frozen arrays `18833574` (parent seeds1--4) and `18833575` (guard
+  seeds1--4) completed all eight cells on gpuA with scheduler `COMPLETED/0:0`,
+  artifact PASS/rc0, exact frozen hashes, clean error scans, and 1,007,616
+  transitions.
+- With historical seed0, guard reward wins/ties/losses are `1/3/1` and paired
+  guard-minus-parent reward has mean `-0.0900`, median `0`, sample SD
+  `0.3711`. Guard is below parent in only `1/5` seeds, so the `3/5`
+  early-stop-candidate condition is not met.
+- The guard strongly activates at the seed0 terminal row (`.594445`) and
+  transiently in seeds2/3, but does not yield a reproducible benefit. This is
+  only a 1M causal gate and authorizes no 6M extension.
+
+## Preserved provenance conclusion
 
 - Unique conclusion: `STRICT_PARENT_COMPLETE`.
 - Target `18670696` is the seed-0, four-environment, 1M RHS-aligned Joint-B
@@ -33,9 +49,13 @@ Updated: 2026-08-18T13:22:09Z
 
 ## Fresh live state
 
-- CSF3 control plane `login1.csf3.man.alces.network`, refreshed at
-  `2026-08-18T13:22:09Z`: no queued/running Procgen job and no live Procgen
-  trainer. Login A2 was idle at 0%, 116/15356 MiB; this is not launch capacity.
+- CSF3 control plane `login2.csf3.man.alces.network`, refreshed at
+  `2026-08-24T10:12:20Z`: no target-array queue row and no live target Procgen
+  trainer. Unrelated owned multicore job `19051570` is running and was not
+  changed.
+- Arrays `18833574/18833575` have eight terminal gpuA accounting rows. They
+  ran on nodes852/854/855/863 for 56:59--1:00:33 and all report
+  `COMPLETED/0:0`.
 - Old arrays `18642230` and `18624888` were user-authorized cancellations at
   CSF3 local `2026-08-18 14:08`; every cell has Start=None, no node, elapsed
   00:00:00 and no scientific artifact. They are
@@ -46,8 +66,9 @@ Updated: 2026-08-18T13:22:09Z
   been mapped to scientific artifacts or an explicit failure/cancellation.
   Numeric ID `1072347` resolves only to raw child `1072326_0` of an unrelated,
   out-of-scope job; no Procgen parent job `1072347` is evidenced.
-- No experiment was launched, resumed, cancelled, released, requeued or
-  early-stopped. No Jupyter service was used. Quarantined `.54`,
+- This bounded task submitted only its eight frozen CaveFlyer cells. During
+  reconciliation no experiment was resumed, resubmitted, cancelled, released,
+  requeued, or early-stopped. No Jupyter service was used. Quarantined `.54`,
   `ws4090-31`, and `10.49.7.54` were not accessed.
 
 ## Failure and cancellation preservation
@@ -66,6 +87,8 @@ Updated: 2026-08-18T13:22:09Z
 
 ## Planner boundary
 
+- The current task evidence package is
+  `.agent/reports/PROCGEN-JOINT-LOWFISHER-CAVE-5SEED-GATE-20260818-04.md`.
 - The complete evidence package is
   `.agent/reports/PROCGEN-JOINT-PROVENANCE-MAP-20260817-03.md`.
 - Scientific evidence is sufficient to identify a completed strict causal
