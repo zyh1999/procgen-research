@@ -17,6 +17,12 @@ restriction only for this scheduling race.
 - No Jupyter, Paper rerun, second method, algorithm/config/trainer change,
   early stop, automatic retry, or unrelated gpuH/Isaac mutation is authorized.
 
+The first gpuH submission command produced no job ID because gpuH enforces at
+most 193,392 MB host memory per requested H200 and the initial scheduler-only
+request was 256G. The corrected request is 188G (192,512 MiB), below that cap.
+No gpuH allocation, root, process, or scientific attempt resulted from the
+rejected command.
+
 Frozen scientific hashes remain trainer
 `41334b59aa98e03920571251da8498a1ecb816ea72afff72d8134fa8fd314f9a`
 and config

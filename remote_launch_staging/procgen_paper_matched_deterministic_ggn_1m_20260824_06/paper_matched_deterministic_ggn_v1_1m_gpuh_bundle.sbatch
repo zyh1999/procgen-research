@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=256G
+#SBATCH --mem=188G
 #SBATCH --time=1-00:00:00
 #SBATCH --no-requeue
 #SBATCH --output=/scratch/h99859yz/procgen_paper_matched_deterministic_ggn_1m_20260824_06/scheduler_gpuh/%x_%j.out

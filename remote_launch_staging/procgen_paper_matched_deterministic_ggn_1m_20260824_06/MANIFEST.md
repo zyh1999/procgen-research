@@ -20,9 +20,9 @@
 - H200 eight-child aggregate preflight SHA256:
   `dfd52c1d18484f8974103d48d6e813d1e1e4a391d53d5605e78156d959caa6e5`
 - H200 environment-bundle launcher SHA256:
-  `e4f4435b77ed0be5ff612691eff4a41757a4ee36194bbbee91c478b4a9e443b1`
+  `29987a1f48f3d8df04a0eb4eb9e6179e1d5f82b7fac2a65e5813e1aa75c4ed54`
 - Explicit user race override SHA256:
-  `7198558936ce18fdc88a588177331dc94b4a8f18118019f6b4d6b2402a96d245`
+  `94820e10e8029399734964ff0327c4f22d2fe50220b691bc12b775a75e759473`
 - Scheduler-only diff SHA256:
   `1ca369021fa73b45cdd848f9e660f252367366761b1fad18c486d29f2a24e75b`
 - Scientific delta: sampled critic score and two independent Paper inverses are
