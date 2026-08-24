@@ -1,6 +1,28 @@
 # Current Project State
 
-Updated: 2026-08-24T20:19:47Z
+Updated: 2026-08-24T20:31:21Z
+
+## Current final hybrid-head assertion-fix recovery
+
+- Task `PROCGEN-HYBRID-HEAD-ASSERTION-FIX-AND-6M-S0-20260824-10`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no scientific cell was
+  launched.
+- Assertion-fix commit `a22f1a51bbcc953881e780f4dc00da16b2fc317f`
+  changed only the canonical preflight harness and static invariant test. The
+  exact frozen scientific trainer/config/launcher/monitor hashes did not
+  change.
+- Final authorized preflight `19225707` passed the complete exact production
+  invariant, three-way resolved config identity, real production construction,
+  exact manifest SHA, parameter partition, and critic-head zero policy
+  Jacobian.
+- It then FAILED/1:0 after17s on node820 in the next actual-network one-step
+  test because the harness included non-trainable PopArt state in the
+  `autograd.grad` input list. This is
+  `infrastructure-failure/preflight-design`, not scientific, numerical,
+  solver, config, partition/Jacobian, or H200 incompatibility evidence.
+- One-step equality, production-scale memory, final head solve and complete
+  error scan remained unreached. Task10 forbids field repair/retry after this
+  one run, so no scientific job/root/process/artifact exists.
 
 ## Current canonical hybrid-head preflight recovery
 

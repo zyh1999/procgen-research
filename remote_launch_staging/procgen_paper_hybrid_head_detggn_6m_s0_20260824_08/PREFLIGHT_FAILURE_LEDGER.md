@@ -78,3 +78,30 @@ authorized exactly one canonical recovery, recorded below.
 The one authorized recovery allocation is exhausted. No resubmission or
 scientific launch followed. Mandatory preflight remains incomplete and the
 task terminates `PRECHECK_BLOCKED`.
+
+## Job 19225707
+
+- Authorization: the single final assertion-fix recovery authorized by
+  `PROCGEN-HYBRID-HEAD-ASSERTION-FIX-AND-6M-S0-20260824-10`.
+- Scheduler: `FAILED`, exit `1:0`, elapsed `00:00:17`, node820, CSF3 local
+  start/end `2026-08-24T21:29`.
+- Exact assertion fix: PASS. Total 938,979; policy 2/3,855; shared22/934,864;
+  critic2/257; exact critic names; exact manifest SHA
+  `b45298be8fc5bdccfa36ce653c7dbc0c41f2d013f23d4f4db0a4a580035f3087`.
+- Canonical config/model/partition/Jacobian: PASS. Three resolved JSON files
+  again had exact SHA
+  `61f8ebe38443acbdbf141981f4e9921435dccd5d4abb6a63959e3d4bdb9232ab`.
+- Failure: the next actual-network one-step harness called `autograd.grad`
+  over every `model.parameters()` entry, including non-trainable PopArt state.
+  PyTorch raised `RuntimeError: One of the differentiated Tensors does not
+  require grad` before actor/critic equality or update checks completed.
+- Unreached: actual-network one-step equality, production-scale H200 memory,
+  final FP64/Jacobi/Cholesky residual and full hard-error/nonfinite pass.
+- Classification: `infrastructure-failure/preflight-design`, not algorithm,
+  numerical, solver, config, partition, Jacobian, or hardware incompatibility.
+- Scientific work: no root, marker, trainer process, transition, progress,
+  trace, checkpoint, or model was created.
+
+Task 10 explicitly allowed no field repair or retry after any failure. No
+resubmission or scientific launch followed. The terminal conclusion remains
+`PRECHECK_BLOCKED`.
