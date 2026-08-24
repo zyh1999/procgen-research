@@ -1,6 +1,6 @@
 # Current Project State
 
-Updated: 2026-08-24T10:12:20Z
+Updated: 2026-08-24T11:05:50Z
 
 ## Research lines
 
@@ -10,6 +10,25 @@ Updated: 2026-08-24T10:12:20Z
    CaveFlyer 1M low-Fisher guard gate
    `PROCGEN-JOINT-LOWFISHER-CAVE-5SEED-GATE-20260818-04`, while preserving the
    complete provenance map from `PROCGEN-JOINT-PROVENANCE-MAP-20260817-03`.
+
+## Current formal-comparison precheck
+
+- Task `PROCGEN-BXB-GGN-VS-PAPER-RAT-FORMAL-6M-X3-20260824-05` stopped at its
+  mandatory identity gate. Unique status: `PRECHECK_BLOCKED`.
+- Original Paper RAT was recovered exactly as commit `2b5affd...`, trainer
+  `cbcd6811...`, config `1ed4eab5...`, Bede array `1063880`. The requested
+  four environments x seeds0--2 are all strict reusable PASS/rc0 completions
+  at 5,980,160 with terminal checkpoints.
+- Historical P1 candidate is trainer `2b50f8cc...`, config `c177ac09...`,
+  wrapper `9c7806fc...`, deterministic critic GGN 2B with symmetric FP64/
+  Jacobi. It differs from Paper RAT outside critic curvature/solver telemetry:
+  initial LR `.004` vs `.5`, rollout-level vs minibatch-level adaptive KL,
+  and momentum/history `0/disabled` vs `1e-6/enabled`.
+- `procgen-3090` is currently unresolvable, so historical P1 seed0 artifacts
+  cannot be freshly upgraded to strict reuse. Seed1 failures remain
+  infrastructure-interrupted and seed2 is absent.
+- No formal cell was launched, and no new root, checkpoint, scheduler row, or
+  Jupyter allocation was created.
 
 ## Current bounded conclusion
 
@@ -50,9 +69,14 @@ Updated: 2026-08-24T10:12:20Z
 ## Fresh live state
 
 - CSF3 control plane `login2.csf3.man.alces.network`, refreshed at
-  `2026-08-24T10:12:20Z`: no target-array queue row and no live target Procgen
+  `2026-08-24T11:05:32Z`: no target-array queue row and no live target Procgen
   trainer. Unrelated owned multicore job `19051570` is running and was not
   changed.
+- Bede refreshed at `2026-08-24T11:05:50Z`: owned queue empty and most
+  V100-32GB nodes idle. Capacity was not used because the identity gate failed.
+- Authorized `ws4090-92`, `ws4090-76`, and `procgen-3090` names were not DNS
+  resolvable from this Executor; their current state remains unknown. No
+  quarantined host was queried.
 - Arrays `18833574/18833575` have eight terminal gpuA accounting rows. They
   ran on nodes852/854/855/863 for 56:59--1:00:33 and all report
   `COMPLETED/0:0`.
@@ -87,6 +111,8 @@ Updated: 2026-08-24T10:12:20Z
 
 ## Planner boundary
 
+- The current precheck evidence package is
+  `.agent/reports/PROCGEN-BXB-GGN-VS-PAPER-RAT-FORMAL-6M-X3-20260824-05.md`.
 - The current task evidence package is
   `.agent/reports/PROCGEN-JOINT-LOWFISHER-CAVE-5SEED-GATE-20260818-04.md`.
 - The complete evidence package is
