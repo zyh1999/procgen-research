@@ -1,0 +1,42 @@
+Task25 one-shot closure provenance job 19271782
+
+status=CLOSURE_FAIL
+scheduler=FAILED/1:0
+elapsed=00:00:19
+node=node820
+start=2026-08-25T04:36:52+01:00
+end=2026-08-25T04:37:08+01:00
+gpu=NVIDIA H200
+
+Pre-closure gates inside the job:
+- actual Python3.9/Torch positive/negative classifier: PASS
+- bundle extraction 1: HERMETIC_BUNDLE_VERIFY_PASS
+- bundle extraction 2: HERMETIC_BUNDLE_VERIFY_PASS
+- frozen trainer/config/model construction began and created the exact
+  938,979-parameter production network on cuda:0
+
+Terminal stderr:
+Traceback (most recent call last):
+  File ".../runtime_closure_probe_task23.py", line 82, in <module>
+  File "/usr/lib64/python3.9/runpy.py", line 288, in run_path
+  File "/usr/lib64/python3.9/runpy.py", line 97, in _run_module_code
+  File "/usr/lib64/python3.9/runpy.py", line 87, in _run_code
+  File ".../frozen/gpuh_preflight_normmatch_v2.py", line 343, in <module>
+AssertionError
+
+Frozen preflight line 343 requires the literal one-line substring:
+  match_head_proposal_norm(head_direction, paper_head_proposal)
+
+Frozen trainer SHA 0e2c2e26... contains the same call split across lines 557-558:
+  head_target_proposal, ... = match_head_proposal_norm(
+      head_direction, paper_head_proposal
+
+Thus the immutable scientific trainer implements the intended call, but the
+immutable preflight uses a whitespace-sensitive source-text assertion that
+rejects it. Task25 forbids changing either scientific preflight or trainer and
+forbids repair/retry after closure failure. Classification:
+precheck-failure/frozen-preflight-source-text-assertion-linewrap-mismatch.
+
+No reproduction_1.json, second production process, normalized closure, formal
+audit, real-network environment preflight, scientific job/root, transition,
+trace, checkpoint, model, stage comparison, cancellation, or monitor exists.

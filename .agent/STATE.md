@@ -1,6 +1,27 @@
 # Current Project State
 
-Updated: 2026-08-25T11:35:00+08:00
+Updated: 2026-08-25T11:55:00+08:00
+
+## Current Task25 class-attribute pseudo-origin precheck
+
+- Task `PROCGEN-NORMMATCH-V2-TORCH-CLASS-ATTRIBUTE-PSEUDO-ORIGIN-AND-6M-S0-20260825-25`
+  terminates with unique conclusion `PRECHECK_BLOCKED`.
+- Assignment/origin is `572fdb82b8c2c87d0dabc056ecf08cc937a720fc`;
+  classifier/audit freeze is `4008195e236589b00f0aa5661da3033ba3f38236`.
+- Actual Python3.9/Torch2.5.1 positive and negative classifier gates passed.
+  Ledger identifies the provider as the exact `_Classes.__file__` class
+  attribute, records zero `__getattr__` calls, unchanged instance/class
+  dictionaries, and no physical-file side effect. Task16--23 regressions pass.
+- The one closure job `19271782` ended `FAILED/1:0` after 19 seconds on gpuH
+  node820. Bundle checks and exact production model construction passed, then
+  immutable scientific preflight line 343 rejected the immutable trainer
+  because its source-text assertion expects a one-line call while the matching
+  call is split across trainer lines 557--558.
+- Failure ledger:
+  `precheck-failure/frozen-preflight-source-text-assertion-linewrap-mismatch`.
+- Task25 freezes both files and forbids repair/retry after closure failure. No
+  normalized closure, formal audit, environment preflight, science, root,
+  stage comparison, cancellation, or monitor exists.
 
 ## Current Task24 dynamic-attribute classifier precheck
 

@@ -1,0 +1,43 @@
+{
+  "classification": "APPROVED_INSTALLED_DISTRIBUTION_CLASS_ATTRIBUTE_PSEUDO_ORIGIN",
+  "dynamic_provider_identity": {
+    "method_code_sha256": "a34c3dda08c0b70465ab4671936e773f03cfbc7ed5d4c5be861bb9180fb843dc",
+    "method_firstlineno": 25,
+    "method_module": "torch._classes",
+    "method_qualname": "_Classes.__getattr__",
+    "method_source": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python3.9/site-packages/torch/_classes.py",
+    "method_source_sha256": "2a3dd93d72e9f19450670b89f3a57b5b5adf245709f6a49a551bbfad33c434bf",
+    "not_invoked_for_file": true,
+    "type": "torch._classes._Classes"
+  },
+  "lookup_ledger": {
+    "class_dictionary_unchanged": true,
+    "class_level_file": "_classes.py",
+    "dict_file": null,
+    "dict_file_present": false,
+    "getattr_provider_call_count": 0,
+    "instance_dictionary_unchanged": true,
+    "lookup_created_physical_file": false,
+    "provider": "class attribute",
+    "public_file": "_classes.py",
+    "static_file": "_classes.py"
+  },
+  "mro": [
+    "torch._classes._Classes",
+    "builtins.module",
+    "builtins.object"
+  ],
+  "record_hash": "sha256=Kj3ZPXLp8ZRQZwuJ86V7W1rfJFcJ9qSaVRu_rTPENL8",
+  "record_size": 1721,
+  "source_sha256": "2a3dd93d72e9f19450670b89f3a57b5b5adf245709f6a49a551bbfad33c434bf",
+  "source_size": 1721,
+  "static_source_proof": {
+    "ast_parse": "PASS",
+    "class_file_assignment_line": 20,
+    "class_line": 19,
+    "compile": "PASS",
+    "getattr_end_line": 28,
+    "getattr_only_handles_missing_names": true,
+    "getattr_start_line": 25
+  }
+}

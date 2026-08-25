@@ -2,31 +2,34 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-NORMMATCH-V2-TORCH-DYNAMIC-ATTRIBUTE-CLASSIFIER-AND-6M-S0-20260825-24`
-- Assignment: `b0b08faab99afc5581eadafe218de157fa9e749f`
-- Preserved Task23 delivery: `4adfe8eaf5943ba550636bb54c8c34c9814a5598`
+- Task-ID: `PROCGEN-NORMMATCH-V2-TORCH-CLASS-ATTRIBUTE-PSEUDO-ORIGIN-AND-6M-S0-20260825-25`
+- Assignment: `572fdb82b8c2c87d0dabc056ecf08cc937a720fc`
+- Classifier freeze: `4008195e236589b00f0aa5661da3033ba3f38236`
 - Method: `PAPER_MATCHED_HYBRID_HEAD_DETGGN_PAPERNORM_V2`
 - Repository target: `origin/agent-work`
 
 ## Result
 
-The mandatory actual-Python positive classifier contract is false in the exact
-frozen Python `3.9.25` / Torch `2.5.1+cu121` environment.
+The narrow class-attribute classifier passed the actual Python 3.9.25 / Torch
+2.5.1+cu121 object and all mandatory negatives. It proves instance `__file__`
+absence, exact static/class/public `_classes.py`, frozen type/MRO/source/RECORD,
+zero `__getattr__` calls, stable dictionaries, and no physical-file side effect.
+Task16--23 regressions also passed. The Task23 non-reentrant hook remains exact
+SHA `8d9206a6...`.
 
-`"__file__" not in vars(torch.classes)` is true, but
-`inspect.getattr_static(torch.classes, "__file__", sentinel)` returns
-`"_classes.py"`, not the sentinel. Installed `torch/_classes.py` line 20
-declares `_Classes.__file__ = "_classes.py"` as a class attribute. Therefore
-public `getattr` obtains a static class attribute; `_Classes.__getattr__` does
-not provide this value.
+The one closure job `19271782` then failed `FAILED/1:0` after 19 seconds on
+node820. Both bundle extractions passed and the first process constructed the
+exact 938,979-parameter CUDA model, but frozen scientific preflight line 343
+requires a one-line literal source substring. The immutable trainer contains
+the identical call split over lines 557--558. This is a frozen-preflight
+source-text/linewrap mismatch, not classifier or scientific evidence.
 
-Task24 requires the opposite static-sentinel and dynamic-provider conclusions
-and forbids weakening them. The required local actual-environment gate cannot
-pass faithfully, so no classifier code was changed and no closure job, formal
-audit, preflight, science, root, stage comparison, cancellation, or monitor
-exists. Task23's hook and all scientific identities/evidence remain unchanged.
+Task25 forbids modifying the frozen preflight/trainer and forbids repair/retry
+after closure failure. No normalized closure, formal audit, real-network
+environment preflight, scientific job/root, stage comparison, cancellation, or
+monitor exists.
 
 Report:
-`.agent/reports/PROCGEN-NORMMATCH-V2-TORCH-DYNAMIC-ATTRIBUTE-CLASSIFIER-AND-6M-S0-20260825-24.md`.
+`.agent/reports/PROCGEN-NORMMATCH-V2-TORCH-CLASS-ATTRIBUTE-PSEUDO-ORIGIN-AND-6M-S0-20260825-25.md`.
 
 PRECHECK_BLOCKED
