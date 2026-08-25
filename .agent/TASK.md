@@ -1,155 +1,128 @@
 Status: READY
 
-# Task-ID: PROCGEN-NORMMATCH-V2-MP-MAIN-EXACT-ALIAS-AND-6M-S0-20260825-29
+# TASK.md
+
+Task-ID: `PROCGEN-NORMMATCH-V2-MP-MAIN-NATURAL-STATE-READONLY-20260825-30`
 
 ## 唯一目标
 
-仅证明并规范化冻结Python 3.9 multiprocessing中的`__mp_main__`执行别名，使其引用已批准的exact `__main__` backing module/file identity，而不是被误判为manifest外的新bundle模块。
+在不改变任何接受策略、manifest、冻结探针或科学代码的前提下，只读证明自然 Python 3.9 multiprocessing 启动过程中 `__main__` 与 `__mp_main__` 的实际来源、状态转换和 backing-source 关系，为下一轮决定能否建立严格的非对象同一性分类器提供充分证据。
 
-不得重做Task 28R、扩展bundle manifest、建立通用allowlist或改变NormMatch V2。
+本任务不得假设或要求 `sys.modules["__main__"] is sys.modules["__mp_main__"]`；Task29 已在自然时序中反驳该关系。
 
-## 证据判断
+## 范围
 
-Task 28R exact-probe storage-alias修正已经PASS。唯一新失败是：
+仅限 NormMatch V2 当前冻结执行链中的 multiprocessing 模块语义取证。
 
-```text
-bundle module absent from manifest or hash mismatch: __mp_main__
-```
+保持以下内容字节不变：
 
-该异常出现在closure scan，不是trainer、GGN、NormMatch、数值或科学失败。`__mp_main__`通常由multiprocessing spawn为main module建立执行别名，但必须用实际Python 3.9证据证明其对象、source、loader和process-start关系，不能只按名称放行。
+- NormMatch V2 trainer、config、regression、monitor。
+- Hermetic bundle、manifest、科学与 preflight launcher。
+- Task23 non-reentrant hook。
+- Task25 Torch pseudo-origin classifier。
+- Task27 runtime semantic binding。
+- Task28R exact frozen-probe alias validator。
+- 所有既有报告、失败账本和实验根目录。
 
-## 第一阶段：只读实际alias证明
+不得修改 origin acceptance、bundle manifest 或 `sys.modules`。
 
-在实际Python 3.9.25 multiprocessing child中记录：
+## 允许动作
 
-- `sys.modules["__main__"]`和`sys.modules["__mp_main__"]`；
-- 二者的Python object identity；
-- module name、`__file__`、`__spec__`、loader、package和origin；
-- module dictionary的逐字段差异；
-- backing file raw/resolved path、samefile、device/inode、UID/GID、mode、size及SHA；
-- 创建alias的stdlib multiprocessing函数、调用栈、source path及SHA；
-- process start method；
-- backing module究竟是Task 28R exact frozen probe还是bundle中的exact main module。
+1. 实现一个纯观察、无训练、无接受决策的取证 harness。
+2. 在至少三个独立 clean process 中复现自然启动时序。
+3. 在以下里程碑采集快照：
 
-若不能证明严格alias关系，直接`PRECHECK_BLOCKED`，不得实施放行。
+   - child-process entry；
+   - closure probe 开始；
+   - trainer import 前后；
+   - production model construction 后；
+   - origin scan 前。
 
-## 唯一允许的代码修改
+4. 每个快照记录：
 
-证据通过后新增窄类别：
+   - `__main__`、`__mp_main__` 是否存在；
+   - 两者的对象 ID 与对象同一性；
+   - module type、MRO、`__name__`、`__file__`、`__spec__`、loader、package、origin；
+   - module dictionary 的对象 ID、键集合和规范化内容差异；
+   - backing file 的 raw/resolved 路径、`lstat/stat`、device/inode、UID/GID、mode、size、fd identity 与 SHA256；
+   - 顶层 code object 的 filename、name、firstlineno 和可稳定摘要；
+   - backing source 是否严格对应 Task28R frozen probe、bundle 中已列明文件或其他来源。
 
-```text
-APPROVED_CPYTHON39_MULTIPROCESSING_MAIN_ALIAS
-```
+5. 将观察到的状态转换逐项映射到冻结 CPython 文件及行号：
 
-批准条件：
+   - `multiprocessing/__init__.py` SHA `a5a42976033c7d63ee2740acceef949a3582dcb0e0442845f9717e1be771c68b`；
+   - `multiprocessing/spawn.py` SHA `16ce6d81f8b5ef7228e5500bff04b37bdceb3d7dfc8d6de3ad523598798c43f4`；
+   - `spawn_main -> _main -> prepare -> _fixup_main_from_path`。
 
-1. Key严格为`__mp_main__`。
-2. Alias由冻结Python 3.9 multiprocessing start语义创建。
-3. `__mp_main__`与`__main__`满足实际证据确定的exact object关系。
-4. Backing file已被以下之一精确批准：
+6. 设置无 observer 的对照进程，证明 observer：
 
-   - Task 28R frozen closure probe；或
-   - bundle manifest中的exact main module。
+   - 不提前导入 `multiprocessing`；
+   - 不创建、替换或重绑定 `__main__`/`__mp_main__`；
+   - 不改变 module cardinality、import order、RNG、resolved config、模型参数或 Task27 telemetry；
+   - 不触发额外文件加载或 origin-scan 差异。
 
-5. Alias与backing module共享相同source identity：
+## 必需证据
 
-   - raw/resolved samefile；
-   - device/inode一致；
-   - regular nonsymlink file；
-   - loader/spec/importer符合实际CPython语义；
-   - size和SHA完全一致。
+- 至少三个独立自然时序复现及一个无 observer 对照。
+- 每个里程碑的完整规范化快照和 SHA256。
+- `__main__` 与 `__mp_main__` 的逐字段差异表。
+- backing-file/source/code-object 等价性或非等价性的精确证明。
+- CPython 状态转换与冻结源码行号的对应表。
+- observer 非扰动证明。
+- Task29 两次失败继续保留：
 
-6. Alias不得引入新文件、新代码、不同origin或不同inode。
-7. Module dictionary只能包含实际CPython multiprocessing明确造成的差异；逐字段记录。
-8. Generic bundle scan应引用backing approved entry，而不是要求manifest新增名为`__mp_main__`的文件。
-9. Formal science进程不得因此批准手工或无关的`__mp_main__`。
+  - premature-import observer：`infrastructure-failure/proof-observer-import-timing`；
+  - natural non-alias：`precheck-failure/task29-natural-mp-main-not-exact-main-object-alias`。
 
-不得按名称、basename、相同SHA、multiprocessing已导入或整个Python版本宽泛放行。
-
-## 必需负向测试
-
-必须拒绝：
-
-- 手工注入`__mp_main__`；
-- 不同object或不符合实际alias语义；
-- backing file未批准；
-- 不同inode、SHA、origin、loader、spec或importer；
-- 非multiprocessing child或错误start method；
-- module dictionary异常变化；
-- `__main__`/`__mp_main__`被替换；
-- 任意trainer/bundle外文件伪装；
-- Python或stdlib multiprocessing source identity不匹配。
-
-Task 16–28R全部回归必须继续通过，Task 28R validator不得修改。
-
-## 证据持久化
-
-Task 28R probe ledger和本任务alias ledger必须在后续module scan前原子写入。即使下游失败，也必须保留：
-
-- module object关系；
-- backing approved entry；
-- raw/resolved/fd identity；
-- loader/spec/importer/start-method；
-- stdlib alias provenance；
-- pre/post SHA。
-
-这只改善审计可追溯性，不得改变其他origin acceptance。
-
-## 有界执行
-
-1. 完成实际alias只读证明。
-2. 证明失败即`PRECHECK_BLOCKED`。
-3. 证明通过后，仅提交exact alias classifier、原子ledger和负向测试。
-4. Python 3.9环境通过后，只执行一次closure job。
-5. 两个独立clean process必须产生一致closure；失败即`PRECHECK_BLOCKED`，不得修补或重试。
-6. Closure通过后立即执行既定必要formal audit，不得新增audit层。
-7. Formal audit或任一四环境preflight失败即`PRECHECK_BLOCKED`。
-8. 全部通过后，以全新非覆盖root运行四环境seed 0，每格intended horizon 6M、终点`5,980,160`、最多一次科学提交。
-9. Executor独立负责全部资源和placement决定。
-
-## 科学要求
-
-保留Task 27冻结遥测：
-
-- det/Paper/target norm：`.6050832272/.9192549586/.9192548990`
-- scale：`1.519220710`
-- cosine：`.8612535000`
-- residual：`8.627e-16`
-- Cholesky `info=0`
-
-科学运行继续记录proposal norm/cosine、value prediction、value/advantage/PopArt及solver telemetry。解释必须保持：deterministic Gaussian GGN可以理论正确；NormMatch检验其与Paper finite-sample damped update的scale alignment。
-
-## 严格早停
-
-仅比较Original Paper RAT同环境、seed 0、同evaluation semantics及同transition：
-
-- 首个共同点`>=2,000,000`
-- 首个共同点`>=4,000,000`
-- 终点`5,980,160`
-
-仅当`Target/Paper < 0.60`时取消对应cell。不得使用Paper终点比较中间Target。
+- 冻结科学哈希、Task27 telemetry 与历史失败账本未改变的证明。
 
 ## 验收标准
 
-唯一结论：
+仅允许以下一个终局结论：
 
-- `CANDIDATE_PROMOTE_TO_3SEED`
-- `CANDIDATE_REJECT`
-- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`
-- `PRECHECK_BLOCKED`
+- `NATURAL_MP_MAIN_RELATIONSHIP_PROVEN`：独立复现一致，observer 非扰动，并精确证明自然 `__mp_main__` 的创建来源、backing source、状态转换以及它与 `__main__` 的非对象同一关系；
+- `NO_SAFE_ALIAS_RELATION`：证据显示不存在足够严格、稳定且不可伪造的来源关系；
+- `OBSERVER_PERTURBED`：无法证明观察器不改变自然状态；
+- `INSUFFICIENT_EVIDENCE`：所需字段或复现完整性不足。
 
-Promotion要求至少3/4环境达到终点且终点ratio均不低于0.60；rejection要求至少2个环境严格早停或完整终点证据明确否定候选。
+本任务即使得到 `NATURAL_MP_MAIN_RELATIONSHIP_PROVEN`，也不得直接批准该模块；分类器设计由下一轮 Planner 决定。
 
 ## 禁止事项
 
-不得修改算法、trainer、config、preflight、bundle/manifest、launchers、monitor或Task 28R；不得建立通用alias/control manifest；不得引入第二候选、覆盖旧root、重跑Paper、retry科学cell、使用Jupyter、访问`.54`/`ws4090-31`/`10.49.7.54`、指定资源或触碰无关任务。历史失败必须全部保留。
+- 不得创建或修改 `__mp_main__` classifier、allowlist、manifest 或 origin policy。
+- 不得按模块名 `__mp_main__`、文件名或目录进行宽泛放行。
+- 不得重新要求或声称 `__main__ is __mp_main__`。
+- 不得修改冻结科学代码、算法、bundle、launcher、monitor 或 Task28R 修复。
+- 不得启动 formal audit、四环境 preflight 或科学训练。
+- 不得创建实验根、checkpoint、模型或科学 monitor。
+- 不得重试既有任务、覆盖旧根或删除失败记录。
+- 不得使用 Jupyter。
+- 不得访问 `.54`、`ws4090-31` 或 `10.49.7.54`。
+- 不得规划 MuJoCo 或 Isaac。
+- Planner 不指定主机、GPU、partition、卡数、并发或队列位置；所有实时资源判断归 Executor。
 
-## 报告与推送
+## 报告字段
 
-更新：
+Executor 必须报告：
 
-- `.agent/STATE.md`
-- `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-NORMMATCH-V2-MP-MAIN-EXACT-ALIAS-AND-6M-S0-20260825-29.md`
+- Task-ID 与唯一终局结论；
+- assignment、implementation/evidence/delivery commits；
+- origin/agent-work 推送验证；
+- 所有冻结文件 SHA256；
+- 各独立进程和对照的启动方式与非扰动证明；
+- 每个里程碑的模块状态表；
+- backing-file、fd、源码和 code-object 身份表；
+- CPython 源码状态转换映射；
+- 复现一致性及所有矛盾；
+- scheduler/process/artifact/error 的终态扫描；
+- 明确声明没有 classifier、policy、manifest、preflight、science、root、checkpoint 或 monitor；
+- 完整保留的失败与取消账本；
+- 下一轮若要设计严格分类器，仍缺少的精确证据。
 
-提交alias证明、classifier、负向测试、atomic ledger及model-free证据，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、commit身份、CPython alias provenance、module/file identity ledger、closure/formal audit/preflight结果、四环境科学终态、严格阶段比率、proposal norm/cosine及failure-ledger增量。
+## 提交、推送与回调
+
+- 更新 `.agent/STATE.md` 和 `.agent/AGENT_REPORT.md`。
+- 写入 `.agent/reports/PROCGEN-NORMMATCH-V2-MP-MAIN-NATURAL-STATE-READONLY-20260825-30.md`。
+- 提交全部只读证据与报告，不提交模型或 checkpoint。
+- 推送到 `origin/agent-work`，并验证远端 HEAD。
+- 回调 Planner 时提供唯一终局结论、Delivery HEAD、evidence commit、报告路径及关键状态转换证据。
