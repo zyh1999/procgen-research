@@ -1,96 +1,103 @@
 Status: READY
 
-# Task-ID: PROCGEN-NORMMATCH-V2-TORCH-PSEUDO-ORIGIN-AND-NONREENTRANT-CLOSURE-20260825-23
+# Task-ID: PROCGEN-NORMMATCH-V2-TORCH-DYNAMIC-ATTRIBUTE-CLASSIFIER-AND-6M-S0-20260825-24
 
 ## 唯一目标
 
-仅完成两项audit修正：
-
-1. 将`torch.classes.__file__ == "_classes.py"`严格识别为installed PyTorch定义的synthetic module metadata，而非物理文件origin。
-2. 将closure provenance hook改为非递归实现，同时保留所有一级filesystem/import事件。
-
-不得改变NormMatch V2、bundle、launchers或任何科学身份。
+仅修正`torch.classes` synthetic pseudo-origin classifier，使其正确区分module实例字典中不存在的`__file__`与`torch._classes._Classes.__getattr__`动态提供的公开`"_classes.py"`属性。不得改变NormMatch V2、bundle、audit hook或任何科学身份。
 
 ## 证据判断
 
-Task 22已经证明：
+Task 23真实Python 3.9正向对象满足：
 
-- `torch.classes`类型严格为`torch._classes._Classes`；
-- `__file__`为相对伪字符串`"_classes.py"`；
-- spec、loader、package和origin均为`None`；
-- designated目录始终为空；
-- 没有物理`_classes.py`；
-- frozen Torch源码明确赋值该伪字符串。
+- module key/name：`torch.classes`
+- type：`torch._classes._Classes`
+- `module.__dict__.get("__file__") is None`
+- spec、loader、package、origin均为`None`
 
-因此这是synthetic metadata，不应解析为cwd文件。
+但classifier错误地要求实例字典直接包含`"_classes.py"`。实际公开属性由`_Classes.__getattr__`动态返回。该失败属于`precheck-failure/pseudo-origin-positive-classifier-dict-vs-synthetic-attribute`，没有算法、数值、GPU或科学证据。
 
-完整closure失败则是audit hook调用`traceback.extract_stack`，后者通过`linecache/tokenize`触发新的`open`事件并递归重入。这属于`infrastructure-failure/closure-provenance-audit-hook-recursion`，没有科学证据。
+## 冻结身份
+
+Trainer、config、preflight、regression、monitor、bundle/manifest、science/preflight launchers、Task 18 provenance、Task 21 file identity及Task 23 non-reentrant hook必须全部字节不变。
+
+固定Torch证据继续为：
+
+- Torch：`2.5.1+cu121`
+- Installed `torch/_classes.py`
+- SHA256：`2a3dd93d72e9f19450670b89f3a57b5b5adf245709f6a49a551bbfad33c434bf`
+- Size：`1721`
+- RECORD：`sha256=Kj3ZPXLp8ZRQZwuJ86V7W1rfJFcJ9qSaVRu_rTPENL8`
 
 ## 唯一允许的修改
 
-### Synthetic metadata类别
+仅修改pseudo-origin positive classifier：
 
-新增：
+1. 使用`vars(module)`或`module.__dict__`证明实例字典不含物理`__file__`：
 
-```text
-APPROVED_INSTALLED_DISTRIBUTION_PSEUDO_ORIGIN
+```python
+"__file__" not in vars(module)
 ```
 
-仅当全部满足时批准`torch.classes`：
+2. 使用不会触发动态fallback的static inspection证明没有静态实例origin，例如：
 
-- `sys.modules`键严格为`torch.classes`；
-- 类型严格为`torch._classes._Classes`；
-- `__file__`严格为相对字符串`"_classes.py"`；
-- `__spec__`、loader、package和origin均为`None`；
-- designated目录及批准源码root不存在对应物理文件；
-- installed Torch版本严格为`2.5.1+cu121`；
-- `torch/_classes.py` SHA256为
-  `2a3dd93d72e9f19450670b89f3a57b5b5adf245709f6a49a551bbfad33c434bf`；
-- size为`1721`，RECORD为
-  `sha256=Kj3ZPXLp8ZRQZwuJ86V7W1rfJFcJ9qSaVRu_rTPENL8`；
-- 源码中`_Classes`定义及`__file__`赋值被静态定位；
-- module对象和属性在审计期间未被替换。
+```python
+inspect.getattr_static(module, "__file__", sentinel) is sentinel
+```
 
-不得推广至其他相对`__file__`、无spec对象或Torch namespace模块。
+3. 单独调用公开属性协议：
 
-### Non-reentrant hook
+```python
+public_file = getattr(module, "__file__")
+```
 
-Audit callback内部禁止：
+并要求其严格等于相对伪字符串`"_classes.py"`。
 
-- `traceback`、`inspect.stack`、`linecache`、`tokenize`；
-- 源码读取；
-- import；
-- 可能触发audit event的复杂`repr`或序列化。
+4. 证明该返回值来自精确类型`torch._classes._Classes.__getattr__`：
 
-允许使用预先导入对象、thread-local reentrancy guard和`sys._getframe()`，但只能记录`co_filename`、`co_name`、line、PID/TID、事件名及安全标量。符号解析和序列化必须在hook外完成。
+   - 类型及方法identity匹配installed Torch；
+   - 方法源码路径、SHA和RECORD匹配冻结证据；
+   - 静态定位其`__file__`返回语义；
+   - 调用前后module字典、类型及关键属性未被修改。
 
-一级事件必须完整保留。重入事件必须计数；不得静默丢弃与文件创建、写入、rename、删除或import相关的事件。正常复现中reentrant计数应为零，否则必须判定是否影响closure完整性。
+5. `__spec__`、loader、package、origin仍必须为`None`。
+6. designated目录及批准源码root不得存在物理`_classes.py`。
+7. Ledger必须分别记录：
+
+   - `dict_file`
+   - `static_file`
+   - `public_dynamic_file`
+   - dynamic provider type/method及源码hash
+
+8. 禁止把动态`getattr`结果当作普通文件路径进行resolve/stat。
+
+不得对其他模块、类型、相对字符串或任意`__getattr__`对象推广该规则。
 
 ## 必需负向测试
 
 必须拒绝：
 
-- 相同伪文件字符串但module key或类型不同；
-- spec/loader/package/origin任一非预期；
-- 存在真实`_classes.py`；
-- Torch版本、源码、RECORD或赋值位置不匹配；
-- module对象或属性被替换；
-- hook内诱发递归；
-- 丢失一级filesystem事件；
-- 未登记物理generated artifact或bundle外repository origin。
+- 实例字典实际包含`__file__`；
+- static attribute存在；
+- public dynamic值不是精确`"_classes.py"`；
+- dynamic provider不是冻结`_Classes.__getattr__`；
+- monkeypatch type、method或module；
+- spec/loader/package/origin非预期；
+- designated目录存在物理`_classes.py`；
+- Torch版本、source SHA、size或RECORD不匹配。
 
-Task 16–22全部回归必须继续通过，并使用实际Python 3.9环境。
+必须使用实际Python 3.9/PyTorch环境运行真实`torch.classes`正向测试，并保留Task 16–23全部回归。
 
 ## 有界执行
 
-1. 仅提交pseudo-origin分类、non-reentrant hook及测试。
-2. 在两个独立clean process中完成trainer import和production model construction。
-3. 两次规范化closure必须一致，所有physical artifacts和synthetic origins逐项批准；否则`PRECHECK_BLOCKED`。
-4. Closure通过后仅执行一次formal clean-room audit。
-5. Formal audit失败即`PRECHECK_BLOCKED`，不得修补或重试。
-6. Audit通过后，对四环境各执行一次真实网络preflight。
-7. 任一preflight失败即`PRECHECK_BLOCKED`，不得启动科学cell。
-8. 全部通过后，以全新非覆盖root运行四环境seed 0；每格intended horizon 6M、终点`5,980,160`、最多一次提交。
+1. 仅提交classifier修正及测试。
+2. 本地实际环境通过后，只执行一次closure provenance job。
+3. 在两个独立clean process中完成trainer import和production model construction；规范化closure必须一致。
+4. Closure失败即`PRECHECK_BLOCKED`，不得修补或重试。
+5. Closure通过后只执行一次formal clean-room audit。
+6. Formal audit失败即`PRECHECK_BLOCKED`。
+7. Audit通过后，对四环境各执行一次真实网络preflight；任一失败即`PRECHECK_BLOCKED`且不得启动科学cell。
+8. 全部通过后，以全新非覆盖root运行四环境seed 0，每格intended horizon 6M、终点`5,980,160`、最多一次提交。
 9. Executor独立负责全部实时资源及placement。
 
 ## 严格早停
@@ -116,7 +123,7 @@ Promotion要求至少3/4环境达到终点且终点ratio均不低于0.60；rejec
 
 ## 禁止事项
 
-不得修改算法、bundle、科学文件、launchers、monitor或既有provenance；不得建立文件名、相对路径或Torch namespace白名单；不得引入第二候选、覆盖旧root、重跑Paper、retry科学cell、使用Jupyter、访问`.54`/`ws4090-31`/`10.49.7.54`、指定资源或触碰无关任务。历史失败必须全部保留。
+不得修改算法、bundle、科学文件、launchers、monitor、non-reentrant hook或既有provenance；不得建立模块名、相对路径、动态属性或Torch namespace白名单；不得引入第二候选、覆盖旧root、重跑Paper、retry科学cell、使用Jupyter、访问`.54`/`ws4090-31`/`10.49.7.54`、指定资源或触碰无关任务。全部历史失败必须保留。
 
 ## 报告与推送
 
@@ -124,6 +131,6 @@ Promotion要求至少3/4环境达到终点且终点ratio均不低于0.60；rejec
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-NORMMATCH-V2-TORCH-PSEUDO-ORIGIN-AND-NONREENTRANT-CLOSURE-20260825-23.md`
+- `.agent/reports/PROCGEN-NORMMATCH-V2-TORCH-DYNAMIC-ATTRIBUTE-CLASSIFIER-AND-6M-S0-20260825-24.md`
 
-提交分类修正、hook修正、Python 3.9回归、closure证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、commit身份、pseudo-origin proof、hook/reentrancy ledger、完整closure、formal audit/preflight/科学终态、严格阶段比率及failure-ledger增量。
+提交classifier修正、Python 3.9回归、closure证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、commit身份、dynamic-attribute ledger、完整closure、formal audit/preflight/科学终态、严格阶段比率及failure-ledger增量。
