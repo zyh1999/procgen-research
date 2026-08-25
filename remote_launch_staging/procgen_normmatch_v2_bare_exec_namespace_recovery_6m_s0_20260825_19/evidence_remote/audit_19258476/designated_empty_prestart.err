@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_bare_exec_namespace_recovery_6m_s0_20260825_19/tools/prepare_designated_empty_task19.py", line 11, in <module>
+    namespace, policy_ledger = support_namespace["load_explicit_policy"](
+  File "/scratch/h99859yz/procgen_normmatch_v2_bare_exec_namespace_recovery_6m_s0_20260825_19/tools/policy_namespace_support.py", line 64, in load_explicit_policy
+    policy_path, ledger = resolve_explicit_policy(designated_empty)
+  File "/scratch/h99859yz/procgen_normmatch_v2_bare_exec_namespace_recovery_6m_s0_20260825_19/tools/policy_namespace_support.py", line 34, in resolve_explicit_policy
+    raise RuntimeError("origin-policy path must already be canonical")
+RuntimeError: origin-policy path must already be canonical

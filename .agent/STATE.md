@@ -1,6 +1,34 @@
 # Current Project State
 
-Updated: 2026-08-25T09:40:04+08:00
+Updated: 2026-08-25T10:01:06+08:00
+
+## Current NormMatch V2 bare-exec namespace recovery
+
+- Task `PROCGEN-NORMMATCH-V2-BARE-EXEC-NAMESPACE-RECOVERY-AND-6M-S0-20260825-19`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no real-network
+  preflight or scientific cell was submitted.
+- Audit-only freeze `bec45a4a15d3c25d648000727842b4e953899c70` preserves the
+  Task18 origin policy SHA `889b914a...`, strict Torch generator provenance,
+  bundle, scientific files, deployment launchers and monitor byte-identically.
+  Local explicit-path positive/negative tests, ordinary/bare execution
+  equivalence, Task16/17 regressions, exact-environment Task18 Torch regression,
+  and every frozen identity check passed.
+- Exactly one clean-room audit, gpuH job `19258476`, ran on node820 and ended
+  `FAILED/1:0` after three seconds. Immutable bundle verification passed.
+- Prestart then rejected the explicit ordinary `/scratch/.../origin_safety.py`
+  path because `Path.resolve()` returned the same file through its canonical
+  `/net/scratch/...` mount spelling. Raw and resolved paths share regular-file
+  mode `0644`, UID `778916`, device, inode, size and exact SHA `889b914a...`,
+  but the audit-only raw-string-equals-canonical-string assertion failed.
+- The origin-policy path ledger, designated-empty record and audited
+  interpreter were not reached. This is immutable
+  `infrastructure-failure/clean-room-prestart-path-canonicalization`, not
+  algorithm, numerical, solver, H200, memory, reward or training evidence.
+- Task19 forbids repair/retry after the one audit. Task15 preflight,
+  accepted-preflight and run directories remain empty; no stage comparison or
+  monitor exists. Task14--18 failures remain immutable, with no retry,
+  requeue, resubmit, Jupyter, quarantine access, Paper rerun, sweep, overwrite,
+  second candidate or unrelated mutation.
 
 ## Current NormMatch V2 Torch-generated-origin audit
 
