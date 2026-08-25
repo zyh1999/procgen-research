@@ -1,0 +1,46 @@
+algo: adv
+
+algo_config:
+  ent_coef: 0.00
+  norm_obj: adv # options: adv, obj
+  optimizer: sgd
+  lr: 0.5
+  use_kl_adaptive_lr: True
+  epochs: 4
+  minibatches: 8
+  vf_coef: 1.0
+  with_popart: True
+  adv_type: gae
+  clamp_ratio: True
+  max_ratio: 10.0
+  min_ratio: 0.1
+  sigma_type: 'vector' # mu_shared, separate, linear
+  cg_damping: 0.5
+  max_grad_norm: 0.5
+  fp64_gram_chunk_cols: 32768
+  dual_jacobi_eps: 1.0e-18
+  cvlm_alpha_init: 1.0
+  cvlm_alpha_min: 9.5367431640625e-7
+  cvlm_alpha_max: 1048576.0
+  cvlm_max_trials: 4
+  cvlm_accept_lower: 0.25
+  cvlm_accept_upper: 0.75
+
+env_config:
+  env_name: dodgeball-easy-0-10
+  num_envs: 16
+  nsteps: 256
+  norm_ret: False
+  timesteps_per_proc_easy: 6_000_000 # Paper Figure 4 Procgen budget
+  timesteps_per_proc_hard: 100_000_000
+
+nets_config:
+  type: resnet
+  norm_obs: False
+  with_bn: False
+  dropout: 0.0
+  hidden_size: 256
+
+log_config:
+  log_interval: 10
+  n_eval_trials: 20
