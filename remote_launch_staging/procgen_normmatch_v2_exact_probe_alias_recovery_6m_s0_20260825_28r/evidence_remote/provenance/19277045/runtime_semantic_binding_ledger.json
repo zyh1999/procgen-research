@@ -1,0 +1,114 @@
+{
+  "actual_det_is_expected_det": true,
+  "actual_paper_is_expected_paper": true,
+  "call_count": 1,
+  "direct_object_capture_no_name_lookup": true,
+  "inputs_unchanged": true,
+  "mapping_immutable": true,
+  "norm_match_return": true,
+  "preflight_dataflow": {
+    "boundary_args": [
+      "det_proposal",
+      "paper_head_proposal"
+    ],
+    "counterfactual_paper_formula": "-torch.cat(paper_full[head_names])",
+    "deterministic_formula": "chunked_transpose_mv_fp64(weighted_rows, head_solution[0], obs.shape[0], 257)",
+    "records": {
+      "deterministic_proposal": {
+        "normalized_ast_sha256": "3974e17ef4a3584c13e25e8c0da806b4d8a674bb184e5eeb690f629c50af3448",
+        "span": [
+          435,
+          0,
+          437,
+          1
+        ]
+      },
+      "fp64_solve": {
+        "normalized_ast_sha256": "64441c52148b3e52b961cfc4a703b12d68dc0e6d2a96dbb8c97b62a87ea2bf4a",
+        "span": [
+          432,
+          0,
+          434,
+          1
+        ]
+      },
+      "normmatch_call": {
+        "normalized_ast_sha256": "bdb346f3839f6efc48c13042d10ad033317f9e9ed1d71802d97c6a09a0971318",
+        "span": [
+          442,
+          0,
+          442,
+          76
+        ]
+      },
+      "paper_proposal": {
+        "normalized_ast_sha256": "35f8cbb272cfc448f1e03e1d72e44f0854085a846f03c6f7adf6670bb6b0f4f0",
+        "span": [
+          438,
+          0,
+          440,
+          2
+        ]
+      }
+    },
+    "result": "TASK27_PREFLIGHT_DATAFLOW_PASS",
+    "solver": "solve_head_critic_b_fp64(weighted_rows, head_rhs, obs.shape[0], 0.5, 257, 1e-18)",
+    "source_sha256": "b3dd8b496c478c2289091fb1147b0b0f9256d2fcea669770caa67fded4696afc"
+  },
+  "result": "TASK27_RUNTIME_SEMANTIC_BINDING_PASS",
+  "science_spy_or_hook_residue": false,
+  "semantic_mapping": {
+    "counterfactual_paper_head_proposal": {
+      "preflight_semantic_role": "paper_head_proposal",
+      "tensor": {
+        "data_pointer": 23406190699520,
+        "device": "cuda:0",
+        "dtype": "torch.float32",
+        "finite": true,
+        "object_identity": "0x154c13ffc9f0",
+        "requires_grad": false,
+        "shape": [
+          257
+        ],
+        "storage_data_pointer": 23406190699520,
+        "storage_offset": 0,
+        "stride": [
+          1
+        ],
+        "value_l2": 0.9192549586296082,
+        "value_numel": 257,
+        "value_sha256": "3b410f7f2b183340db9e7fa0ccc15fac83587ff79a55dbe53f6c2695bd5edc88",
+        "value_sum": 7.302457809448242,
+        "version_counter": 0
+      },
+      "trainer_ast_name": "paper_head_proposal"
+    },
+    "deterministic_head_proposal": {
+      "preflight_semantic_role": "det_proposal",
+      "tensor": {
+        "data_pointer": 23406348802560,
+        "device": "cuda:0",
+        "dtype": "torch.float32",
+        "finite": true,
+        "object_identity": "0x154c3735fc70",
+        "requires_grad": false,
+        "shape": [
+          257
+        ],
+        "storage_data_pointer": 23406348802560,
+        "storage_offset": 0,
+        "stride": [
+          1
+        ],
+        "value_l2": 0.6050832271575928,
+        "value_numel": 257,
+        "value_sha256": "1565ee7056b0472444e10b253c93c9205c6b87fa6d6e140ba47f894ffda40118",
+        "value_sum": 2.5871164798736572,
+        "version_counter": 0
+      },
+      "trainer_ast_name": "head_direction"
+    }
+  },
+  "trainer_ast_call_sha256": "8ed0b40f59fe3381e8568e318b5ab448d4c04c2a1cc18cfc56c67a91f819fd8f",
+  "wrapped_unwrapped_rng_outputs_parameters_optimizer_telemetry_bit_identical": true
+}

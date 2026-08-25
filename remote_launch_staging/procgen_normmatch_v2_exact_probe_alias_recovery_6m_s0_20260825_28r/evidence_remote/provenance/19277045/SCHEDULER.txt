@@ -1,0 +1,31 @@
+19277045|pg-nm2-t28r-closure|h99859yz|gpu-h200-fse-pgdr|gpuH|FAILED|1:0|00:00:22|node821|25/08/26 06:11|25/08/26 06:12|billing=9,cpu=8,energy=97903,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+JobId=19277045 JobName=pg-nm2-t28r-closure
+   UserId=h99859yz(778916) GroupId=fatpou01(10049) MCS_label=N/A
+   Priority=5631 Nice=0 Account=gpu-h200-fse-pgdr QOS=gpu-h200-fse
+   JobState=FAILED Reason=NonZeroExitCode Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=1:0
+   RunTime=00:00:22 TimeLimit=00:25:00 TimeMin=N/A
+   SubmitTime=25/08/26 06:11 EligibleTime=25/08/26 06:11
+   AccrueTime=25/08/26 06:11
+   StartTime=25/08/26 06:11 EndTime=25/08/26 06:12 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=25/08/26 06:11 Scheduler=Main
+   Partition=gpuH AllocNode:Sid=login1:2709070
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=node821
+   BatchHost=node821
+   NumNodes=1 NumCPUs=8 NumTasks=1 CPUs/Task=8 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=8,mem=120G,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+   AllocTRES=cpu=8,mem=120G,energy=97903,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=8 MinMemoryNode=120G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/scratch/h99859yz/procgen_normmatch_v2_exact_probe_alias_recovery_6m_s0_20260825_28r/closure_provenance_task28r_gpuh.sbatch
+   SubmitLine=sbatch --parsable /scratch/h99859yz/procgen_normmatch_v2_exact_probe_alias_recovery_6m_s0_20260825_28r/closure_provenance_task28r_gpuh.sbatch
+   WorkDir=/mnt/iusers01/fatpou01/compsci01/h99859yz
+   StdErr=/scratch/h99859yz/procgen_normmatch_v2_exact_probe_alias_recovery_6m_s0_20260825_28r/scheduler/pg-nm2-t28r-closure_19277045.err
+   StdIn=/dev/null
+   StdOut=/scratch/h99859yz/procgen_normmatch_v2_exact_probe_alias_recovery_6m_s0_20260825_28r/scheduler/pg-nm2-t28r-closure_19277045.out
+   TresPerNode=gres/gpu:h200:1
+   TresPerTask=cpu=8
+

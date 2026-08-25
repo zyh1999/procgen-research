@@ -1,6 +1,41 @@
 # Current Project State
 
-Updated: 2026-08-25T13:55:00+08:00
+Updated: 2026-08-25T14:20:00+08:00
+
+## Current Task28R exact closure-probe alias precheck
+
+- Task `PROCGEN-NORMMATCH-V2-EXACT-PROBE-ALIAS-RECOVERY-AND-6M-S0-20260825-28R`
+  terminates with unique conclusion `PRECHECK_BLOCKED`.
+- Assignment/origin is `0d913f8d82611fa1ee659f0071994e4a18a2d0de`;
+  pushed exact-validator freeze is
+  `9174b00ab74d317c28897348b0c6c74020dcae3d`.
+- The sole new origin category is
+  `APPROVED_EXACT_FROZEN_CLOSURE_PROBE_ALIAS`. It is bound to frozen commit
+  `baab71b...`, repository path
+  `.../runtime_closure_probe_task23.py`, Git blob `e4c63952...`, SHA256
+  `c3529cb1...`, size 4,558, and exact CSF3 device/inode
+  `3592384858/144122242274496637`. Validator SHA is `96da9c8e...`.
+- Local and actual Python 3.9.25 tests passed all required exact-file,
+  samefile, fd, SHA/blob, replacement, loader/spec/package, different-inode,
+  symlink, other-file, science-leak, and arbitrary-origin gates. Frozen
+  Task25/Task23 regressions passed. Trainer/config/Task27 preflight and
+  identity ledger/bundle/launchers/monitor/hook/classifier/AST helper/probe
+  remained byte-identical.
+- The one closure job `19277045` ran on gpuH node821 and ended `FAILED/1:0`
+  after `00:00:22`. Both bundle checks, exact production CUDA preflight,
+  Task27 semantic binding, structural/connectivity evidence and solver
+  telemetry passed. The prior exact-probe `/net/scratch` rejection did not
+  recur, so the new exact category was reached successfully.
+- The unchanged downstream audit then classified Python multiprocessing alias
+  `__mp_main__` as `verified_bundle` but could not map it to a manifest file:
+  `RuntimeError: bundle module absent from manifest or hash mismatch:
+  __mp_main__`. Failure ledger:
+  `precheck-failure/task28r-frozen-mp-main-bundle-manifest-alias`.
+- The downstream exception occurred before the exact-probe session could emit
+  its post-scan JSON ledger or the first reproduction JSON. Task28R makes the
+  closure failure terminal. No retry/repair, second clean process, normalized
+  closure, formal audit, environment preflight, accepted preflight, science,
+  root, transition, checkpoint, comparison, cancellation, or monitor exists.
 
 ## Current Task27 runtime semantic-binding precheck
 
