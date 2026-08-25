@@ -1,0 +1,8 @@
+{
+  "deployment_preflight_launcher_sha256": "374d24881d108bbdd08dee0880b7392a7cc3adf6af177f6eb4deaac15535b228",
+  "deployment_science_launcher_sha256": "ec60864aaa9940fd61eb1391008b50f2f48402eeae8f78c91c0b0c1fc313a398",
+  "normalized_identity": "trainer/config/env/seed/device/budget/scientific variables unchanged",
+  "original_launcher_sha256": "85e12886ce5cf81fd98647aa5163319a50174a39210cbeea1ccfde015aaf9d19",
+  "result": "DEPLOYMENT_LAUNCHER_EQUIVALENCE_PASS",
+  "scientific_command": "CMD=(\"$PY\" -u \"$TRAINER\" --config \"$(basename \"$CONFIG\")\" --env_name \"$ENV_NAME\" --seed 0 --device 0)"
+}
