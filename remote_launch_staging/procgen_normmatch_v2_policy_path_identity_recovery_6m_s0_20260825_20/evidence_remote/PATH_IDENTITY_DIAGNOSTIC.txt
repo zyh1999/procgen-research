@@ -1,0 +1,16 @@
+audit_job=19260683
+remote_python=3.9.25
+remote_pathlib_path_stat_signature=(self)
+failure=TypeError: stat() got an unexpected keyword argument 'follow_symlinks'
+raw_path=/scratch/h99859yz/procgen_normmatch_v2_torch_generated_origin_audit_6m_s0_20260825_18/tools/origin_safety.py
+resolved_path=/net/scratch/h99859yz/procgen_normmatch_v2_torch_generated_origin_audit_6m_s0_20260825_18/tools/origin_safety.py
+type=regular file
+mode=644
+uid=778916
+gid=10049
+device=3592384858
+inode=144122242006038476
+size=13605
+sha256=889b914a792132358f90572d5c4f16b561c60bf0615eb8492c9ecf781f601fc1
+path_identity_ledger=ABSENT_FAILURE_BEFORE_WRITE
+classification=infrastructure-failure/clean-room-prestart-python-api-compatibility

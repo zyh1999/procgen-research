@@ -1,6 +1,33 @@
 # Current Project State
 
-Updated: 2026-08-25T10:01:06+08:00
+Updated: 2026-08-25T10:16:29+08:00
+
+## Current NormMatch V2 policy-path identity recovery
+
+- Task `PROCGEN-NORMMATCH-V2-POLICY-PATH-IDENTITY-RECOVERY-AND-6M-S0-20260825-20`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no real-network
+  preflight or scientific cell was submitted.
+- Audit-only freeze `c9518163c7eef295f3acbd632e4935bd09f9dfdf` preserves the
+  algorithm, scientific files, bundle/manifest, science/preflight launchers,
+  Torch provenance, origin policy and monitor byte-identically. All local
+  storage-alias positives, different-inode/symlink/mismatch/replacement
+  negatives, Task16--19 regressions and frozen identities passed.
+- Exactly one clean-room audit, gpuH job `19260683`, ran on node820 and ended
+  `FAILED/1:0` after four seconds. Immutable bundle verification passed.
+- Prestart then failed because frozen Python `3.9.25` exposes
+  `pathlib.Path.stat(self)` and rejected the local-Python-supported
+  `follow_symlinks=False` keyword. The policy target remained the exact Task19
+  regular `0644`, UID-owned device/inode/size/SHA identity.
+- The path-identity ledger, designated-empty record and audited interpreter
+  were not reached. This is immutable
+  `infrastructure-failure/clean-room-prestart-python-api-compatibility`, not a
+  path-identity, algorithm, numerical, solver, H200, memory, reward or training
+  result.
+- Task20 forbids repair/retry after the one audit. Task15 preflight,
+  accepted-preflight and runs remain empty; no stage comparison or monitor
+  exists. Task14--19 ledgers remain immutable, with no retry, requeue,
+  resubmit, Jupyter, quarantine access, Paper rerun, sweep, overwrite, second
+  candidate or unrelated mutation.
 
 ## Current NormMatch V2 bare-exec namespace recovery
 

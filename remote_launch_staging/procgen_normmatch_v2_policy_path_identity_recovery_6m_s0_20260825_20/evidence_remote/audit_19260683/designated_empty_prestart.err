@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_bare_exec_namespace_recovery_6m_s0_20260825_19/tools/prepare_designated_empty_task19.py", line 11, in <module>
+    namespace, policy_ledger = support_namespace["load_explicit_policy"](
+  File "/scratch/h99859yz/procgen_normmatch_v2_policy_path_identity_recovery_6m_s0_20260825_20/tools/policy_namespace_support.py", line 115, in load_explicit_policy
+    raw_spelling, raw_path, resolved_path, designated, pre = _resolve_and_validate(
+  File "/scratch/h99859yz/procgen_normmatch_v2_policy_path_identity_recovery_6m_s0_20260825_20/tools/policy_namespace_support.py", line 91, in _resolve_and_validate
+    raw_stat = raw_path.stat(follow_symlinks=False)
+TypeError: stat() got an unexpected keyword argument 'follow_symlinks'
