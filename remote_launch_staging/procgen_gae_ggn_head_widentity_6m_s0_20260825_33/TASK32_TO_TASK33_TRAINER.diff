@@ -2,8 +2,8 @@
 +++ Task33/train_shared_det_gae_ggn_head_widentity_v1.py
 @@ -132,14 +132,6 @@
      return output_nt.reshape_as(delta_values)
- 
- 
+
+
 -def actor_score_weights(old_logits, actions):
 -    """Detached logit-space score sensitivity, normalized to minibatch mean one."""
 -    probabilities = torch.softmax(old_logits.detach(), dim=-1)
@@ -17,8 +17,8 @@
      if K.ndim != 2 or r.ndim != 1 or K.shape[0] != r.shape[0]:
 @@ -318,8 +310,8 @@
      return groups, manifest
- 
- 
+
+
 -def validate_actor_weighted_gae_config(algo_config):
 -    """Reject every mechanism outside the actor-weighted GAE head replacement."""
 +def validate_gae_widentity_config(algo_config):
@@ -27,18 +27,18 @@
      forbidden = [name for name in vars(algo_config) if (
          name in forbidden_exact or name.startswith('joint_') or
 @@ -356,7 +348,7 @@
- 
+
      gamma = .999
      lam = .95
 -    validate_actor_weighted_gae_config(algo_config)
 +    validate_gae_widentity_config(algo_config)
- 
+
      per_epoch_timesteps = nsteps * venv.num_envs
      epochs = total_timesteps // per_epoch_timesteps + 1
 @@ -581,7 +573,7 @@
              actor_relative_residual = torch.linalg.vector_norm(actor_system @ _png_adv - _adv) / (torch.linalg.vector_norm(_adv) + 1e-30)
              paper_critic_relative_residual = torch.linalg.vector_norm(paper_critic_system @ _critic_adv - _pseudo_adv) / (torch.linalg.vector_norm(_pseudo_adv) + 1e-30)
- 
+
 -            # The sole replacement: actor-weighted exact-GAE critic-head GGN.
 +            # The sole replacement: identity-weighted exact-GAE critic-head GGN.
              rollout_size = current_rollout_obs.shape[0]
