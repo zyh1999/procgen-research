@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_ast_call_audit_6m_s0_20260825_26/test_runtime_spy_task26.py", line 63, in <module>
+    temporary.cleanup()
+  File "/usr/lib64/python3.9/tempfile.py", line 843, in cleanup
+    self._rmtree(self.name)
+  File "/usr/lib64/python3.9/tempfile.py", line 825, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "/usr/lib64/python3.9/shutil.py", line 740, in rmtree
+    onerror(os.rmdir, path, sys.exc_info())
+  File "/usr/lib64/python3.9/shutil.py", line 738, in rmtree
+    os.rmdir(path)
+OSError: [Errno 39] Directory not empty: '/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/tmps5dogqzq'

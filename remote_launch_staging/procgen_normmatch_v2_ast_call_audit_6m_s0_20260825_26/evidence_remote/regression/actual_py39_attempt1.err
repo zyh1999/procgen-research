@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_ast_call_audit_6m_s0_20260825_26/test_runtime_spy_task26.py", line 52, in <module>
+    temporary, module, namespace, model, optimizer, spy = fixture()
+  File "/scratch/h99859yz/procgen_normmatch_v2_ast_call_audit_6m_s0_20260825_26/test_runtime_spy_task26.py", line 26, in fixture
+    model = torch.nn.Linear(4, 2).to(device)
+  File "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1340, in to
+    return self._apply(convert)
+  File "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 927, in _apply
+    param_applied = fn(param)
+  File "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1326, in convert
+    return t.to(
+RuntimeError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

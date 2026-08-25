@@ -1,0 +1,21 @@
+Task-ID: PROCGEN-NORMMATCH-V2-AST-CALL-AUDIT-AND-6M-S0-20260825-26
+Assignment: 13004009f846c1333a36a993cd9078eac0326b17
+Final preflight/closure freeze: 3dec29115b321cfd4d5e816930ff9334b9e9a74e
+
+PASS Task26 AST positive and whitespace/line-wrap independence.
+PASS required static negatives: string-only, wrong order/count/names, keyword,
+attribute, shadow, dead, test-only and unused-return calls.
+PASS actual Python3.9.25/Torch2.5.1+cu121 runtime spy positive and no-call,
+duplicate-call, wrong-object, RNG, parameter and return mutation negatives.
+PASS actual Task25 class-attribute classifier regression.
+PASS Task23 non-reentrant hook regression.
+PASS Task16--25 local/static historical regression suite.
+PASS immutable trainer/config/regression/monitor/bundle/manifest/deployment
+launcher/Task23-hook/Task25-classifier hashes.
+
+Pre-gate attempts 1--4 are preserved under evidence_remote/regression. They are
+login-device, temporary cleanup and deployed-layout test routing evidence, not
+closure/scientific attempts. The final valid Python3.9 ledger is rc 0.
+
+The sole closure job 19275200 is terminal FAILED/1:0. Per Task26 it was not
+repaired, retried, requeued or resubmitted.

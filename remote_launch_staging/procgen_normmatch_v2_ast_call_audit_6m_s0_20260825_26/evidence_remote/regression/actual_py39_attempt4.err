@@ -1,0 +1,17 @@
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.045s
+
+OK
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_torch_class_attribute_pseudo_origin_20260825_25/tools/test_task25_static.py", line 8, in <module>
+    from class_attribute_classifier import _exact_static_source_proof
+  File "/net/scratch/h99859yz/procgen_normmatch_v2_torch_class_attribute_pseudo_origin_20260825_25/tools/class_attribute_classifier.py", line 19, in <module>
+    if hashlib.sha256(BASE_PATH.read_bytes()).hexdigest() != BASE_SHA256:
+  File "/usr/lib64/python3.9/pathlib.py", line 1187, in read_bytes
+    with self.open(mode='rb') as f:
+  File "/usr/lib64/python3.9/pathlib.py", line 1180, in open
+    return io.open(self, mode, buffering, encoding, errors, newline,
+  File "/usr/lib64/python3.9/pathlib.py", line 1038, in _opener
+    return self._accessor.open(self, flags, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/net/scratch/h99859yz/procgen_normmatch_v2_torch_class_attribute_pseudo_origin_20260825_25/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/pseudo_origin_extension.py'

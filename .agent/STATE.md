@@ -1,6 +1,36 @@
 # Current Project State
 
-Updated: 2026-08-25T11:55:00+08:00
+Updated: 2026-08-25T13:25:00+08:00
+
+## Current Task26 AST/runtime preflight audit
+
+- Task `PROCGEN-NORMMATCH-V2-AST-CALL-AUDIT-AND-6M-S0-20260825-26`
+  terminates with unique conclusion `PRECHECK_BLOCKED`.
+- Assignment/origin is `13004009f846c1333a36a993cd9078eac0326b17`;
+  final preflight/closure freeze is `3dec29115b321cfd4d5e816930ff9334b9e9a74e`.
+- The exact AST audit passed against immutable trainer SHA `0e2c2e26...`.
+  It proves the sole direct call at trainer lines 557--559 has ordered names
+  `head_direction`, `paper_head_proposal`, is unshadowed in nested
+  `learn/Advantage_Update` production flow, and feeds the frozen head update.
+- Actual Python 3.9.25 / Torch 2.5.1+cu121 positive and negative tests passed
+  for formatting independence, bad/static/dead/shadowed/unused calls, no or
+  duplicate runtime calls, wrong object identity, RNG/parameter/return
+  mutation, Task25 class-attribute classification, and Task23 hook behavior.
+- The one permitted closure job `19275200` ended `FAILED/1:0` after 25 seconds
+  on gpuH node821. Both immutable bundle extractions passed, production config
+  and the 938,979-parameter CUDA network were constructed, structural and
+  connectivity evidence passed, and `ast_call_ledger.json` was written.
+- The runtime spy then stopped at its actual preflight invocation because the
+  existing one-step preflight variable is `det_proposal`, while the wrapper
+  required object identity against trainer-source name `head_direction`:
+  `RuntimeError: runtime norm-match argument object identity mismatch`.
+- Failure ledger:
+  `precheck-failure/task26-runtime-spy-preflight-variable-identity-binding`.
+  This is preflight-harness evidence, not algorithm, numerical, solver, H200,
+  reward, or training evidence. Task26 forbids repair/retry after closure
+  failure. No second closure, formal audit, environment preflight, accepted
+  preflight, scientific root/job/transition/checkpoint, comparison, cancel, or
+  monitor exists.
 
 ## Current Task25 class-attribute pseudo-origin precheck
 

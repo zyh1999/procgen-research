@@ -1,0 +1,17 @@
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:242: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.
+  interpolation: int = Image.BILINEAR,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:288: DeprecationWarning: NEAREST is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.NEAREST or Dither.NONE instead.
+  interpolation: int = Image.NEAREST,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:321: DeprecationWarning: BICUBIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BICUBIC instead.
+  interpolation: int = Image.BICUBIC,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torch/autograd/graph.py:825: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at ../aten/src/ATen/cuda/CublasHandlePool.cpp:135.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py", line 82, in <module>
+  File "/usr/lib64/python3.9/runpy.py", line 288, in run_path
+  File "/usr/lib64/python3.9/runpy.py", line 97, in _run_module_code
+  File "/usr/lib64/python3.9/runpy.py", line 87, in _run_code
+  File "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/task26-deploy1-19275200.xtCm8O/frozen/gpuh_preflight_normmatch_v2.py", line 81, in <module>
+  File "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/task26-deploy1-19275200.xtCm8O/frozen/gpuh_preflight_normmatch_v2_task25_frozen.py", line 442, in <module>
+  File "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/task26-deploy1-19275200.xtCm8O/frozen/ast_runtime_call_audit_task26.py", line 297, in __call__
+RuntimeError: runtime norm-match argument object identity mismatch
