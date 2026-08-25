@@ -1,0 +1,9 @@
+job_id	environment	seed	partition	account	state	exit_code	elapsed	node
+19319678	bigfish-easy-0-10	0	gpuL	gpu-aifun	COMPLETED	0:0	02:00:03	node887
+19319679	bigfish-easy-0-10	1	gpuL	gpu-aifun	COMPLETED	0:0	02:03:45	node883
+19319680	bossfight-easy-0-10	0	gpuL	gpu-aifun	COMPLETED	0:0	02:03:11	node878
+19319681	bossfight-easy-0-10	1	gpuL	gpu-aifun	COMPLETED	0:0	02:02:35	node876
+19319682	caveflyer-easy-0-10	0	gpuL	gpu-aifun	COMPLETED	0:0	01:59:49	node883
+19319683	caveflyer-easy-0-10	1	gpuL	gpu-aifun	COMPLETED	0:0	02:06:30	node877
+19319684	coinrun-easy-0-10	0	gpuL	gpu-aifun	COMPLETED	0:0	02:00:29	node878
+19319685	coinrun-easy-0-10	1	gpuL	gpu-aifun	COMPLETED	0:0	01:59:25	node876

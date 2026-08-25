@@ -1,6 +1,40 @@
 # Current Project State
 
-Updated: 2026-08-25T14:52:05+08:00
+Updated: 2026-08-26T04:32:48+08:00
+
+## Task33 terminal W=I GAE-GGN head campaign
+
+- Task `PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33`, method
+  `DET_GAE_GGN_HEAD_WIDENTITY_V1`, is terminal with unique conclusion
+  `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`.
+- Assignment is `1ed0aeadd4e31bbf4914ba58a04dbc413f581919`;
+  implementation/preflight/two-seed freeze is `6563f98`; gpuL deployment
+  freeze is `0057469b50cdfa7f6fd504ec146b3f56daf06ecc`.
+- The user expanded the original four-cell seed0 matrix to seeds 0 and 1.
+  Exactly eight gpuL/L40S jobs `19319678`--`19319685` completed with scheduler
+  and trainer rc0. No job remains live and the Task33 monitor is paused.
+- All four seed1 roots are `PASS/rc0`, contain exact endpoint progress at
+  5,980,160, 46,912 trace rows through 6,004,736, one checkpoint each and no
+  hard error. Raw endpoint rewards are BigFish 2.08, BossFight 0.00,
+  CaveFlyer 0.90 and CoinRun 0.00. No verified original Paper RAT seed1
+  artifact exists, so no ratio or cancellation is valid.
+- All four seed0 trainers reached 1466/1466 and 5.98M with scheduler/trainer
+  rc0 and no hard error, but their roots are `FAIL/rc0`: progress is empty,
+  checkpoint is absent, and the residual root trace stops early. The global
+  source-log selector was redirected to newer empty seed0 directories created
+  by concurrent hard-coded-seed0 compatibility preflights. Final source
+  nodes differ from all four scientific job nodes. This is artifact routing
+  and finalization failure, not algorithm termination.
+- Seed0 therefore has no eligible exact same-stage performance evidence.
+  Partial traces are not promoted, seed1 is not substituted, and no retry,
+  resubmission, repair or reward cancellation occurred.
+- Frozen hashes, scheduler table, checkpoint metadata only, stage telemetry,
+  routing ledger and failure classification are in
+  `.agent/reports/PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33.md` and
+  `remote_launch_staging/procgen_gae_ggn_head_widentity_6m_s0_20260825_33/evidence/terminal/`.
+- Task34R remains the unchanged READY control task. This terminalization did
+  not alter its code, roots, jobs or scientific design and did not create a
+  successor Task33 objective.
 
 ## Current Task31R final in-path capture
 

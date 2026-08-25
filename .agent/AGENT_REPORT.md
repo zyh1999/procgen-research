@@ -2,46 +2,36 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-NORMMATCH-V2-MP-MAIN-INPATH-CAPTURE-READONLY-20260825-31R`
-- Assignment: `b345ad9e22619c5f2f26fd0c8eca3722c065ad49`
-- Frozen capture implementation: `ae93ca3990168c058a2d9b87662a10ca0d9e0511`
+- Task-ID: `PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33`
+- Method: `DET_GAE_GGN_HEAD_WIDENTITY_V1`
+- Assignment: `1ed0aeadd4e31bbf4914ba58a04dbc413f581919`
+- Implementation/preflight/two-seed freeze: `6563f98`
+- gpuL deployment freeze: `0057469b50cdfa7f6fd504ec146b3f56daf06ecc`
 - Repository target: `origin/agent-work`
 
 ## Result
 
-Unique Task31R conclusion: `OBSERVER_PERTURBED`.
+Unique Task33 conclusion: `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`.
 
-Exactly one bounded capture activity was launched as gpuH job `19279429` on
-node821. The first capture-on process completed the unchanged production CUDA
-construction and Task27 runtime semantic-binding proof. The versioned wrapper
-then reached the unchanged Task28R origin scan through nested `runpy`; this
-altered the frozen Task23 probe module's live `spec/package` state. Task28R
-rejected it with `exact probe spec/package mismatch` before the expected
-`__mp_main__` origin-scan frame-local record existed, and the capture routine
-reported `Task31R required existing origin/runpy frames unavailable`.
+All eight user-expanded gpuL cells `19319678`--`19319685` are scheduler
+`COMPLETED/0:0`; every trainer reached 1466/1466 and 5.98M and returned rc0.
+The four seed1 roots are complete `PASS/rc0` artifact sets with exact endpoint
+rows, full traces and one checkpoint each, but no matching immutable original
+Paper RAT seed1 baseline exists. Their raw endpoint rewards are 2.08, 0.00,
+0.90 and 0.00 for BigFish, BossFight, CaveFlyer and CoinRun respectively; no
+ratio or cancellation was inferred.
 
-The proposed observation mechanism therefore changed the state it was meant
-to observe. The mandatory hard stop was honored: no correction or rerun was
-performed, no second capture-on or either capture-off process started, and no
-capture JSON was emitted. This precludes the planned on/off comparison and is
-classified as
-`capture-failure/task31r-nested-runpy-spec-package-perturbation`, not
-algorithm, numerical, GPU, or scientific evidence.
+All four seed0 roots are `FAIL/rc0` with empty progress and no checkpoint.
+The launcher artifact selector was redirected to newer empty seed0 directories
+created by concurrent compatibility preflights; every final source directory
+is on a different node from its scientific job. Root traces are partial
+copies from before that redirection and are not eligible stage evidence.
+Thus scheduler/trainer success is preserved separately from artifact
+finalization failure. No retry, repair, resubmission, relabel or successor
+method was created. Task34R was not touched.
 
-Scheduler terminal state is `FAILED/1:0`, elapsed 18 seconds, node821. Root
-status/rc are `READONLY_CAPTURE_FAIL/1`; there is no live process and no real
-OOM, CUDA, NCCL, disk, NaN, or Inf failure. Complete model-free evidence is
-archived in
-`remote_launch_staging/procgen_normmatch_v2_mp_main_inpath_capture_readonly_20260825_31r/evidence/task31r_model_free_evidence_19279429.tar.gz`
-with SHA256
-`fea85c23140260188668fa77a3ea49150125046b149a021ef1f8735717a9bfbd`.
-
-No classifier, policy, allowlist, manifest, bundle, frozen scientific file,
-formal audit, four-environment preflight, science, scientific root,
-transition, checkpoint/model, cancellation, or monitor was created or
-modified. Task29 and Task30 ledgers remain preserved.
-
-Report:
-`.agent/reports/PROCGEN-NORMMATCH-V2-MP-MAIN-INPATH-CAPTURE-READONLY-20260825-31R.md`.
+Complete model-free evidence and the failure ledger are in
+`.agent/reports/PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33.md` and
+`remote_launch_staging/procgen_gae_ggn_head_widentity_6m_s0_20260825_33/evidence/terminal/`.
 
 TASK_COMPLETE

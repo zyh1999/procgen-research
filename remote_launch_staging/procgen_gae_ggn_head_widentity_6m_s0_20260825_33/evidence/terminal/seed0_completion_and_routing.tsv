@@ -1,0 +1,14 @@
+environment	job_node	stdout_total_timesteps	stderr_completion	final_source_node	final_source_progress_bytes	final_source_trace	final_source_model	root_trace_last_transition
+bigfish-easy-0-10	node887	5.98e+06	1466/1466	node883	0	ABSENT	ABSENT	286720
+bossfight-easy-0-10	node878	5.98e+06	1466/1466	node876	0	ABSENT	ABSENT	77824
+caveflyer-easy-0-10	node883	5.98e+06	1466/1466	node877	0	ABSENT	ABSENT	237568
+coinrun-easy-0-10	node878	5.98e+06	1466/1466	node876	0	ABSENT	ABSENT	86016
+
+The final source_log_dir node differs from the scientific Slurm node in every
+seed0 cell. The selected directories contain only an empty progress.csv, a
+40-byte TensorBoard event file and no metric trace or checkpoint. The frozen
+launcher discovers a global matching log directory with find/sort/tail, while
+the frozen compatibility preflight invokes the production config path with
+hard-coded seed0. Concurrent seed1 jobs therefore create newer empty seed0
+preflight directories. The partial trace left in each root was copied before
+the source pointer changed and is not eligible exact-stage scientific evidence.
