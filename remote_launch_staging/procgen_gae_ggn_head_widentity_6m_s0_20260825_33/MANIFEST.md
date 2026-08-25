@@ -9,7 +9,7 @@
 - Scientific launcher SHA256: `61e3a10919b2a2ba83194282d2438a154ee48ed6ca97da77d84cbe3e2d3159c1`
 - Preflight launcher SHA256: `a57319fad3eb48cac919e777edd2abf56cc8793e0731d6c37809c8241ba52865`
 - Stage monitor SHA256: `bb9c898809eee74cc12ba92597f94f27e02bbc3de7d60d32c0d283945b0645c5`
-- Exact Task32-to-Task33 audit SHA256: `96d0f392e2ac5be62a59b59034246c21ba40c159672fc11e0c9c65696d07c915`
+- Exact Task32-to-Task33 audit SHA256: `1d960a79b12c1265c002c3072d263c1b278b84881697b9374bdd05bccd257879`
 - Exact trainer diff SHA256: `e61b1f40960dadbf96b53d24f4ff666a1c42cb520fefa44f5fa9120175882635`
 - Diff ledger SHA256: `a1a7ad38f85a32cf7ad7a94b5ca640b1d6c873a723e023c2a428d7c0ade6fbec`
 

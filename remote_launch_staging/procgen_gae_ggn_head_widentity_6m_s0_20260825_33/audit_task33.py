@@ -4,10 +4,14 @@ import ast
 import difflib
 import hashlib
 import json
+import os
 from pathlib import Path
 
 root = Path(__file__).resolve().parent
-task32 = root.parent / "procgen_actor_weighted_gae_ggn_head_6m_s0_20260825_32"
+task32 = Path(os.environ.get(
+    "TASK32_SOURCE_ROOT",
+    root.parent / "procgen_actor_weighted_gae_ggn_head_6m_s0_20260825_32",
+))
 source32 = task32 / "train_shared_det_actor_weighted_gae_ggn_head_v1.py"
 source33 = root / "train_shared_det_gae_ggn_head_widentity_v1.py"
 config32 = task32 / "adv_resnet_shared_det_actor_weighted_gae_ggn_head_v1_6m.yaml"
