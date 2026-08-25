@@ -1,6 +1,28 @@
 # Current Project State
 
-Updated: 2026-08-25T11:05:00+08:00
+Updated: 2026-08-25T11:20:00+08:00
+
+## Current Task23 pseudo-origin closure precheck
+
+- Task `PROCGEN-NORMMATCH-V2-TORCH-PSEUDO-ORIGIN-AND-NONREENTRANT-CLOSURE-20260825-23`
+  terminates with unique conclusion `PRECHECK_BLOCKED`.
+- Assignment/origin is `bbf11137e538bfca92a4b300a491b4330c167ac3`; frozen audit
+  implementation/origin is `baab71b243b0913ada24104bcca6788121c0b5ad`.
+- Only the authorized synthetic `torch.classes` classifier and non-reentrant
+  event-hook layer were added. Trainer/config/preflight/regression/monitor,
+  bundle/manifest, launchers, Task18 provenance, Task21 path identity, and all
+  prior ledgers remain byte-identical.
+- Local tests passed: first-level open/rename/remove preservation, zero normal
+  reentry, explicit nested-event counting, assignment-position negative gate,
+  forbidden hook operations, compilation, and frozen identities.
+- The one permitted closure job `19270639` ran on gpuH node820 and ended
+  `FAILED/1:0` after `00:00:06`. The actual Python3.9 positive classifier
+  failed because `module.__dict__.get("__file__")` is None for `torch.classes`;
+  the public synthetic `_classes.py` attribute is produced by `__getattr__`.
+- No production reproduction, normalized closure, formal audit, per-environment
+  preflight, science, root, stage comparison, cancellation, or monitor exists.
+- Task23 forbids repair/retry after the closure gate. Failure ledger:
+  `precheck-failure/pseudo-origin-positive-classifier-dict-vs-synthetic-attribute`.
 
 ## Current NormMatch V2 runtime-generated closure audit
 

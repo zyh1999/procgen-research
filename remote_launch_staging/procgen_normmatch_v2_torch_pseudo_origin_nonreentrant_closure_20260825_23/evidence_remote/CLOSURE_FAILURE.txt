@@ -1,0 +1,27 @@
+Task23 closure job 19270639 failed before either full production reproduction.
+
+status=CLOSURE_FAIL
+rc=1
+scheduler=FAILED/1:0
+elapsed=00:00:06
+node=node820
+
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/remote_regression_task23.py", line 35, in <module>
+    first = validate_torch_classes_pseudo_origin("torch.classes", module, approved, designated)
+  File "/net/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/pseudo_origin_extension.py", line 61, in validate_torch_classes_pseudo_origin
+    raise RuntimeError("torch.classes exact name/pseudo-file mismatch")
+RuntimeError: torch.classes exact name/pseudo-file mismatch
+
+Read-only post-failure diagnostic in the same frozen Python3.9/PyTorch environment:
+{"dict_file": null, "dict_name": "torch.classes", "key": "torch.classes", "loader": null, "origin": null, "package": null, "spec": null, "type_module": "torch._classes", "type_name": "_Classes"}
+
+Interpretation: the Task23 classifier read module.__dict__.get("__file__"), which
+is None, while the required public attribute access torch.classes.__file__ is
+the synthetic value "_classes.py" supplied by _Classes.__getattr__. This is an
+over-strict audit-classifier implementation failure. Task23 forbids field
+repair/retry after the one closure gate, so it is terminal PRECHECK_BLOCKED.
+
+No formal audit, real-network preflight, scientific job, root, transition,
+progress, trace, checkpoint, model, stage comparison, cancellation, or monitor
+was created.

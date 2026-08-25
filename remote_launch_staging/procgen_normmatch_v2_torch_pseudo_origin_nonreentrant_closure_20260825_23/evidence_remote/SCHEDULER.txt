@@ -1,0 +1,12 @@
+JobID|JobName|User|Account|Partition|State|ExitCode|Elapsed|Start|End|NodeList|AllocTRES
+19270639|pg-nm2-t23-closure|h99859yz|gpu-h200-fse-pgdr|gpuH|FAILED|1:0|00:00:06|25/08/26 04:10|25/08/26 04:10|node820|billing=9,cpu=8,energy=42902,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19270639.batch|batch||gpu-h200-fse-pgdr||FAILED|1:0|00:00:06|25/08/26 04:10|25/08/26 04:10|node820|cpu=8,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19270639.extern|extern||gpu-h200-fse-pgdr||COMPLETED|0:0|00:00:06|25/08/26 04:10|25/08/26 04:10|node820|billing=9,cpu=8,energy=42902,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+
+JobState=FAILED Reason=NonZeroExitCode Requeue=0 Restarts=0 ExitCode=1:0
+Partition=gpuH Account=gpu-h200-fse-pgdr QOS=gpu-h200-fse NodeList=node820
+Command=/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/closure_provenance_task23_gpuh.sbatch
+Start=2026-08-25T04:10:25+01:00
+End=2026-08-25T04:10:28+01:00
+Host=node820.csf3.man.alces.network
+GPU=GPU 0: NVIDIA H200 (UUID: GPU-fc4b342f-5d39-70d6-f78e-3805de189ff0)
