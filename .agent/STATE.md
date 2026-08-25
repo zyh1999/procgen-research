@@ -1,6 +1,38 @@
 # Current Project State
 
-Updated: 2026-08-25T14:27:19+08:00
+Updated: 2026-08-25T14:52:05+08:00
+
+## Current Task31R final in-path capture
+
+- Task `PROCGEN-NORMMATCH-V2-MP-MAIN-INPATH-CAPTURE-READONLY-20260825-31R`
+  is terminal with the unique allowed conclusion `OBSERVER_PERTURBED`.
+- Assignment/origin is
+  `b345ad9e22619c5f2f26fd0c8eca3722c065ad49`; the frozen capture
+  implementation is `ae93ca3990168c058a2d9b87662a10ca0d9e0511`.
+- Exactly one bounded gpuH capture activity, job `19279429`, ran on node821.
+  `on1` completed the unchanged production CUDA/Task27 construction, then
+  stopped after 18 seconds. The hard-stop rule prevented `on2`, `off1` and
+  `off2` from starting; no correction or rerun occurred.
+- The versioned wrapper added no import, audit/trace/profile/import hook,
+  classifier, policy, allowlist or manifest change. Nevertheless its nested
+  `runpy` execution changed the frozen Task23 probe module's live
+  `spec/package` semantics. The unchanged Task28R origin scan therefore
+  rejected it with `exact probe spec/package mismatch`, before the expected
+  `__mp_main__` frame-local record existed. The capture file was not written.
+- This is direct evidence that the proposed in-path capture mechanism changed
+  the natural state it was required to observe. It is classified
+  `capture-failure/task31r-nested-runpy-spec-package-perturbation`, not an
+  algorithm, numerical, CUDA/H200 or scientific result.
+- Scheduler is `FAILED/1:0`; root status/rc are
+  `READONLY_CAPTURE_FAIL/1`; `on1` probe rc is 1. There are no live Task31R
+  processes and no hard OOM/CUDA/NCCL/disk/NaN error. The import-time grep
+  strings were module names, not errors.
+- Complete model-free evidence is archived at
+  `remote_launch_staging/procgen_normmatch_v2_mp_main_inpath_capture_readonly_20260825_31r/evidence/task31r_model_free_evidence_19279429.tar.gz`,
+  SHA256 `fea85c23140260188668fa77a3ea49150125046b149a021ef1f8735717a9bfbd`.
+- Task29/30 failure ledgers remain unchanged. No formal audit, four-environment
+  preflight, science, scientific root, transition, checkpoint/model,
+  cancellation, classifier or monitor was created.
 
 ## Current Task30 natural-state read-only provenance
 
