@@ -5,9 +5,11 @@
 - Assignment: `adbc5396a615bb8855384d1edca4e0ebe76ee432`
 - Trainer SHA256: `5d070556a7215b15a5715a4d6100eb1c1b440e5f3283949e94e3ee97ae89aa05`
 - Config SHA256: `4458567bc61bdb85360d55967c65700992fe60cd812819fa1e77cc8638c202af`
-- Functional preflight SHA256: `fe5908afb6c0e829212eb8a19cda222deffd18139a5885cf9cbaa5f18cbacb6e`
+- Functional preflight attempt-1 SHA256: `fe5908afb6c0e829212eb8a19cda222deffd18139a5885cf9cbaa5f18cbacb6e`
+- Functional preflight corrected SHA256: `180023734b63ba0d0f12e5113f5ce19db1ca9813ce49ade1d56afd51704088b6`
 - Scientific launcher SHA256: `e7755fd50df57d3aa719638ba32412082c611bff018dc530792c48f79bac5714`
-- Preflight launcher SHA256: `a7784d48d40e453a56ac800a300fb49ca2934d747d0a7cec656f3a77efe437cf`
+- Preflight launcher attempt-1 SHA256: `a7784d48d40e453a56ac800a300fb49ca2934d747d0a7cec656f3a77efe437cf`
+- Preflight launcher corrected SHA256: `862c7997111791a706bd6b0f47786c6092c5384cabecde917480a96a5e569a09`
 - Stage monitor SHA256: `344c0654c6c785f87f0a0ff625372fac6b7b15a28c8cfeff8307d1fa9350b84f`
 - Static audit SHA256: `b6ee037ae8eda3de1759d4aa18b4dc16ec738d508bdbc44e1927978a2fc777da`
 

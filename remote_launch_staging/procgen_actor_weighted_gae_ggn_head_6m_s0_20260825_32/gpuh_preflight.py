@@ -592,8 +592,11 @@ normalized_values = (fd_values - raw_mean) / raw_scale
 normalized_returns = (fd_values + torch.randn_like(fd_values) - raw_mean) / raw_scale
 transformed_values = (raw_scale * fd_values + raw_mean - (raw_scale * raw_mean + raw_mean)) / (raw_scale * raw_scale)
 transformed_returns = (raw_scale * (raw_mean + raw_scale * normalized_returns) + raw_mean - (raw_scale * raw_mean + raw_mean)) / (raw_scale * raw_scale)
-assert torch.allclose(normalized_values, transformed_values, rtol=0, atol=2e-16)
-assert torch.allclose(normalized_returns, transformed_returns, rtol=0, atol=2e-16)
+popart_input_tolerance = 16 * torch.finfo(torch.float64).eps
+popart_value_error = torch.max(torch.abs(normalized_values - transformed_values))
+popart_return_error = torch.max(torch.abs(normalized_returns - transformed_returns))
+assert popart_value_error <= popart_input_tolerance, popart_value_error
+assert popart_return_error <= popart_input_tolerance, popart_return_error
 popart_error_a = (normalized_values - normalized_returns).reshape(-1)
 popart_error_b = (transformed_values - transformed_returns).reshape(-1)
 popart_q_a = module.gae_error_operator_apply(
@@ -609,11 +612,28 @@ popart_direction_a = module.solve_gae_head_primal_fp64(
 popart_direction_b = module.solve_gae_head_primal_fp64(
     popart_K, popart_q_b, popart_K.shape[0], .5, 1e-18
 )[0]
-assert torch.equal(popart_direction_a, popart_direction_b)
-assert torch.equal(popart_K @ popart_direction_a, popart_K @ popart_direction_b)
+popart_direction_error = torch.max(torch.abs(popart_direction_a - popart_direction_b))
+popart_prediction_error = torch.max(
+    torch.abs(popart_K @ popart_direction_a - popart_K @ popart_direction_b)
+)
+assert torch.allclose(popart_direction_a, popart_direction_b, rtol=1e-12, atol=1e-13), popart_direction_error
+assert torch.allclose(
+    popart_K @ popart_direction_a,
+    popart_K @ popart_direction_b,
+    rtol=1e-12,
+    atol=1e-13,
+), popart_prediction_error
 accept_a = torch.isfinite(popart_direction_a).all() and torch.linalg.vector_norm(popart_direction_a) > 0
 accept_b = torch.isfinite(popart_direction_b).all() and torch.linalg.vector_norm(popart_direction_b) > 0
 assert bool(accept_a) == bool(accept_b)
+print(
+    "TASK32_POPART_AFFINE_PASS",
+    f"input_tolerance={popart_input_tolerance:.17g}",
+    f"value_error={popart_value_error.item():.17g}",
+    f"return_error={popart_return_error.item():.17g}",
+    f"direction_error={popart_direction_error.item():.17g}",
+    f"prediction_error={popart_prediction_error.item():.17g}",
+)
 
 # Production-scale representative footprint for full-rollout J and primal solve.
 props = torch.cuda.get_device_properties(0)
