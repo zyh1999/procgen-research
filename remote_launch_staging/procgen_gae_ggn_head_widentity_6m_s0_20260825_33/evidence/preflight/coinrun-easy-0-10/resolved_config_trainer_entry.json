@@ -1,0 +1,49 @@
+{
+  "algo": "adv",
+  "algo_config": {
+    "adv_type": "gae",
+    "cg_damping": 0.5,
+    "clamp_ratio": true,
+    "dual_jacobi_eps": 1e-18,
+    "ent_coef": 0.0,
+    "epochs": 4,
+    "fp64_gram_chunk_cols": 32768,
+    "lr": 0.5,
+    "max_grad_norm": 0.5,
+    "max_ratio": 10.0,
+    "min_ratio": 0.1,
+    "minibatches": 8,
+    "norm_obj": "adv",
+    "optimizer": "sgd",
+    "sigma_type": "vector",
+    "use_kl_adaptive_lr": true,
+    "vf_coef": 1.0,
+    "with_popart": true
+  },
+  "entry": {
+    "config": "adv_resnet_shared_det_gae_ggn_head_widentity_v1_6m.yaml",
+    "device": 0,
+    "env_name": "coinrun-easy-0-10",
+    "n_proc": 1,
+    "seed": 0
+  },
+  "env_config": {
+    "env_name": "coinrun-easy-0-10",
+    "norm_ret": false,
+    "nsteps": 256,
+    "num_envs": 16,
+    "timesteps_per_proc_easy": 6000000,
+    "timesteps_per_proc_hard": 100000000
+  },
+  "log_config": {
+    "log_interval": 10,
+    "n_eval_trials": 20
+  },
+  "nets_config": {
+    "dropout": 0.0,
+    "hidden_size": 256,
+    "norm_obs": false,
+    "type": "resnet",
+    "with_bn": false
+  }
+}
