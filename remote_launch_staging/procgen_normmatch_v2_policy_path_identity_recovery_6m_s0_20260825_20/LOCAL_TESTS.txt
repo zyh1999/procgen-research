@@ -1,0 +1,22 @@
+Task-ID: PROCGEN-NORMMATCH-V2-POLICY-PATH-IDENTITY-RECOVERY-AND-6M-S0-20260825-20
+Assignment: 60c195be34bdcd3853770dfe00aa62e2cbef3350
+
+Local bounded verification:
+- TASK20_POLICY_PATH_IDENTITY_TESTS_PASS
+  - parent storage alias and resolved target samefile/device/inode: PASS
+  - ordinary final file, frozen owner/gid/mode/size and exact SHA: PASS
+  - verified read-only fd load plus post-exec fd/path identity and SHA: PASS
+  - byte-identical different inode: rejected
+  - final-component symlink: rejected
+  - missing path: rejected
+  - device/inode/owner/mode/size/SHA mismatch: rejected
+  - replacement after resolve and after execution: rejected
+- TASK19_POLICY_NAMESPACE_SUPPORT_TESTS_PASS
+- TASK16_ORIGIN_SAFETY_TESTS_PASS
+- TASK17_INTERPRETER_PATH_ORIGIN_TESTS_PASS
+- TASK20_FROZEN_IDENTITY_TEST_PASS
+- Python byte-compilation and Slurm syntax: PASS
+- no storage spelling was hard-coded
+
+No Task20 remote clean-room audit, real-network preflight, or scientific job
+was run while producing this file.
