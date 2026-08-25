@@ -1,0 +1,14 @@
+{
+  "actor_score_or_probability_weight_path": "ABSENT",
+  "exact_unified_diff_sha256": "eb5853be212495162fcf3a6b19565c7b545ee0e2a5368ab1b35ea3cc2fd93817",
+  "implicit_weight_max": 1.0,
+  "implicit_weight_min": 1.0,
+  "method": "DET_GAE_GGN_HEAD_WIDENTITY_V1",
+  "sole_scientific_delta": "diag(sqrt(actor_score_weight)) removed; W=I for K=D J_h and r=q",
+  "task32_max_weight_512_concentration_path": "IMPOSSIBLE_ABSENT",
+  "task32_task33_config_byte_identical": true,
+  "task32_task33_config_sha256": "4458567bc61bdb85360d55967c65700992fe60cd812819fa1e77cc8638c202af",
+  "task32_trainer_sha256": "5d070556a7215b15a5715a4d6100eb1c1b440e5f3283949e94e3ee97ae89aa05",
+  "task33_trainer_sha256": "9c822949a171d7b4c8148ea9be37c1eb5b6aa3ff8d9d3f1603241bc4873c2665",
+  "task_id": "PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33"
+}

@@ -1,0 +1,102 @@
+--- Task32/train_shared_det_actor_weighted_gae_ggn_head_v1.py
++++ Task33/train_shared_det_gae_ggn_head_widentity_v1.py
+@@ -132,14 +132,6 @@
+     return output_nt.reshape_as(delta_values)
+ 
+ 
+-def actor_score_weights(old_logits, actions):
+-    """Detached logit-space score sensitivity, normalized to minibatch mean one."""
+-    probabilities = torch.softmax(old_logits.detach(), dim=-1)
+-    one_hot = F.one_hot(actions.long(), num_classes=old_logits.shape[-1]).to(probabilities)
+-    raw = (one_hot - probabilities).pow(2).sum(dim=-1).detach()
+-    return (raw / raw.mean()).detach()
+-
+-
+ def solve_gae_head_primal_fp64(K, r, denominator, damping, jacobi_eps):
+     """Solve (K.T K / B + damping I) u = -K.T r / B in symmetric FP64."""
+     if K.ndim != 2 or r.ndim != 1 or K.shape[0] != r.shape[0]:
+@@ -318,8 +310,8 @@
+     return groups, manifest
+ 
+ 
+-def validate_actor_weighted_gae_config(algo_config):
+-    """Reject every mechanism outside the actor-weighted GAE head replacement."""
++def validate_gae_widentity_config(algo_config):
++    """Reject every mechanism outside the identity-weighted GAE head replacement."""
+     forbidden_exact = {'adaptive_kl_mode', 'optimizer_momentum', 'is_kaczmarz'}
+     forbidden = [name for name in vars(algo_config) if (
+         name in forbidden_exact or name.startswith('joint_') or
+@@ -356,7 +348,7 @@
+ 
+     gamma = .999
+     lam = .95
+-    validate_actor_weighted_gae_config(algo_config)
++    validate_gae_widentity_config(algo_config)
+ 
+     per_epoch_timesteps = nsteps * venv.num_envs
+     epochs = total_timesteps // per_epoch_timesteps + 1
+@@ -581,7 +573,7 @@
+             actor_relative_residual = torch.linalg.vector_norm(actor_system @ _png_adv - _adv) / (torch.linalg.vector_norm(_adv) + 1e-30)
+             paper_critic_relative_residual = torch.linalg.vector_norm(paper_critic_system @ _critic_adv - _pseudo_adv) / (torch.linalg.vector_norm(_pseudo_adv) + 1e-30)
+ 
+-            # The sole replacement: actor-weighted exact-GAE critic-head GGN.
++            # The sole replacement: identity-weighted exact-GAE critic-head GGN.
+             rollout_size = current_rollout_obs.shape[0]
+             rollout_latents = actor_critic.backbone_net(current_rollout_obs)
+             rollout_values = actor_critic.forward_v(latents=rollout_latents)
+@@ -599,12 +591,11 @@
+                 J_head_full, current_gae_next_nonterminal,
+                 venv.num_envs, nsteps, gamma, lam,
+             )
+-            weights = actor_score_weights(_outputs_old, _act)
+-            sqrt_weights = torch.sqrt(weights)
+             selected_q = gae_q_full[current_mbinds]
+             selected_J = gae_J_full[current_mbinds]
+-            head_rows = sqrt_weights[:, None] * selected_J
+-            head_rhs = sqrt_weights * selected_q
++            # W=I exactly: every output row enters once with implicit weight 1.
++            head_rows = selected_J
++            head_rhs = selected_q
+             head_momentum = []
+             for _, parameter in parameter_groups['CRITIC_EXCLUSIVE']:
+                 state = ac_optimizer.state.get(parameter, {})
+@@ -618,8 +609,8 @@
+             head_direction = head_direction64.to(J_head_full.dtype)
+             head_direction_l2 = torch.linalg.vector_norm(head_direction)
+             head_projection = torch.mv(selected_J, head_direction)
+-            head_ggn_quadratic = (weights * head_projection.pow(2)).mean()
+-            lag_objective = 0.5 * (weights * selected_q.pow(2)).mean()
++            head_ggn_quadratic = head_projection.pow(2).mean()
++            lag_objective = 0.5 * selected_q.pow(2).mean()
+             predicted_lag_change = (
+                 -(head_primal_rhs64 @ head_direction64)
+                 + 0.5 * (head_direction64 @ (head_system64 - float(algo_config.cg_damping) * torch.eye(
+@@ -725,7 +716,7 @@
+                 (after_rollout_values - current_rollout_ret).detach(),
+                 current_gae_next_nonterminal, venv.num_envs, nsteps, gamma, lam,
+             )[current_mbinds]
+-            realized_lag_objective = 0.5 * (weights * after_gae_q.pow(2)).mean()
++            realized_lag_objective = 0.5 * after_gae_q.pow(2).mean()
+             condition_number = spectrum_max / (spectrum_min_positive + 1e-30)
+             pi_info.update(
+                 parameter_partition='policy_exclusive_shared_critic_exclusive',
+@@ -736,16 +727,13 @@
+                 paper_shared_critic_direction_l2=paper_shared_critic_l2.item(),
+                 paper_critic_relative_solve_residual=paper_critic_relative_residual.item(),
+                 head_critic_system_rows=num_sa,
+-                head_critic_kernel_mode='actor_weighted_exact_gae_value_head_primal',
++                head_critic_kernel_mode='identity_weighted_exact_gae_value_head_primal',
++                head_critic_implicit_weight=1.0,
+                 gae_operator='frozen_runner_exact_terminal_bootstrap',
+                 gae_mean=selected_q.mean().item(),
+                 gae_variance=selected_q.var(unbiased=False).item(),
+                 gae_rms=torch.sqrt(selected_q.pow(2).mean()).item(),
+-                gae_actor_objective=lag_objective.item(),
+-                actor_weight_min=weights.min().item(),
+-                actor_weight_max=weights.max().item(),
+-                actor_weight_mean=weights.mean().item(),
+-                actor_weight_std=weights.std(unbiased=False).item(),
++                gae_unweighted_objective=lag_objective.item(),
+                 td_residual_mean=runner.last_gae_td_residual[current_mbinds].mean().item(),
+                 td_residual_rms=torch.sqrt(runner.last_gae_td_residual[current_mbinds].pow(2).mean()).item(),
+                 return_error_mean=(rollout_values[current_mbinds] - current_rollout_ret[current_mbinds]).mean().item(),
