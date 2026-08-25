@@ -1,0 +1,25 @@
+Task-ID: PROCGEN-NORMMATCH-V2-TORCH-GENERATED-ORIGIN-AUDIT-AND-6M-S0-20260825-18
+Assignment: 1e8c8aa56bc5e9d242e13586c2af9bda3d054c2e
+
+Bounded provenance and regression verification:
+- two independent clean-process reproductions: PASS
+  - PyTorch 2.5.1+cu121 installed by pip
+  - generator/loader/template sources represented by installed distribution RECORD
+  - generated module SHA256 8205b16956fb264841ecd8644784a0d157f87df79b17c16825dc1163433ce5d8
+  - module/spec/package/SourceFileLoader identity stable
+  - deterministic template byte equality, AST and compile PASS
+  - distinct post-start UID-owned 0700 temporary parents
+- exact frozen-environment Task18 origin tests: PASS
+  - real generated module accepted only with full provenance/content/lifecycle proof
+  - preexisting same-name module/file rejected
+  - content, AST, hash and loader mismatches rejected
+  - symlink parent and file rejected
+  - post-import replacement rejected
+  - repository checkout and network content references rejected
+- Task16 designated-empty tests: PASS
+- Task17 interpreter zip/out-of-bundle tests: PASS
+- Task18 frozen identity: PASS
+- Python byte-compilation and Slurm syntax: PASS
+- Task14--17 tracked trees unchanged: PASS
+
+No Task18 clean-room audit, real-network preflight, or scientific job was run while producing this file.

@@ -1,0 +1,69 @@
+{
+  "distribution": {
+    "direct_url": null,
+    "installer": "pip\n",
+    "name": "torch",
+    "version": "2.5.1+cu121"
+  },
+  "generator": {
+    "function": "instantiate_non_scriptable_remote_module_template -> _do_instantiate_remote_module_template -> _write -> importlib.import_module",
+    "module": "torch.distributed.nn.jit.instantiator",
+    "source_files": {
+      "generator_loader": {
+        "distribution_path": "torch/distributed/nn/jit/instantiator.py",
+        "origin": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python3.9/site-packages/torch/distributed/nn/jit/instantiator.py",
+        "record_hash": "<FileHash mode: sha256 value: RAphnHZOQTNWTXlWugYKciPpRmSFS5SkogdNCVdW234>",
+        "record_size": 5459,
+        "sha256": "440a619c764e4133564d7956ba060a7223e94664854b94a4a2074d095756db7e"
+      },
+      "import_trigger": {
+        "distribution_path": "torch/distributed/nn/api/remote_module.py",
+        "origin": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python3.9/site-packages/torch/distributed/nn/api/remote_module.py",
+        "record_hash": "<FileHash mode: sha256 value: VcnES6JaK17fEF-9dAzv93H5NxR9fWqdYjLwVoHn7q8>",
+        "record_size": 31308,
+        "sha256": "55c9c44ba25a2b5edf105fbd740ceff771f937147d7d6a9d6232f05681e7eeaf"
+      },
+      "template": {
+        "distribution_path": "torch/distributed/nn/jit/templates/remote_module_template.py",
+        "origin": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python3.9/site-packages/torch/distributed/nn/jit/templates/remote_module_template.py",
+        "record_hash": "<FileHash mode: sha256 value: D_GFa70DG1KY1GwGwFAqvCC9gE9CwZSe1BJ-jHc2YMw>",
+        "record_size": 3463,
+        "sha256": "0ff1856bbd031b5298d46c06c0502abc20bd804f42c1949ed4127e8c773660cc"
+      }
+    },
+    "template_function": "get_remote_module_template(True)",
+    "template_module": "torch.distributed.nn.jit.templates.remote_module_template",
+    "trigger_expression": "instantiator.instantiate_non_scriptable_remote_module_template()",
+    "trigger_module": "torch.distributed.nn.api.remote_module"
+  },
+  "module": {
+    "ast_parse": "PASS",
+    "compile": "PASS",
+    "content_match": "byte-identical deterministic installed template",
+    "file": {
+      "ctime_ns": 1787621213195577000,
+      "gid": 10049,
+      "mode": "0o644",
+      "mtime_ns": 1787621213195577000,
+      "sha256": "8205b16956fb264841ecd8644784a0d157f87df79b17c16825dc1163433ce5d8",
+      "size": 2355,
+      "uid": 778916
+    },
+    "loader_class": "SourceFileLoader",
+    "loader_module": "_frozen_importlib_external",
+    "name": "_remote_module_non_scriptable",
+    "origin": "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/tmpa20zzitt/_remote_module_non_scriptable.py",
+    "package": "",
+    "parent": {
+      "ctime_ns": 1787621213201532000,
+      "gid": 10049,
+      "mode": "0o700",
+      "path": "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/tmpa20zzitt",
+      "uid": 778916
+    },
+    "spec_name": "_remote_module_non_scriptable",
+    "spec_origin": "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/tmpa20zzitt/_remote_module_non_scriptable.py"
+  },
+  "process_start_ns": 1787621211603660183,
+  "result": "TORCH_GENERATED_ORIGIN_PROVENANCE_PASS"
+}
