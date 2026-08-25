@@ -1,0 +1,22 @@
+Task-ID: PROCGEN-NORMMATCH-V2-INTERPRETER-PATH-AUDIT-AND-6M-S0-20260825-17
+Assignment: c8c037ed92b0cf5757924622d6a7ba5106062e72
+
+Local bounded verification:
+- TASK17_INTERPRETER_PATH_ORIGIN_TESTS_PASS
+  - current-interpreter derived nonexistent standard zip candidate: PASS
+  - dynamically derived safe real standard zip: PASS
+  - same-name zip in arbitrary temporary directory: correctly rejected
+  - mismatched Python-version zip: correctly rejected
+  - current-user-writable zip: correctly rejected
+  - symlink zip: correctly rejected
+  - repository-local module from interpreter zip: correctly rejected
+  - repository-local module outside frozen bundle: correctly rejected
+- TASK16_ORIGIN_SAFETY_TESTS_PASS
+  - designated empty directory positive and all four negative protections preserved
+- TASK17_FROZEN_IDENTITY_TEST_PASS
+- Python byte-compilation: PASS
+- Slurm launcher syntax: PASS
+- Task14, Task15, and Task16 tracked trees unchanged: PASS
+- observed host path is not hard-coded in Task17 source: PASS
+
+No remote clean-room audit or scientific preflight was run while producing this file.
