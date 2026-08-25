@@ -2,127 +2,141 @@ Status: READY
 
 # TASK.md
 
-Task-ID: `PROCGEN-NORMMATCH-V2-MP-MAIN-NATURAL-STATE-READONLY-20260825-30`
+Task-ID: `PROCGEN-NORMMATCH-V2-MP-MAIN-INPATH-CAPTURE-READONLY-20260825-31R`
 
 ## 唯一目标
 
-在不改变任何接受策略、manifest、冻结探针或科学代码的前提下，只读证明自然 Python 3.9 multiprocessing 启动过程中 `__main__` 与 `__mp_main__` 的实际来源、状态转换和 backing-source 关系，为下一轮决定能否建立严格的非对象同一性分类器提供充分证据。
+进行最后一次有界、只读取证：利用冻结 closure/origin-scan 路径中已经存在的 Python 模块遍历和记录对象，捕获自然 `__main__`/`__mp_main__` 状态，不新增 observer import 或审计框架；证明 capture-on 与 capture-off 对照的 import order 和规范化运行时科学证据一致。
 
-本任务不得假设或要求 `sys.modules["__main__"] is sys.modules["__mp_main__"]`；Task29 已在自然时序中反驳该关系。
+本任务只解决 Task30 的 observer 扰动缺口，不批准任何模块，不启动 NormMatch V2 科学实验。
 
-## 范围
+## 范围与冻结边界
 
-仅限 NormMatch V2 当前冻结执行链中的 multiprocessing 模块语义取证。
+保持字节不变：
 
-保持以下内容字节不变：
+- NormMatch V2 trainer、config、regression、monitor；
+- bundle、manifest、science/preflight launcher；
+- Task23 hook、Task25 classifier、Task27 semantic binding；
+- Task28R exact-probe validator；
+- 所有 origin acceptance、allowlist 和 scientific identity。
 
-- NormMatch V2 trainer、config、regression、monitor。
-- Hermetic bundle、manifest、科学与 preflight launcher。
-- Task23 non-reentrant hook。
-- Task25 Torch pseudo-origin classifier。
-- Task27 runtime semantic binding。
-- Task28R exact frozen-probe alias validator。
-- 所有既有报告、失败账本和实验根目录。
+允许版本化一个仅用于取证的 closure-probe 副本，但不得改变原冻结探针。
 
-不得修改 origin acceptance、bundle manifest 或 `sys.modules`。
+## 唯一允许的实现
 
-## 允许动作
+在现有 origin scan 已经取得 loaded-module record 的位置，对其内存记录进行序列化：
 
-1. 实现一个纯观察、无训练、无接受决策的取证 harness。
-2. 在至少三个独立 clean process 中复现自然启动时序。
-3. 在以下里程碑采集快照：
+- 不得增加任何 import；
+- 不得提前 import `multiprocessing`；
+- 不得注册新的 audit hook、trace、profile或 import hook；
+- 不得读取会触发 lazy import 的属性；
+- capture-on 与 capture-off 必须执行同一版本化代码；唯一差异是是否把已经计算出的记录写入证据文件；
+- 写出只能使用该路径在 capture 分支之前已加载并实际使用的 Python 对象。
 
-   - child-process entry；
-   - closure probe 开始；
-   - trainer import 前后；
-   - production model construction 后；
-   - origin scan 前。
+## 必需捕获字段
 
-4. 每个快照记录：
+在以下自然里程碑保留 `__main__`/`__mp_main__` 证据：
 
-   - `__main__`、`__mp_main__` 是否存在；
-   - 两者的对象 ID 与对象同一性；
-   - module type、MRO、`__name__`、`__file__`、`__spec__`、loader、package、origin；
-   - module dictionary 的对象 ID、键集合和规范化内容差异；
-   - backing file 的 raw/resolved 路径、`lstat/stat`、device/inode、UID/GID、mode、size、fd identity 与 SHA256；
-   - 顶层 code object 的 filename、name、firstlineno 和可稳定摘要；
-   - backing source 是否严格对应 Task28R frozen probe、bundle 中已列明文件或其他来源。
+1. child entry；
+2. closure-probe start；
+3. trainer import 前后；
+4. production model construction 后；
+5. origin scan 前。
 
-5. 将观察到的状态转换逐项映射到冻结 CPython 文件及行号：
+每个里程碑记录：
 
-   - `multiprocessing/__init__.py` SHA `a5a42976033c7d63ee2740acceef949a3582dcb0e0442845f9717e1be771c68b`；
-   - `multiprocessing/spawn.py` SHA `16ce6d81f8b5ef7228e5500bff04b37bdceb3d7dfc8d6de3ad523598798c43f4`；
-   - `spawn_main -> _main -> prepare -> _fixup_main_from_path`。
+- presence、对象ID及对象同一性；
+- type/MRO；
+- name、file、spec、loader、package、origin；
+- module-dict身份、键集合及规范化摘要；
+- backing raw/resolved path；
+- `lstat/stat`、device/inode、UID/GID、mode、size；
+- fd identity、SHA256；
+- code-object filename/name/firstlineno及稳定摘要；
+- backing 是否为精确 Task23 probe、部署版 Task27 preflight、bundle manifest文件或其他来源。
 
-6. 设置无 observer 的对照进程，证明 observer：
+不得把对象ID、临时路径、时间戳或随机初始化值纳入跨进程稳定hash。
 
-   - 不提前导入 `multiprocessing`；
-   - 不创建、替换或重绑定 `__main__`/`__mp_main__`；
-   - 不改变 module cardinality、import order、RNG、resolved config、模型参数或 Task27 telemetry；
-   - 不触发额外文件加载或 origin-scan 差异。
+## 对照设计
 
-## 必需证据
+在同一有界取证活动中运行：
 
-- 至少三个独立自然时序复现及一个无 observer 对照。
-- 每个里程碑的完整规范化快照和 SHA256。
-- `__main__` 与 `__mp_main__` 的逐字段差异表。
-- backing-file/source/code-object 等价性或非等价性的精确证明。
-- CPython 状态转换与冻结源码行号的对应表。
-- observer 非扰动证明。
-- Task29 两次失败继续保留：
+- 至少两个 capture-on clean process；
+- 至少两个 capture-off clean process。
 
-  - premature-import observer：`infrastructure-failure/proof-observer-import-timing`；
-  - natural non-alias：`precheck-failure/task29-natural-mp-main-not-exact-main-object-alias`。
+四者必须使用相同冻结环境、入口和自然 multiprocessing 时序。不得为了观察而预先导入模块。
 
-- 冻结科学哈希、Task27 telemetry 与历史失败账本未改变的证明。
+必须比较：
+
+- 完整 import order；
+- origin-scan module cardinality与规范化module集合；
+- resolved config、结构manifest、connectivity和AST证据；
+- Task27 wrapped/unwrapped telemetry；
+- RNG状态摘要；
+- critical stdout；
+- Task28R最终拒绝点；
+- 非观察性运行时证据hash。
 
 ## 验收标准
 
-仅允许以下一个终局结论：
+只有同时满足以下条件才可得出 `NATURAL_MP_MAIN_RELATIONSHIP_PROVEN`：
 
-- `NATURAL_MP_MAIN_RELATIONSHIP_PROVEN`：独立复现一致，observer 非扰动，并精确证明自然 `__mp_main__` 的创建来源、backing source、状态转换以及它与 `__main__` 的非对象同一关系；
-- `NO_SAFE_ALIAS_RELATION`：证据显示不存在足够严格、稳定且不可伪造的来源关系；
-- `OBSERVER_PERTURBED`：无法证明观察器不改变自然状态；
-- `INSUFFICIENT_EVIDENCE`：所需字段或复现完整性不足。
+- capture-on 两次完整关系一致；
+- capture-off 两次完整关系一致；
+- capture-on/off import order与规范化module集合完全一致；
+- Task27、RNG、config、network、AST、connectivity及critical stdout一致；
+- 写证据是唯一可解释差异；
+- 完整证明自然终态中：
 
-本任务即使得到 `NATURAL_MP_MAIN_RELATIONSHIP_PROVEN`，也不得直接批准该模块；分类器设计由下一轮 Planner 决定。
+  - `__main__` 与 `__mp_main__` 是不同对象；
+  - `__main__` 精确背靠冻结Task23 probe；
+  - `__mp_main__` 精确背靠部署版Task27 preflight；
+  - 状态转换符合冻结CPython spawn源码链。
 
-## 禁止事项
+否则只能选择：
 
-- 不得创建或修改 `__mp_main__` classifier、allowlist、manifest 或 origin policy。
-- 不得按模块名 `__mp_main__`、文件名或目录进行宽泛放行。
-- 不得重新要求或声称 `__main__ is __mp_main__`。
-- 不得修改冻结科学代码、算法、bundle、launcher、monitor 或 Task28R 修复。
-- 不得启动 formal audit、四环境 preflight 或科学训练。
-- 不得创建实验根、checkpoint、模型或科学 monitor。
-- 不得重试既有任务、覆盖旧根或删除失败记录。
-- 不得使用 Jupyter。
-- 不得访问 `.54`、`ws4090-31` 或 `10.49.7.54`。
-- 不得规划 MuJoCo 或 Isaac。
-- Planner 不指定主机、GPU、partition、卡数、并发或队列位置；所有实时资源判断归 Executor。
+- `OBSERVER_PERTURBED`
+- `INSUFFICIENT_EVIDENCE`
+- `NO_SAFE_ALIAS_RELATION`
 
-## 报告字段
+任一结论后立即停止。
 
-Executor 必须报告：
+## 硬停止与禁止事项
 
-- Task-ID 与唯一终局结论；
-- assignment、implementation/evidence/delivery commits；
-- origin/agent-work 推送验证；
-- 所有冻结文件 SHA256；
-- 各独立进程和对照的启动方式与非扰动证明；
-- 每个里程碑的模块状态表；
-- backing-file、fd、源码和 code-object 身份表；
-- CPython 源码状态转换映射；
-- 复现一致性及所有矛盾；
-- scheduler/process/artifact/error 的终态扫描；
-- 明确声明没有 classifier、policy、manifest、preflight、science、root、checkpoint 或 monitor；
-- 完整保留的失败与取消账本；
-- 下一轮若要设计严格分类器，仍缺少的精确证据。
+- 仅允许一次有界取证活动；失败后不得现场修复或重跑。
+- 不得实现或批准 `__mp_main__` classifier。
+- 不得修改origin policy、allowlist、manifest或bundle。
+- 不得运行closure acceptance、formal audit、四环境preflight或科学训练。
+- 不得创建科学root、transition、checkpoint、model或monitor。
+- 不得修改或重做Task28R。
+- 不得创建第二候选或泛化审计框架。
+- 不得使用Jupyter。
+- 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
+- 不得规划MuJoCo或Isaac。
+- Planner不指定主机、GPU、partition、卡数、并发或队列；Executor负责所有实时资源判断。
+
+## 必需证据与报告字段
+
+必须报告：
+
+- assignment、implementation、evidence、Delivery commits；
+- origin/agent-work远端验证；
+- 所有冻结SHA；
+- capture-on/off逐进程字段与规范化hash；
+- import-order和module-set精确diff；
+- 非扰动判定及任何矛盾；
+- CPython `multiprocessing/__init__.py` 与 `spawn.py` 行号映射；
+- Task29/30失败账本完整保留；
+- scheduler、process、artifact及hard-error终态；
+- 明确声明没有classifier、policy、manifest、preflight、science、root、model或monitor；
+- 唯一允许结论。
 
 ## 提交、推送与回调
 
-- 更新 `.agent/STATE.md` 和 `.agent/AGENT_REPORT.md`。
-- 写入 `.agent/reports/PROCGEN-NORMMATCH-V2-MP-MAIN-NATURAL-STATE-READONLY-20260825-30.md`。
-- 提交全部只读证据与报告，不提交模型或 checkpoint。
-- 推送到 `origin/agent-work`，并验证远端 HEAD。
-- 回调 Planner 时提供唯一终局结论、Delivery HEAD、evidence commit、报告路径及关键状态转换证据。
+更新：
+
+- `.agent/STATE.md`
+- `.agent/AGENT_REPORT.md`
+- `.agent/reports/PROCGEN-NORMMATCH-V2-MP-MAIN-INPATH-CAPTURE-READONLY-20260825-31R.md`
+
+提交模型无关证据和报告，不提交模型/checkpoint。推送至`origin/agent-work`并验证远端HEAD后回调Planner。
