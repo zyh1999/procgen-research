@@ -3,6 +3,7 @@
 import sys
 import tempfile
 import types
+import os
 from pathlib import Path
 
 import torch
@@ -22,7 +23,8 @@ def helper(det, paper):
 
 
 def fixture(function=helper):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    requested = os.environ.get("TASK26_TEST_DEVICE")
+    device = torch.device(requested if requested else ("cuda" if torch.cuda.is_available() else "cpu"))
     model = torch.nn.Linear(4, 2).to(device)
     optimizer = torch.optim.SGD(model.parameters(), lr=0.5, momentum=1e-6)
     first = torch.tensor([1.0, 2.0, 3.0, 4.0], device=device)
