@@ -1,119 +1,128 @@
 Status: READY
 
-# Task-ID: PROCGEN-NORMMATCH-V2-AST-CALL-AUDIT-AND-6M-S0-20260825-26
+# Task-ID: PROCGEN-NORMMATCH-V2-RUNTIME-SPY-SEMANTIC-BINDING-AND-6M-S0-20260825-27
 
 ## 唯一目标
 
-仅将冻结preflight中对以下单行源码字符串的脆弱断言：
+仅修正runtime spy的expected-object绑定：在冻结one-step preflight边界上，将实际deterministic proposal对象`det_proposal`对应到trainer AST角色`head_direction`，并将实际Paper proposal对象绑定到`paper_head_proposal`。不得按trainer词法变量名查找preflight局部变量。
 
-```text
-match_head_proposal_norm(head_direction, paper_head_proposal)
-```
-
-替换为line-wrap无关的AST及运行时语义验证。保持V2 trainer、算法、bundle、class-attribute classifier、non-reentrant hook及其他科学身份不变。
+修正通过后立即沿既定路径完成一次closure、复用已通过且身份仍有效的审计证据、执行四环境preflight和NormMatch V2 seed-0预定6M科学实验。不得建立新audit框架或第二算法。
 
 ## 证据判断
 
-Task 25已通过：
+Task 26已经证明：
 
-- 真实`torch.classes` class-level pseudo-origin分类；
-- 全部负向测试；
-- hermetic bundle验证；
-- production model构造，参数数目938,979。
+- 唯一AST调用正确；
+- callee、参数顺序、scope、control flow和返回值流向正确；
+- trainer、模型、config、structural manifest及connectivity checks正确。
 
-唯一失败是trainer中的合法调用跨557–558两行，而preflight要求完全相同的单行substring。调用语义没有失败。这属于`precheck-failure/frozen-preflight-source-text-assertion-linewrap-mismatch`，不是算法、数值、求解器、GPU或科学证据。
+唯一失败是测试harness把trainer源码名`head_direction`当成preflight局部变量名，而preflight中同一语义tensor名为`det_proposal`。这是`precheck-failure/runtime-spy-preflight-variable-identity-binding`，不是deterministic GGN、NormMatch、数值或科学失败。
 
-## 冻结身份
+## 唯一允许的修改
 
-必须保持字节不变：
+在preflight中定义显式、不可变的semantic-role mapping：
 
-- V2 trainer SHA256：`0e2c2e26a3ec388cb9df626b4bdae83bff5409a9bbb1febd5c6e2c23a9ddc46b`
-- Config：`9497be42db0bac8abb504721677ca6608d9f698f101587980c1a726c1dd81fda`
-- Regression：`f7125681770213974a92d7664250810c201968dc34bb06ce3c365eb4fa59e23c`
-- Monitor：`536b87201191f81a44fc3aa6564565653572df523080b0952b11d6347152572e`
-- Bundle/manifest及science/preflight deployment launchers
-- Task 23 hook SHA：`8d9206a6defc4525114398a952d29ffdd4872cd933dc5c9b96fc838bd1273dbe`
-- Task 25 classifier SHA：`f80de2abbcbce29e7a57ef456156c86636798c4e1ea37171922b3b466b6790fc`
+```text
+deterministic_head_proposal:
+  trainer_ast_name: head_direction
+  preflight_object: det_proposal
 
-允许产生一个新的preflight SHA，但其唯一语义diff必须是本任务规定的assertion替换。
-
-## 唯一允许的代码修改
-
-删除单行substring断言，替换为以下检查。
-
-### AST验证
-
-对冻结trainer执行`ast.parse`，定位实际训练更新路径中的call：
-
-```python
-match_head_proposal_norm(
-    head_direction,
-    paper_head_proposal,
-)
+counterfactual_paper_head_proposal:
+  trainer_ast_name: paper_head_proposal
+  preflight_object: paper_head_proposal
 ```
 
-必须证明：
+Wrapper必须直接捕获preflight实际对象：
 
-1. callee严格解析到预期的`match_head_proposal_norm`定义，而不是同名局部变量、attribute或shadow。
-2. 位置参数恰为两个，顺序严格为：
+```python
+expected_det = det_proposal
+expected_paper = paper_head_proposal
 
-   - `head_direction`
-   - `paper_head_proposal`
+def spy(actual_det, actual_paper):
+    assert actual_det is expected_det
+    assert actual_paper is expected_paper
+```
 
-3. 无额外 positional、keyword、`*args`或`**kwargs`。
-4. Call处于实际minibatch update控制流中，不是字符串、注释、测试函数或明显dead branch。
-5. 返回值流向冻结V2后续head update路径。
-6. 记录call及函数定义的AST normalized dump、source span和SHA256。
-7. 格式、空白和换行变化不得影响结果。
+禁止通过字符串、`locals()`、trainer AST名称或模糊value equality寻找对象。
 
-### 运行时语义验证
+## 必需证明
 
-在既有one-step preflight中对目标函数做无副作用wrapper/spy，证明：
+1. AST/dataflow继续证明trainer `head_direction`来自冻结deterministic head solve并进入唯一norm-match call。
+2. Preflight `det_proposal`由相同公式、输入、阻尼、precision及solver产生并位于相同call boundary。
+3. `actual_det is det_proposal`。
+4. `actual_paper is paper_head_proposal`。
+5. 记录object identity、storage/data pointer、shape、stride、dtype、device、version counter、`requires_grad`及确定性value摘要。
+6. 调用前后输入对象未被修改。
+7. 每个预期update恰调用一次。
+8. 返回值满足：
 
-- 每个预期更新恰调用一次；
-- 两个实参分别与当前`head_direction`和`paper_head_proposal`对象/张量identity一致；
-- shape、dtype、device及有限性正确；
-- 返回proposal满足既定norm matching；
-- wrapper不改变RNG、tensor、optimizer或控制流；
-- 移除wrapper后结果与wrapped路径bit-identical。
+```text
+||u_target||₂ = ||u_paper||₂
+```
 
-不得修改trainer来帮助preflight通过。
+9. Wrapped与unwrapped路径的RNG、outputs、parameters、optimizer state及telemetry bit-identical。
+10. 科学运行时不残留spy或测试hook。
+
+若实际冻结代码在边界上创建clone、view、detach、cast或其他不同对象，不得放宽identity；必须`PRECHECK_BLOCKED`并报告真实dataflow。
 
 ## 必需负向测试
 
 必须拒绝：
 
-- 仅在字符串或注释中出现调用；
-- 参数反序、缺失、增加或改为错误名称；
-- callee shadowing或attribute call；
-- 调用位于dead/test-only路径；
-- 返回值未用于head update；
-- runtime未调用、重复调用或实参identity错误；
-- wrapper改变RNG、参数或返回值。
+- 按`head_direction`字符串查询preflight变量；
+- det/Paper反序；
+- equal-value但不同object或storage；
+- clone、detach、cast、view或重计算替代；
+- 调用缺失或重复；
+- wrapper修改input、output、RNG或optimizer；
+- semantic mapping与AST/dataflow不一致。
 
-必须保留Task 16–25全部回归和冻结身份检查。
+保留Task 16–26全部已通过回归和冻结身份。
+
+## 冻结身份
+
+Trainer、config、AST contract、regression、bundle/manifest、science/preflight deployment launchers、monitor、Task 23 hook、Task 25 classifier及全部既有provenance必须字节不变。仅允许产生一个runtime-binding修正后的新preflight SHA。
 
 ## 有界执行
 
-1. 仅修改preflight的源码审计断言及相应测试。
-2. 本地实际Python 3.9环境通过后，仅执行一次closure provenance job。
-3. 两个独立clean process必须完成trainer import及production model construction，规范化closure一致。
-4. Closure失败即`PRECHECK_BLOCKED`，不得修补或重试。
-5. Closure通过后仅执行一次formal clean-room audit。
-6. Formal audit失败即`PRECHECK_BLOCKED`。
-7. Audit通过后，对四环境各执行一次真实网络preflight；任一失败即`PRECHECK_BLOCKED`。
-8. 全部通过后，以全新非覆盖root运行四环境seed 0，每格intended horizon 6M、终点`5,980,160`、最多一次提交。
-9. Executor独立负责全部实时资源及placement。
+1. 仅提交runtime-spy binding修正、mapping ledger和测试。
+2. 在实际Python 3.9/Torch环境本地通过后，仅执行一次closure job。
+3. 两个独立clean process必须完成production model construction并产生一致closure；失败即`PRECHECK_BLOCKED`，不得修补或重试。
+4. Closure通过后复用仍严格匹配的已通过bundle、path、pseudo-origin及hook证据，只执行必要的formal audit。
+5. Formal audit或任一四环境preflight失败即`PRECHECK_BLOCKED`。
+6. 全部通过后，以全新非覆盖root运行：
 
-## 严格比较与早停
+   - BigFish seed 0
+   - BossFight seed 0
+   - CaveFlyer seed 0
+   - CoinRun seed 0
 
-仅比较原始Paper RAT同环境、seed 0、同evaluation semantics和同transition：
+7. 每格intended horizon为6M，终点`5,980,160`，每格最多一次科学提交。
+8. Executor独立负责全部实时资源和placement。
+
+## 科学遥测要求
+
+除既定reward/KL/LR/value/advantage/solver telemetry外，必须记录同minibatch：
+
+- `||u_det||₂`
+- `||u_paper||₂`
+- NormMatch scale
+- `||u_target||₂`
+- det/Paper proposal cosine
+- global pre/post-clip norm
+- value prediction change
+
+解释必须保持理论校正：deterministic Gaussian GGN可以理论正确；本实验检验的是其与Paper finite-sample sampled-score update之间的scale校准，而非“GGN公式是否正确”。
+
+## 严格早停
+
+只与原始Paper RAT同环境、seed 0、同evaluation semantics和同transition比较：
 
 - 首个共同点`>=2,000,000`
 - 首个共同点`>=4,000,000`
 - 终点`5,980,160`
 
-仅当`Target/Paper < 0.60`时取消对应cell。不得用Paper终点比较中间Target；无精确共同点不得操作。
+仅当`Target/Paper < 0.60`时取消该cell。不得用Paper终点比较中间Target。
 
 ## 验收标准
 
@@ -124,11 +133,11 @@ match_head_proposal_norm(
 - `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`
 - `PRECHECK_BLOCKED`
 
-Promotion要求至少3/4环境达到终点且终点ratio均不低于0.60；rejection要求至少2个环境严格早停或完整终点证据明确否定候选。
+Promotion要求至少3/4环境达到终点且终点ratio均不低于0.60；rejection要求至少2个环境严格早停或终点证据明确否定候选。
 
 ## 禁止事项
 
-不得修改trainer、算法、config、bundle、launchers、monitor、hook、classifier或既有provenance；不得用更宽泛substring、regex或跳过调用检查；不得引入第二候选、覆盖旧root、重跑Paper、retry科学cell、使用Jupyter、访问`.54`/`ws4090-31`/`10.49.7.54`、指定资源或触碰无关任务。全部历史失败必须保留。
+不得修改算法、trainer、AST contract、bundle、launchers、monitor、hook或classifier；不得创建第二候选或新通用audit框架；不得覆盖旧root、重跑Paper、retry科学cell、使用Jupyter、访问`.54`/`ws4090-31`/`10.49.7.54`、指定资源或触碰无关任务。历史失败必须保留。
 
 ## 报告与推送
 
@@ -136,6 +145,6 @@ Promotion要求至少3/4环境达到终点且终点ratio均不低于0.60；rejec
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-NORMMATCH-V2-AST-CALL-AUDIT-AND-6M-S0-20260825-26.md`
+- `.agent/reports/PROCGEN-NORMMATCH-V2-RUNTIME-SPY-SEMANTIC-BINDING-AND-6M-S0-20260825-27.md`
 
-提交preflight修正、AST/runtime负向测试、closure证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、commit身份、新preflight SHA、AST call ledger、runtime identity ledger、closure、formal audit/preflight/科学终态、严格阶段比率及failure-ledger增量。
+提交binding修正、identity/dataflow ledger、科学遥测和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、commit身份、新preflight SHA、identity ledger、closure/audit/preflight结果、四环境科学终态、严格阶段比率、proposal norm/cosine及failure-ledger增量。
