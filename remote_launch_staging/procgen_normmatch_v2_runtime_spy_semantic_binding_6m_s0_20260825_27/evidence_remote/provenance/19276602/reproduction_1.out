@@ -1,0 +1,41 @@
+Setting seed: 0
+Logging to logs/shared.adv.resnet.dropout_0.0.damping_0.5.lr_0.5/bigfish-easy-0-10.20260825-054641_0
+creating environment
+Running on device: cuda:0
+training...
+
+Number of parameters: 938979.0
+
+GPUH_HYBRID_HEAD_COMPATIBILITY_PASS
+canonical_production_config_path=PASS
+resolved_configuration_three_way=BIT_IDENTICAL
+resolved_config_sha256=b44c9a008300c60dc7a0ba1efb27f53fa010959fb35a0b2482677e625871021a
+actual_network_partition=EXHAUSTIVE_MUTUALLY_EXCLUSIVE_STABLE
+structural_manifest_sha256=3f91f5c313480c089d300a7dd5aff4a664f28ff9d9f4718bbab430200298d623
+connectivity_probe_sha256=8f4486dce7f2c465924d3f415a89293138b01171dfcfd02c4177fb75827a99c4
+connectivity_environment=bigfish-easy-0-10
+connectivity_semantic_check=PASS
+critic_exclusive_policy_jacobian=EXACT_ZERO_DISCONNECTED
+actual_network_paper_actor_direction=BIT_IDENTICAL
+actual_network_paper_shared_critic_direction=BIT_IDENTICAL
+actual_network_one_step_policy_parameters=BIT_IDENTICAL
+actual_network_one_step_policy_logits=BIT_IDENTICAL
+actual_network_only_value_head_delta=DIFFERS
+actual_network_head_proposal_normmatch=PASS
+actual_network_global_preclip_norm=COUNTERFACTUAL_PAPER_MATCH
+actual_network_global_clip_scale=BIT_IDENTICAL_REUSED
+actual_network_rng_state_across_normmatch=BIT_IDENTICAL
+head_det_proposal_l2=6.050832272e-01
+head_paper_proposal_l2=9.192549586e-01
+head_normmatch_scale=1.519220710e+00
+head_target_proposal_l2=9.192548990e-01
+head_det_paper_proposal_cosine=8.612535000e-01
+gpu=NVIDIA H200 total_bytes=150111977472 peak_bytes=2050528256
+paper_rows=(512, 938976) head_rows=(512, 257)
+head_fp64_cholesky_info_max=0
+head_fp64_relative_residual=8.627e-16
+partition_policy=3855 shared=934864 head=257
+torch=2.5.1+cu121 cuda=12.1
+TASK27_RUNTIME_SEMANTIC_BINDING_PASS
+task27_call_count=1
+task27_wrapped_unwrapped_bit_identical=PASS

@@ -1,0 +1,63 @@
+{
+  "call": {
+    "args": [
+      "head_direction",
+      "paper_head_proposal"
+    ],
+    "callee": "match_head_proposal_norm",
+    "containing_function": "Advantage_Update",
+    "keywords": 0,
+    "normalized_ast": "Call(func=Name(id='match_head_proposal_norm', ctx=Load()), args=[Name(id='head_direction', ctx=Load()), Name(id='paper_head_proposal', ctx=Load())], keywords=[])",
+    "normalized_ast_sha256": "8ed0b40f59fe3381e8568e318b5ab448d4c04c2a1cc18cfc56c67a91f819fd8f",
+    "outer_production_function": "learn",
+    "span": {
+      "col_offset": 146,
+      "end_col_offset": 9,
+      "end_lineno": 559,
+      "lineno": 557
+    },
+    "starargs": 0
+  },
+  "definition": {
+    "name": "match_head_proposal_norm",
+    "normalized_ast": "FunctionDef(name='match_head_proposal_norm', args=arguments(posonlyargs=[], args=[arg(arg='det_proposal'), arg(arg='paper_proposal')], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Expr(value=Constant(value='Match final history-corrected head proposals before global clipping.')), If(test=Compare(left=Attribute(value=Name(id='det_proposal', ctx=Load()), attr='shape', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Name(id='paper_proposal', ctx=Load()), attr='shape', ctx=Load())]), body=[Raise(exc=Call(func=Name(id='ValueError', ctx=Load()), args=[Constant(value='deterministic/Paper head proposal shape mismatch')], keywords=[]))], orelse=[]), If(test=BoolOp(op=Or(), values=[UnaryOp(op=Not(), operand=Call(func=Attribute(value=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='isfinite', ctx=Load()), args=[Name(id='det_proposal', ctx=Load())], keywords=[]), attr='all', ctx=Load()), args=[], keywords=[])), UnaryOp(op=Not(), operand=Call(func=Attribute(value=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='isfinite', ctx=Load()), args=[Name(id='paper_proposal', ctx=Load())], keywords=[]), attr='all', ctx=Load()), args=[], keywords=[]))]), body=[Raise(exc=Call(func=Name(id='FloatingPointError', ctx=Load()), args=[Constant(value='nonfinite deterministic/Paper head proposal')], keywords=[]))], orelse=[]), Assign(targets=[Name(id='det_norm', ctx=Store())], value=Call(func=Attribute(value=Attribute(value=Name(id='torch', ctx=Load()), attr='linalg', ctx=Load()), attr='vector_norm', ctx=Load()), args=[Name(id='det_proposal', ctx=Load())], keywords=[])), Assign(targets=[Name(id='paper_norm', ctx=Store())], value=Call(func=Attribute(value=Attribute(value=Name(id='torch', ctx=Load()), attr='linalg', ctx=Load()), attr='vector_norm', ctx=Load()), args=[Name(id='paper_proposal', ctx=Load())], keywords=[])), Assign(targets=[Name(id='zero', ctx=Store())], value=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='zeros', ctx=Load()), args=[Tuple(elts=[], ctx=Load())], keywords=[keyword(arg='device', value=Attribute(value=Name(id='det_norm', ctx=Load()), attr='device', ctx=Load())), keyword(arg='dtype', value=Attribute(value=Name(id='det_norm', ctx=Load()), attr='dtype', ctx=Load()))])), Assign(targets=[Name(id='det_is_zero', ctx=Store())], value=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='equal', ctx=Load()), args=[Name(id='det_norm', ctx=Load()), Name(id='zero', ctx=Load())], keywords=[])), Assign(targets=[Name(id='paper_is_zero', ctx=Store())], value=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='equal', ctx=Load()), args=[Name(id='paper_norm', ctx=Load()), Name(id='zero', ctx=Load())], keywords=[])), If(test=Name(id='det_is_zero', ctx=Load()), body=[If(test=UnaryOp(op=Not(), operand=Name(id='paper_is_zero', ctx=Load())), body=[Raise(exc=Call(func=Name(id='FloatingPointError', ctx=Load()), args=[Constant(value='zero deterministic head proposal with nonzero Paper proposal')], keywords=[]))], orelse=[]), Assign(targets=[Name(id='scale', ctx=Store())], value=Name(id='zero', ctx=Load())), Assign(targets=[Name(id='target', ctx=Store())], value=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='zeros_like', ctx=Load()), args=[Name(id='det_proposal', ctx=Load())], keywords=[])), Assign(targets=[Name(id='cosine', ctx=Store())], value=Name(id='zero', ctx=Load()))], orelse=[If(test=Name(id='paper_is_zero', ctx=Load()), body=[Assign(targets=[Name(id='scale', ctx=Store())], value=Name(id='zero', ctx=Load())), Assign(targets=[Name(id='target', ctx=Store())], value=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='zeros_like', ctx=Load()), args=[Name(id='det_proposal', ctx=Load())], keywords=[])), Assign(targets=[Name(id='cosine', ctx=Store())], value=Name(id='zero', ctx=Load()))], orelse=[Assign(targets=[Name(id='scale', ctx=Store())], value=BinOp(left=Name(id='paper_norm', ctx=Load()), op=Div(), right=Name(id='det_norm', ctx=Load()))), Assign(targets=[Name(id='target', ctx=Store())], value=BinOp(left=Name(id='det_proposal', ctx=Load()), op=Mult(), right=Name(id='scale', ctx=Load()))), Assign(targets=[Name(id='cosine', ctx=Store())], value=BinOp(left=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='dot', ctx=Load()), args=[Name(id='det_proposal', ctx=Load()), Name(id='paper_proposal', ctx=Load())], keywords=[]), op=Div(), right=BinOp(left=Name(id='det_norm', ctx=Load()), op=Mult(), right=Name(id='paper_norm', ctx=Load()))))])]), Assign(targets=[Name(id='target_norm', ctx=Store())], value=Call(func=Attribute(value=Attribute(value=Name(id='torch', ctx=Load()), attr='linalg', ctx=Load()), attr='vector_norm', ctx=Load()), args=[Name(id='target', ctx=Load())], keywords=[])), If(test=UnaryOp(op=Not(), operand=Call(func=Name(id='all', ctx=Load()), args=[GeneratorExp(elt=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='isfinite', ctx=Load()), args=[Name(id='value', ctx=Load())], keywords=[]), generators=[comprehension(target=Name(id='value', ctx=Store()), iter=Tuple(elts=[Name(id='det_norm', ctx=Load()), Name(id='paper_norm', ctx=Load()), Name(id='scale', ctx=Load()), Name(id='target_norm', ctx=Load()), Name(id='cosine', ctx=Load())], ctx=Load()), ifs=[], is_async=0)])], keywords=[])), body=[Raise(exc=Call(func=Name(id='FloatingPointError', ctx=Load()), args=[Constant(value='nonfinite head proposal norm-match telemetry')], keywords=[]))], orelse=[]), If(test=UnaryOp(op=Not(), operand=Call(func=Attribute(value=Name(id='torch', ctx=Load()), attr='allclose', ctx=Load()), args=[Name(id='target_norm', ctx=Load()), Name(id='paper_norm', ctx=Load())], keywords=[keyword(arg='rtol', value=Constant(value=2e-06)), keyword(arg='atol', value=Constant(value=2e-08))])), body=[Raise(exc=Call(func=Name(id='FloatingPointError', ctx=Load()), args=[JoinedStr(values=[Constant(value='head norm match failed: target='), FormattedValue(value=Call(func=Attribute(value=Name(id='target_norm', ctx=Load()), attr='item', ctx=Load()), args=[], keywords=[]), conversion=-1), Constant(value=' paper='), FormattedValue(value=Call(func=Attribute(value=Name(id='paper_norm', ctx=Load()), attr='item', ctx=Load()), args=[], keywords=[]), conversion=-1)])], keywords=[]))], orelse=[]), Return(value=Tuple(elts=[Name(id='target', ctx=Load()), Name(id='det_norm', ctx=Load()), Name(id='paper_norm', ctx=Load()), Name(id='scale', ctx=Load()), Name(id='target_norm', ctx=Load()), Name(id='cosine', ctx=Load())], ctx=Load()))], decorator_list=[])",
+    "normalized_ast_sha256": "2543654c2d420d599ba38c06e94dd2fe9d39205beca83721d706e23792d08c73",
+    "span": {
+      "col_offset": 0,
+      "end_col_offset": 67,
+      "end_lineno": 258,
+      "lineno": 226
+    }
+  },
+  "format_independent": true,
+  "live_production_minibatch_path": true,
+  "result": "TASK26_AST_CALL_AUDIT_PASS",
+  "return_flow": {
+    "assignment_normalized_ast_sha256": "5846faf33994e6dc4c8f62ef1b9809856bf4351d124e937e0b20b95984ec5931",
+    "assignment_span": {
+      "col_offset": 8,
+      "end_col_offset": 9,
+      "end_lineno": 559,
+      "lineno": 557
+    },
+    "assignment_targets": [
+      "head_target_proposal",
+      "head_det_proposal_l2",
+      "head_paper_proposal_l2",
+      "head_normmatch_scale",
+      "head_target_proposal_l2",
+      "head_proposal_cosine"
+    ],
+    "head_update_append_normalized_ast_sha256": "0a6825845a9693574dd1b4b85ffb172d76291a50bb251dc24881e4e304599258",
+    "head_update_append_span": {
+      "col_offset": 16,
+      "end_col_offset": 17,
+      "end_lineno": 568,
+      "lineno": 566
+    },
+    "target": "target_preclip_grads.append(-head_target_proposal[...].view_as(parameter))"
+  },
+  "source_label": "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/task27-deploy1-19276602.jJTNZz/code/train_shared_paper_hybrid_head_detggn_papernorm_v2.py",
+  "source_sha256": "0e2c2e26a3ec388cb9df626b4bdae83bff5409a9bbb1febd5c6e2c23a9ddc46b",
+  "unshadowed_module_definition": true
+}

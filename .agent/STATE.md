@@ -1,6 +1,44 @@
 # Current Project State
 
-Updated: 2026-08-25T13:25:00+08:00
+Updated: 2026-08-25T13:55:00+08:00
+
+## Current Task27 runtime semantic-binding precheck
+
+- Task `PROCGEN-NORMMATCH-V2-RUNTIME-SPY-SEMANTIC-BINDING-AND-6M-S0-20260825-27`
+  terminates with unique conclusion `PRECHECK_BLOCKED`.
+- Assignment/origin is `a670a49f8be6fc69d2773d45e72647bc2d0f73ad`;
+  the pushed binding/closure freeze is
+  `84de09cda16f2d75f172fd704b15a8ed1108ae32`.
+- The only preflight delta binds the frozen trainer AST role `head_direction`
+  directly to the actual preflight object `det_proposal`, and binds
+  `paper_head_proposal` to its actual object. New preflight SHA is
+  `e43fe7e730e840de07cc467bbc56900591c581fd24d4520abe129b0bad3d2cfb`.
+  Trainer/config/regression/bundle/manifest/deployment launchers/monitor,
+  Task23 hook, Task25 classifier and Task26 AST helper retain their frozen
+  identities.
+- Local static/frozen tests and actual Python 3.9.25 / Torch 2.5.1+cu121
+  direct-object positive/negative tests passed. The runtime ledger from the
+  real CUDA preflight proves exact `is` identity, distinct captured storage,
+  unchanged inputs, one call, immutable mapping, norm match and wrapped versus
+  unwrapped equivalence. It records deterministic/Paper norms
+  `.6050832272/.9192549586`, scale `1.519220710`, target norm `.9192548990`,
+  cosine `.8612535000`, and FP64 residual `8.627e-16`.
+- The one permitted closure job `19276602` ran on gpuH node821 and ended
+  `FAILED/1:0` after `00:01:56`. Both immutable bundle verifications passed;
+  the exact 938,979-parameter network, three-way config, structural manifest,
+  connectivity proof, AST ledger and Task27 runtime semantic-binding PASS
+  ledger were emitted.
+- The unchanged exhaustive module-origin scan then rejected its own frozen
+  closure probe loaded through the canonical storage spelling
+  `/net/scratch/.../runtime_closure_probe_task23.py`:
+  `RuntimeError: module origin is not approved`. Failure ledger:
+  `precheck-failure/task27-closure-probe-self-origin-storage-alias-policy`.
+  This is closure/audit infrastructure evidence, not NormMatch, deterministic
+  GGN, solver, numerical, H200, reward or training evidence.
+- Task27 makes the one-shot closure failure terminal. No repair/retry, second
+  process, normalized closure, formal audit, environment preflight, accepted
+  preflight, scientific job/root/process/transition/trace/checkpoint/model,
+  stage comparison, cancellation or monitor exists.
 
 ## Current Task26 AST/runtime preflight audit
 
