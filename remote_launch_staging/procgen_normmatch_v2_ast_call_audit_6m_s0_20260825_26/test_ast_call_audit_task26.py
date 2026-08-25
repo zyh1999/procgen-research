@@ -2,6 +2,7 @@
 """Task26 AST positive, formatting, and required negative regressions."""
 import ast
 import copy
+import os
 import sys
 from pathlib import Path
 
@@ -10,7 +11,10 @@ ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 from ast_runtime_call_audit_task26 import HELPER, validate_trainer_source
 
-TRAINER = ROOT / "procgen_paper_hybrid_head_normmatch_detggn_6m_s0_20260825_14/train_shared_paper_hybrid_head_detggn_papernorm_v2.py"
+TRAINER = Path(os.environ.get(
+    "TASK26_TRAINER",
+    ROOT / "procgen_paper_hybrid_head_normmatch_detggn_6m_s0_20260825_14/train_shared_paper_hybrid_head_detggn_papernorm_v2.py",
+))
 SOURCE = TRAINER.read_text()
 
 
@@ -138,4 +142,3 @@ def unused_return(tree, call, parent, learn):
 expect_reject("unused-return", rendered(unused_return))
 
 print("TASK26_AST_POSITIVE_FORMAT_NEGATIVE_TESTS_PASS")
-
