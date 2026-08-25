@@ -1,0 +1,23 @@
+Task-ID: PROCGEN-NORMMATCH-V2-TORCH-CLASS-ATTRIBUTE-PSEUDO-ORIGIN-AND-6M-S0-20260825-25
+Assignment: 572fdb82b8c2c87d0dabc056ecf08cc937a720fc
+
+PASS TASK25 static source/line/semantics positive and negative tests.
+PASS TASK25 frozen scientific/bundle/launcher/monitor/provenance/Task23-hook identities.
+PASS actual Python 3.9.25 / Torch 2.5.1+cu121 positive classifier.
+PASS required negatives: instance injection, class value/static/public mismatch,
+wrong key/type, metadata, __getattr__ monkeypatch, class dictionary injection,
+side-effecting __getattribute__, physical file, version/source/size/RECORD/line,
+and module replacement.
+PASS class-attribute provider ledger; public __file__ lookup invoked __getattr__ zero times.
+PASS Task16 origin-safety regression.
+PASS Task17 interpreter-path regression.
+PASS Task18 actual frozen-Torch generated-origin regression.
+PASS Task19 explicit policy namespace regression.
+PASS Task20 path identity regression.
+PASS Task21 Python3.9 lstat/fd identity regression.
+PASS Task22 closure negative-contract regression.
+PASS Task23 non-reentrant hook/static regression.
+PASS Python compilation and git diff check.
+
+No closure provenance job, formal audit, real-network preflight, or science was
+submitted while producing this file.
