@@ -1,0 +1,12 @@
+{
+  "canonical_path": "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/procgen-nm2-task17-empty-19248057.8bhSP8",
+  "ctime_ns": 1787620387881558000,
+  "device": 55,
+  "entries": [],
+  "gid": 10049,
+  "inode": 31931647850,
+  "permissions_octal": "0o700",
+  "phase": "before_interpreter",
+  "recorded_at_ns": 1787620388434518474,
+  "uid": 778916
+}

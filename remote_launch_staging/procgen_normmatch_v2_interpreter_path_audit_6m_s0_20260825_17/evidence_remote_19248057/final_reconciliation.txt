@@ -1,0 +1,7 @@
+Task17 queue rows after terminal reconciliation: none
+Task15 preflight entries: 0
+Task15 accepted_preflight entries: 0
+Task15 runs entries: 0
+Task17 real-network preflight submissions: none
+Task17 scientific submissions: none
+Task17 scientific monitor: none

@@ -2,34 +2,33 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-NORMMATCH-V2-SYSPATH-AUDIT-RECOVERY-AND-6M-S0-20260825-16`
-- Assignment: `21be84a247ff47f6541f1835a44308a9e6c5cad1`
+- Task-ID: `PROCGEN-NORMMATCH-V2-INTERPRETER-PATH-AUDIT-AND-6M-S0-20260825-17`
+- Assignment: `c8c037ed92b0cf5757924622d6a7ba5106062e72`
 - Method: `PAPER_MATCHED_HYBRID_HEAD_DETGGN_PAPERNORM_V2`
 - Repository target: `origin/agent-work`
 
 ## Result
 
-The bounded Task16 harness correction permits exactly one recorded empty
-working directory on `sys.path`, requires stable device/inode/ownership/mode
-and empty pre/post scans, audits every loaded-module origin, and verifies every
-repository-local module against the immutable bundle manifest. Positive and
-all four mandatory negative tests passed locally. Frozen algorithm, bundle,
-scientific, deployment-launcher and monitor hashes remain unchanged. Harness
-freeze commits are `dd9f70c1619e1aaaec97b7b75205d06d0919e0b9`,
-`e4207c39964f94648749e3ca03d884f5965e077c`, and
-`0c7e2ae5727ce2a2c93636388db76b218c31270d`.
+The bounded Task17 auditor dynamically derives versioned standard-library zip
+candidates from the active interpreter's base prefixes, version and sysconfig
+paths. It does not hard-code the observed CSF3 path, does not allow arbitrary
+zip files, and preserves strict post-import module-origin and frozen-bundle
+hash auditing. All mandatory local positive/negative regressions and the full
+Task16 designated-empty suite passed. Frozen scientific, bundle, deployment
+and monitor identities remain unchanged. Audit freeze commit is
+`9a477e29ea1454e5f7a7ec3d14f2f656d5f98a16`.
 
-The one authorized remote clean-room audit, gpuH job `19243039`, ran on
-node820 and ended `FAILED/1:0` after four seconds. The immutable archive and
-manifest passed exact hash verification, and the designated empty directory
-passed its recorded pre-interpreter inspection. The audited interpreter then
-rejected `/usr/lib64/python39.zip` as an unapproved `sys.path` entry before
-trainer import and before an import-origin manifest could be emitted.
+Exactly one remote clean-room audit was run: gpuH job `19248057` on node820.
+It ended `FAILED/1:0` after 14 seconds. Bundle and designated-empty prechecks
+passed, the dynamically derived nonexistent `/usr/lib64/python39.zip`
+candidate was accepted, and trainer imports began. Exhaustive module-origin
+auditing then rejected an unapproved Torch-generated temporary origin:
+`.../tmp/tmpasoctt07/_remote_module_non_scriptable.py`.
 
-Under the explicit no-repair/no-retry gate, no four-environment real-network
-preflight and no scientific cell was submitted. Task15 job `19241161` and
-Task14 jobs `19238126`--`19238129` remain preserved. This is an audit-harness
-origin-policy failure, not algorithm, numerical, solver, H200, reward or
-training evidence.
+The failure occurred before the complete import-origin manifest could be
+written. Under the explicit one-audit/no-repair rule, no four-environment
+real-network preflight and no scientific cell was submitted. Task14--16
+ledgers remain immutable. This is an audit-harness origin-policy failure, not
+algorithm, numerical, solver, H200, memory, reward or training evidence.
 
 PRECHECK_BLOCKED

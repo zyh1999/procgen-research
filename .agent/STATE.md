@@ -1,6 +1,37 @@
 # Current Project State
 
-Updated: 2026-08-25T08:59:19+08:00
+Updated: 2026-08-25T09:15:07+08:00
+
+## Current NormMatch V2 interpreter-path audit recovery
+
+- Task `PROCGEN-NORMMATCH-V2-INTERPRETER-PATH-AUDIT-AND-6M-S0-20260825-17`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no real-network
+  preflight or scientific cell was submitted.
+- The bounded Task17 correction derives versioned stdlib zip candidates from
+  `sys.base_prefix`, `sys.base_exec_prefix`, `sys.version_info` and
+  `sysconfig.get_paths()`. It accepts only exact derived `pythonXY.zip`
+  candidates, records nonexistent candidates explicitly, validates any real
+  candidate as regular/non-symlink/non-user-writable with metadata/hash, and
+  retains strict loaded-module and repository-local bundle-origin auditing.
+- Mandatory local tests passed safe real and current-interpreter nonexistent
+  candidates; rejected arbitrary-location, wrong-version, writable, symlink,
+  out-of-bundle and repository-local-from-zip origins; and retained all Task16
+  designated-empty positive/negative protections. Frozen identity checks pass.
+- Exactly one clean-room job, `19248057`, ran on node820 H200 and ended
+  `FAILED/1:0` after `00:00:14`. Bundle/manifest and designated-empty prestart
+  gates passed. The previously blocked `/usr/lib64/python39.zip` dynamically
+  derived as a nonexistent Python3.9 candidate and no longer blocked import.
+- Trainer imports then reached the exhaustive origin scan, which rejected
+  `/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/tmpasoctt07/_remote_module_non_scriptable.py`,
+  an unapproved Torch-generated temporary module origin. Complete
+  `import_origin_manifest.json` and `clean_room_audit.json` were not emitted.
+- The one-audit/no-repair gate forbids correction or retry. Four-environment
+  preflight, accepted preflight, science roots/jobs/processes/transitions,
+  traces, checkpoints, models, stage ratios and monitor do not exist.
+- Task16 `19243039`, Task15 `19241161`, and Task14
+  `19238126`--`19238129` remain immutable. No retry, requeue, resubmit,
+  Jupyter, quarantined access, Paper rerun, sweep, overwrite, second candidate
+  or unrelated mutation occurred.
 
 ## Current NormMatch V2 sys.path audit recovery
 

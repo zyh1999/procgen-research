@@ -1,0 +1,30 @@
+{
+  "base_exec_prefix": "/usr",
+  "base_prefix": "/usr",
+  "derived_zip_candidates": [
+    {
+      "exists": false,
+      "path": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python39.zip"
+    },
+    {
+      "exists": false,
+      "path": "/usr/lib/python39.zip"
+    },
+    {
+      "exists": false,
+      "path": "/usr/lib64/python39.zip"
+    }
+  ],
+  "evidence_kind": "read-only post-failure interpreter metadata; not an audit retry",
+  "sysconfig_paths": {
+    "data": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv",
+    "include": "/usr/include/python3.9",
+    "platinclude": "/usr/include/python3.9",
+    "platlib": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages",
+    "platstdlib": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9",
+    "purelib": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python3.9/site-packages",
+    "scripts": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/bin",
+    "stdlib": "/usr/lib64/python3.9"
+  },
+  "version": [3, 9]
+}
