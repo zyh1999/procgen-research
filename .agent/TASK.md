@@ -1,92 +1,101 @@
 Status: READY
 
-# Task-ID: PROCGEN-NORMMATCH-V2-RUNTIME-GENERATED-CLOSURE-AUDIT-AND-6M-S0-20260825-22
+# Task-ID: PROCGEN-NORMMATCH-V2-TORCH-PSEUDO-ORIGIN-AND-NONREENTRANT-CLOSURE-20260825-23
 
 ## 唯一目标
 
-严格证明`_classes.py`及同一冻结import/model-construction路径产生的全部runtime-generated模块的generator、loader、内容和生命周期，并据此建立逐文件批准的generated-module closure。不得按文件名或目录宽泛放行，不得改变NormMatch V2或任何冻结科学身份。
+仅完成两项audit修正：
+
+1. 将`torch.classes.__file__ == "_classes.py"`严格识别为installed PyTorch定义的synthetic module metadata，而非物理文件origin。
+2. 将closure provenance hook改为非递归实现，同时保留所有一级filesystem/import事件。
+
+不得改变NormMatch V2、bundle、launchers或任何科学身份。
 
 ## 证据判断
 
-Task 21已经完成Python 3.9、storage alias、same-file、fd及pre/post SHA修复。唯一失败是prestart为空的designated目录在trainer imports期间生成了：
+Task 22已经证明：
 
-```text
-_classes.py
-```
+- `torch.classes`类型严格为`torch._classes._Classes`；
+- `__file__`为相对伪字符串`"_classes.py"`；
+- spec、loader、package和origin均为`None`；
+- designated目录始终为空；
+- 没有物理`_classes.py`；
+- frozen Torch源码明确赋值该伪字符串。
 
-其来源尚未证明，因此auditor拒绝正确。该结果属于`infrastructure-failure/clean-room-loaded-module-origin-policy`，没有算法、数值、求解器、H200或reward证据。
+因此这是synthetic metadata，不应解析为cwd文件。
 
-## 冻结身份
-
-Trainer、config、preflight、regression、monitor、bundle archive/manifest、science/preflight launchers、Task 18 origin policy、`_remote_module_non_scriptable.py` provenance及Task 21 path-identity逻辑必须全部字节不变。
+完整closure失败则是audit hook调用`traceback.extract_stack`，后者通过`linecache/tokenize`触发新的`open`事件并递归重入。这属于`infrastructure-failure/closure-provenance-audit-hook-recursion`，没有科学证据。
 
 ## 唯一允许的修改
 
-仅扩展clean-room auditor，新增逐文件类别：
+### Synthetic metadata类别
+
+新增：
 
 ```text
-APPROVED_RUNTIME_GENERATED_THIRDPARTY_MODULE
+APPROVED_INSTALLED_DISTRIBUTION_PSEUDO_ORIGIN
 ```
 
-### Provenance采集
+仅当全部满足时批准`torch.classes`：
 
-在至少两个独立的冻结Python 3.9/PyTorch clean process中：
+- `sys.modules`键严格为`torch.classes`；
+- 类型严格为`torch._classes._Classes`；
+- `__file__`严格为相对字符串`"_classes.py"`；
+- `__spec__`、loader、package和origin均为`None`；
+- designated目录及批准源码root不存在对应物理文件；
+- installed Torch版本严格为`2.5.1+cu121`；
+- `torch/_classes.py` SHA256为
+  `2a3dd93d72e9f19450670b89f3a57b5b5adf245709f6a49a551bbfad33c434bf`；
+- size为`1721`，RECORD为
+  `sha256=Kj3ZPXLp8ZRQZwuJ86V7W1rfJFcJ9qSaVRu_rTPENL8`；
+- 源码中`_Classes`定义及`__file__`赋值被静态定位；
+- module对象和属性在审计期间未被替换。
 
-1. prestart证明designated目录为空。
-2. 记录文件create/write/rename/delete事件和Python调用栈。
-3. 记录module name、`__spec__`、loader、package及origin。
-4. 定位generator/loader所属installed distribution、版本、RECORD、源码路径及SHA256。
-5. 完成trainer import和production model construction后，列举全部新生成文件。
-6. 两次运行的规范化generated-artifact closure必须一致。
+不得推广至其他相对`__file__`、无spec对象或Torch namespace模块。
 
-### `_classes.py`批准条件
+### Non-reentrant hook
 
-必须同时证明：
+Audit callback内部禁止：
 
-- 当前进程prestart后创建；
-- 父目录为本次UID-owned、mode-restricted、非symlink designated目录；
-- 文件为普通文件、非symlink；
-- generator和loader来自固定installed distribution；
-- generator源码及RECORD hash固定；
-- module/spec/loader/package与独立复现一致；
-- 内容与确定性template或规范化复现一致；
-- 记录精确size及SHA256；
-- AST和compile通过；
-- 不含repo checkout、用户源码、网络下载或未批准路径引用；
-- import后inode、mode、size和SHA未被替换。
+- `traceback`、`inspect.stack`、`linecache`、`tokenize`；
+- 源码读取；
+- import；
+- 可能触发audit event的复杂`repr`或序列化。
 
-Closure中其他generated modules必须分别通过同等级检查；不得因`_classes.py`通过而自动放行任何同目录文件。
+允许使用预先导入对象、thread-local reentrancy guard和`sys._getframe()`，但只能记录`co_filename`、`co_name`、line、PID/TID、事件名及安全标量。符号解析和序列化必须在hook外完成。
 
-Designated目录规则改为：prestart必须为空；post-import只能包含closure中逐文件批准的artifact。
+一级事件必须完整保留。重入事件必须计数；不得静默丢弃与文件创建、写入、rename、删除或import相关的事件。正常复现中reentrant计数应为零，否则必须判定是否影响closure完整性。
 
 ## 必需负向测试
 
 必须拒绝：
 
-- preexisting同名文件；
-- 不同generator、distribution、loader或module identity；
-- content/template/AST/hash不匹配；
-- symlink父目录或文件；
-- import后替换；
-- 额外未登记文件；
-- repository-local模块从bundle外解析；
-- 文件引用repo路径、用户源码或网络。
+- 相同伪文件字符串但module key或类型不同；
+- spec/loader/package/origin任一非预期；
+- 存在真实`_classes.py`；
+- Torch版本、源码、RECORD或赋值位置不匹配；
+- module对象或属性被替换；
+- hook内诱发递归；
+- 丢失一级filesystem事件；
+- 未登记物理generated artifact或bundle外repository origin。
 
-Task 16–21全部安全回归必须继续通过。无法稳定复现完整closure时直接`PRECHECK_BLOCKED`。
+Task 16–22全部回归必须继续通过，并使用实际Python 3.9环境。
 
 ## 有界执行
 
-1. 仅提交closure provenance、auditor修正和测试。
-2. 本地全部通过后，仅执行一次remote clean-room audit。
-3. Audit失败即`PRECHECK_BLOCKED`，不得修补或重试。
-4. Audit通过后，对四环境各执行一次真实网络preflight。
-5. 任一preflight失败即`PRECHECK_BLOCKED`，不得启动科学cell。
-6. 全部通过后，以全新非覆盖root运行四环境seed 0；每格intended horizon 6M、终点`5,980,160`、最多一次提交。
-7. Executor独立负责全部实时资源及placement。
+1. 仅提交pseudo-origin分类、non-reentrant hook及测试。
+2. 在两个独立clean process中完成trainer import和production model construction。
+3. 两次规范化closure必须一致，所有physical artifacts和synthetic origins逐项批准；否则`PRECHECK_BLOCKED`。
+4. Closure通过后仅执行一次formal clean-room audit。
+5. Formal audit失败即`PRECHECK_BLOCKED`，不得修补或重试。
+6. Audit通过后，对四环境各执行一次真实网络preflight。
+7. 任一preflight失败即`PRECHECK_BLOCKED`，不得启动科学cell。
+8. 全部通过后，以全新非覆盖root运行四环境seed 0；每格intended horizon 6M、终点`5,980,160`、最多一次提交。
+9. Executor独立负责全部实时资源及placement。
 
 ## 严格早停
 
-仅比较原始Paper RAT同环境、seed 0、同evaluation semantics和同transition：
+仅比较原始Paper RAT同环境、seed 0、同evaluation semantics及同transition：
 
 - 首个共同点`>=2,000,000`
 - 首个共同点`>=4,000,000`
@@ -98,14 +107,16 @@ Task 16–21全部安全回归必须继续通过。无法稳定复现完整closu
 
 唯一结论：
 
-- `CANDIDATE_PROMOTE_TO_3SEED`：至少3/4环境达到终点且终点ratio均不低于0.60。
-- `CANDIDATE_REJECT`：至少2个环境严格早停，或终点证据明确否定候选。
-- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：科学运行开始后基础设施阻止判定。
-- `PRECHECK_BLOCKED`：closure provenance、audit或任一preflight失败。
+- `CANDIDATE_PROMOTE_TO_3SEED`
+- `CANDIDATE_REJECT`
+- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`
+- `PRECHECK_BLOCKED`
+
+Promotion要求至少3/4环境达到终点且终点ratio均不低于0.60；rejection要求至少2个环境严格早停或终点证据明确否定候选。
 
 ## 禁止事项
 
-不得修改算法、bundle、科学文件、launchers、monitor或既有provenance；不得建立文件名/目录白名单；不得引入第二候选、覆盖旧root、重跑Paper、retry科学cell、使用Jupyter、访问`.54`/`ws4090-31`/`10.49.7.54`、指定资源或触碰无关任务。历史失败必须全部保留。
+不得修改算法、bundle、科学文件、launchers、monitor或既有provenance；不得建立文件名、相对路径或Torch namespace白名单；不得引入第二候选、覆盖旧root、重跑Paper、retry科学cell、使用Jupyter、访问`.54`/`ws4090-31`/`10.49.7.54`、指定资源或触碰无关任务。历史失败必须全部保留。
 
 ## 报告与推送
 
@@ -113,6 +124,6 @@ Task 16–21全部安全回归必须继续通过。无法稳定复现完整closu
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-NORMMATCH-V2-RUNTIME-GENERATED-CLOSURE-AUDIT-AND-6M-S0-20260825-22.md`
+- `.agent/reports/PROCGEN-NORMMATCH-V2-TORCH-PSEUDO-ORIGIN-AND-NONREENTRANT-CLOSURE-20260825-23.md`
 
-提交closure provenance、auditor修正、Python 3.9回归、model-free证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、commit身份、完整generated-artifact closure、generator/loader/RECORD证据、audit/preflight/科学终态、严格阶段比率及failure-ledger增量。
+提交分类修正、hook修正、Python 3.9回归、closure证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、commit身份、pseudo-origin proof、hook/reentrancy ledger、完整closure、formal audit/preflight/科学终态、严格阶段比率及failure-ledger增量。
