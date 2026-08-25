@@ -22,10 +22,11 @@ def helper(det, paper):
 
 
 def fixture(function=helper):
-    model = torch.nn.Linear(4, 2).cuda()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = torch.nn.Linear(4, 2).to(device)
     optimizer = torch.optim.SGD(model.parameters(), lr=0.5, momentum=1e-6)
-    first = torch.tensor([1.0, 2.0, 3.0, 4.0], device="cuda")
-    second = torch.tensor([4.0, 3.0, 2.0, 1.0], device="cuda")
+    first = torch.tensor([1.0, 2.0, 3.0, 4.0], device=device)
+    second = torch.tensor([4.0, 3.0, 2.0, 1.0], device=device)
     namespace = {"head_direction": first, "paper_head_proposal": second}
     module = types.SimpleNamespace(torch=torch, match_head_proposal_norm=function)
     temporary = tempfile.TemporaryDirectory()
@@ -122,4 +123,3 @@ finally:
 print(sys.version)
 print("torch_version=" + torch.__version__)
 print("TASK26_RUNTIME_SPY_POSITIVE_NEGATIVE_TESTS_PASS")
-
