@@ -1,0 +1,21 @@
+Task-ID: PROCGEN-NORMMATCH-V2-RUNTIME-GENERATED-CLOSURE-AUDIT-AND-6M-S0-20260825-22
+Assignment: 8eb97a9f489268644d88ac069ab0c2d6fac23f32
+
+PASS TASK22_CLOSURE_STATIC_NEGATIVE_CONTRACT_PASS
+PASS TASK22_FROZEN_IDENTITY_TEST_PASS
+PASS Python compilation for every Task22 Python file
+PASS git diff --check
+
+Bounded two-process Python 3.9 observation before the production-construction
+probe found the same synthetic identity in each clean process:
+- sys.modules key and module name: torch.classes
+- type: torch._classes._Classes
+- __file__: _classes.py
+- __spec__: None
+- loader/package/origin: None
+- prestart and post-import designated directory entries: []
+- physical _classes.py exists: False
+
+The frozen gpuH closure provenance job runs two further independent Python
+3.9/PyTorch processes through the full production import and model-construction
+preflight, with filesystem audit hooks and normalized equality enforcement.
