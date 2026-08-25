@@ -1,6 +1,32 @@
 # Current Project State
 
-Updated: 2026-08-25T01:18:00+01:00
+Updated: 2026-08-25T01:39:23+01:00
+
+## Current NormMatch V2 hermetic deployment recovery
+
+- Task `PROCGEN-NORMMATCH-V2-HERMETIC-BUNDLE-AND-6M-S0-20260825-15`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no real-network
+  preflight or scientific cell was submitted.
+- Frozen recovery commit `0623ecff91fc856d1fe42254ea4d881af55b5c5f`
+  contains a deterministic 32-file archive from Git objects only. Archive and
+  manifest SHA256 values are `3da17520...` / `99191542...`; the reachable
+  23-file import closure includes exact original-Paper `utils` and `vec_env`.
+  A second build was byte-identical and extraction/hash verification passed.
+- Frozen trainer/config/preflight/regression/monitor and original launcher
+  hashes remain unchanged. Deployment science/preflight launcher SHA256 values
+  are `ec60864a...` / `374d2488...`; normalized scientific command, arguments,
+  environment, seed, device and budget are byte-identical to Task 14.
+- The one mandatory clean-room job `19241161` received an H200 on node820.
+  Bundle verification passed, then it ended `FAILED/1:0` after four seconds
+  because the audit rejected its empty temporary working directory as an extra
+  `sys.path` entry. Trainer import was not reached.
+- This is a clean-room harness/design failure, not algorithm, numerical,
+  solver, H200 or reward evidence. Task 15 forbids field repair/retry after a
+  failed gate, so no second audit, real-network validation, accepted preflight,
+  science artifact, stage ratio or monitor exists.
+- Task 14 jobs `19238126`--`19238129` remain immutable. No retry, requeue,
+  resubmit, Jupyter, quarantined access, Paper rerun, sweep, overwrite, second
+  candidate or unrelated mutation occurred.
 
 ## Current Paper-norm-matched hybrid-head V2 preflight
 

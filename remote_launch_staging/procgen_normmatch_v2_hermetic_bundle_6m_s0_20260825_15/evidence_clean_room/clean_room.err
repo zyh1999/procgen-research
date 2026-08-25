@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/scratch/h99859yz/procgen_normmatch_v2_hermetic_bundle_6m_s0_20260825_15/tools/clean_room_probe.py", line 38, in <module>
+    raise RuntimeError(f"non-hermetic sys.path entry: {item}")
+RuntimeError: non-hermetic sys.path entry: /mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/procgen-nm2-empty-19241161.WFurfV
