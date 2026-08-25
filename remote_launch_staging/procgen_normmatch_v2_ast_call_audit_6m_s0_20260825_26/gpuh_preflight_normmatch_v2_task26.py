@@ -2,12 +2,13 @@
 """Task26 versioned preflight: replace one frozen text Assert by AST/runtime audit."""
 import ast
 import hashlib
+import runpy
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
-from ast_runtime_call_audit_task26 import prepare_replacement
+audit_namespace = runpy.run_path(str(HERE / "ast_runtime_call_audit_task26.py"))
+prepare_replacement = audit_namespace["prepare_replacement"]
 
 FROZEN_PREFLIGHT_SHA256 = "b3dd8b496c478c2289091fb1147b0b0f9256d2fcea669770caa67fded4696afc"
 FROZEN_TRAINER_SHA256 = "0e2c2e26a3ec388cb9df626b4bdae83bff5409a9bbb1febd5c6e2c23a9ddc46b"
