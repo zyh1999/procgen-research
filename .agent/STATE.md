@@ -1,6 +1,36 @@
 # Current Project State
 
-Updated: 2026-08-25T00:26:00+01:00
+Updated: 2026-08-25T01:18:00+01:00
+
+## Current Paper-norm-matched hybrid-head V2 preflight
+
+- Task `PROCGEN-PAPER-HYBRID-HEAD-NORMMATCH-DETGGN-6M-S0-20260825-14`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no scientific cell was
+  submitted.
+- The sole V2 scientific change is exact same-boundary value-head proposal
+  norm matching. V1/V2 configs are byte-identical. V1/V2 trainer SHA256 values
+  are `7bcf9bb6...` / `0e2c2e26...`; scientific launcher and monitor are
+  `85e12886...` / `536b8720...`.
+- Static and remote numerical regression passed proposal norm equality,
+  counterfactual Paper global-clip reuse, unchanged RNG/data order,
+  bit-identical actor/shared policy updates/logits, head-only difference,
+  zero-boundary rules, forbidden-field rejection and a finite FP64 solve
+  residual near `1.5e-16`.
+- The one mandatory real-network validation per environment was submitted as
+  gpuH jobs BigFish `19238126`, BossFight `19238127`, CaveFlyer `19238128`,
+  CoinRun `19238129`. All received H200s and ended `FAILED/1:0` in 19--22s.
+  Each failed at the same trainer import with `ModuleNotFoundError: No module
+  named 'utils'` because the fresh campaign deployment lacked the production
+  `utils` package.
+- This is immutable preflight/deployment infrastructure evidence. Actual model
+  construction and downstream structural/memory/one-step gates were not
+  reached. Task14 forbids repair/retry after a mandatory preflight failure, so
+  no package was added and no second preflight occurred.
+- No scientific root/process/transition/progress/trace/checkpoint/model or
+  stage ratio exists, and no monitor was created. Model-free evidence is in
+  `remote_launch_staging/procgen_paper_hybrid_head_normmatch_detggn_6m_s0_20260825_14/evidence_preflight/`.
+- No retry, requeue, resubmit, Jupyter, quarantined access, Paper rerun, sweep,
+  second candidate, overwrite or unrelated mutation occurred.
 
 ## Current hybrid-head root-override missing-three completion
 

@@ -1,0 +1,6 @@
+2026-08-25T01:13:24+01:00
+JOBID|NAME|USER|PARTITION|STATE|TIME|NODELIST|NODELIST(REASON)
+19238126|pg-nm2-bigfish|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|FAILED|1:0|00:00:22|25/08/26 01:11|25/08/26 01:11|node820|billing=9,cpu=8,energy=72546,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19238127|pg-nm2-bossfight|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|FAILED|1:0|00:00:22|25/08/26 01:11|25/08/26 01:11|node820|billing=9,cpu=8,energy=72018,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19238128|pg-nm2-caveflyer|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|FAILED|1:0|00:00:19|25/08/26 01:11|25/08/26 01:11|node822|billing=9,cpu=8,energy=106510,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
+19238129|pg-nm2-coinrun|h99859yz|gpu-h200-fse-pgdr|gpuH|gpu-h200-fse|FAILED|1:0|00:00:20|25/08/26 01:11|25/08/26 01:11|node823|billing=9,cpu=8,energy=68402,gres/gpu:h200=1,gres/gpu=1,mem=120G,node=1
