@@ -1,0 +1,8 @@
+19319678|t33l-bigfish-s0|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned
+19319679|t33l-bigfish-s1|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned
+19319680|t33l-bossfight-s0|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned
+19319681|t33l-bossfight-s1|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned
+19319682|t33l-caveflyer-s0|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned
+19319683|t33l-caveflyer-s1|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned
+19319684|t33l-coinrun-s0|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned
+19319685|t33l-coinrun-s1|gpu-aifun|gpu-aifun|gpuL|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned

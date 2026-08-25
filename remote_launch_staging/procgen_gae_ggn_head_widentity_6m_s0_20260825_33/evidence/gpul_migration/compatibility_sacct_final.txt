@@ -1,0 +1,5 @@
+19319577|gae_ggn_head_widentity_compatibility_gpul.sbatch|gpu-aifun|gpu-aifun|gpuL|COMPLETED|0:0|00:07:48|25/08/26 16:48|25/08/26 16:56|node887
+19319577.batch|batch|gpu-aifun|||COMPLETED|0:0|00:07:48|25/08/26 16:48|25/08/26 16:56|node887
+19319577.extern|extern|gpu-aifun|||COMPLETED|0:0|00:07:48|25/08/26 16:48|25/08/26 16:56|node887
+19319577.0|nvidia-smi|gpu-aifun|||COMPLETED|0:0|00:00:00|25/08/26 16:54|25/08/26 16:54|node887
+19319577.1|nvidia-smi|gpu-aifun|||COMPLETED|0:0|00:00:01|25/08/26 16:54|25/08/26 16:54|node887
