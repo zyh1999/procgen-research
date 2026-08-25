@@ -1,0 +1,24 @@
+Task-ID: PROCGEN-NORMMATCH-V2-PY39-LSTAT-COMPATIBILITY-AND-6M-S0-20260825-21
+Assignment: 5e041cd82ae5a4a078baaa0aa8991cc2b861ee41
+
+Local interpreter: Python 3.13
+
+PASS TASK21_FROZEN_IDENTITY_TEST_PASS
+PASS TASK21_PY39_POLICY_PATH_IDENTITY_TESTS_PASS
+PASS O_NOFOLLOW_AVAILABLE=True (local host; remote Python 3.9 recorded separately)
+PASS TASK21_UNSUPPORTED_PATH_STAT_STATIC_SCAN_PASS
+PASS python3 -m py_compile Task21 Python files
+PASS git diff --check
+
+Prior safety regression continuity:
+PASS Task16 frozen identity and positive/negative origin-safety tests
+PASS Task17 frozen identity and positive/negative interpreter-path tests
+PASS Task18 frozen identity
+PASS Task19 frozen identity and explicit namespace support tests
+PASS Task20 frozen identity and policy-path positive/negative tests
+
+The local host lacks torch, so Task18's torch-generated-module runtime test is
+not representable locally. Task21 executes the frozen Task18 origin policy and
+provenance baseline under the actual remote Python 3.9/Torch environment before
+the one authorized clean-room audit; that durable result is the authoritative
+runtime continuation gate.
