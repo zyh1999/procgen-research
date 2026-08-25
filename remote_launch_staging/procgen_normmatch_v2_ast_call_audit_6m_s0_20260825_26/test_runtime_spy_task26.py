@@ -31,8 +31,8 @@ def fixture(function=helper):
     second = torch.tensor([4.0, 3.0, 2.0, 1.0], device=device)
     namespace = {"head_direction": first, "paper_head_proposal": second}
     module = types.SimpleNamespace(torch=torch, match_head_proposal_norm=function)
-    temporary = tempfile.TemporaryDirectory()
-    spy = RuntimeSemanticSpy(module, namespace, model, optimizer, Path(temporary.name) / "ledger.json")
+    temporary = tempfile.NamedTemporaryFile(prefix="task26-spy-ledger-", suffix=".json")
+    spy = RuntimeSemanticSpy(module, namespace, model, optimizer, Path(temporary.name))
     return temporary, module, namespace, model, optimizer, spy
 
 
@@ -60,14 +60,14 @@ try:
         raise RuntimeError("positive spy count mismatch")
 finally:
     spy.restore()
-    temporary.cleanup()
+    temporary.close()
 
 
 temporary, module, namespace, model, optimizer, spy = fixture()
 try:
     expect_reject("no-call", spy.finalize)
 finally:
-    spy.restore(); temporary.cleanup()
+    spy.restore(); temporary.close()
 
 
 temporary, module, namespace, model, optimizer, spy = fixture()
@@ -75,14 +75,14 @@ try:
     module.match_head_proposal_norm(namespace["head_direction"], namespace["paper_head_proposal"])
     expect_reject("duplicate-call", lambda: module.match_head_proposal_norm(namespace["head_direction"], namespace["paper_head_proposal"]))
 finally:
-    spy.restore(); temporary.cleanup()
+    spy.restore(); temporary.close()
 
 
 temporary, module, namespace, model, optimizer, spy = fixture()
 try:
     expect_reject("wrong-identity", lambda: module.match_head_proposal_norm(namespace["head_direction"].clone(), namespace["paper_head_proposal"]))
 finally:
-    spy.restore(); temporary.cleanup()
+    spy.restore(); temporary.close()
 
 
 def rng_mutation(det, paper):
@@ -94,7 +94,7 @@ temporary, module, namespace, model, optimizer, spy = fixture(rng_mutation)
 try:
     expect_reject("rng-mutation", lambda: module.match_head_proposal_norm(namespace["head_direction"], namespace["paper_head_proposal"]))
 finally:
-    spy.restore(); temporary.cleanup()
+    spy.restore(); temporary.close()
 
 
 temporary, module, namespace, model, optimizer, spy = fixture()
@@ -107,7 +107,7 @@ spy.original = parameter_mutation
 try:
     expect_reject("parameter-mutation", lambda: module.match_head_proposal_norm(namespace["head_direction"], namespace["paper_head_proposal"]))
 finally:
-    spy.restore(); temporary.cleanup()
+    spy.restore(); temporary.close()
 
 
 def wrong_return(det, paper):
@@ -120,7 +120,7 @@ temporary, module, namespace, model, optimizer, spy = fixture(wrong_return)
 try:
     expect_reject("return-mutation", lambda: module.match_head_proposal_norm(namespace["head_direction"], namespace["paper_head_proposal"]))
 finally:
-    spy.restore(); temporary.cleanup()
+    spy.restore(); temporary.close()
 
 print(sys.version)
 print("torch_version=" + torch.__version__)
