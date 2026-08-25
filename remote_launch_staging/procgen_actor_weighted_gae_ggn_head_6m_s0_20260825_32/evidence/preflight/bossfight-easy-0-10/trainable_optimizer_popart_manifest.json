@@ -1,0 +1,417 @@
+{
+  "itemwise": [
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.0.weight",
+      "object_identity": "0x14b9c25d6900",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6900",
+      "position": 0,
+      "requires_grad": true,
+      "shape": [
+        8,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.0.bias",
+      "object_identity": "0x14b9c25d6950",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6950",
+      "position": 1,
+      "requires_grad": true,
+      "shape": [
+        8
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv1.weight",
+      "object_identity": "0x14b9c25d6810",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6810",
+      "position": 2,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv1.bias",
+      "object_identity": "0x14b9c25d6770",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6770",
+      "position": 3,
+      "requires_grad": true,
+      "shape": [
+        8
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv2.weight",
+      "object_identity": "0x14b9c25d6680",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6680",
+      "position": 4,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv2.bias",
+      "object_identity": "0x14b9c25d6630",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6630",
+      "position": 5,
+      "requires_grad": true,
+      "shape": [
+        8
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv1.weight",
+      "object_identity": "0x14b9c25d6540",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6540",
+      "position": 6,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv1.bias",
+      "object_identity": "0x14b9c25d64a0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d64a0",
+      "position": 7,
+      "requires_grad": true,
+      "shape": [
+        8
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv2.weight",
+      "object_identity": "0x14b9c25d63b0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d63b0",
+      "position": 8,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv2.bias",
+      "object_identity": "0x14b9c25d6360",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6360",
+      "position": 9,
+      "requires_grad": true,
+      "shape": [
+        8
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.4.weight",
+      "object_identity": "0x14b9c25d6270",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6270",
+      "position": 10,
+      "requires_grad": true,
+      "shape": [
+        16,
+        8,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.4.bias",
+      "object_identity": "0x14b9c25d61d0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d61d0",
+      "position": 11,
+      "requires_grad": true,
+      "shape": [
+        16
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv1.weight",
+      "object_identity": "0x14b9c25d6090",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25d6090",
+      "position": 12,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv1.bias",
+      "object_identity": "0x14b9c2652ef0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c2652ef0",
+      "position": 13,
+      "requires_grad": true,
+      "shape": [
+        16
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv2.weight",
+      "object_identity": "0x14b9c2652f40",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c2652f40",
+      "position": 14,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv2.bias",
+      "object_identity": "0x14b9c2652ea0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c2652ea0",
+      "position": 15,
+      "requires_grad": true,
+      "shape": [
+        16
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv1.weight",
+      "object_identity": "0x14b9c25dff90",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dff90",
+      "position": 16,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv1.bias",
+      "object_identity": "0x14b9c25dff40",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dff40",
+      "position": 17,
+      "requires_grad": true,
+      "shape": [
+        16
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv2.weight",
+      "object_identity": "0x14b9c25dfea0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfea0",
+      "position": 18,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv2.bias",
+      "object_identity": "0x14b9c25dfe50",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfe50",
+      "position": 19,
+      "requires_grad": true,
+      "shape": [
+        16
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.linear.weight",
+      "object_identity": "0x14b9c25dfd60",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfd60",
+      "position": 20,
+      "requires_grad": true,
+      "shape": [
+        256,
+        3600
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "backbone_net.linear.bias",
+      "object_identity": "0x14b9c25dfdb0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfdb0",
+      "position": 21,
+      "requires_grad": true,
+      "shape": [
+        256
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "pi_head.weight",
+      "object_identity": "0x14b9c25dfe00",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfe00",
+      "position": 22,
+      "requires_grad": true,
+      "shape": [
+        15,
+        256
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "pi_head.bias",
+      "object_identity": "0x14b9c25dfd10",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfd10",
+      "position": 23,
+      "requires_grad": true,
+      "shape": [
+        15
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "last_v_layer.weight",
+      "object_identity": "0x14b9c25dfcc0",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfcc0",
+      "position": 24,
+      "requires_grad": true,
+      "shape": [
+        1,
+        256
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "name": "last_v_layer.bias",
+      "object_identity": "0x14b9c25dfc70",
+      "object_identity_equal": true,
+      "optimizer_object_identity": "0x14b9c25dfc70",
+      "position": 25,
+      "requires_grad": true,
+      "shape": [
+        1
+      ]
+    }
+  ],
+  "optimizer_count": 26,
+  "optimizer_numel": 938976,
+  "paper_popart_after": {
+    "last_v_layer.debiasing_term": 0.0,
+    "last_v_layer.mean": [
+      0.0
+    ],
+    "last_v_layer.mean_sq": [
+      0.0
+    ]
+  },
+  "popart_before": {
+    "last_v_layer.debiasing_term": 0.0,
+    "last_v_layer.mean": [
+      0.0
+    ],
+    "last_v_layer.mean_sq": [
+      0.0
+    ]
+  },
+  "popart_excluded_from_optimizer_autograd_direction_update": true,
+  "popart_nontrainable_names": [
+    "last_v_layer.mean",
+    "last_v_layer.mean_sq",
+    "last_v_layer.debiasing_term"
+  ],
+  "popart_original_paper_semantics": [
+    "last_v_layer.update(ret)",
+    "normalize(ret)",
+    "normalize(adv)"
+  ],
+  "target_popart_after": {
+    "last_v_layer.debiasing_term": 0.0,
+    "last_v_layer.mean": [
+      0.0
+    ],
+    "last_v_layer.mean_sq": [
+      0.0
+    ]
+  },
+  "trainable_count": 26,
+  "trainable_numel": 938976
+}

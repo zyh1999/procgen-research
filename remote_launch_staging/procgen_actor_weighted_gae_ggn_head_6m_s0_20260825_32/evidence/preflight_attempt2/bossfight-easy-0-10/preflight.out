@@ -1,0 +1,34 @@
+Setting seed: 0
+Logging to logs/shared.adv.resnet.dropout_0.0.damping_0.5.lr_0.5/bossfight-easy-0-10.20260825-083914_0
+creating environment
+Running on device: cuda:0
+training...
+
+Number of parameters: 938979.0
+
+TASK32_POPART_AFFINE_PASS input_tolerance=3.5527136788005009e-15 value_error=4.4408920985006262e-16 return_error=1.1102230246251565e-16 direction_error=1.1622647289044608e-16 prediction_error=1.1102230246251565e-16
+GPUH_ACTOR_WEIGHTED_GAE_GGN_HEAD_COMPATIBILITY_PASS
+canonical_production_config_path=PASS
+resolved_configuration_three_way=BIT_IDENTICAL
+resolved_config_sha256=ce2dbefbec752b3c2ae61e3d845ecd96d9e4bc272eb3c44ba96dda32d49aae9b
+actual_network_partition=EXHAUSTIVE_MUTUALLY_EXCLUSIVE_STABLE
+structural_manifest_sha256=3f91f5c313480c089d300a7dd5aff4a664f28ff9d9f4718bbab430200298d623
+connectivity_probe_sha256=e358000700582fb4d90b67fb9bb313a00d80172885ceda847932b01381e5c6c2
+connectivity_environment=bossfight-easy-0-10
+connectivity_semantic_check=PASS
+critic_exclusive_policy_jacobian=EXACT_ZERO_DISCONNECTED
+actual_network_paper_actor_direction=BIT_IDENTICAL
+actual_network_paper_shared_critic_direction=BIT_IDENTICAL
+actual_network_one_step_policy_parameters=BIT_IDENTICAL
+actual_network_one_step_policy_logits=BIT_IDENTICAL
+actual_network_only_value_head_delta=DIFFERS
+gae_operator_finite_difference_max_abs=6.569e-10
+actor_weight_formula=EXACT_DETACHED_MEAN_ONE_RNG_STABLE
+gae_ggn_matrix_rhs_hvp_direct_reference=PASS
+popart_affine_normalized_problem=BIT_IDENTICAL
+gpu=NVIDIA H200 total_bytes=150111977472 peak_bytes=15518218752
+paper_rows=(4096, 938976) head_rows=(4096, 257)
+head_fp64_cholesky_info_max=0
+head_fp64_relative_residual=5.259e-16
+partition_policy=3855 shared=934864 head=257
+torch=2.5.1+cu121 cuda=12.1

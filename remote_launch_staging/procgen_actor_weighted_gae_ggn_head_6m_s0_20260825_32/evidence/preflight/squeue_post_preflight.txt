@@ -1,0 +1,6 @@
+             JOBID PARTITION                                     NAME    STATE       TIME NODELIST(REASON)
+          19210344      gpuL                         efsub-adapt-u500  PENDING       0:00 (Dependency)
+          19210343      gpuL                         efsub-adapt-u500  PENDING       0:00 (Dependency)
+          19210342      gpuL                         efsub-adapt-u500  PENDING       0:00 (Dependency)
+          19210338      gpuL                        efsub-adapt-smoke  RUNNING      11:02 node877
+          19051570 multicore                            vscode-tunnel  RUNNING 3-21:26:47 node1258
