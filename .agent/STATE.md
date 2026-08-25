@@ -1,6 +1,40 @@
 # Current Project State
 
-Updated: 2026-08-25T14:20:00+08:00
+Updated: 2026-08-25T14:38:00+08:00
+
+## Current Task29 CPython `__mp_main__` alias proof
+
+- Task `PROCGEN-NORMMATCH-V2-MP-MAIN-EXACT-ALIAS-AND-6M-S0-20260825-29`
+  terminates at its mandatory read-only proof gate with unique conclusion
+  `PRECHECK_BLOCKED`.
+- Assignment/origin is
+  `28b1585808ce136fc48cd664bca5209a2f5239cf`. Task28R, its exact-probe
+  validator, and every frozen scientific/audit identity remain unchanged.
+- Actual Python 3.9.25 stdlib evidence identifies import-time alias assignment
+  at `/usr/lib64/python3.9/multiprocessing/__init__.py:37`, SHA256
+  `a5a42976033c7d63ee2740acceef949a3582dcb0e0442845f9717e1be771c68b`,
+  and child-reset assignments at `multiprocessing/spawn.py:262,290`, SHA256
+  `16ce6d81f8b5ef7228e5500bff04b37bdceb3d7dfc8d6de3ad523598798c43f4`.
+- Proof job `19277384` imported `multiprocessing` from the observer before the
+  frozen construction. It consequently observed an artificial exact-object
+  alias to the frozen Task28R probe, then changed Task28R scan cardinality and
+  failed. This is preserved as `infrastructure-failure/proof-observer-import-
+  timing`; it is not acceptable alias provenance and is not a retryable
+  scientific result.
+- The corrected observational harness removed the premature import and changed
+  no frozen file. In natural frozen-construction timing, proof job `19277433`
+  reached the complete production CUDA preflight but then proved
+  `sys.modules["__main__"] is sys.modules["__mp_main__"]` false. It ended
+  `FAILED/2:0` on node821 after 22 seconds with
+  `RuntimeError: live __main__/__mp_main__ exact object alias not established`.
+- Task29 requires a strict actual alias relationship before any classifier.
+  Therefore no `APPROVED_CPYTHON39_MULTIPROCESSING_MAIN_ALIAS` category,
+  allowlist, manifest change, atomic acceptance ledger, closure job, formal
+  audit, environment preflight, science job/root/transition/checkpoint,
+  comparison, cancellation, or monitor exists. Failure ledger:
+  `precheck-failure/task29-natural-mp-main-not-exact-main-object-alias`.
+- Model-free proof evidence is under
+  `remote_launch_staging/procgen_normmatch_v2_mp_main_exact_alias_6m_s0_20260825_29/evidence_remote/`.
 
 ## Current Task28R exact closure-probe alias precheck
 

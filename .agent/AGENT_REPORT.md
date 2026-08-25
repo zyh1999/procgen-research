@@ -2,36 +2,38 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-NORMMATCH-V2-EXACT-PROBE-ALIAS-RECOVERY-AND-6M-S0-20260825-28R`
-- Assignment: `0d913f8d82611fa1ee659f0071994e4a18a2d0de`
-- Validator/closure freeze: `9174b00ab74d317c28897348b0c6c74020dcae3d`
-- Method: `PAPER_MATCHED_HYBRID_HEAD_DETGGN_PAPERNORM_V2`
+- Task-ID: `PROCGEN-NORMMATCH-V2-MP-MAIN-EXACT-ALIAS-AND-6M-S0-20260825-29`
+- Assignment: `28b1585808ce136fc48cd664bca5209a2f5239cf`
+- Method retained: `PAPER_MATCHED_HYBRID_HEAD_DETGGN_PAPERNORM_V2`
 - Repository target: `origin/agent-work`
 
 ## Result
 
-Task28R added only `APPROVED_EXACT_FROZEN_CLOSURE_PROBE_ALIAS`, bound to
-frozen probe commit `baab71b...`, blob `e4c63952...`, SHA256 `c3529cb1...`,
-and exact CSF3 raw/resolved same-file identity. Validator SHA is
-`96da9c8ee7497ce01df3230f6fa0875a81d1175c958c1a5d8276390090c118ad`.
-Local and actual Python 3.9.25 positive/negative tests passed; all scientific
-and prior audit identities stayed frozen.
+The mandatory read-only Python 3.9.25 proof did not establish the strict
+`__main__`/`__mp_main__` alias required to add the new classifier.
 
-The single closure job `19277045` ran on gpuH node821 and ended `FAILED/1:0`
-after `00:00:22`. Both bundle checks and the real CUDA Task27 preflight passed.
-The prior closure-probe `/net/scratch` rejection did not recur, so the exact
-alias classification succeeded. The unchanged downstream audit then failed
-on multiprocessing alias `__mp_main__` with `RuntimeError: bundle module
-absent from manifest or hash mismatch: __mp_main__`.
+Actual stdlib identities were verified: import-time assignment
+`multiprocessing/__init__.py:37` has SHA256 `a5a42976...`, and spawn reset
+assignments `multiprocessing/spawn.py:262,290` have SHA256 `16ce6d81...`.
+Initial proof job `19277384` demonstrated that importing `multiprocessing`
+from the observer artificially makes the two keys the same object, but it also
+changes the frozen scan and is preserved as an observer-effect infrastructure
+failure. The corrected harness contains no early multiprocessing import.
 
-Failure ledger:
-`precheck-failure/task28r-frozen-mp-main-bundle-manifest-alias`. The exception
-occurred before the post-scan exact-probe ledger and first reproduction JSON
-could be emitted. Task28R forbids closure repair/retry, so no formal audit,
-environment preflight, science, stage comparison, cancellation, or monitor
-was created.
+With natural frozen construction timing, job `19277433` passed the bundle and
+complete production CUDA/Task27 preflight, then stopped before module scan
+because `sys.modules["__main__"] is sys.modules["__mp_main__"]` was false.
+Scheduler state is `FAILED/2:0`, elapsed 22 seconds, node821. This is the exact
+mandatory proof failure, not trainer, NormMatch, deterministic GGN, numerical,
+solver, H200, reward, or scientific evidence.
+
+No classifier or allowlist was implemented; Task28R and all frozen scientific
+identities are unchanged. No closure, formal audit, four-environment preflight,
+scientific job/root/transition/checkpoint, stage comparison, cancellation, or
+monitor was created. Failure ledger:
+`precheck-failure/task29-natural-mp-main-not-exact-main-object-alias`.
 
 Report:
-`.agent/reports/PROCGEN-NORMMATCH-V2-EXACT-PROBE-ALIAS-RECOVERY-AND-6M-S0-20260825-28R.md`.
+`.agent/reports/PROCGEN-NORMMATCH-V2-MP-MAIN-EXACT-ALIAS-AND-6M-S0-20260825-29.md`.
 
 BLOCKED

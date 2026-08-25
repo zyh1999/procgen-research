@@ -1,0 +1,4 @@
+HERMETIC_BUNDLE_VERIFY_PASS
+bundle_sha256=3da17520965bc16feccccad0fd334161b60471e5744327aaed93701710f73f6f
+manifest_sha256=99191542a38f77006b3a7f52aaa8223e7f957a7894fc89cc489a9dae112d46aa
+files=32 destination=/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/task29-proof-deploy-19277433.YObKUm

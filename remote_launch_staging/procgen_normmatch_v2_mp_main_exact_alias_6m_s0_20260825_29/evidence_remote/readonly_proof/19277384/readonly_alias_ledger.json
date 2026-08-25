@@ -1,0 +1,301 @@
+{
+  "backing": {
+    "checks": {
+      "device": true,
+      "gid": true,
+      "inode": true,
+      "mode": true,
+      "sha256": true,
+      "size": true,
+      "uid": true
+    },
+    "raw_lstat": {
+      "device": 3592384858,
+      "gid": 10049,
+      "inode": 144122242274496637,
+      "mode": "0o644",
+      "regular_file": true,
+      "size": 4558,
+      "symlink": false,
+      "uid": 778916
+    },
+    "raw_path": "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+    "raw_stat": {
+      "device": 3592384858,
+      "gid": 10049,
+      "inode": 144122242274496637,
+      "mode": "0o644",
+      "regular_file": true,
+      "size": 4558,
+      "symlink": false,
+      "uid": 778916
+    },
+    "resolved_lstat": {
+      "device": 3592384858,
+      "gid": 10049,
+      "inode": 144122242274496637,
+      "mode": "0o644",
+      "regular_file": true,
+      "size": 4558,
+      "symlink": false,
+      "uid": 778916
+    },
+    "resolved_path": "/net/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+    "resolved_stat": {
+      "device": 3592384858,
+      "gid": 10049,
+      "inode": 144122242274496637,
+      "mode": "0o644",
+      "regular_file": true,
+      "size": 4558,
+      "symlink": false,
+      "uid": 778916
+    },
+    "samefile": true,
+    "sha256": "c3529cb171306d7b3b0517974a682ddffb91d65dc015c102b1e84658e9eeb1f5"
+  },
+  "backing_approved_entry": "APPROVED_EXACT_FROZEN_CLOSURE_PROBE_ALIAS",
+  "dictionary_difference": {
+    "different_values": [],
+    "only_main": [],
+    "only_mp_main": []
+  },
+  "exact_object_alias": true,
+  "implementation": "cpython",
+  "main": {
+    "dictionary_keys": [
+      "CODE",
+      "CONFIG",
+      "CONFIG_SHA",
+      "DEPLOY",
+      "DESIGNATED",
+      "FROZEN",
+      "HERE",
+      "MANIFEST",
+      "NonReentrantAuditRecorder",
+      "OUTPUT",
+      "PREFLIGHT",
+      "Path",
+      "TRAINER",
+      "TRAINER_SHA",
+      "__annotations__",
+      "__builtins__",
+      "__cached__",
+      "__doc__",
+      "__file__",
+      "__loader__",
+      "__name__",
+      "__package__",
+      "__spec__",
+      "__warningregistry__",
+      "extension_ns",
+      "extension_path",
+      "forbidden",
+      "hashlib",
+      "json",
+      "old_argv",
+      "old_cwd",
+      "old_env",
+      "os",
+      "policy_ledger",
+      "policy_ns",
+      "prestart",
+      "recorder",
+      "runpy",
+      "sha256",
+      "snapshot",
+      "stat",
+      "support_ns",
+      "support_path",
+      "sys"
+    ],
+    "file": "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+    "loader": {
+      "name": "__main__",
+      "path": "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+      "type_module": "_frozen_importlib_external",
+      "type_name": "SourceFileLoader"
+    },
+    "name": "__main__",
+    "object_id": 23012038125504,
+    "package": null,
+    "spec": null
+  },
+  "module_keys": [
+    "__main__",
+    "__mp_main__"
+  ],
+  "mp_main": {
+    "dictionary_keys": [
+      "CODE",
+      "CONFIG",
+      "CONFIG_SHA",
+      "DEPLOY",
+      "DESIGNATED",
+      "FROZEN",
+      "HERE",
+      "MANIFEST",
+      "NonReentrantAuditRecorder",
+      "OUTPUT",
+      "PREFLIGHT",
+      "Path",
+      "TRAINER",
+      "TRAINER_SHA",
+      "__annotations__",
+      "__builtins__",
+      "__cached__",
+      "__doc__",
+      "__file__",
+      "__loader__",
+      "__name__",
+      "__package__",
+      "__spec__",
+      "__warningregistry__",
+      "extension_ns",
+      "extension_path",
+      "forbidden",
+      "hashlib",
+      "json",
+      "old_argv",
+      "old_cwd",
+      "old_env",
+      "os",
+      "policy_ledger",
+      "policy_ns",
+      "prestart",
+      "recorder",
+      "runpy",
+      "sha256",
+      "snapshot",
+      "stat",
+      "support_ns",
+      "support_path",
+      "sys"
+    ],
+    "file": "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+    "loader": {
+      "name": "__main__",
+      "path": "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+      "type_module": "_frozen_importlib_external",
+      "type_name": "SourceFileLoader"
+    },
+    "name": "__main__",
+    "object_id": 23012038125504,
+    "package": null,
+    "spec": null
+  },
+  "process": {
+    "all_start_methods": [
+      "fork",
+      "spawn",
+      "forkserver"
+    ],
+    "argv0": "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+    "name": "MainProcess",
+    "pid": 3655204,
+    "stack_at_observation": [
+      {
+        "file": "/scratch/h99859yz/procgen_normmatch_v2_mp_main_exact_alias_6m_s0_20260825_29/readonly_alias_proof_extension_task29.py",
+        "function": "collect_live_proof",
+        "line": 119
+      },
+      {
+        "file": "/scratch/h99859yz/procgen_normmatch_v2_mp_main_exact_alias_6m_s0_20260825_29/readonly_alias_proof_extension_task29.py",
+        "function": "audit_loaded_modules",
+        "line": 197
+      },
+      {
+        "file": "/scratch/h99859yz/procgen_normmatch_v2_torch_pseudo_origin_nonreentrant_closure_20260825_23/tools/runtime_closure_probe_task23.py",
+        "function": "<module>",
+        "line": 90
+      }
+    ],
+    "start_method": null
+  },
+  "python": "3.9.25 (main, Nov 10 2025, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-11)]",
+  "result": "TASK29_READONLY_LIVE_ALIAS_PROOF_PASS",
+  "stdlib_provenance": {
+    "import_time_alias": {
+      "alias_assignments": [
+        {
+          "line": 37,
+          "targets": [
+            "Subscript(value=Attribute(value=Name(id='sys', ctx=Load()), attr='modules', ctx=Load()), slice=Constant(value='__mp_main__'), ctx=Store())"
+          ],
+          "value": "Subscript(value=Attribute(value=Name(id='sys', ctx=Load()), attr='modules', ctx=Load()), slice=Constant(value='__main__'), ctx=Load())"
+        }
+      ],
+      "call_edges": [],
+      "lstat": {
+        "device": 64768,
+        "gid": 0,
+        "inode": 963156,
+        "mode": "0o644",
+        "regular_file": true,
+        "size": 916,
+        "symlink": false,
+        "uid": 0
+      },
+      "path": "/usr/lib64/python3.9/multiprocessing/__init__.py",
+      "sha256": "a5a42976033c7d63ee2740acceef949a3582dcb0e0442845f9717e1be771c68b",
+      "size": 916
+    },
+    "semantic_call_chain": [
+      "multiprocessing.spawn.spawn_main",
+      "multiprocessing.spawn._main",
+      "multiprocessing.spawn.prepare",
+      "multiprocessing.spawn._fixup_main_from_path"
+    ],
+    "spawn_bootstrap_alias": {
+      "alias_assignments": [
+        {
+          "line": 262,
+          "targets": [
+            "Subscript(value=Attribute(value=Name(id='sys', ctx=Load()), attr='modules', ctx=Load()), slice=Constant(value='__main__'), ctx=Store())",
+            "Subscript(value=Attribute(value=Name(id='sys', ctx=Load()), attr='modules', ctx=Load()), slice=Constant(value='__mp_main__'), ctx=Store())"
+          ],
+          "value": "Name(id='main_module', ctx=Load())"
+        },
+        {
+          "line": 290,
+          "targets": [
+            "Subscript(value=Attribute(value=Name(id='sys', ctx=Load()), attr='modules', ctx=Load()), slice=Constant(value='__main__'), ctx=Store())",
+            "Subscript(value=Attribute(value=Name(id='sys', ctx=Load()), attr='modules', ctx=Load()), slice=Constant(value='__mp_main__'), ctx=Store())"
+          ],
+          "value": "Name(id='main_module', ctx=Load())"
+        }
+      ],
+      "call_edges": [
+        {
+          "call": "Name(id='_fixup_main_from_path', ctx=Load())",
+          "line": 297
+        },
+        {
+          "call": "Name(id='_fixup_main_from_name', ctx=Load())",
+          "line": 234
+        },
+        {
+          "call": "Name(id='prepare', ctx=Load())",
+          "line": 125
+        },
+        {
+          "call": "Name(id='_fixup_main_from_path', ctx=Load())",
+          "line": 236
+        }
+      ],
+      "lstat": {
+        "device": 64768,
+        "gid": 0,
+        "inode": 963227,
+        "mode": "0o644",
+        "regular_file": true,
+        "size": 9296,
+        "symlink": false,
+        "uid": 0
+      },
+      "path": "/usr/lib64/python3.9/multiprocessing/spawn.py",
+      "sha256": "16ce6d81f8b5ef7228e5500bff04b37bdceb3d7dfc8d6de3ad523598798c43f4",
+      "size": 9296
+    }
+  }
+}
