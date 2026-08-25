@@ -1,0 +1,34 @@
+Two independent frozen Python 3.9 / PyTorch clean-process observations
+
+run1 designated=/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/task22-light-1.HpOHvi
+run2 designated=/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/task22-light-2.qUQfEH
+
+Both runs:
+- prestart designated entries: []
+- sys.modules key: torch.classes
+- module name: torch.classes
+- module type: torch._classes._Classes
+- __file__: _classes.py
+- __spec__: None
+- spec name/origin/loader: None
+- package: None
+- post-import designated entries: []
+- designated/_classes.py exists: False
+- designated/_classes.py is_symlink: False
+
+Installed source provenance (read-only diagnostic):
+- distribution: torch
+- version: 2.5.1+cu121
+- source: /mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python3.9/site-packages/torch/_classes.py
+- source SHA256: 2a3dd93d72e9f19450670b89f3a57b5b5adf245709f6a49a551bbfad33c434bf
+- source size: 1721
+- distribution path: torch/_classes.py
+- RECORD hash: sha256=Kj3ZPXLp8ZRQZwuJ86V7W1rfJFcJ9qSaVRu_rTPENL8
+- RECORD size: 1721
+- source line 19: class _Classes(types.ModuleType):
+- source line 20:     __file__ = "_classes.py"
+
+This is a synthetic relative pseudo-origin, not a generated physical artifact.
+It cannot by itself satisfy Task22's required ordinary-file, non-symlink,
+loader/spec, create/write/rename/delete lifecycle, content and post-import inode
+stability conditions.

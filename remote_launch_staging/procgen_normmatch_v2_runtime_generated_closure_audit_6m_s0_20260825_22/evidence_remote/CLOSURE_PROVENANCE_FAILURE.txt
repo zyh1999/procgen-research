@@ -1,0 +1,49 @@
+Task22 bounded closure provenance job
+
+job=19266959
+owner=h99859yz
+account=gpu-h200-fse-pgdr
+partition=gpuH
+node=node820
+allocation=cpu=8,mem=120G,gres/gpu:h200=1
+state=FAILED
+exit=1:0
+elapsed=00:00:38
+start=25/08/26 03:49
+end=25/08/26 03:50
+root_status=CLOSURE_PROVENANCE_FAILED
+root_rc=1
+
+Both independent bundle extractions passed before the probe:
+HERMETIC_BUNDLE_VERIFY_PASS
+bundle_sha256=3da17520965bc16feccccad0fd334161b60471e5744327aaed93701710f73f6f
+manifest_sha256=99191542a38f77006b3a7f52aaa8223e7f957a7894fc89cc489a9dae112d46aa
+files=32
+
+The first production-construction process entered runpy before trainer/model
+construction. Its sys.addaudithook callback recorded an open event and called
+traceback.extract_stack. Stack source retrieval used linecache/tokenize.open,
+which emitted another open event and recursively re-entered the callback until:
+
+RecursionError: maximum recursion depth exceeded
+
+Primary repeated stack:
+- runtime_generated_closure_probe.py line 82 audit_hook
+- traceback.py line 211 extract_stack
+- traceback.py line 366 extract
+- traceback.py line 288 line
+- linecache.py lines 30/46/136
+- tokenize.py line 392 open
+- runtime_generated_closure_probe.py line 82 audit_hook
+
+No reproduction_1.json was emitted. The second independent production process
+and normalized closure comparison were not reached. Therefore the complete
+production import/model-construction closure was not stably reproduced.
+
+Task22 explicitly requires PRECHECK_BLOCKED when stable complete closure
+reproduction fails. No instrumentation repair or provenance-job retry occurred.
+formal_clean_room_audit_submitted=false
+real_network_preflight_submitted=false
+scientific_jobs_submitted=false
+scientific_roots_created=false
+stage_comparisons_eligible=false

@@ -1,6 +1,38 @@
 # Current Project State
 
-Updated: 2026-08-25T10:40:00+08:00
+Updated: 2026-08-25T11:05:00+08:00
+
+## Current NormMatch V2 runtime-generated closure audit
+
+- Task `PROCGEN-NORMMATCH-V2-RUNTIME-GENERATED-CLOSURE-AUDIT-AND-6M-S0-20260825-22`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no formal clean-room
+  audit, real-network preflight, or scientific cell was submitted.
+- Assignment `8eb97a9f489268644d88ac069ab0c2d6fac23f32` and closure-gate
+  freeze `6c0d6f1f359c7e0b9f022faf5d9682798cbe53b7` preserve the algorithm,
+  trainer/config/preflight/regression/monitor, bundle/manifest,
+  science/preflight launchers, Task18 policy/provenance, Task21 Python3.9
+  stat/fd/path/SHA implementation, and scientific identity byte-identically.
+- Two independent clean Python3.9/PyTorch imports prove `torch.classes` is a
+  `torch._classes._Classes` synthetic module with relative `__file__`
+  `_classes.py`, no spec/loader/package/origin, no physical file, and empty
+  designated directories before and after import. Installed Torch source
+  `torch/_classes.py`, SHA `2a3dd93d...`, explicitly assigns that pseudo-file
+  spelling and matches Torch `2.5.1+cu121` RECORD metadata.
+- Bounded no-training closure provenance job `19266959` ran on node820 and
+  ended `FAILED/1:0` after 38 seconds. Both independent bundle extractions
+  passed. The first production-construction process then recursively re-entered
+  its filesystem audit hook because `traceback.extract_stack` opened source via
+  linecache/tokenize, ending in `RecursionError` before a reproduction JSON,
+  model construction, second process, or normalized closure.
+- The complete per-file closure therefore was not stably reproduced. Task22
+  explicitly makes this terminal `PRECHECK_BLOCKED` and forbids repair/retry.
+  Classification is `infrastructure-failure/closure-provenance-audit-hook-recursion`,
+  not algorithm, numerical, solver, H200, reward, or training evidence.
+- No filename/directory whitelist, approved closure, formal audit, preflight,
+  science root/job/process/transition/trace/checkpoint/model, stage ratio, or
+  monitor exists. Task14--21 ledgers remain immutable; no retry, requeue,
+  resubmit, Jupyter, quarantine access, Paper rerun, sweep, overwrite, second
+  candidate, or unrelated mutation occurred.
 
 ## Current NormMatch V2 Python 3.9 lstat compatibility recovery
 

@@ -2,30 +2,30 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-NORMMATCH-V2-PY39-LSTAT-COMPATIBILITY-AND-6M-S0-20260825-21`
-- Assignment: `5e041cd82ae5a4a078baaa0aa8991cc2b861ee41`
-- Compatibility freeze: `2230ef6485e5e8f7f5529d3595c65aec0241b056`
+- Task-ID: `PROCGEN-NORMMATCH-V2-RUNTIME-GENERATED-CLOSURE-AUDIT-AND-6M-S0-20260825-22`
+- Assignment: `8eb97a9f489268644d88ac069ab0c2d6fac23f32`
+- Closure-gate freeze: `6c0d6f1f359c7e0b9f022faf5d9682798cbe53b7`
 - Method: `PAPER_MATCHED_HYBRID_HEAD_DETGGN_PAPERNORM_V2`
 - Repository target: `origin/agent-work`
 
 ## Result
 
-The sole Python 3.9 stat correction passed the actual remote Python `3.9.25`
-positive/negative suite and static scan. `O_NOFOLLOW` was available and applied
-(`131072`). The audit prestart ledger proves exact same-file raw/resolved,
-device/inode, UID/GID, mode, size, fd and pre/post SHA identity for frozen
-Task18 policy `889b914a...`. All scientific, bundle, policy, launcher,
-provenance and monitor identities remain unchanged.
+Two independent frozen Python 3.9/PyTorch clean imports established that
+`torch.classes` is a `torch._classes._Classes` synthetic module whose
+`__file__` is the relative string `_classes.py`; it has no spec, loader,
+package, origin, physical file, or designated-directory lifecycle. Installed
+Torch `2.5.1+cu121` source `torch/_classes.py` (SHA `2a3dd93...`) explicitly
+sets that pseudo-file spelling and matches its distribution RECORD.
 
-The one authorized clean-room audit, gpuH job `19263636`, ran on node820 and
-ended `FAILED/1:0` after 14 seconds. Bundle verification and the complete stat/fd
-identity ledger passed. The unchanged origin scan then rejected a Torch-created
-`_classes.py` module inside the designated-empty directory. This is
-`infrastructure-failure/clean-room-loaded-module-origin-policy`, not stat,
-identity, algorithm, numerical, solver, H200, memory, reward or training
-evidence.
+The bounded full-production closure provenance job `19266959` verified two
+independent bundle extractions, then failed in its first Python process because
+the filesystem audit hook recursively audited `traceback.extract_stack` source
+opens. It ended `FAILED/1:0` after 38 seconds on node820. No complete first
+reproduction, second process, or normalized closure was emitted.
 
-Task21 forbids field repair or audit retry. No four-environment real-network
+Task22 mandates `PRECHECK_BLOCKED` when the complete closure cannot be stably
+reproduced and forbids repair/retry. No formal audit, four-environment
 preflight, scientific root/job, transition, stage ratio, or monitor exists.
+All Task21 path-identity and frozen scientific identities remain unchanged.
 
 PRECHECK_BLOCKED
