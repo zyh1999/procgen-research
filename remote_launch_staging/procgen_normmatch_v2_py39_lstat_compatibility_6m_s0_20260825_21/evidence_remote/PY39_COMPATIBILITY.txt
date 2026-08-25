@@ -1,0 +1,17 @@
+campaign=/scratch/h99859yz/procgen_normmatch_v2_py39_lstat_compatibility_6m_s0_20260825_21
+start=2026-08-25T03:32:53+01:00
+end=2026-08-25T03:32:53+01:00
+python=3.9.25
+pathlib.Path.stat_signature=(self)
+O_NOFOLLOW_AVAILABLE=True
+O_NOFOLLOW_VALUE=131072
+TASK21_UNSUPPORTED_PATH_STAT_STATIC_SCAN_PASS
+TASK21_PY39_POLICY_PATH_IDENTITY_TESTS_PASS
+status=PY39_COMPATIBILITY_PASS
+rc=0
+
+7e168404a858b28c841b23e812cf0ae1ffe3f5ffc4ed16e9de3792ef727a65e8  policy_namespace_support.py
+779c9a04e92aab73a3ce17124a19810389218f5f3617ef15d4d48386dd1b876d  test_policy_path_identity_py39.py
+889b914a792132358f90572d5c4f16b561c60bf0615eb8492c9ecf781f601fc1  Task18 origin_safety.py
+1b026fcf6d4716649be061a8fe7926f07932de29426728ced16b7077ad8ad6ff  Task18 provenance/reproduction_1.json
+061548959748423c570939f453c0e25c445dd6d1680bae451aca27e38514220e  Task17 origin_safety.py

@@ -1,0 +1,41 @@
+Task21 single authorized clean-room audit
+
+job=19263636
+owner=h99859yz
+account=gpu-h200-fse-pgdr
+partition=gpuH
+node=node820
+allocated=cpu=4,mem=32G,gres/gpu:h200=1
+state=FAILED
+exit=1:0
+elapsed=00:00:14
+start=25/08/26 03:33
+end=25/08/26 03:33
+audit_status=AUDIT_FAIL
+audit_rc=1
+
+HERMETIC_BUNDLE_VERIFY_PASS
+bundle_sha256=3da17520965bc16feccccad0fd334161b60471e5744327aaed93701710f73f6f
+manifest_sha256=99191542a38f77006b3a7f52aaa8223e7f957a7894fc89cc489a9dae112d46aa
+files=32
+
+Python 3.9 stat compatibility and the complete origin-policy path identity
+ledger passed before the clean-room interpreter. The audit then failed in the
+unchanged Task17/Task18 loaded-module origin policy:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/scratch/h99859yz/procgen_normmatch_v2_bare_exec_namespace_recovery_6m_s0_20260825_19/tools/clean_room_probe_task19.py", line 91, in <module>
+    origins = audit_loaded_modules(BUNDLE, MANIFEST, DESIGNATED, FORBIDDEN)
+  File "/net/scratch/h99859yz/procgen_normmatch_v2_torch_generated_origin_audit_6m_s0_20260825_18/tools/origin_safety.py", line 239, in audit_loaded_modules
+    classification = _base_classify_origin(origin, approved, designated, forbidden_roots)
+  File "/scratch/h99859yz/procgen_normmatch_v2_interpreter_path_audit_6m_s0_20260825_17/tools/origin_safety.py", line 173, in classify_origin
+    raise RuntimeError(f"module resolved from designated empty directory: {path}")
+RuntimeError: module resolved from designated empty directory: /mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/procgen-nm2-task21-empty-19263636.8dOEUz/_classes.py
+
+classification=infrastructure-failure/clean-room-loaded-module-origin-policy
+four_environment_real_network_preflight_submitted=false
+scientific_jobs_submitted=false
+scientific_roots_created=false
+stage_comparisons_eligible=false
+audit_retry=false

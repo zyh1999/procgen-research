@@ -1,0 +1,35 @@
+{
+  "result": "ORIGIN_POLICY_PATH_IDENTITY_PASS",
+  "raw_path": "/scratch/h99859yz/procgen_normmatch_v2_torch_generated_origin_audit_6m_s0_20260825_18/tools/origin_safety.py",
+  "resolved_path": "/net/scratch/h99859yz/procgen_normmatch_v2_torch_generated_origin_audit_6m_s0_20260825_18/tools/origin_safety.py",
+  "samefile_pre": true,
+  "samefile_post": true,
+  "identity": {
+    "device": 3592384858,
+    "inode": 144122242006038476,
+    "uid": 778916,
+    "gid": 10049,
+    "mode": "0o644",
+    "size": 13605,
+    "regular_file": true,
+    "symlink": false
+  },
+  "raw_lstat_identity_match": true,
+  "raw_stat_identity_match": true,
+  "resolved_lstat_identity_match": true,
+  "resolved_stat_identity_match": true,
+  "opened_fd_identity_match": true,
+  "post_exec_fd_identity_match": true,
+  "post_exec_path_identity_match": true,
+  "o_nofollow": {
+    "available": true,
+    "applied": true,
+    "value": 131072
+  },
+  "pre_sha256": "889b914a792132358f90572d5c4f16b561c60bf0615eb8492c9ecf781f601fc1",
+  "post_exec_fd_sha256": "889b914a792132358f90572d5c4f16b561c60bf0615eb8492c9ecf781f601fc1",
+  "post_exec_path_sha256": "889b914a792132358f90572d5c4f16b561c60bf0615eb8492c9ecf781f601fc1",
+  "identity_and_sha_revalidated_after_exec": true,
+  "designated_empty_cwd": "/mnt/iusers01/fatpou01/compsci01/h99859yz/tmp/procgen-nm2-task21-empty-19263636.8dOEUz",
+  "designated_empty_prestart_entries": []
+}

@@ -1,6 +1,35 @@
 # Current Project State
 
-Updated: 2026-08-25T10:16:29+08:00
+Updated: 2026-08-25T10:40:00+08:00
+
+## Current NormMatch V2 Python 3.9 lstat compatibility recovery
+
+- Task `PROCGEN-NORMMATCH-V2-PY39-LSTAT-COMPATIBILITY-AND-6M-S0-20260825-21`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no real-network
+  preflight or scientific cell was submitted.
+- Assignment `5e041cd82ae5a4a078baaa0aa8991cc2b861ee41` and compatibility
+  freeze `2230ef6485e5e8f7f5529d3595c65aec0241b056` preserve the algorithm,
+  bundle/manifest, origin policy, trainer/config/regression/monitor,
+  science/preflight launchers, Torch provenance, and scientific identity.
+- The only versioned correction replaces unsupported
+  `Path.stat(follow_symlinks=...)` with Python-3.9-compatible `os.lstat`,
+  `os.stat`, `os.open`, and `os.fstat`. Actual remote Python `3.9.25` passed
+  static scanning and all storage-alias/symlink/different-inode/identity/SHA/
+  replacement positive and negative tests. `O_NOFOLLOW` was available and
+  applied with value `131072`.
+- Exactly one clean-room audit, gpuH job `19263636`, ran on node820 and ended
+  `FAILED/1:0` after 14 seconds. Bundle verification and the complete raw/
+  resolved/fd/post-exec identity and SHA ledger passed.
+- The unchanged exhaustive origin scan then rejected Torch-created
+  `_classes.py` inside the designated-empty directory. This is immutable
+  `infrastructure-failure/clean-room-loaded-module-origin-policy`, not Python
+  stat, file identity, algorithm, numerical, solver, H200, memory, reward, or
+  training evidence.
+- Task21 forbids repair/retry after the audit. Four-environment preflight,
+  science roots/jobs/processes/transitions/traces/checkpoints/models, stage
+  ratios, and monitor do not exist. Task14--20 ledgers remain immutable; no
+  retry, requeue, resubmit, Jupyter, quarantine access, Paper rerun, sweep,
+  overwrite, second candidate, or unrelated mutation occurred.
 
 ## Current NormMatch V2 policy-path identity recovery
 
