@@ -2,77 +2,79 @@ Status: READY
 
 # TASK.md
 
-Task-ID: `PROCGEN-ACTOR-WEIGHTED-GAE-GGN-HEAD-6M-S0-20260825-32`
+Task-ID: `PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33`
 
 ## 唯一目标
 
-实现并检验一个严格确定性的、actor-relevant critic GGN：
+立即实现、冻结并提交独立方法：
 
-`DET_ACTOR_WEIGHTED_GAE_GGN_HEAD_V1`
+`DET_GAE_GGN_HEAD_WIDENTITY_V1`
 
-该方法不模仿Paper sampled critic update。它保持actor和shared-trunk critic更新与严格Paper control完全相同，只在257个critic-exclusive value-head参数上，将普通MSE/sampled-score更新替换为“actor加权GAE误差”的deterministic GGN。通过四环境seed0、intended 6M实验判断该目标是否改善长期value→GAE→actor控制耦合。
+该候选用于检验Task32的actor weighting是否因BigFish出现`weight max=512`及effective-rank collapse而破坏GAE-GGN。新方法明确使用 \(W=I\)，可与Task32并存排队或运行，但不得取消、修改、重提、覆盖或等待Task32。
 
-## 科学动机与边界
+## 独立版本与非覆盖边界
 
-既有证据表明：
+必须创建独立的：
 
-- Hybrid-head单步policy/logits不变，但后续reward仍可能失败；
-- BossFight可有更低value loss却更差reward；
-- BigFish在2M通过、4M失败；
-- CaveFlyer可在6M匹配Paper；
-- solver始终健康。
+- trainer；
+- config；
+- method name；
+- launcher/monitor；
+- campaign/run root；
+- source/config/launcher hashes。
 
-因此本任务只检验：普通value MSE是否缺少actor-relevant时序几何。Paper仅作为性能baseline和因果control，不是要复制的更新目标。
+Git继续使用`agent-work`，不得创建或推送`main/master`。这里的独立版本仅指独立代码身份和非覆盖root。
+
+## 严格控制身份
+
+与Task32/Paper control保持完全一致：
+
+- actor及actor optimizer；
+- shared-trunk sampled critic及其更新；
+- 网络、257参数value head划分；
+- rollout、return、GAE、done mask、bootstrap；
+- PopArt；
+- schedule、minibatch、epochs；
+- momentum/history；
+- adaptive-KL、global clip；
+- seed、evaluation、reward/KL语义和6M停止规则。
+
+只允许去除Task32的actor weighting。不得引入其他科学差异。
 
 ## 精确算法
 
-使用与Paper完全相同的rollout、reward、done mask、bootstrap、GAE参数、PopArt状态、actor update、shared-trunk sampled critic update、minibatch顺序、epochs、momentum/history、adaptive-KL、clip及evaluation语义。
-
-仅修改value head。
-
-### 1. 固定value误差
-
-在冻结的当前PopArt标准化坐标中：
+在冻结PopArt标准化坐标中：
 
 \[
-e_t=V_\theta(s_t)-\operatorname{stopgrad}(\mathrm{return}_t).
+e=V_\theta-\operatorname{stopgrad}(\mathrm{return}),
+\qquad
+q=D_{\gamma,\lambda,\mathrm{mask}}e.
 \]
 
-不得改变return或GAE的生成方式。
+其中 \(D\) 必须严格复用Task32已验证的trajectory、terminal、truncation和bootstrap语义。
 
-### 2. 精确GAE误差算子
-
-构造确定性线性算子 \(D_{\gamma,\lambda,m}\)，使用与现有trainer完全相同的时间顺序、terminal mask和bootstrap边界，使其满足：
+明确设：
 
 \[
-q=D_{\gamma,\lambda,m}e.
+W=I.
 \]
 
-必须通过对冻结GAE实现进行value有限差分验证，证明 \(D\Delta V\) 等于重新计算GAE后的变化；不得使用简化的跨episode矩阵。
+不得计算或使用actor score、policy概率权重、权重归一化、clip、floor或proposal norm matching。
 
-### 3. Actor相关权重
-
-对冻结old policy：
+目标：
 
 \[
-w_t=\left\|\mathbf 1_{a_t}-\pi_{\rm old}(\cdot|s_t)\right\|_2^2.
+L_{\mathrm{GAE}}=\frac{1}{2B}\|q\|_2^2.
 \]
 
-以minibatch均值归一化至1，权重detached、无clip、无floor、无额外随机数。这是logit空间中policy-score对advantage误差的确定性敏感度。
-
-### 4. GAE-aware目标与GGN
+仅对`last_v_layer.weight/bias`的257个参数构造：
 
 \[
-L_{\rm AG}(\theta)
-=\frac{1}{2B}\sum_t w_tq_t^2.
-\]
-
-令 \(J_h=\partial V/\partial\theta_h\)，其中\(\theta_h\)仅包含
-`last_v_layer.weight/bias`，构造：
-
-\[
-K=\operatorname{diag}(\sqrt w)\,D J_h,\qquad
-r=\operatorname{diag}(\sqrt w)\,q.
+J_h=\frac{\partial V}{\partial\theta_h},
+\qquad
+K=D J_h,
+\qquad
+r=q.
 \]
 
 求解：
@@ -82,53 +84,48 @@ r=\operatorname{diag}(\sqrt w)\,q.
 =-\frac{K^\top r}{B}.
 \]
 
-使用symmetric FP64、Jacobi scaling和Cholesky；保留Paper global clip `.5`及value-head既有momentum/history语义。不得做Paper proposal norm matching、sampled-value score、joint/cross block或low-Fisher guard。
+使用symmetric FP64、Jacobi scaling、Cholesky及既有global clip `.5`。不得根据preflight或训练结果改变damping、目标、权重或其他超参数。
 
-## 允许代码动作
+## 必需代码Diff与回归
 
-- 新建独立trainer、config、functional preflight、launcher和monitor。
-- 从严格Paper control及Hybrid-head V1复制未改变部分，并记录逐字段diff。
-- 使用Git哈希、import smoke、真实网络构造及一步回归验证来源。
-- 可修复在科学启动前发现的纯代码错误，但每项必须版本化并进入基础设施账本；不得改变上述数学定义。
+科学提交前必须生成Task32→Task33逐字段、逐函数和AST diff，并证明唯一科学差异为：
 
-不得重新使用Task14–31的multiprocessing origin-observer/closure框架作为科学门槛。
+- 删除 \(w_t\) 的构造；
+- `diag(sqrt(w))DJ_h → DJ_h`；
+- `diag(sqrt(w))q → q`；
+- weighted GAE loss → unweighted GAE loss。
 
-## 必需preflight证据
+必须证明：
 
-1. GAE算子对多episode、terminal、truncation和bootstrap的finite-difference误差达到FP64容差。
-2. actor权重公式、均值归一化及无梯度/RNG证明。
-3. exact production network中：
+- trainer中不存在actor-score/actor-weight路径；
+- 运行时无`weight max`、weight clipping/floor或weight-normalization；
+- 所有样本的隐式权重严格为1；
+- Task32 BigFish的`max=512`集中加权机制在本方法中不可发生；
+- effective-rank必须由未加权 \(DJ_h\) 报告，不得用加权矩阵替代；
+- actor/shared方向和一步delta与Task32及Paper control bit-identical；
+- policy logits bit-identical；
+- 仅257个value-head参数delta不同；
+- \(D\) finite-difference、PopArt仿射不变性、小矩阵/autograd参考、Cholesky info0、finite residual及nonfinite扫描全部PASS。
 
-   - actor方向与Paper control bit-identical；
-   - shared critic方向与Paper control bit-identical；
-   - policy/shared参数的一步delta bit-identical；
-   - policy logits bit-identical；
-   - 只有257个value-head参数delta不同；
-   - value-head对policy Jacobian为0/disconnected。
+若除 \(W=I\) 外存在任何科学差异，停止为`PRECHECK_BLOCKED`。
 
-4. PopArt仿射reward变换回归：对应标准化输入下，方向、prediction change和接受结果一致。
-5. GGN矩阵/RHS与显式autograd Hessian-vector及直接小矩阵参考一致。
-6. Cholesky info0、finite residual、无NaN/Inf。
-7. 与Hybrid V1、NormMatch V2、separate-B、joint-2B及历史expected/no-cross公式的明确diff表。
-8. 不得把Paper sampled proposal相似度作为PASS条件。
+## 科学矩阵与提交
 
-Preflight失败则停止为`PRECHECK_BLOCKED`，不得启动科学cell。
-
-## 科学执行
-
-Preflight PASS后运行且仅运行：
+Preflight PASS后立即提交且仅提交：
 
 - BigFish、BossFight、CaveFlyer、CoinRun；
 - seed0；
 - 每格intended horizon 6M；
-- 独立、非覆盖root；
-- 原始Paper RAT seed0仅作为严格同阶段reward baseline。
+- 四个独立Slurm job；
+- 全新、预先验证不存在的非覆盖roots。
 
-Executor在启动前自行刷新scheduler、GPU、进程、ownership、capacity、artifact及duplicate状态，并自行决定所有放置与并发。
+允许job进入`PENDING`并等待资源。Executor负责全部实时scheduler、ownership、GPU、partition、concurrency、capacity和queue placement判断。
 
-## 同阶段早停协议
+不得等待Task32终态；也不得触碰Task32的job、root、monitor或artifact。
 
-只在相同环境、seed0、evaluation语义的精确共同进度比较：
+## 严格早停协议
+
+仅在相同环境、seed0、evaluation语义和精确共同进度比较Original Paper RAT：
 
 - first common `>=2M`
 - first common `>=4M`
@@ -137,67 +134,71 @@ Executor在启动前自行刷新scheduler、GPU、进程、ownership、capacity�
 只有：
 
 \[
-\text{Target reward}/\text{Paper reward}<0.60
+\mathrm{Target}/\mathrm{Paper}<0.60
 \]
 
-才可取消该cell并记录`EARLY_STOPPED_ALGORITHM`。无精确共同row则不得操作；中间Target不得比较Paper terminal。
+才可取消该单格并记录`EARLY_STOPPED_ALGORITHM`。没有精确共同row则不得操作；中间Target不得比较Paper terminal。
 
 ## 必需科学证据
 
-每个stage保存：
+每个stage记录：
 
-- reward、严格Paper reward及ratio；
-- KL、actor LR、entropy；
-- value loss；
+- Target/Paper reward及ratio；
+- KL、LR、entropy、value loss；
+- unweighted \(L_{\mathrm{GAE}}\)；
 - GAE mean/variance/RMS；
-- \(L_{\rm AG}\)；
-- actor权重分布；
 - TD residual及return error；
-- GGN spectrum摘要、effective rank、condition number；
-- parameter/prediction/GAE change norm；
-- predicted与realized \(L_{\rm AG}\) change；
-- residual、Cholesky info及hard-error扫描。
+- \(DJ_h\) spectrum、effective rank、condition number；
+- prediction/parameter/GAE change norm；
+- predicted/realized GAE-loss change；
+- damping、clip scale、residual、Cholesky info；
+- hard-error及NaN/Inf扫描。
 
-必须特别分析：
+必须与Task32同阶段比较：
 
-- 更低value loss是否对应更好的GAE和reward；
-- BigFish是否再次出现2M通过、4M失效；
-- CaveFlyer优势是否保持；
-- 环境差异来自GAE目标、谱结构还是reward/PopArt尺度。
+- effective rank；
+- step/prediction/GAE change；
+- reward ratio；
+- Task32集中actor weighting是否解释BigFish异常。
+
+Task32尚无对应stage时标记`TASK32_PENDING`，不得阻塞Task33或使用非同阶段数据代替。
 
 ## 唯一终局结论
 
-只允许一个：
+仅允许：
 
 - `PRECHECK_BLOCKED`
+- `QUEUED_RESOURCE_WAIT`
 - `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`
-- `CANDIDATE_REJECT`：至少两个环境发生有效算法早停，或证据已使三环境成功不可能。
-- `GAE_GGN_SEED0_PROMISING`：至少三个环境到达5,980,160；最多一个算法早停；至少两个环境终点超过Paper；计入早停stage ratio后的四环境平均ratio大于1；数值与GAE健康证据完整。
-- `CANDIDATE_NOT_READY`：科学证据完整但既不满足拒绝也不满足promising标准。
+- `CANDIDATE_REJECT`
+- `WIDENTITY_GAE_GGN_SEED0_PROMISING`
+- `CANDIDATE_NOT_READY`
 
-本任务不得启动seeds1–2或正式x3扩展。
+`WIDENTITY_GAE_GGN_SEED0_PROMISING`要求：至少三个环境到达5,980,160、最多一个算法早停、至少两个环境终点超过Paper、计入早停stage ratio后的四环境平均ratio大于1，且数值与GAE健康。
+
+不得启动seeds1–2。
 
 ## 禁止事项
 
-- 不得继续Task31R或任何`__mp_main__`/origin observer工作。
-- 不得修改Paper baseline或重跑Paper。
-- 不得做Paper norm/RHS/inverse matching或multi-ε quadrature。
-- 不得添加joint/cross、projection、low-Fisher、actor tuning或第二候选。
-- 不得进行超参数/算法sweep。
-- 不得覆盖历史root、删除失败记录或将基础设施失败重标为算法失败。
+- 不得取消、修改、覆盖、重排或等待Task32。
+- 不得加入actor weighting、norm matching、joint/cross、projection、low-Fisher、adaptive damping或第二候选。
+- 不得进行sweep或按结果调参。
+- 不得重跑或修改Paper baseline。
+- 不得继续Task14–31 provenance/origin observer工作。
+- 不得覆盖历史root或改写失败分类。
 - 不得使用Jupyter。
-- 不得访问`.54`、`ws4090-31`、`10.49.7.54`。
+- 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
 - 不得规划MuJoCo或Isaac。
 - Planner不指定host、GPU、partition、卡数、并发或queue placement。
 
-## 报告、提交与推送
+## 报告、提交与回调
 
 更新：
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-ACTOR-WEIGHTED-GAE-GGN-HEAD-6M-S0-20260825-32.md`
+- `.agent/reports/PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33.md`
 
-报告必须包含冻结哈希、完整Paper→Target diff、preflight、四环境stage表、failure ledger、artifact/error扫描、唯一结论、assignment/evidence/Delivery commits及`origin/agent-work`验证。
+报告必须包含冻结hash、Task32→Task33唯一科学diff、preflight、job/root映射、scheduler与artifact状态、stage表、失败账本及唯一结论。
 
-提交代码和模型无关证据；不得提交model/checkpoint。推送后回调Planner。
+提交代码和模型无关证据，不提交model/checkpoint。推送`origin/agent-work`并验证远端HEAD后回调Planner。
