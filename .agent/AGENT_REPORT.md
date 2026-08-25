@@ -2,31 +2,34 @@
 
 ## Metadata
 
-- Task-ID: `PROCGEN-NORMMATCH-V2-HERMETIC-BUNDLE-AND-6M-S0-20260825-15`
-- Assignment: `2d0932e37884584601d53318ece9cb16f400fba6`
+- Task-ID: `PROCGEN-NORMMATCH-V2-SYSPATH-AUDIT-RECOVERY-AND-6M-S0-20260825-16`
+- Assignment: `21be84a247ff47f6541f1835a44308a9e6c5cad1`
 - Method: `PAPER_MATCHED_HYBRID_HEAD_DETGGN_PAPERNORM_V2`
 - Repository target: `origin/agent-work`
 
 ## Result
 
-The deployment-only recovery froze a 32-file content-addressed archive from
-Git commit `c2470eac...`. Manifest SHA256 is `99191542...`, archive SHA256 is
-`3da17520...`, and the reachable 23-file local import closure includes exact
-original-Paper `utils` and `vec_env`. A deterministic rebuild was
-byte-identical. Frozen trainer/config/preflight/regression/monitor and
-original-launcher hashes remain unchanged. The deployment launcher audit
-proved the normalized scientific command byte-identical.
+The bounded Task16 harness correction permits exactly one recorded empty
+working directory on `sys.path`, requires stable device/inode/ownership/mode
+and empty pre/post scans, audits every loaded-module origin, and verifies every
+repository-local module against the immutable bundle manifest. Positive and
+all four mandatory negative tests passed locally. Frozen algorithm, bundle,
+scientific, deployment-launcher and monitor hashes remain unchanged. Harness
+freeze commits are `dd9f70c1619e1aaaec97b7b75205d06d0919e0b9`,
+`e4207c39964f94648749e3ca03d884f5965e077c`, and
+`0c7e2ae5727ce2a2c93636388db76b218c31270d`.
 
-The single mandatory no-training clean-room job `19241161` ran on node820 and
-ended `FAILED/1:0` after four seconds. Bundle and manifest verification passed,
-then the audit rejected its empty temporary working directory as an extra
-`sys.path` entry before trainer import. Under the explicit no-repair/no-retry
-gate, no four-environment real-network preflight or scientific job was
-submitted.
+The one authorized remote clean-room audit, gpuH job `19243039`, ran on
+node820 and ended `FAILED/1:0` after four seconds. The immutable archive and
+manifest passed exact hash verification, and the designated empty directory
+passed its recorded pre-interpreter inspection. The audited interpreter then
+rejected `/usr/lib64/python39.zip` as an unapproved `sys.path` entry before
+trainer import and before an import-origin manifest could be emitted.
 
-Final reconciliation found no Task 15 queue row, accepted preflight, science
-root, trainer process, transition, progress, trace, checkpoint or model. Task
-14 jobs `19238126`--`19238129` remain preserved unchanged. Full model-free
-evidence and the exact traceback are tracked in the Task 15 staging directory.
+Under the explicit no-repair/no-retry gate, no four-environment real-network
+preflight and no scientific cell was submitted. Task15 job `19241161` and
+Task14 jobs `19238126`--`19238129` remain preserved. This is an audit-harness
+origin-policy failure, not algorithm, numerical, solver, H200, reward or
+training evidence.
 
 PRECHECK_BLOCKED

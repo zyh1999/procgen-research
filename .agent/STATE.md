@@ -1,6 +1,34 @@
 # Current Project State
 
-Updated: 2026-08-25T01:39:23+01:00
+Updated: 2026-08-25T08:59:19+08:00
+
+## Current NormMatch V2 sys.path audit recovery
+
+- Task `PROCGEN-NORMMATCH-V2-SYSPATH-AUDIT-RECOVERY-AND-6M-S0-20260825-16`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no real-network
+  preflight or scientific cell was submitted.
+- The bounded harness correction records exactly one designated empty working
+  directory, verifies its canonical path/device/inode/owner/mode and empty
+  recursive contents before and after imports, rejects any import from it, and
+  classifies every loaded-module origin. Mandatory local positive/negative
+  origin-safety tests and frozen-identity checks passed.
+- Frozen trainer/config/preflight/regression/monitor, bundle archive/manifest,
+  and deployment science/preflight launcher hashes remain unchanged. Audit
+  launcher/probe/origin-safety/preparer SHA256 values are `7a1261c9...`,
+  `5f3a4286...`, `4fbc0e28...`, and `cfafeb77...`.
+- Exactly one remote clean-room audit was submitted: gpuH job `19243039` on
+  node820. Bundle/manifest verification passed and the designated directory
+  prestart audit passed, then the job ended `FAILED/1:0` after four seconds
+  because `/usr/lib64/python39.zip` was rejected as an unapproved `sys.path`
+  entry. Trainer import and import-origin manifest generation were not reached.
+- This is a terminal audit-harness origin-policy failure. The explicit Task16
+  gate forbids repair or retry, so the four-environment real-network preflight,
+  accepted preflight, scientific roots, transitions, traces, checkpoints,
+  models, stage ratios and monitor do not exist.
+- Task15 clean-room job `19241161` and Task14 deployment jobs
+  `19238126`--`19238129` remain immutable. No retry, requeue, resubmit,
+  Jupyter, quarantined access, Paper rerun, sweep, overwrite, second candidate
+  or unrelated mutation occurred.
 
 ## Current NormMatch V2 hermetic deployment recovery
 
