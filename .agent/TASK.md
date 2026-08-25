@@ -1,27 +1,27 @@
 Status: READY
 
-# Task-ID: PROCGEN-NORMMATCH-V2-SYSPATH-AUDIT-RECOVERY-AND-6M-S0-20260825-16
+# Task-ID: PROCGEN-NORMMATCH-V2-INTERPRETER-PATH-AUDIT-AND-6M-S0-20260825-17
 
 ## 唯一目标
 
-修正hermetic clean-room auditor将其自己创建的空工作目录误判为源码污染的问题；保持NormMatch V2算法、bundle和科学文件不变，完成一次clean-room审计、四环境真实网络preflight，并仅在全部通过后运行四环境seed 0预定6M实验。
+仅修正clean-room auditor对当前Python解释器标准库zip搜索路径的分类；保留NormMatch V2算法、bundle、deployment launchers和全部科学文件。执行一次clean-room audit；通过后执行四环境真实网络preflight；仅当全部通过才启动四环境seed 0预定6M实验。
 
 ## 证据判断
 
-Task 15已证明：
-
-- bundle可确定性重建；
-- archive、manifest及全部文件哈希正确；
-- repository-local import closure完整包含trainer、`utils`和`vec_env`；
-- deployment launcher与原科学命令等价。
-
-唯一失败是auditor拒绝了它明确创建的空工作目录：
+Task 16唯一失败路径为：
 
 ```text
-/mnt/.../tmp/procgen-nm2-empty-19241161.WFurfV
+/usr/lib64/python39.zip
 ```
 
-该目录出现在`sys.path`并不等同于发生非hermetic import。正确安全条件是：目录确实为空、不可提供模块，并且所有实际导入模块的origin均来自批准的bundle、标准库或固定环境依赖。故该失败属于`infrastructure-failure/clean-room-harness-design`，不是bundle缺失、算法或硬件证据。
+该路径是解释器自动生成的标准库zip搜索候选，并非repository源码路径。失败发生在trainer import之前，bundle和designated-empty检查均已通过。因此分类为`infrastructure-failure/clean-room-audit-origin-policy`，没有算法、数值、求解器、内存或reward证据。
+
+正确审计应区分：
+
+- `sys.path`中的合法解释器候选；
+- 实际成功提供模块的origin。
+
+标准库zip候选可以存在于搜索路径中，但任何实际repository-local模块仍必须来自冻结bundle。
 
 ## 冻结身份
 
@@ -34,106 +34,112 @@ Task 15已证明：
 - Monitor：`536b87201191f81a44fc3aa6564565653572df523080b0952b11d6347152572e`
 - Bundle archive：`3da17520965bc16feccccad0fd334161b60471e5744327aaed93701710f73f6f`
 - Bundle manifest：`99191542a38f77006b3a7f52aaa8223e7f957a7894fc89cc489a9dae112d46aa`
-- Deployment science launcher：`ec60864aaa9940fd61eb1391008b50f2f48402eeae8f78c91c0b0c1fc313a398`
-- Deployment preflight launcher：`374d24881d108bbdd08dee0880b7392a7cc3adf6af177f6eb4deaac15535b228`
+- Science launcher：`ec60864aaa9940fd61eb1391008b50f2f48402eeae8f78c91c0b0c1fc313a398`
+- Preflight launcher：`374d24881d108bbdd08dee0880b7392a7cc3adf6af177f6eb4deaac15535b228`
 
-不得重建或改变bundle内容。
+不得修改、重建或重新打包bundle。
 
 ## 唯一允许的代码修正
 
-仅修改clean-room audit harness的`sys.path`判定：
+仅修改Task 16的clean-room origin-policy：
 
-1. 允许一个由harness本次创建并记录的designated empty working directory出现在`sys.path`。
-2. 在启动解释器前记录该目录的：
+1. 根据当前解释器动态推导标准路径，至少使用：
 
-   - 规范化绝对路径；
-   - device/inode；
-   - ownership及permissions；
-   - 递归目录清单；
-   - 创建时间。
+   - `sys.base_prefix`
+   - `sys.base_exec_prefix`
+   - `sys.version_info`
+   - `sysconfig.get_paths()`
 
-3. 目录在解释器启动前必须为空，且不得包含`.py`、`.pyc`、共享库、package目录或symlink。
-4. import完成后再次扫描；目录仍必须为空且device/inode不变。
-5. 对`sys.modules`中所有具有origin的模块生成import-origin manifest，并逐项分类为：
+2. 允许当前解释器自动生成的版本化标准库zip候选，但必须满足：
 
-   - 解压后的已验证bundle；
-   - 当前Python标准库；
-   - 当前固定环境的third-party site-packages；
-   - builtin/frozen模块。
+   - 路径由当前prefix和major/minor版本确定性推导；
+   - basename严格匹配当前解释器的`pythonXY.zip`形式；
+   - 位于解析后的标准库/prefix层级；
+   - 不通过硬编码host路径获得。
 
-6. 任一实际模块origin位于designated empty directory、源仓库checkout、用户临时源码路径或其他未批准位置，都必须失败。
-7. 所有repository-local模块必须解析到bundle extraction root，并与bundle manifest SHA匹配。
-8. 禁止简单删除全部`sys.path`安全检查、允许任意空目录模式、使用宽泛路径白名单或吞掉异常。
+3. 若候选不存在：
 
-允许使用`-P`/`PYTHONSAFEPATH`作为额外防护，但不得以此替代import-origin审计。
+   - 记录为`NONEXISTENT_INTERPRETER_ZIP_CANDIDATE`；
+   - 不得有任何module origin指向该路径。
+
+4. 若候选存在：
+
+   - 必须是普通文件而非symlink；
+   - 非当前用户可写；
+   - 记录owner、mode、size及SHA256；
+   - 实际模块origin必须在后续manifest中逐项审计。
+
+5. import后生成完整`import_origin_manifest.json`。所有origin必须分类为：
+
+   - 冻结bundle；
+   - 当前解释器标准库；
+   - 固定third-party environment；
+   - builtin/frozen。
+
+6. 所有repository-local模块必须来自bundle extraction root并匹配manifest SHA。
+7. Task 16的designated-empty目录规则及全部负向保护保持不变。
+
+禁止：
+
+- 直接将`/usr/lib64/python39.zip`写入白名单；
+- 允许任意`.zip`或整个`/usr`目录；
+- 删除pre-import路径检查；
+- 跳过post-import origin审计；
+- catch、fallback import或动态安装模块。
+
+## 必需回归
+
+远端audit前必须证明：
+
+- 当前解释器推导的合法、但不存在的标准zip候选：PASS；
+- 当前解释器推导的安全真实标准zip：PASS；
+- 同名zip位于任意临时目录：FAIL；
+- Python版本不匹配：FAIL；
+- 用户可写或symlink zip：FAIL；
+- repository-local模块从bundle外或解释器zip解析：FAIL；
+- Task 16的empty-cwd正向及四项负向测试继续通过。
 
 ## 有界执行
 
-1. 为上述规则添加本地正反测试：
-
-   - designated目录为空且无模块来源：PASS；
-   - 目录含可导入模块：FAIL；
-   - symlink或扫描后新增文件：FAIL；
-   - repo-local模块从bundle外解析：FAIL。
-
-2. 本地测试通过后，仅执行一次完整remote clean-room audit。
-3. 若该audit失败，立即结束为`PRECHECK_BLOCKED`；不得继续修补或重试。
-4. Audit通过后，对四个环境各执行一次真实网络preflight。
-5. 任一环境preflight失败，结束为`PRECHECK_BLOCKED`；不得启动科学cell。
-6. 四环境全部通过后，启动一个新、非覆盖campaign中的：
+1. 仅提交上述origin-policy修正及测试。
+2. 所有本地测试通过后，只执行一次remote clean-room audit。
+3. Audit失败即结束为`PRECHECK_BLOCKED`；不得继续修补或重试。
+4. Audit通过后，对四环境各执行一次真实网络preflight。
+5. 任一环境preflight失败即结束为`PRECHECK_BLOCKED`，不得启动科学cell。
+6. 全部通过后，在全新非覆盖campaign运行：
 
    - `bigfish-easy-0-10`，seed 0
    - `bossfight-easy-0-10`，seed 0
    - `caveflyer-easy-0-10`，seed 0
    - `coinrun-easy-0-10`，seed 0
 
-7. 每格intended horizon为6M，终点`5,980,160`，每格最多一次科学提交。
-8. Executor负责实时资源刷新、nonduplicate检查以及全部host/GPU/partition/concurrency/queue placement。
+7. 每格intended horizon为6M，终点为`5,980,160`，每格最多一次科学提交。
+8. Executor负责实时资源检查以及全部host、GPU、partition、并发和queue placement。
 
-## 强制preflight
+## 强制科学preflight
 
 必须继续证明：
 
-- bundle、manifest及每个文件SHA正确；
-- 所有本地import origin均位于bundle；
-- 四环境production model成功构造；
-- structural manifest一致；
+- bundle和repository-local import origins正确；
+- 四环境production model成功构造且structural manifest一致；
 - trainable/optimizer及PopArt隔离正确；
-- `u_det`和`u_paper`来自相同更新边界；
+- `u_det`与`u_paper`位于相同更新边界；
 - `||u_target||₂=||u_paper||₂`；
-- actor/shared proposal、global clip、one-step policy/logits/shared delta与Paper bit-identical；
+- actor/shared proposal、global clip及one-step policy/logits/shared delta与Paper bit-identical；
 - 仅value-head方向不同；
 - 无额外RNG、sample或data-order变化；
-- FP64/Jacobi/Cholesky `info=0`且残差有限；
-- 内存、OOM、CUDA、NaN/Inf及hard-error检查通过。
+- FP64/Jacobi/Cholesky `info=0`、残差有限；
+- memory、OOM、CUDA、NaN/Inf和hard-error检查通过。
 
 ## 严格比较与早停
 
-仅与不可变原始Paper RAT中同环境、seed 0、同evaluation semantics和同transition记录比较：
+仅与不可变原始Paper RAT同环境、seed 0、同evaluation semantics和同transition记录比较：
 
 - 首个共同点`>=2,000,000`
 - 首个共同点`>=4,000,000`
 - 终点`5,980,160`
 
-仅当：
-
-```text
-Target reward / Paper reward < 0.60
-```
-
-时取消对应cell并记录`EARLY_STOPPED_ALGORITHM`。无精确共同点时不得操作；不得用Paper终点比较中间Target。
-
-## 必需遥测
-
-记录reward、ratio、KL、LR、entropy、value loss/MSE、explained variance、PopArt、advantage统计，以及：
-
-- `||u_det||₂`
-- `||u_paper||₂`
-- norm-match scale
-- `||u_target||₂`
-- head-direction cosine
-- global pre-clip norm及clip scale
-- head/solve residual和Cholesky info
+仅当`Target reward / Paper reward < 0.60`时取消对应cell并记录`EARLY_STOPPED_ALGORITHM`。无精确共同记录时不得取消；不得使用Paper终点比较中间Target。
 
 ## 验收标准
 
@@ -141,19 +147,20 @@ Target reward / Paper reward < 0.60
 
 - `CANDIDATE_PROMOTE_TO_3SEED`：至少3/4环境达到终点，且达到终点的环境ratio均不低于0.60。
 - `CANDIDATE_REJECT`：至少2个环境严格触发早停，或完整终点证据明确否定候选。
-- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：preflight通过且科学运行开始，但基础设施故障阻止充分判定。
+- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`：preflight通过并开始科学运行，但基础设施故障阻止充分判定。
 - `PRECHECK_BLOCKED`：clean-room audit或任一四环境preflight未通过。
 
 ## 禁止事项
 
 - 不得修改算法、科学文件、bundle、deployment launcher或monitor。
-- 不得引入第二候选、scale变体、cap、floor、EMA或guard。
-- 不得覆盖既有root、重跑Paper或复用Task 14/15失败root。
+- 不得引入第二候选或其他scale规则。
+- 不得硬编码已观察到的host路径作为白名单。
+- 不得覆盖旧root、重跑Paper或复用失败root。
 - 不得retry、requeue或resubmit科学cell。
 - 不得使用Jupyter。
 - 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
-- 不得指定计算资源或触碰无关任务。
-- 所有既有算法、preflight、deployment和取消记录必须原样保留。
+- 不得指定任何具体计算资源。
+- 必须保留Task 14–16及全部历史失败和取消记录。
 
 ## 报告、提交与推送
 
@@ -161,6 +168,6 @@ Target reward / Paper reward < 0.60
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-NORMMATCH-V2-SYSPATH-AUDIT-RECOVERY-AND-6M-S0-20260825-16.md`
+- `.agent/reports/PROCGEN-NORMMATCH-V2-INTERPRETER-PATH-AUDIT-AND-6M-S0-20260825-17.md`
 
-提交audit-harness修正、测试、model-free证据及报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、全部commit、audit harness SHA、import-origin manifest、clean-room与四环境preflight结果、科学终态、严格阶段比率及failure-ledger增量。
+提交auditor修正、回归、model-free证据和报告，保持worktree干净，推送并验证`origin/agent-work`。回调必须包含唯一结论、全部commit、auditor SHA、解释器路径推导、import-origin manifest、clean-room及四环境preflight结果、科学终态、严格阶段比率和failure-ledger增量。
