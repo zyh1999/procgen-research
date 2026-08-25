@@ -2,203 +2,134 @@ Status: READY
 
 # TASK.md
 
-Task-ID: `PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33`
+Task-ID: PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-6M-S0-20260825-34R
 
-## 唯一目标
+## Task replacement
 
-立即实现、冻结并提交独立方法：
+This task fully replaces the unexecuted Task34. Do not implement Task34's same-minibatch ared/pred rule: for a linear value head with frozen features and targets, same-minibatch MSE is exactly quadratic and ared/pred is identically 1, so it cannot calibrate damping.
 
-`DET_GAE_GGN_HEAD_WIDENTITY_V1`
+Task32 and Task33 jobs, roots, artifacts and monitors remain unchanged.
 
-该候选用于检验Task32的actor weighting是否因BigFish出现`weight max=512`及effective-rank collapse而破坏GAE-GGN。新方法明确使用 \(W=I\)，可与Task32并存排队或运行，但不得取消、修改、重提、覆盖或等待Task32。
+## Unique objective
 
-## 独立版本与非覆盖边界
+Implement and test DET_STANDARD_MSE_GGN_HEAD_CVLM_V1: a standard per-sample deterministic critic GGN whose critic objective remains ordinary frozen lambda-return MSE. The sole new mechanism is deterministic cross-minibatch LM calibration of spectrum-relative damping.
 
-必须创建独立的：
+## Frozen control identity
 
-- trainer；
-- config；
-- method name；
-- launcher/monitor；
-- campaign/run root；
-- source/config/launcher hashes。
+Keep Task13/Paper control semantics unchanged for actor, shared-trunk sampled critic, rollout, GAE generation of frozen lambda-return, PopArt, schedule, minibatches, epochs, momentum/history, adaptive KL, global clipping, network, seed, evaluation and stopping. Only replace the update on the 257 critic-exclusive last_v_layer.weight/bias parameters.
 
-Git继续使用`agent-work`，不得创建或推送`main/master`。这里的独立版本仅指独立代码身份和非覆盖root。
+## Standard per-sample critic GGN
 
-## 严格控制身份
+In frozen PopArt-normalized coordinates:
 
-与Task32/Paper control保持完全一致：
+  e = V_theta - stopgrad(R_lambda)
+  D = I
+  W = I
+  L_v = ||e||^2 / (2B)
+  J = dV/dtheta_h
+  G = J^T J / B
+  g = J^T e / B
 
-- actor及actor optimizer；
-- shared-trunk sampled critic及其更新；
-- 网络、257参数value head划分；
-- rollout、return、GAE、done mask、bootstrap；
-- PopArt；
-- schedule、minibatch、epochs；
-- momentum/history；
-- adaptive-KL、global clip；
-- seed、evaluation、reward/KL语义和6M停止规则。
+Gaussian precision is exactly 1. Do not add Task13's .1 curvature coefficient, actor weighting, a GAE temporal operator, Paper proposal/RHS matching, or any hidden scaling.
 
-只允许去除Task32的actor weighting。不得引入其他科学差异。
+Solve:
 
-## 精确算法
+  (G + mu I) u = -g
 
-在冻结PopArt标准化坐标中：
+with symmetric FP64, Jacobi equilibration and Cholesky.
 
-\[
-e=V_\theta-\operatorname{stopgrad}(\mathrm{return}),
-\qquad
-q=D_{\gamma,\lambda,\mathrm{mask}}e.
-\]
+## Non-degenerate cross-minibatch LM
 
-其中 \(D\) 必须严格复用Task32已验证的trajectory、terminal、truncation和bootstrap语义。
+Retain the original frozen shuffle and all eight complete 512-row minibatches M_0,...,M_7 in every rollout/epoch. For current train block M_i use:
 
-明确设：
+  T_i = M_i
+  C_i = M_(i+1 mod 8)
 
-\[
-W=I.
-\]
+G_i and g_i use all 512 rows of T_i. C_i never enters that trial's solve, remains in the original schedule, and later receives its own complete update. Do not delete, halve, reweight or resample any minibatch. Since D=I, this split creates no cross-episode temporal relationship; episode boundaries were used only when R_lambda was frozen.
 
-不得计算或使用actor score、policy概率权重、权重归一化、clip、floor或proposal norm matching。
+Let:
 
-目标：
+  s_i = trace(G_i) / 257
+  mu_i = alpha * max(s_i, epsilon_fp64)
 
-\[
-L_{\mathrm{GAE}}=\frac{1}{2B}\|q\|_2^2.
-\]
+Alpha starts at 1 and is the only persistent LM state.
 
-仅对`last_v_layer.weight/bias`的257个参数构造：
+For each trial:
 
-\[
-J_h=\frac{\partial V}{\partial\theta_h},
-\qquad
-K=D J_h,
-\qquad
-r=q.
-\]
+1. Construct G_i, g_i and u_i from complete T_i.
+2. Pass the proposal through the existing head momentum/history and global-clip chain to obtain the actual candidate head change Delta_i.
+3. Compute pred_T = -(g_i^T Delta_i + 0.5 Delta_i^T G_i Delta_i).
+4. With features, targets and PopArt frozen, temporarily apply only Delta_i and compute ared_C = L_Ci(theta) - L_Ci(theta + Delta_i).
+5. Use rho_cv = ared_C / pred_T. Also verify ared_T == pred_T in FP64, but never use that degenerate equality for acceptance.
 
-求解：
+Decision:
 
-\[
-\left(\frac{K^\top K}{B}+0.5I\right)u
-=-\frac{K^\top r}{B}.
-\]
+- pred_T <= 0, nonfinite, or rho_cv < .25: reject and alpha <- 4 alpha.
+- .25 <= rho_cv <= .75: accept and leave alpha unchanged.
+- rho_cv > .75: accept and use alpha <- alpha/2 on the next minibatch.
 
-使用symmetric FP64、Jacobi scaling、Cholesky及既有global clip `.5`。不得根据preflight或训练结果改变damping、目标、权重或其他超参数。
+Allow at most four deterministic trials per minibatch. If all fail, make that head delta zero while committing the actor/shared control update exactly once. Clamp alpha only for numerical safety to [2^-20, 2^20]. This is one fixed algorithm, not an experiment sweep, and no reward/Paper metric may affect alpha or acceptance.
 
-## 必需代码Diff与回归
+## Rollback and commit semantics
 
-科学提交前必须生成Task32→Task33逐字段、逐函数和AST diff，并证明唯一科学差异为：
+Before every trial snapshot all parameters, optimizer and momentum/history, PopArt, RNG, adaptive-KL and global-clip-related state. A rejected trial must restore every item bit-identically and must not advance any counter or schedule. An accepted head delta must be generated solely from the complete T_i solve; validation rows do not enter it. Actor/shared control updates are committed exactly once and must remain bit-identical to control.
 
-- 删除 \(w_t\) 的构造；
-- `diag(sqrt(w))DJ_h → DJ_h`；
-- `diag(sqrt(w))q → q`；
-- weighted GAE loss → unweighted GAE loss。
+## Mandatory historical audit
 
-必须证明：
+Read and align frozen Task07, Task13 and Task32 code/evidence. Derive and numerically verify, rather than infer from config labels:
 
-- trainer中不存在actor-score/actor-weight路径；
-- 运行时无`weight max`、weight clipping/floor或weight-normalization；
-- 所有样本的隐式权重严格为1；
-- Task32 BigFish的`max=512`集中加权机制在本方法中不可发生；
-- effective-rank必须由未加权 \(DJ_h\) 报告，不得用加权矩阵替代；
-- actor/shared方向和一步delta与Task32及Paper control bit-identical；
-- policy logits bit-identical；
-- 仅257个value-head参数delta不同；
-- \(D\) finite-difference、PopArt仿射不变性、小矩阵/autograd参考、Cholesky info0、finite residual及nonfinite扫描全部PASS。
+- objective, 1/B, sign and Gaussian precision;
+- Task13 .1 curvature/RHS scaling and its effective standard-coordinate damping;
+- fixed .5 relative to each environment's G spectrum and PopArt coordinates;
+- ordinary MSE gradient, raw solve and final delta norms/cosines;
+- momentum/global-clip effects;
+- predicted versus realized reduction;
+- coupling to the unchanged shared sampled critic and adaptive-KL path.
 
-若除 \(W=I\) 外存在任何科学差异，停止为`PRECHECK_BLOCKED`。
+## Mandatory preflight
 
-## 科学矩阵与提交
+Prove on actual network/data:
 
-Preflight PASS后立即提交且仅提交：
+- D=I, W=I, K=J and exact standard MSE gradient;
+- T_i always has all 512 rows; C_i is disjoint from current T_i but retained in schedule;
+- ared_T/pred_T = 1 within FP64 tolerance, documenting the rejected degenerate signal;
+- fixed opposing train/validation-gradient cases cause nontrivial LM acceptance and rejection;
+- rejected trials roll back bitwise;
+- accepted update uses only complete train rows;
+- actor/shared directions, deltas and policy logits are bit-identical to control;
+- only the 257 head parameters differ scientifically;
+- PopArt affine reward-scale regression passes;
+- Cholesky info is 0, residual is finite, and no NaN/Inf exists.
 
-- BigFish、BossFight、CaveFlyer、CoinRun；
-- seed0；
-- 每格intended horizon 6M；
-- 四个独立Slurm job；
-- 全新、预先验证不存在的非覆盖roots。
+Any preflight failure is PRECHECK_BLOCKED and forbids scientific launch.
 
-允许job进入`PENDING`并等待资源。Executor负责全部实时scheduler、ownership、GPU、partition、concurrency、capacity和queue placement判断。
+## Scientific matrix
 
-不得等待Task32终态；也不得触碰Task32的job、root、monitor或artifact。
+After preflight PASS, run only BigFish, BossFight, CaveFlyer and CoinRun, seed0, one independent intended-6M cell each, using new verified-absent roots. Do not start seeds1-2. Executor owns all live resource, scheduler, GPU, partition, capacity, concurrency and queue placement decisions. Do not cancel, modify, overwrite or wait for Task32/Task33.
 
-## 严格早停协议
+## Exact comparison and early stop
 
-仅在相同环境、seed0、evaluation语义和精确共同进度比较Original Paper RAT：
+Compare only identical environment, seed0, evaluation and reward semantics at exact common transitions 2,007,040, 4,014,080 and 5,980,160. Cancel only that cell when Target/Paper < .60 and preserve EARLY_STOPPED_ALGORITHM evidence. No exact common row means no action; never compare an intermediate Target with Paper terminal.
 
-- first common `>=2M`
-- first common `>=4M`
-- `5,980,160`
+## Required telemetry
 
-只有：
+At each stage record Target/Paper reward and ratio; KL, LR, entropy, MSE, TD error and GAE statistics; PopArt mean/std; G spectrum, trace, condition and effective rank; alpha, mu, trials and decisions; pred_T, ared_T, ared_C and rho_cv; gradient/raw-solve/final-delta norms and cosines; momentum/global-clip changes; validation loss and prediction change; solver residual/info and hard-error scans.
 
-\[
-\mathrm{Target}/\mathrm{Paper}<0.60
-\]
+## Allowed conclusions
 
-才可取消该单格并记录`EARLY_STOPPED_ALGORITHM`。没有精确共同row则不得操作；中间Target不得比较Paper terminal。
+- PRECHECK_BLOCKED
+- QUEUED_RESOURCE_WAIT
+- CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE
+- CANDIDATE_REJECT
+- STANDARD_GGN_CVLM_SEED0_PROMISING
+- CANDIDATE_NOT_READY
 
-## 必需科学证据
+STANDARD_GGN_CVLM_SEED0_PROMISING requires at least three environments at 5,980,160, at most one algorithm early stop, at least two endpoint rewards above Paper, four-environment mean ratio above 1 with an early-stopped cell counted at its acted-on stage, and healthy LM/numerical evidence.
 
-每个stage记录：
+## Prohibitions
 
-- Target/Paper reward及ratio；
-- KL、LR、entropy、value loss；
-- unweighted \(L_{\mathrm{GAE}}\)；
-- GAE mean/variance/RMS；
-- TD residual及return error；
-- \(DJ_h\) spectrum、effective rank、condition number；
-- prediction/parameter/GAE change norm；
-- predicted/realized GAE-loss change；
-- damping、clip scale、residual、Cholesky info；
-- hard-error及NaN/Inf扫描。
+No GAE temporal operator, actor weighting, sampled-score/Paper matching, joint/cross system, NormMatch, low-Fisher guard, second candidate, external hyperparameter sweep, environment/reward tuning, Paper rerun, Task14-31 origin-observer work, Jupyter, quarantined .54/ws4090-31/10.49.7.54 access, MuJoCo or Isaac work. Planner must not specify hardware placement.
 
-必须与Task32同阶段比较：
+## Reporting
 
-- effective rank；
-- step/prediction/GAE change；
-- reward ratio；
-- Task32集中actor weighting是否解释BigFish异常。
-
-Task32尚无对应stage时标记`TASK32_PENDING`，不得阻塞Task33或使用非同阶段数据代替。
-
-## 唯一终局结论
-
-仅允许：
-
-- `PRECHECK_BLOCKED`
-- `QUEUED_RESOURCE_WAIT`
-- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`
-- `CANDIDATE_REJECT`
-- `WIDENTITY_GAE_GGN_SEED0_PROMISING`
-- `CANDIDATE_NOT_READY`
-
-`WIDENTITY_GAE_GGN_SEED0_PROMISING`要求：至少三个环境到达5,980,160、最多一个算法早停、至少两个环境终点超过Paper、计入早停stage ratio后的四环境平均ratio大于1，且数值与GAE健康。
-
-不得启动seeds1–2。
-
-## 禁止事项
-
-- 不得取消、修改、覆盖、重排或等待Task32。
-- 不得加入actor weighting、norm matching、joint/cross、projection、low-Fisher、adaptive damping或第二候选。
-- 不得进行sweep或按结果调参。
-- 不得重跑或修改Paper baseline。
-- 不得继续Task14–31 provenance/origin observer工作。
-- 不得覆盖历史root或改写失败分类。
-- 不得使用Jupyter。
-- 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
-- 不得规划MuJoCo或Isaac。
-- Planner不指定host、GPU、partition、卡数、并发或queue placement。
-
-## 报告、提交与回调
-
-更新：
-
-- `.agent/STATE.md`
-- `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-GAE-GGN-HEAD-WIDENTITY-6M-S0-20260825-33.md`
-
-报告必须包含冻结hash、Task32→Task33唯一科学diff、preflight、job/root映射、scheduler与artifact状态、stage表、失败账本及唯一结论。
-
-提交代码和模型无关证据，不提交model/checkpoint。推送`origin/agent-work`并验证远端HEAD后回调Planner。
+Update .agent/STATE.md, .agent/AGENT_REPORT.md and .agent/reports/PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-6M-S0-20260825-34R.md. Include frozen hashes, historical scaling audit, Task13-to-target diff, preflight, jobs/roots, exact-stage results, failure ledger and one allowed conclusion. Commit and push model-free code/config/diff/report/table/log only, never model/checkpoint, and verify origin/agent-work before callback.
