@@ -1,0 +1,32 @@
+Task-ID=PROCGEN-NORMMATCH-V2-TORCH-DYNAMIC-ATTRIBUTE-CLASSIFIER-AND-6M-S0-20260825-24
+Result=PRECHECK_BLOCKED
+Phase=local actual-environment positive gate
+No classifier code was changed. No closure job was submitted.
+
+Frozen environment observation:
+{"class_dict_file": "_classes.py", "key": "torch.classes", "loader": null, "origin": null, "package": null, "provider_module": "torch._classes", "provider_qualname": "_Classes.__getattr__", "provider_source": "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib/python3.9/site-packages/torch/_classes.py", "public_file": "_classes.py", "python": "3.9.25", "record_hash": "sha256=Kj3ZPXLp8ZRQZwuJ86V7W1rfJFcJ9qSaVRu_rTPENL8", "record_size": 1721, "source_sha256": "2a3dd93d72e9f19450670b89f3a57b5b5adf245709f6a49a551bbfad33c434bf", "source_size": 1721, "spec": null, "static_file": "_classes.py", "static_is_sentinel": false, "torch_version": "2.5.1+cu121", "type_module": "torch._classes", "type_name": "_Classes", "vars_file": null, "vars_has_file": false}
+
+Exact installed source:
+19: class _Classes(types.ModuleType):
+20:     __file__ = "_classes.py"
+22:     def __init__(self) -> None:
+23:         super().__init__("torch.classes")
+25:     def __getattr__(self, name):
+26:         namespace = _ClassNamespace(name)
+27:         setattr(self, name, namespace)
+28:         return namespace
+
+Mandatory Task24 positive assertions:
+- "__file__" not in vars(module): PASS
+- inspect.getattr_static(module, "__file__", sentinel) is sentinel: FAIL
+- getattr(module, "__file__") == "_classes.py": PASS
+- value comes from _Classes.__getattr__: FAIL; it comes from the class-level
+  _Classes.__file__ attribute at source line 20. __getattr__ is not invoked for
+  the existing class attribute.
+- spec/loader/package/origin all None: PASS
+
+The task requires the failed static-sentinel and dynamic-provider statements
+without allowing reinterpretation or weakening. The actual frozen Torch source
+proves both statements false. Therefore the required positive classifier cannot
+be implemented faithfully and the task stops PRECHECK_BLOCKED before changes,
+remote closure, formal audit, preflight, or science.

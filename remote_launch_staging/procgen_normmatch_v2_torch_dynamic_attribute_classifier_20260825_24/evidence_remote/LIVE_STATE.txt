@@ -1,0 +1,11 @@
+Fresh CSF3 ownership check before stopping:
+
+JOBID|PARTITION|NAME|STATE|TIME|NODELIST
+19210338|gpuL|efsub-adapt-smoke|PENDING|0:00|
+19210344|gpuL|efsub-adapt-u500|PENDING|0:00|
+19210343|gpuL|efsub-adapt-u500|PENDING|0:00|
+19210342|gpuL|efsub-adapt-u500|PENDING|0:00|
+19051570|multicore|vscode-tunnel|RUNNING|3-17:05:34|node1258
+
+No Task24 remote campaign root exists. No listed job belongs to Task24 and no
+unrelated job was changed.

@@ -1,6 +1,26 @@
 # Current Project State
 
-Updated: 2026-08-25T11:20:00+08:00
+Updated: 2026-08-25T11:35:00+08:00
+
+## Current Task24 dynamic-attribute classifier precheck
+
+- Task `PROCGEN-NORMMATCH-V2-TORCH-DYNAMIC-ATTRIBUTE-CLASSIFIER-AND-6M-S0-20260825-24`
+  terminates with unique conclusion `PRECHECK_BLOCKED`.
+- Assignment/origin is `b0b08faab99afc5581eadafe218de157fa9e749f`;
+  Task23 terminal delivery `4adfe8eaf5943ba550636bb54c8c34c9814a5598` and
+  non-reentrant hook SHA `8d9206a6...` remain immutable.
+- Actual Python3.9/Torch2.5.1 proves `__file__` absent from the module instance
+  dictionary, but `inspect.getattr_static` returns `_classes.py`, not the
+  required sentinel. Frozen source line 20 declares the value as
+  `_Classes.__file__`; public access does not call `_Classes.__getattr__`.
+- The Task24 positive contract therefore contradicts the frozen installed
+  implementation. It cannot be faithfully implemented without weakening the
+  exact static-sentinel and dynamic-provider requirements.
+- No classifier code change, closure job, formal audit, environment preflight,
+  scientific root/job, transition, stage comparison, cancellation, or monitor
+  exists. No unrelated job was changed.
+- Failure ledger:
+  `precheck-failure/task-spec-static-vs-dynamic-provider-contradiction`.
 
 ## Current Task23 pseudo-origin closure precheck
 
