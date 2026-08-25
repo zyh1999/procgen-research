@@ -1,6 +1,44 @@
 # Current Project State
 
-Updated: 2026-08-25T14:38:00+08:00
+Updated: 2026-08-25T14:27:19+08:00
+
+## Current Task30 natural-state read-only provenance
+
+- Task `PROCGEN-NORMMATCH-V2-MP-MAIN-NATURAL-STATE-READONLY-20260825-30`
+  is terminal with the unique allowed conclusion `INSUFFICIENT_EVIDENCE`.
+- Assignment/origin is
+  `2151b00d8cfeed33f8cf5f3466a2fcb0c2114806`; the frozen read-only observer
+  implementation is `06448412720a504f55ba14d77e01e902152be655`.
+- One bounded gpuH provenance job, `19278072`, ran three independent natural
+  clean processes plus one no-observer control on node821. It performed no
+  formal audit, four-environment preflight, or science.
+- All three observations showed the same module transition: no `__mp_main__`
+  at child entry/closure-probe start; exact `__main__ is __mp_main__` while
+  the frozen Task27 preflight was the active main module; and, immediately
+  before the unchanged origin scan, distinct objects where `__main__` was
+  backed by the exact frozen Task23 closure probe and `__mp_main__` by the
+  deployed Task27 preflight. The final normalized field-difference relation
+  was identical in all three processes.
+- This stable relationship cannot be promoted to a natural-safe alias proof:
+  the three full normalized observation hashes differed; the observer/control
+  import orders differed; and `runtime_semantic_binding_ledger.json` differed
+  across the four naturally initialized processes. All other checked config,
+  structural, connectivity and AST artifacts matched the control, critical
+  stdout matched, Task27 per-process wrapped/unwrapped telemetry remained
+  bit-identical, and every process reproduced the unchanged Task28R
+  `__mp_main__` rejection.
+- The analyzer therefore returned `INSUFFICIENT_EVIDENCE`. The Slurm wrapper
+  subsequently ended `FAILED/1:0` because its final checksum list referenced
+  the historical science-launcher path that is absent on CSF3. This is a
+  post-analysis evidence-packaging error, not a second observation outcome;
+  no rerun or repair was performed.
+- Complete model-free raw evidence is archived as
+  `remote_launch_staging/procgen_normmatch_v2_mp_main_natural_state_readonly_20260825_30/evidence/task30_model_free_evidence_19278072.tar.gz`,
+  SHA256 `882c82f5a13aad30931f452a4ae2176b7b1eec632282153669452180e7e13909`.
+- Task29 failures remain preserved. No classifier, allowlist, policy,
+  manifest, frozen probe, scientific file, formal audit, environment
+  preflight, science root, checkpoint/model, or monitor was created or
+  modified.
 
 ## Current Task29 CPython `__mp_main__` alias proof
 
