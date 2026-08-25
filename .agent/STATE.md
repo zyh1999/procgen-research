@@ -1,6 +1,39 @@
 # Current Project State
 
-Updated: 2026-08-25T09:15:07+08:00
+Updated: 2026-08-25T09:40:04+08:00
+
+## Current NormMatch V2 Torch-generated-origin audit
+
+- Task `PROCGEN-NORMMATCH-V2-TORCH-GENERATED-ORIGIN-AUDIT-AND-6M-S0-20260825-18`
+  terminates with unique conclusion `PRECHECK_BLOCKED`; no real-network
+  preflight or scientific cell was submitted.
+- Two independent clean processes in exact PyTorch `2.5.1+cu121` reproduced
+  `_remote_module_non_scriptable.py` with stable SHA256 `8205b169...`, size
+  2,355, `SourceFileLoader`, empty package, matching module/spec/origin, valid
+  AST/compile and distinct post-start UID-owned `0700` temporary parents.
+- Installed distribution provenance identifies trigger
+  `torch.distributed.nn.api.remote_module`, generator/loader
+  `torch.distributed.nn.jit.instantiator`, and template
+  `torch.distributed.nn.jit.templates.remote_module_template`. Their exact
+  SHA256 values are `55c9c44b...`, `440a619c...`, and `0ff1856b...`, and all
+  three match the installed Torch distribution RECORD.
+- The sole new origin category is provenance-bound, not a path/filename
+  whitelist. Exact-environment regression accepted the real module and
+  rejected preexisting, content/AST/hash/loader mismatch, symlink parent/file,
+  non-generator, post-import replacement and forbidden repository/network
+  references. Task16/17 protections and all frozen identities also passed.
+- The only authorized audit was gpuH job `19254931` on node820. Bundle and
+  manifest verification passed, then the prestart executor failed with
+  `NameError: name '__file__' is not defined` while evaluating Task18 policy's
+  environment-default fallback in a bare `exec` namespace. No designated-empty
+  record or audited interpreter was reached.
+- The one-audit/no-repair gate forbids correction or retry. Four-environment
+  preflight, accepted preflight, science roots/jobs/processes/transitions,
+  traces, checkpoints, models, stage ratios and monitor do not exist.
+- Task17 `19248057`, Task16 `19243039`, Task15 `19241161`, and Task14
+  `19238126`--`19238129` remain immutable. No retry, requeue, resubmit,
+  Jupyter, quarantined access, Paper rerun, sweep, overwrite, second candidate
+  or unrelated mutation occurred.
 
 ## Current NormMatch V2 interpreter-path audit recovery
 

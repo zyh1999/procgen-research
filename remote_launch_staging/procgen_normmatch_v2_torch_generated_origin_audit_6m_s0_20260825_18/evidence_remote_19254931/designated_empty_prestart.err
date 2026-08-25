@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_normmatch_v2_interpreter_path_audit_6m_s0_20260825_17/tools/prepare_designated_empty.py", line 6, in <module>
+    exec(compile(open(sys.argv[1]).read(), sys.argv[1], "exec"), namespace)
+  File "/scratch/h99859yz/procgen_normmatch_v2_torch_generated_origin_audit_6m_s0_20260825_18/tools/origin_safety.py", line 16, in <module>
+    Path(__file__).resolve().parents[1]
+NameError: name '__file__' is not defined
