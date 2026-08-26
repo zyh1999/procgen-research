@@ -179,3 +179,45 @@ two slots released; BigFish and CoinRun remain RUNNING. Task46 CoinRun
 `6.4/8.0=.8`, and remains RUNNING. No live cell was cancelled or otherwise
 modified by this archive. Task47 is nonterminal and its current bounded
 conclusion is `CANDIDATE_NOT_READY`.
+
+## Exact 4M decision: BigFish
+
+BigFish `19425987` passed the first exact comparison at 2,007,040
+(`8.28/9.28=.8922413793`) and then failed the exact 4,014,080 comparison:
+
+| Environment | Job | Transition | Target | Paper | Ratio | Action |
+|---|---:|---:|---:|---:|---:|---|
+| BigFish | `19425987` | 4,014,080 | 7.50 | 13.28 | .5647590361 | `EARLY_STOPPED_ALGORITHM` |
+
+The frozen Task47 monitor returned rc3 and appended the exact decision to
+`exact_stage_ledger.jsonl`. Slurm is authoritative: `CANCELLED by 778916`,
+exit `0:0`, elapsed 00:54:42 on node820. The root `RUNNING` marker and absent
+launcher rc are stale scheduler-cancellation artifacts. No checkpoint exists.
+There was no repeat apply, retry, requeue or resubmit.
+
+At the exact 4M row, both independent raw BxB systems remained healthy:
+
+- actor/critic Cholesky info max `0/0`;
+- actor/critic relative residuals `1.9933e-14/2.3181e-14`;
+- raw actor/critic-J scales `94406.266/97146.289`;
+- actor/critic/summed direction norms `.471581/.391560/.668035`;
+- actor/critic direction cosine `.191069`, shared contribution ratio
+  `1.327301`, and global clip scale `.748464`;
+- entropy `.406286`, behavior KL `1.2044e-6`, current-step KL `8.4774e-7`,
+  and actor LR `.0001`;
+- finite scan PASS, `blockdiag_no_dual_cross_solve=1`, and zero hard-error
+  matches.
+
+The final pre-cancellation trace remained finite and retained Cholesky info0;
+it is preserved only as bounded post-stage evidence, while the scientific
+decision is the exact 4,014,080 row. The complete model-free package is under
+`evidence_monitor_20260826_1320z/bigfish-easy-0-10`, including progress,
+stdout/stderr, exact and final trace rows, hashes, scheduler snapshots and the
+zero-match hard-error scan.
+
+With BossFight and CaveFlyer already stopped at 2M, three of four Task47 cells
+are now algorithm early stops, so the campaign conclusion is irreversibly
+`CANDIDATE_REJECT`. Task47 CoinRun `19425990` remains RUNNING on node822 and
+must continue naturally under its own exact-stage rule. Task46 CoinRun
+`19424176` also remains RUNNING on node822 after its independent 2M and 4M
+passes. Neither live cell was modified; the sole 20-minute monitor continues.

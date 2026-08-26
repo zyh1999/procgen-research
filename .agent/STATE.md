@@ -1363,3 +1363,18 @@ Updated: 2026-08-26T14:37:00+08:00
 - Task46 CoinRun `19424176` passed exact 4M `6.4/8.0=.8` and remains RUNNING.
   The sole 20-minute automation continues monitoring BF/Coin Task47 and Coin
   Task46; no retry/requeue/resubmit occurred.
+
+# Task47 exact 4M BigFish archive update
+
+- BigFish `19425987` is terminal `EARLY_STOPPED_ALGORITHM` at exact 4,014,080:
+  `7.50/13.28=.5647590361`; the frozen Task47 monitor returned rc3 and Slurm
+  reports `CANCELLED by 778916`, exit `0:0`, elapsed 00:54:42 on node820.
+- Its exact-stage actor/critic BxB solves were finite, Cholesky info0, relative
+  residuals <=`2.32e-14`, with finite scan PASS and zero hard-error matches.
+  The root RUNNING marker/absent rc are stale; no checkpoint exists.
+- Together with the existing BossFight and CaveFlyer 2M early stops, Task47 is
+  irreversibly `CANDIDATE_REJECT`. CoinRun `19425990` remains RUNNING and is
+  not cancelled merely because the campaign conclusion is fixed.
+- Task46 CoinRun `19424176` remains independently RUNNING after exact 2M/4M
+  passes. The sole 20-minute automation continues for both live Coin cells;
+  no retry, requeue, resubmit or unrelated mutation occurred.

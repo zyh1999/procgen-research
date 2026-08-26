@@ -111,3 +111,18 @@ Task47 CoinRun `19425990` started naturally and remains RUNNING with BigFish.
 Task46 CoinRun `19424176` independently passed exact 4M at `.8` and remains
 RUNNING. Task47 is nonterminal `CANDIDATE_NOT_READY`; the sole automation
 continues and no live cell was touched by archival.
+
+# Task47 BigFish exact 4M archive
+
+BigFish `19425987` passed exact 2M, then failed exact 4M at
+`7.50/13.28=.5647590361`. The correct frozen Task47 monitor wrote
+`EARLY_STOPPED_ALGORITHM` and returned rc3; scheduler state is CANCELLED by
+778916 / `0:0`, elapsed 00:54:42 on node820. Root RUNNING/absent rc are stale.
+The exact-stage actor and critic BxB solves were finite with Cholesky info0,
+relative residuals at most `2.32e-14`, finite scan PASS and no hard-error
+matches. No checkpoint, retry, requeue or resubmit exists.
+
+BossFight, CaveFlyer and BigFish are now algorithm early stops, fixing the
+Task47 conclusion as `CANDIDATE_REJECT`. Task47 CoinRun `19425990` and Task46
+CoinRun `19424176` remain RUNNING on node822 and untouched. The sole 20-minute
+monitor continues for those two live cells.

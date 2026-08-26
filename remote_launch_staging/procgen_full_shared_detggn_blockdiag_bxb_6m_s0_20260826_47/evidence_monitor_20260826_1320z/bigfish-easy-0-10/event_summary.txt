@@ -1,0 +1,17 @@
+task=PROCGEN-FULL-SHARED-DETGGN-BLOCKDIAG-BXB-6M-S0-20260826-47
+env=bigfish-easy-0-10
+job_id=19425987
+transition=4014080
+target_reward=7.50
+paper_reward=13.28
+ratio=0.5647590361445783
+decision=EARLY_STOPPED_ALGORITHM
+monitor_rc=3
+scheduler_state=CANCELLED_by_778916
+exit_code=0:0
+elapsed=00:54:42
+node=node820
+root_marker=RUNNING_stale
+root_rc=absent
+checkpoint_present=no
+hard_error_matches=0
