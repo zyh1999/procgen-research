@@ -1,0 +1,5 @@
+job_id	environment	state	exit_code	elapsed	node	root_status	root_rc
+19319418	bigfish-easy-0-10	FAILED	1:0	00:00:49	node820	PRECHECK_FAIL	1
+19319419	bossfight-easy-0-10	FAILED	1:0	00:00:38	node820	PRECHECK_FAIL	1
+19319420	caveflyer-easy-0-10	FAILED	1:0	00:00:49	node821	PRECHECK_FAIL	1
+19319421	coinrun-easy-0-10	FAILED	1:0	00:00:49	node823	PRECHECK_FAIL	1

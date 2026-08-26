@@ -1,0 +1,17 @@
+All four environment preflights emitted TASK34R_HISTORICAL_SCALING_AUDIT_PASS
+and an identical historical_scaling_ledger.json before failing. Their actual
+network preflight stdout is empty. Their preflight stderr is identical:
+
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_6m_s0_20260825_34r/frozen/gpuh_preflight.py", line 48, in <module>
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 850, in exec_module
+  File "<frozen importlib._bootstrap>", line 228, in _call_with_frames_removed
+  File "/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_6m_s0_20260825_34r/code/train_shared_det_standard_mse_ggn_head_cvlm_v1.py", line 16, in <module>
+    import utils.logger as logger
+ModuleNotFoundError: No module named 'utils'
+
+The failure is before production model construction, actual-network data,
+CVLM trials, Cholesky, reward logging, scientific root creation or training.
+It is classified deployment/package/import infrastructure failure, not
+algorithm, numerical, solver, H200 or scientific evidence.

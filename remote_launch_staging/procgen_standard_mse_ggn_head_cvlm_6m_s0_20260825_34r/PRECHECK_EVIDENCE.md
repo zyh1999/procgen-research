@@ -1,13 +1,38 @@
-# Task34R precheck evidence
+# Task34R terminal precheck evidence
 
-Status: implementation freeze pending remote actual-network preflight.
+Status: `PRECHECK_BLOCKED`.
 
-Required sequence:
+The dependency-free local source/config, shell syntax and static gates passed.
+Four gpuH actual-environment jobs were then launched, one for each frozen
+environment. Every job first completed the historical scaling audit and
+emitted `TASK34R_HISTORICAL_SCALING_AUDIT_PASS` with an identical ledger.
 
-1. dependency-free source/config and shell syntax gates;
-2. historical Task07/13/32 source-derived scaling audit;
-3. one actual H200 production-network/data preflight for each environment;
-4. only four complete environment PASS results permit seed-0 science.
+| Environment | Job | Scheduler | Root | Node |
+|---|---:|---|---|---|
+| BigFish | 19319418 | FAILED/1:0, 00:00:49 | PRECHECK_FAIL/1 | node820 |
+| BossFight | 19319419 | FAILED/1:0, 00:00:38 | PRECHECK_FAIL/1 | node820 |
+| CaveFlyer | 19319420 | FAILED/1:0, 00:00:49 | PRECHECK_FAIL/1 | node821 |
+| CoinRun | 19319421 | FAILED/1:0, 00:00:49 | PRECHECK_FAIL/1 | node823 |
 
-No same-minibatch reduction controls LM acceptance.  The train minibatch forms
-the proposal; its disjoint next minibatch exclusively forms CVLM `rho`.
+The actual-network preflight then failed identically while importing the
+frozen trainer:
+
+```text
+gpuh_preflight.py line 48 -> spec.loader.exec_module(module)
+train_shared_det_standard_mse_ggn_head_cvlm_v1.py line 16
+import utils.logger as logger
+ModuleNotFoundError: No module named 'utils'
+```
+
+The failure precedes model construction and all numerical/scientific gates.
+It is a deployment/package/import infrastructure failure. It supplies no
+evidence about D=I/W=I/K=J on the actual network, CVLM acceptance/rejection,
+rollback, actor/shared identity, PopArt, Cholesky, solver residual, reward or
+training behavior.
+
+Per the one-shot task contract, no repair or retry occurred. No science job,
+science root, transition, checkpoint/model, stage comparison, cancellation or
+active monitor exists. The frozen stage-monitor source is present only as a
+versioned file.
+
+Model-free terminal evidence is under `evidence/terminal/`.
