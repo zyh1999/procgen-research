@@ -1309,3 +1309,20 @@ Updated: 2026-08-26T14:37:00+08:00
   algorithm/numerical failure. Task45 is nonterminal only because CoinRun is
   still live; its promising threshold is already unreachable.
 - Task46 remains independently monitored and was not modified.
+
+# Task45 final and Task46 BigFish event (2026-08-26 11:00Z)
+
+- Task45 is fully terminal with final conclusion `CANDIDATE_REJECT`.
+- Task45 CoinRun `19409684` scheduler/root completed successfully before the
+  endpoint monitor: COMPLETED/0:0, PASS/rc0, exact endpoint and checkpoint.
+  The later exact endpoint comparison `5.50/9.40=.5851063829787234` recorded
+  the below-threshold ledger after completion; classify completed scientific
+  endpoint below threshold, not scheduler cancellation. The model remains only
+  on scratch and is not in Git.
+- Task46 BigFish `19424173` is `EARLY_STOPPED_ALGORITHM` at exact 4,014,080:
+  `1.61/13.28=.12123493975903615`; scheduler CANCELLED by 778916 after
+  01:18:50 on node820. Numerical telemetry was finite and clean.
+- Task46 CaveFlyer and CoinRun remain RUNNING and untouched. Task46 remains
+  `CANDIDATE_NOT_READY`.
+- The sole `procgen-3090` automation now runs every 20 minutes; no duplicate
+  automation exists.

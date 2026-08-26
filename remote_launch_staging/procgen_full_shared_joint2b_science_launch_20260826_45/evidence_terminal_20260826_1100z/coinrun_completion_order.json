@@ -1,0 +1,29 @@
+{
+  "captured_utc": "2026-08-26T11:00:33Z",
+  "job": "19409684",
+  "scheduler": {
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "01:45:15",
+    "node": "node820",
+    "end_csf3": "2026-08-26T11:51:00+01:00"
+  },
+  "root": {
+    "status": "PASS",
+    "rc": 0,
+    "progress_endpoint": 5980160,
+    "checkpoint_present": true,
+    "checkpoint_size_bytes": 3766013,
+    "checkpoint_committed_to_git": false,
+    "hard_error_scan_matches": 0,
+    "artifacts_mtime_csf3": "2026-08-26T11:51:15+01:00"
+  },
+  "monitor": {
+    "endpoint_decision": "EARLY_STOPPED_ALGORITHM",
+    "endpoint_ratio": 0.5851063829787234,
+    "ledger_mtime_csf3": "2026-08-26T11:58:13+01:00",
+    "invoked_after_scheduler_completion": true,
+    "scheduler_cancel_performed": false
+  },
+  "classification": "COMPLETED_SCIENTIFIC_ENDPOINT_BELOW_THRESHOLD"
+}

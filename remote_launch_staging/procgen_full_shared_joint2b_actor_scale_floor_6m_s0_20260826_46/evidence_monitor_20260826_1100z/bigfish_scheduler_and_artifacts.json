@@ -1,0 +1,38 @@
+{
+  "captured_utc": "2026-08-26T11:00:33Z",
+  "job": "19424173",
+  "environment": "bigfish-easy-0-10",
+  "scheduler": {
+    "state": "CANCELLED by 778916",
+    "exit_code": "0:0",
+    "elapsed": "01:18:50",
+    "node": "node820"
+  },
+  "root": {
+    "status": "RUNNING_STALE_AFTER_SCHEDULER_CANCEL",
+    "rc": "absent",
+    "checkpoint": "absent",
+    "hard_error_scan_matches": 0
+  },
+  "stage": {
+    "transition": 4014080,
+    "target": 1.61,
+    "paper": 13.28,
+    "ratio": 0.12123493975903615,
+    "decision": "EARLY_STOPPED_ALGORITHM",
+    "monitor_rc": 3
+  },
+  "latest_preserved_numerical": {
+    "transition": 4349952,
+    "entropy": 0.040678881108760834,
+    "actor_raw_scale": 23306.999700068853,
+    "critic_raw_scale": 59985.33742637979,
+    "actor_floor": 599.853374263798,
+    "floor_active": false,
+    "direction_l2": 0.06911559402942657,
+    "predicted_step_kl": 2.104342122777325e-08,
+    "clip_scale": 1.0,
+    "relative_residual": 4.2805656520558792e-16,
+    "finite_scan_pass": true
+  }
+}

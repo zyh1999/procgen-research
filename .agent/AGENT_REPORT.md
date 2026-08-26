@@ -67,3 +67,16 @@ BigFish `19409681` is now `EARLY_STOPPED_ALGORITHM` at exact 4,014,080:
 RUNNING despite continuing low-Fisher Inf/NaN numerical telemetry. No endpoint
 or authorized cancellation exists yet, so the live Task45 conclusion remains
 `CANDIDATE_NOT_READY`. Task46 was read-only and unchanged.
+
+# Task45 final / Task46 BigFish archive
+
+Task45 is terminal `CANDIDATE_REJECT`. CoinRun `19409684` completed
+scientifically with Slurm COMPLETED/0:0 and root PASS/rc0 before its endpoint
+monitor invocation; the later exact endpoint ratio `5.50/9.40=.585106` is
+below threshold but caused no scheduler cancellation. BigFish and BossFight
+remain earlier algorithm stops and CaveFlyer remains the numerical failure.
+
+Task46 BigFish `19424173` is now an exact 4M algorithm early stop,
+`1.61/13.28=.12123494`, scheduler CANCELLED by 778916 with clean finite
+numerical evidence. Task46 CaveFlyer and CoinRun remain running and untouched;
+the sole automation cadence is 20 minutes.

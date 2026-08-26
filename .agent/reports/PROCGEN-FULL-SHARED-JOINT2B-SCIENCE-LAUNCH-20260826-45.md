@@ -51,7 +51,7 @@ Paper seed0 baselines at exact first common >=2M, first common >=4M and
 Preserve scheduler/root/process/progress/trace/checkpoint/numerical evidence and
 keep infrastructure, numerical and algorithm classifications separate.
 
-Current nonterminal conclusion: `CANDIDATE_NOT_READY`.
+Final conclusion: `CANDIDATE_REJECT`.
 
 ## Exact 2M and numerical callback (2026-08-26 09:54Z)
 
@@ -109,3 +109,32 @@ are algorithm early stops and CaveFlyer is a numerical failure. CoinRun is
 still nonterminal, so the live campaign remains `CANDIDATE_NOT_READY` until its
 endpoint or terminal event; it was not cancelled merely from the aggregate
 outcome.
+
+## Final terminal reconciliation (2026-08-26 11:00Z)
+
+CoinRun `19409684` completed normally before the endpoint comparator ran:
+Slurm `COMPLETED/0:0` at CSF3 11:51, elapsed 01:45:15 on node820; root
+`PASS/rc0`, exact 5,980,160 progress row, metric trace and a 3,766,013-byte
+checkpoint were present with hard-error scan zero. The checkpoint is retained
+only in scratch and is not committed to Git.
+
+The frozen monitor was invoked after completion. Artifact mtimes are 11:51:15,
+whereas the endpoint ledger mtime is 11:58:13. It then compared exact 5,980,160
+Target `5.50` with Paper `9.40`, ratio `.5851063829787234`, and recorded
+`EARLY_STOPPED_ALGORITHM`/rc3. Since Slurm had already completed, no scheduler
+cancellation occurred. The authoritative classification is
+`COMPLETED_SCIENTIFIC_ENDPOINT_BELOW_THRESHOLD`, not scheduler-cancelled.
+
+Task45 final matrix:
+
+| environment | terminal evidence | classification |
+|---|---|---|
+| BigFish | 4M `3.34/13.28=.251506` | `EARLY_STOPPED_ALGORITHM`, scheduler cancelled |
+| BossFight | 2M `0/2.92=0` | `EARLY_STOPPED_ALGORITHM`, scheduler cancelled |
+| CaveFlyer | numerical failure near 536k | `ALGORITHM_NUMERICAL_FAILURE` |
+| CoinRun | endpoint `5.50/9.40=.585106` | completed endpoint below threshold |
+
+The unique final conclusion is `CANDIDATE_REJECT`: no environment exceeded
+Paper at endpoint, two cells were algorithm early stops, one failed
+numerically, and the only completed endpoint was below the `.60` threshold.
+No retry, requeue or resubmission is authorized.

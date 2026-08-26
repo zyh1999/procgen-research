@@ -111,3 +111,22 @@ At this snapshot BigFish `19424173` remains RUNNING after exact 2M PASS
 `10.09/9.28=1.0872844828`; CaveFlyer `19424175` and CoinRun `19424176` are
 RUNNING. Task46 is nonterminal and now classified `CANDIDATE_NOT_READY`. No
 remaining Task46 or Task45 job was modified.
+
+## BigFish exact 4M early stop (2026-08-26 11:00Z)
+
+BigFish `19424173` reached exact 4,014,080 with Target `1.61` and Paper
+`13.28`, ratio `.12123493975903615`, after its exact 2M PASS. The frozen
+Task46 monitor returned rc3 and cancelled only this cell. Slurm now reports
+`CANCELLED by 778916`, exit `0:0`, elapsed 01:18:50 on node820. Root RUNNING
+and absent rc are stale scheduler-cancel artifacts; checkpoint is absent and
+the hard-error scan is zero.
+
+The final preserved numerical row remained finite: raw actor scale
+`2.33070e4`, critic scale `5.99853e4`, `.01` floor `599.85` inactive,
+direction norm `.06912`, clip `1`, predicted KL `2.10e-08`, Cholesky info `0`
+and residual `4.28e-16`. This is a reward-based `EARLY_STOPPED_ALGORITHM`, not
+an infrastructure or numerical failure.
+
+BossFight remains the archived 2M algorithm early stop. CaveFlyer `19424175`
+and CoinRun `19424176` remain RUNNING and were not touched. Task46 remains
+nonterminal `CANDIDATE_NOT_READY` under the sole 20-minute automation.
