@@ -29,7 +29,7 @@
 
 Updated: 2026-08-27T03:40:00+08:00
 
-## Task49 exact-2M CaveFlyer early stop; three cells remain live on Bede
+## Task49 BigFish 4M and CaveFlyer 2M early stops; Boss/Coin remain live
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
   remains `CANDIDATE_NOT_READY`. Frozen trainer/config hashes remain
@@ -57,11 +57,19 @@ Updated: 2026-08-27T03:40:00+08:00
   Its root RUNNING marker/absent rc are stale. Exact-stage solver telemetry is
   finite with Cholesky info0, relative residual `9.09e-15` and hard-error
   scan0. No repeat action or retry exists.
+- BigFish later reached exact `4,014,080` and stopped at
+  `6.42/13.28=.4834337349`. The frozen monitor appended one 4M
+  `EARLY_STOPPED_ALGORITHM` row and returned rc3. Scheduler is authoritative
+  `CANCELLED by 639800874`, exit `0:0`, elapsed `04:14:32`, node gpu006;
+  root RUNNING/absent rc are stale. The exact-stage solve was finite with
+  Cholesky info0, relative residual `5.84e-15`, hard-error scan0 and no
+  checkpoint. BossFight passed exact 4M `3.92/3.45=1.1362` and CoinRun passed
+  `9.50/8=1.1875`; both remain RUNNING and untouched.
 - The sole automation `monitor-procgen-task49-ppo-warmup` was updated in place
   at 20-minute cadence to these four Bede IDs/roots. The immutable Paper seed0
   CSV baseline was hash-verified and made read-only inside the Bede campaign.
 
-Updated: 2026-08-27T01:35:00+08:00
+Updated: 2026-08-27T03:55:00+08:00
 
 ## Task45 active direct full-shared Joint-2B science
 

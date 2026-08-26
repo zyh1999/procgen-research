@@ -1,0 +1,44 @@
+Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
+Method: FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1
+Environment: bigfish-easy-0-10
+Seed: 0
+Job: 1074926
+
+Prior exact stage:
+transition=2007040
+target_reward=8.64
+paper_reward=9.28
+ratio=0.9310344827586208
+decision=PASS
+
+Before frozen-monitor exact-4M apply:
+state=RUNNING
+node=gpu006
+elapsed=04:14:32
+
+Frozen-monitor exact-4M result:
+transition=4014080
+target_reward=6.42
+paper_reward=13.28
+ratio=0.48343373493975905
+target_sha256=f7ee14e23fecc690dbc3641c140b52df177879251089ca51b489f798048f4927
+paper_sha256=caf19809e208f35b8f8bcb41266021d07a6d8ae28f8e1e21d5111268a35961ba
+decision=EARLY_STOPPED_ALGORITHM
+monitor_rc=3
+
+After apply:
+state=CANCELLED by 639800874
+exit_code=0:0
+elapsed=04:14:32
+start=2026-08-26T15:25:13
+end=2026-08-26T19:39:45
+node=gpu006
+
+root_status=RUNNING (stale)
+root_rc=absent (stale)
+checkpoint=absent
+hard_error_matches=0
+exact_stage_cholesky_info=0
+exact_stage_finite_scan=PASS
+exact_stage_relative_residual=5.841818253145379e-15
+No repeat apply, cancellation, retry, requeue, or resubmit was performed.

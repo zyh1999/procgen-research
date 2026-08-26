@@ -1,6 +1,7 @@
 # PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
 
-Status: Bede science running with one exact-2M algorithm early stop; current
+Status: Bede science running with Cave exact-2M and BigFish exact-4M algorithm
+early stops; current
 conclusion `CANDIDATE_NOT_READY`.
 
 Method: `FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1`.
@@ -154,7 +155,41 @@ phase evidence, command/frozen identity, stdout/stderr snapshots, artifact
 hashes and scheduler before/after reconciliation; model/checkpoint bytes are
 excluded.
 
-BigFish, BossFight and CoinRun remain live. Task50 jobs `1075028-1075031`
-remain independently RUNNING and were not changed. The existing sole
-20-minute automation remains active for the three live Task49 cells and all
-Task50 cells; no second automation was created.
+At this 2M archive point, BigFish, BossFight and CoinRun remained live and the
+independent Task50 cells were unchanged. The existing sole 20-minute
+automation continued; no second automation was created.
+
+## Exact 4M BigFish early stop
+
+BigFish `1074926` retained its exact-2M PASS ledger
+(`8.64/9.28=.9310344828`) and reached the next exact common transition at
+`4,014,080`. Its Target was `6.42` versus immutable Paper `13.28`, ratio
+`.48343373493975905`. Target SHA256 is
+`f7ee14e23fecc690dbc3641c140b52df177879251089ca51b489f798048f4927`
+and Paper SHA256 is
+`caf19809e208f35b8f8bcb41266021d07a6d8ae28f8e1e21d5111268a35961ba`.
+The baseline `SHA256SUMS` passed, the frozen Task49 monitor was applied once,
+wrote the 4M `EARLY_STOPPED_ALGORITHM` ledger row, and returned rc3.
+
+Scheduler state before apply was RUNNING on gpu006 at elapsed `04:14:32`.
+Authoritative terminal state is `CANCELLED by 639800874`, main exit `0:0`,
+elapsed `04:14:32`, start `2026-08-26T15:25:13`, end
+`2026-08-26T19:39:45`, node gpu006. Root `RUNNING` and absent rc are stale;
+there is no checkpoint. No repeat apply, cancellation, retry, requeue or
+resubmit occurred.
+
+At the exact stage, actor/critic raw scales were
+`11696.1465/5193.6499`, natural cross-block Frobenius norm was `309.3334`,
+direction norm was `.493082`, entropy was `.606171`, predicted KL was
+`5.6418e-7`, Cholesky info was `0`, finite scan passed and relative residual
+was `5.8418e-15`. Hard-error scan was zero. The bounded Git archive preserves
+both exact-stage ledger rows, complete progress, phase/frozen identity,
+terminal trace/log snapshots, scheduler reconciliation and file hashes;
+complete source logs/trace remain at the immutable Bede root and no
+model/checkpoint bytes were committed.
+
+BossFight passed exact 4M (`3.92/3.45=1.1362`) and CoinRun passed exact 4M
+(`9.50/8.00=1.1875`); both remain RUNNING. CaveFlyer remains the archived 2M
+algorithm stop. Task50 Boss/Cave remain archived 2M stops while Task50
+BigFish/Coin continue RUNNING. No live cell was touched, and the sole
+20-minute automation remains active.

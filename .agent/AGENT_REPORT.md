@@ -49,6 +49,17 @@ is zero. Complete bounded model-free evidence is archived; no model/checkpoint,
 repeat apply, retry, requeue or resubmit exists. Task50 was not changed and the
 sole 20-minute automation continues for all remaining live cells.
 
+BigFish `1074926` subsequently reached exact 4,014,080 after its 2M PASS.
+Target `6.42` versus Paper `13.28` gives `.4834337349`; the frozen monitor
+appended one `EARLY_STOPPED_ALGORITHM` ledger row and returned rc3. Scheduler
+is authoritative CANCELLED by639800874, exit `0:0`, elapsed `04:14:32`, node
+gpu006; root RUNNING/absent rc are stale. Exact-stage Cholesky info was zero,
+finite scan passed, relative residual was `5.84e-15`, hard-error scan was zero
+and no checkpoint exists. Complete bounded model-free evidence is archived.
+BossFight and CoinRun passed exact 4M and remain RUNNING. Task50 was untouched;
+no repeat apply, retry, requeue or resubmit occurred, and the sole automation
+continues.
+
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45`
 
