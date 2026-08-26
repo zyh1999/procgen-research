@@ -1,0 +1,34 @@
+JobId=19407880 JobName=pg40-preflight
+   SLUID=sD1XM0YHNBNA00
+   UserId=h99859yz(778916) GroupId=fatpou01(10049) MCS_label=N/A
+   Priority=5631 Nice=0 Account=gpu-h200-fse-pgdr QOS=gpu-h200-fse
+   JobState=FAILED Reason=NonZeroExitCode Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=1:0
+   DerivedExitCode=0:0
+   RunTime=00:00:20 TimeLimit=01:00:00 TimeMin=N/A
+   SubmitTime=26/08/26 09:05 EligibleTime=26/08/26 09:05
+   AccrueTime=26/08/26 09:05
+   StartTime=26/08/26 09:05 EndTime=26/08/26 09:05 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=26/08/26 09:05 Scheduler=Main
+   Partition=gpuH AllocNode:Sid=login1:3249978
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=node820
+   BatchHost=node820
+   NumNodes=1 NumCPUs=8 NumTasks=1 CPUs/Task=8 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=8,mem=180G,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+   AllocTRES=cpu=8,mem=180G,energy=65801,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   JOB_GRES=gpu:h200:1
+     Nodes=node820 CPU_IDs=0-7 Mem=184320 GRES=
+   MinCPUsNode=8 MinMemoryNode=180G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/net/scratch/h99859yz/procgen_full_shared_joint2b_production_shape_recovery_6m_s0_20260826_40/frozen/task40_preflight_gpuh.sbatch
+   SubmitLine=sbatch --parsable --job-name=pg40-preflight --export=ALL,PROCGEN_ENV=bigfish-easy-0-10 task40_preflight_gpuh.sbatch
+   WorkDir=/net/scratch/h99859yz/procgen_full_shared_joint2b_production_shape_recovery_6m_s0_20260826_40/frozen
+   StdErr=/scratch/h99859yz/procgen_full_shared_joint2b_production_shape_recovery_6m_s0_20260826_40/scheduler/pg40-preflight_19407880.err
+   StdIn=/dev/null
+   StdOut=/scratch/h99859yz/procgen_full_shared_joint2b_production_shape_recovery_6m_s0_20260826_40/scheduler/pg40-preflight_19407880.out
+   TresPerNode=gres/gpu:h200:1
+   TresPerTask=cpu=8
+

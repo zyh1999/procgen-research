@@ -1,5 +1,25 @@
 # Current Project State
 
+## Task40 terminal production-shape recovery precheck
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-PRODUCTION-SHAPE-RECOVERY-AND-6M-S0-20260826-40`
+  is terminal with unique conclusion `PRECHECK_BLOCKED`.
+- Task39 trainer/config/science-launcher hashes remained exact; only the
+  preflight shape resolver, minimal negative regression and preflight launcher
+  were versioned at freeze `7208d6c2e5aa45ec5971625548ee3ee467ab33b1`.
+- The minimal shape gate passed and the corrected harness followed real
+  Procgen HWC `(64,64,3)` through the production environment/model path to
+  ResNet image size 64 and CHW `(3,64,64)`. The old zero-size construction
+  failure did not recur.
+- The sole formal gpuH preflight `19407880` is `FAILED/1:0`, 20 seconds,
+  node820, root `PRECHECK_FAIL/1`. It constructed the model and then rejected
+  measured trainable count `938,976` against the preflight-only frozen expected
+  `938,979`, before Jacobian/Joint-2B work. No hard infrastructure/nonfinite
+  signature exists.
+- The one-shot rule was honored: no correction, retry, science submission or
+  monitor exists. Task39 `19407505` and all prior evidence remain unchanged;
+  Task38 remains `SUPERSEDED_BEFORE_EXECUTION` and absent.
+
 ## Task39 terminal full-shared Joint-2B scale-recovery precheck
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-SCALE-RECOVERY-6M-S0-20260826-39`

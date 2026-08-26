@@ -1,0 +1,12 @@
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:242: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.
+  interpolation: int = Image.BILINEAR,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:288: DeprecationWarning: NEAREST is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.NEAREST or Dither.NONE instead.
+  interpolation: int = Image.NEAREST,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:321: DeprecationWarning: BICUBIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BICUBIC instead.
+  interpolation: int = Image.BICUBIC,
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_full_shared_joint2b_production_shape_recovery_6m_s0_20260826_40/frozen/preflight_full_shared_joint2b_production_shape_recovery.py", line 244, in <module>
+    main()
+  File "/scratch/h99859yz/procgen_full_shared_joint2b_production_shape_recovery_6m_s0_20260826_40/frozen/preflight_full_shared_joint2b_production_shape_recovery.py", line 128, in main
+    raise RuntimeError(f'production parameter manifest drift: {total_parameters} != 938979')
+RuntimeError: production parameter manifest drift: 938976 != 938979
