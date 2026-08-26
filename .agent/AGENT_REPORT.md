@@ -47,3 +47,12 @@ about 2.91M (actor scale `1.546e-52`, critic scale `2.643e5`, Inf direction and
 quadratics, NaN predicted KL, finite solver residual). There is no authorized
 cancel action before an eligible exact 4M row, so it was preserved and left
 running. Task46 was not modified.
+
+# Task45 4M archive update
+
+BigFish `19409681` is now `EARLY_STOPPED_ALGORITHM` at exact 4,014,080:
+`3.34/13.28=.2515060241`; scheduler is CANCELLED by 778916. CoinRun
+`19409684` passed its exact 4M reward gate, `6.10/8.00=.7625`, and remains
+RUNNING despite continuing low-Fisher Inf/NaN numerical telemetry. No endpoint
+or authorized cancellation exists yet, so the live Task45 conclusion remains
+`CANDIDATE_NOT_READY`. Task46 was read-only and unchanged.

@@ -83,3 +83,29 @@ Executor did not cancel it.
 
 BigFish remains a healthy 2M PASS and continues. Task45 is therefore still
 nonterminal with unique current conclusion `CANDIDATE_NOT_READY`.
+
+## Exact 4M callback (2026-08-26 10:23Z)
+
+BigFish `19409681` reached the exact 4,014,080 common row with Target `3.34`
+and Paper `13.28`, ratio `0.2515060241`. The frozen Task45 monitor recorded
+`EARLY_STOPPED_ALGORITHM`, returned rc3 under `--apply`, and Slurm now reports
+`CANCELLED by 778916`, elapsed 01:16:26 on node820. The root `RUNNING` marker
+and absent launcher rc are stale scheduler-kill artifacts. Exact ledgers,
+progress/trace/log hashes, command/provenance and scheduler terminal evidence
+are preserved; no checkpoint existed and the hard-error scan was clean.
+
+CoinRun `19409684` reached the exact 4,014,080 row with Target `6.10` and Paper
+`8.00`, ratio `.7625`, so the frozen rule recorded PASS and authorized no
+cancellation. It remains scheduler RUNNING. The independent numerical-health
+classification remains degraded: at 4,403,200 transitions entropy was
+`1.280e-28`, actor raw scale `7.753e-53` versus critic `2.81891e5`, direction
+and gradient were `Inf`, predicted KL `NaN`, clip scale `0`, LR `.5`, while
+the solve residual remained `6.41e-16`. This is algorithm/numerical evidence,
+not infrastructure evidence, but the exact reward rule requires continued
+monitoring toward endpoint.
+
+Task45 can no longer satisfy its promising criterion: BigFish and BossFight
+are algorithm early stops and CaveFlyer is a numerical failure. CoinRun is
+still nonterminal, so the live campaign remains `CANDIDATE_NOT_READY` until its
+endpoint or terminal event; it was not cancelled merely from the aggregate
+outcome.

@@ -1280,3 +1280,18 @@ Updated: 2026-08-26T14:37:00+08:00
   `1.546e-52`, critic scale `2.643e5`, direction/grad/quadratics Inf, predicted
   KL NaN, clip 0, LR .5 and residual `7.44e-16`. No exact 4M row exists, so no
   cancellation was performed.
+
+# Task45 exact 4M state (2026-08-26 10:23Z)
+
+- BigFish `19409681`: exact 4,014,080 Target `3.34`, Paper `13.28`, ratio
+  `.2515060241`; frozen monitor rc3 and scheduler `CANCELLED by 778916` after
+  01:16:26 on node820. Preserve as `EARLY_STOPPED_ALGORITHM`; stale root
+  RUNNING/absent rc are not live.
+- CoinRun `19409684`: exact 4,014,080 Target `6.10`, Paper `8.00`, ratio `.7625`
+  PASS and remains RUNNING. Its prior numerical-degeneration classification
+  persists (Inf direction/gradient, NaN predicted KL), but no cancellation is
+  authorized at this stage.
+- Boss remains the immutable 2M early stop and Cave remains the immutable
+  algorithm/numerical failure. Task45 is nonterminal only because CoinRun is
+  still live; its promising threshold is already unreachable.
+- Task46 remains independently monitored and was not modified.

@@ -1,0 +1,37 @@
+{
+  "captured_utc": "2026-08-26T10:23:41Z",
+  "bigfish": {
+    "job": "19409681",
+    "scheduler": "CANCELLED by 778916",
+    "elapsed": "01:16:26",
+    "node": "node820",
+    "decision": "EARLY_STOPPED_ALGORITHM",
+    "transition": 4014080,
+    "target": 3.34,
+    "paper": 13.28,
+    "ratio": 0.25150602409638556,
+    "root_status_is_stale": true,
+    "checkpoint": "absent",
+    "hard_error_scan_matches": 0
+  },
+  "coinrun": {
+    "job": "19409684",
+    "scheduler": "RUNNING",
+    "decision": "PASS",
+    "transition": 4014080,
+    "target": 6.1,
+    "paper": 8.0,
+    "ratio": 0.7625,
+    "latest_trace_transition": 4403200,
+    "entropy": 1.279562697590981e-28,
+    "actor_raw_scale": 7.752860824842041e-53,
+    "critic_raw_scale": 281890.63654448336,
+    "direction_l2": "Infinity",
+    "grad_norm": "Infinity",
+    "predicted_step_kl": "NaN",
+    "clip_scale": 0.0,
+    "learning_rate": 0.5,
+    "relative_residual": 6.414326130563961e-16,
+    "action": "NO_CANCEL_4M_PASS_CONTINUE_MONITOR"
+  }
+}
