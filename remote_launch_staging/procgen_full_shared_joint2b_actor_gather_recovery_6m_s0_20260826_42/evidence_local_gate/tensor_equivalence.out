@@ -1,0 +1,2 @@
+TASK42_GATHER_VALUE_LOGITS_GRAD_NEGATIVE_PASS
+{"max_logits_grad_error": 0.0, "max_value_error": 0.0, "negative_tests": {"forward_equal_jacobian_changed": true, "negative_action": true, "out_of_range_action": true, "reduction_change": true, "sign_change": true, "wrong_action_dtype": true, "wrong_gather_dimension": true, "wrong_reshape": true}}

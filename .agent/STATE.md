@@ -1,5 +1,32 @@
 # Current Project State
 
+## Task42 terminal actor-gather recovery local gate
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-ACTOR-GATHER-RECOVERY-AND-6M-S0-20260826-42`
+  is terminal with unique conclusion `PRECHECK_BLOCKED`.
+- Frozen trainer/config/science-launcher identities, Task40 production shape
+  and Task41 canonical oracle SHA
+  `62b1b10a81fc89ec621f0ceaf60735864cc899fafd6bda074c7414744506d303`
+  remained exact and were reused without rebuilding.
+- Exactly one required gpuH equivalence gate, `19408837`, failed `FAILED/1:0`
+  after 15 seconds on node820; root is `LOCAL_EQUIVALENCE_FAIL/1`.
+- The tensor-level gather gate passed with exact zero value and logits-gradient
+  errors, boundary-action coverage and all mandated dtype/range/dimension/
+  reshape/sign/reduction/forward-only-Jacobian negative cases rejected.
+- The production gate matched the Task41 ordered 26-tensor/938,976-column
+  collection, then failed at its first explicit actor parameter-gradient call:
+  `torch.autograd.grad` with `allow_unused=False` rejected the structurally
+  unused critic-exclusive value-head tensors. Therefore complete production
+  parameter-gradient and 512-row actor-Jacobian equivalence were not proven.
+- This is a local preflight-test structural-unused-value-head failure, not
+  algorithm/numerical/solver/GPU or scientific evidence. It was not repaired
+  or retried. No formal Task42 production preflight, science job/root/process,
+  transition, progress/trace, checkpoint/model, Paper comparison, cancellation
+  or monitor exists. Task39–41 jobs remain immutable and Task38 remains
+  `SUPERSEDED_BEFORE_EXECUTION`. Await one Planner READY or NEED_DECISION task.
+
+Updated: 2026-08-26T17:05:00+08:00
+
 ## Task41 terminal production-manifest-oracle recovery precheck
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-MANIFEST-ORACLE-RECOVERY-AND-6M-S0-20260826-41`
