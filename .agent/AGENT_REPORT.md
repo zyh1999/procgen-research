@@ -8,8 +8,11 @@ Task50 is frozen as the single rollout-level LR scheduler variant of Task49.
 The Joint optimizer is created cleanly at the fixed switch with LR `.004`;
 every Joint rollout records one behavior hash, one constant minibatch LR, exact
 full-class behavior-to-final KL and exactly one bounded next-rollout LR update.
-Task49 science remains live and untouched. The sole Bede production gate is
-the next action; no extra test or audit chain was run.
+The sole Bede gate `1075026` passed on gpu015 with finite strict Joint2B/cross
+evidence. Four seed0 6M cells were submitted together exactly once and are
+RUNNING: BF `1075028`, Boss `1075029`, Cave `1075030`, Coin `1075031`.
+Task49 science remains live and untouched. The existing automation was updated
+in place; no extra test/audit chain or second monitor exists.
 
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`

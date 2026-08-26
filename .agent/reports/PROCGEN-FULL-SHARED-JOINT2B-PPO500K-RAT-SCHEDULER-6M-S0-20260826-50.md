@@ -1,6 +1,6 @@
 # PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50
 
-Status: implementation freeze and sole Bede gate pending.
+Status: Bede science running; current conclusion `CANDIDATE_NOT_READY`.
 
 Method: `FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1`.
 
@@ -36,3 +36,50 @@ the unique conclusion will be appended before delivery.
 The bounded local checks are limited to Python compile, shell syntax, frozen
 parent hashes and inspection of the parent-to-Task50 source/config diff. No
 micro, negative, audit or extra preflight chain was added.
+
+Implementation freeze commit is `e4f8cfc23bf406989f72db61ca8aadf5407d99d4`;
+model-free cleanup/delivery base is
+`3887f2c2aea9aec3a34bb7b844322c552d90d730`. Both were pushed and verified on
+`origin/agent-work` before remote execution.
+
+## Sole Bede gate
+
+Fresh placement checks found Bede `gpu` UP, eight idle V100 nodes, account
+`bdman37g`, no Task50 duplicate/root, and all four Task49 jobs
+`1074926-1074929` still running unchanged. The sole Task50 gate `1075026` ran
+on gpu015 and completed `0:0` in `00:02:18`; root is `PRECHECK_PASS/rc0`.
+
+It performed the PPO update and one phase switch with clean Joint optimizer
+state and `joint_lr_at_switch=.004`. Its completed Joint rollouts each contain
+32 minibatches with one unique LR and zero LR changes. The first rollout used
+`.004`, measured exact full-class KL `0.0003129628`, and updated once to `.006`;
+the next used `.006`, measured `0.0012396707`, and updated once to `.009`.
+Both reasons are the frozen below-`.005` multiply-by-1.5 rule. Behavior hashes
+are distinct and preserved.
+
+The strict 1,024-row Joint-2B solves retained nonzero cross blocks (`9.20` and
+`12.09` Frobenius), Cholesky info max `0`, finite scan `1`, relative residuals
+`8.97e-16` and `1.05e-15`, and finite reconstructed directions. No hard-error,
+OOM, CUDA, NCCL, disk/quota or nonfinite signature exists. The gate will not be
+rerun.
+
+## Bede science launch
+
+After gate PASS, all four jobs were submitted together once without dependency,
+hold or throttle. They immediately occupied the four V100s on gpu016 and each
+formed a fresh root with `RUNNING` and `scientific_started.marker`.
+
+| Environment | Job | Exact root | Initial state |
+|---|---:|---|---|
+| BigFish | `1075028` | `/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_rat_rollout_sched_6m_s0_20260826_50/runs/FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1/bigfish-easy-0-10/seed0/6m` | RUNNING gpu016 |
+| BossFight | `1075029` | `/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_rat_rollout_sched_6m_s0_20260826_50/runs/FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1/bossfight-easy-0-10/seed0/6m` | RUNNING gpu016 |
+| CaveFlyer | `1075030` | `/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_rat_rollout_sched_6m_s0_20260826_50/runs/FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1/caveflyer-easy-0-10/seed0/6m` | RUNNING gpu016 |
+| CoinRun | `1075031` | `/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_rat_rollout_sched_6m_s0_20260826_50/runs/FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1/coinrun-easy-0-10/seed0/6m` | RUNNING gpu016 |
+
+The immutable Paper seed0 baseline was copied from Task49 without modification.
+The existing automation `monitor-procgen-task49-ppo-warmup` was updated in
+place at 20-minute cadence to monitor the Task49 and Task50 sets with separate
+frozen monitors and ledgers. No second automation exists.
+
+Current conclusion: `CANDIDATE_NOT_READY` pending exact 2M/4M/endpoint stages
+and terminal artifact verification.

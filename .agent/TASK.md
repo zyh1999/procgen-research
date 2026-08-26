@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50
 
-Status: READY
+Status: RUNNING_ON_BEDE
 
 Method: `FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1`.
 
@@ -25,12 +25,13 @@ once for the next rollout: divide by 1.5 above `.04`, multiply by 1.5 below
 `.005`, otherwise unchanged, bounded to `[1e-4,.5]`. No other signal, rollback,
 line search, warmup, sweep or scientific change is permitted.
 
-Run exactly one minimal Bede production gate proving model/device, one PPO
+The sole Bede gate `1075026` passed model/device, one PPO
 update, one switch, Joint LR `.004`, one complete constant-LR Joint rollout,
-one post-rollout scheduler update and one finite strict cross-preserving solve.
-PASS permits exactly four fresh Bede seed0 intended-6M cells submitted once,
-one V100 each. Task49 jobs `1074926-1074929` and every historical/unrelated
-job/root remain untouched. Never retry, requeue or resubmit.
+post-rollout scheduler updates and finite strict cross-preserving solves.
+Exactly four fresh Bede seed0 intended-6M cells were submitted once, one V100
+each: BigFish `1075028`, BossFight `1075029`, CaveFlyer `1075030`, CoinRun
+`1075031`. Task49 jobs `1074926-1074929` and every historical/unrelated job/root
+remain untouched. Never retry, requeue or resubmit.
 
 Update the existing sole automation `monitor-procgen-task49-ppo-warmup` in
 place after Task50 IDs exist to monitor both frozen Task49 and Task50 sets at

@@ -3,18 +3,24 @@
 ## Task50 rollout-level RAT scheduler implementation frozen
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
-  is READY for its sole Bede gate. Task49 jobs `1074926-1074929` continue
-  independently and were not modified.
+  is `CANDIDATE_NOT_READY` with four active Bede science cells. Task49 jobs
+  `1074926-1074929` continue independently and were not modified.
 - Task50 preserves the Task49 PPO boundary and strict full-shared Joint-2B
   math. Its only scientific change creates clean Joint SGD at LR `.004`, holds
   that LR constant across each full four-epoch rollout, computes exact
   full-class behavior-to-final KL, and updates LR once for the next rollout
   with thresholds `.005/.04`, factor `1.5`, and bounds `[1e-4,.5]`.
 - Frozen trainer/config hashes are `35bb29e...362846` and
-  `1ebd5f5...ebbbe9`. Only compile/shell/hash/diff checks ran locally; the sole
-  production gate and fresh Bede placement are next.
+  `1ebd5f5...ebbbe9`. The sole gate `1075026` completed `0:0` on gpu015 with
+  PRECHECK_PASS, exact `.004` switch LR, constant per-rollout minibatch LR,
+  one update per rollout, nonzero cross blocks, Cholesky info0 and residuals
+  at most `1.05e-15`.
+- Four jobs were submitted together once and initially run on gpu016: BigFish
+  `1075028`, BossFight `1075029`, CaveFlyer `1075030`, CoinRun `1075031`.
+  Their roots are fresh and scientifically started. The sole automation now
+  monitors Task49+50 separately at 20-minute cadence.
 
-Updated: 2026-08-27T00:04:00+08:00
+Updated: 2026-08-27T01:15:00+08:00
 
 ## Task49 active on Bede after authorized zero-step migration
 
