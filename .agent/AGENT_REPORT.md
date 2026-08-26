@@ -156,3 +156,11 @@ with one scientific change: Paper-matched PPO for 123 complete rollouts through
 PPO has an independent Adam state and Joint-2B optimizer state is asserted
 clean at switch. Local compile, config and launcher checks passed; the sole
 minimal production gate is the next action.
+
+The frozen implementation was pushed at
+`e0dc2e5ca4efd85419e974e42561eea11145c96f`. The one production gate is job
+`19441667`, currently PENDING `AssocGrpGRES` on gpuH with StartTime Unknown.
+No science jobs or roots exist and no retry/requeue/resubmit occurred. Current
+conclusion is `QUEUED_RESOURCE_WAIT`. The coordinator's sole automation
+`monitor-procgen-task49-ppo-warmup` tracks this gate at20-minute cadence and
+will wake the same Executor; no duplicate automation was created.

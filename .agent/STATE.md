@@ -1408,3 +1408,17 @@ Updated: 2026-08-26T14:37:00+08:00
   Task46 floor, Task47 block diagonal or Task48 trust-region logic exists.
 - Local syntax/config/launcher checks passed. The one authorized production
   gate and subsequent launch remain pending.
+
+# Task49 queued gate
+
+- Frozen implementation/origin commit is
+  `e0dc2e5ca4efd85419e974e42561eea11145c96f`; trainer/config/launcher/monitor
+  identities are recorded in the Task49 report.
+- The sole production gate `19441667` is PENDING on gpuH with
+  `AssocGrpGRES`, elapsed0, node none and StartTime Unknown. This is
+  `QUEUED_RESOURCE_WAIT`, not preflight or scientific evidence.
+- No Task49 science root/job/process exists. The gate was submitted once and
+  was not retried, requeued, resubmitted, moved or duplicated.
+- Coordinator-created automation `monitor-procgen-task49-ppo-warmup` is the
+  only Task49 automation, runs every20 minutes and currently binds only the
+  gate. It will wake the same Executor and be updated in place after launch.

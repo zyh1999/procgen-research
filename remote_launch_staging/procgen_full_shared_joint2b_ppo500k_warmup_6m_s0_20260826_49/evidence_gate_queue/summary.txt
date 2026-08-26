@@ -1,0 +1,7 @@
+gate_job=19441667
+state=PENDING
+reason=AssocGrpGRES
+start_time=Unknown
+task49_duplicate=none
+task49_science_roots=absent
+science_jobs=none
