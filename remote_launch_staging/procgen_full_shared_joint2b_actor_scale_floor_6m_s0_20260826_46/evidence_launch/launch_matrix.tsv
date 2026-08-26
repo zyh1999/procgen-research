@@ -1,0 +1,5 @@
+environment	job_id	initial_scheduler_state	initial_reason_or_node	initial_root_state
+bigfish-easy-0-10	19424173	RUNNING	node820	RUNNING;scientific_started
+bossfight-easy-0-10	19424174	PENDING	AssocMaxJobsLimit	absent_until_start
+caveflyer-easy-0-10	19424175	PENDING	AssocMaxJobsLimit	absent_until_start
+coinrun-easy-0-10	19424176	PENDING	AssocMaxJobsLimit	absent_until_start

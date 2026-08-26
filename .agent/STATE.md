@@ -1248,3 +1248,20 @@ Updated: 2026-08-26T14:37:00+08:00
   control, but insufficient for any four-environment 6M x seeds 0,1,2
   promotion: all mapped candidates lack that formal budget/seed evidence.
 - Only the ChatGPT Planner may issue the next bounded Procgen task.
+# Active Task46 launch state (2026-08-26)
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46`
+  is frozen at implementation commit
+  `829c58773c2b6a9bc01db2546f0145c24fb118d0`.
+- Unique scientific delta: actor normalization uses
+  `max(s_pi_raw, .01*s_v_raw)`; strict full-shared Joint-2B, natural cross
+  blocks, full reconstruction and relative damping `.5` remain unchanged.
+- Exactly four gpuH seed0 6M cells were submitted once: BigFish `19424173`,
+  BossFight `19424174`, CaveFlyer `19424175`, CoinRun `19424176`.
+- Initial state: BigFish RUNNING on node820 with scientific-start marker;
+  Boss/Cave/Coin PENDING on `AssocMaxJobsLimit`. Current bounded conclusion is
+  `QUEUED_RESOURCE_WAIT`.
+- Task45 BigFish/Boss/Coin remain running and Task45 Cave remains the preserved
+  algorithm/numerical failure. No Task45 job/root/ledger was modified.
+- Use only the existing `procgen-3090` automation, updated in place, to monitor
+  both frozen sets. Do not create another automation.

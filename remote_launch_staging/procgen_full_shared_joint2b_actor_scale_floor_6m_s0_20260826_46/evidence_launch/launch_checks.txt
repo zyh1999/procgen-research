@@ -1,0 +1,15 @@
+captured_utc=2026-08-26T09:40:19Z
+task_id=PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46
+method=FULL_SHARED_JOINT2B_CRITIC_ANCHORED_ACTOR_SCALE_FLOOR_V1
+implementation_commit=829c58773c2b6a9bc01db2546f0145c24fb118d0
+remote_hashes=PASS
+trainer_import=PASS
+config_load_fixed_floor_0.01=PASS
+launcher_shell_syntax=PASS
+normalized_science_command=PASS
+fresh_roots_before_submit=PASS
+duplicate_task46_job_or_process=NONE
+task45_nonoverlap=PASS
+gpuH_submission_acceptance=PASS
+retry_requeue_resubmit=NONE
+production_preflight=NOT_RUN_BY_TASK_BOUNDARY
