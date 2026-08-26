@@ -1326,3 +1326,21 @@ Updated: 2026-08-26T14:37:00+08:00
   `CANDIDATE_NOT_READY`.
 - The sole `procgen-3090` automation now runs every 20 minutes; no duplicate
   automation exists.
+
+# Task46 Cave / Task47 launch state (2026-08-26)
+
+- Task46 CaveFlyer `19424175` is terminal `EARLY_STOPPED_ALGORITHM` at exact
+  2,007,040: `0/4.45=0`; scheduler CANCELLED by 778916 after 00:57:16 on
+  node820, with hard-error scan zero and finite floor/solver telemetry.
+- Task46 CoinRun `19424176` remains RUNNING and untouched. Task46 remains
+  `CANDIDATE_NOT_READY`.
+- Task47 `FULL_SHARED_DETGGN_BLOCKDIAG_BXB_V1` is frozen at
+  `8f9abc3687434c96bf9786fca29051dd084bc6f6`. Its sole production preflight
+  `19425914` completed PRECHECK_PASS/0:0: two independent 512x512 solves,
+  Cholesky info0/0, finite residuals, P938976 and no dual cross solve.
+- All four Task47 seed0 6M cells were submitted once without dependency or
+  throttle: BF `19425987`, Boss `19425988`, Cave `19425989` RUNNING; Coin
+  `19425990` PENDING `AssocMaxJobsLimit` because Task46 Coin occupies the fourth
+  allowed H200. Current Task47 conclusion: `QUEUED_RESOURCE_WAIT`.
+- The sole `procgen-3090` automation was updated in place at 20-minute cadence
+  for Task46 Coin plus Task47 four. No second automation exists.

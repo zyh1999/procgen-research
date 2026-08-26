@@ -130,3 +130,23 @@ an infrastructure or numerical failure.
 BossFight remains the archived 2M algorithm early stop. CaveFlyer `19424175`
 and CoinRun `19424176` remain RUNNING and were not touched. Task46 remains
 nonterminal `CANDIDATE_NOT_READY` under the sole 20-minute automation.
+
+## CaveFlyer exact 2M early stop (2026-08-26 12:19 CSF3)
+
+CaveFlyer `19424175` reached exact 2,007,040 with Target `0.00` and immutable
+Paper `4.45`, ratio `0`. The frozen Task46 monitor returned rc3, wrote the
+exact `EARLY_STOPPED_ALGORITHM` ledger and cancelled only this cell. Slurm is
+authoritatively `CANCELLED by 778916`, exit `0:0`, elapsed 00:57:16 on node820.
+Root RUNNING and absent launcher rc are stale cancellation artifacts.
+
+The bounded hard-error scan is zero. The preserved final telemetry remains
+finite despite reward collapse: raw actor scale `9.160e-39`, critic scale
+`7.5035e4`, floor active at effective actor scale `750.35`, direction norm
+`8.642e-06`, clip `1`, predicted KL `0`, Cholesky info `0`, relative residual
+`1.433e-16` and finite scan PASS. This is an algorithm reward early stop, not
+an infrastructure, solver or nonfinite failure.
+
+The exact ledger, progress, selected exact/final trace rows, frozen identity,
+command/log hashes, scheduler state and zero hard-error scan are preserved in
+`evidence_monitor_20260826_1219z/caveflyer`. Task46 CoinRun `19424176` remains
+RUNNING and was not touched. Task46 remains `CANDIDATE_NOT_READY`.

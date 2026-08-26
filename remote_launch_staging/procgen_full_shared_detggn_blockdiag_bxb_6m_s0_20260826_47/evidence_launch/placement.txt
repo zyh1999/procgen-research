@@ -1,0 +1,7 @@
+captured=2026-08-26T12:28:11+01:00
+requested_task47_concurrency=4
+submission_mode=all_four_once_no_dependency_no_hold_no_throttle
+qos_max_h200_per_user=4
+task46_coin_occupies_one_slot=19424176
+h99859yz|gpu-h200-fse-pgdr|gpu-h200-fse|4|100000
+gpu-h200-fse|gres/gpu:h200=4||

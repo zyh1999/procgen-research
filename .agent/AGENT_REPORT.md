@@ -80,3 +80,18 @@ Task46 BigFish `19424173` is now an exact 4M algorithm early stop,
 `1.61/13.28=.12123494`, scheduler CANCELLED by 778916 with clean finite
 numerical evidence. Task46 CaveFlyer and CoinRun remain running and untouched;
 the sole automation cadence is 20 minutes.
+
+# Task46 Cave archive / Task47 launch
+
+Task46 CaveFlyer `19424175` is now an exact 2M reward early stop,
+`0/4.45=0`, scheduler CANCELLED by 778916 with clean finite numerical evidence.
+Task46 CoinRun `19424176` remains the only live Task46 cell.
+
+Task47 `FULL_SHARED_DETGGN_BLOCKDIAG_BXB_V1` preserves frozen Task06 raw
+full-shared actor/critic rows and removes only the two dual cross blocks. Its
+sole production preflight `19425914` passed with two independent 512x512
+Cholesky solves and full P938976 coverage. Four science cells were submitted
+once: BF `19425987`, Boss `19425988`, Cave `19425989` are RUNNING and Coin
+`19425990` is naturally PENDING on the four-H200 user limit. Current Task47
+conclusion is `QUEUED_RESOURCE_WAIT`; the existing automation was updated in
+place and no duplicate monitor exists.

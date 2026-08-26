@@ -1,0 +1,11 @@
+authoritative_before=RUNNING
+monitor_rc=3
+apply_decision=EARLY_STOPPED_ALGORITHM
+apply_transition=2007040
+target_reward=0.0
+paper_reward=4.45
+ratio=0.0
+authoritative_after=CANCELLED by 778916
+hard_error_scan_count=0
+checkpoint_present=no
+metric_trace_size=65092576

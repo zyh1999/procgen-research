@@ -1,0 +1,5 @@
+env|job|root|initial_state
+bigfish-easy-0-10|19425987|/scratch/h99859yz/procgen_full_shared_detggn_blockdiag_bxb_6m_s0_20260826_47/runs/FULL_SHARED_DETGGN_BLOCKDIAG_BXB_V1/bigfish-easy-0-10/seed0/6m|RUNNING node820
+bossfight-easy-0-10|19425988|/scratch/h99859yz/procgen_full_shared_detggn_blockdiag_bxb_6m_s0_20260826_47/runs/FULL_SHARED_DETGGN_BLOCKDIAG_BXB_V1/bossfight-easy-0-10/seed0/6m|RUNNING node821
+caveflyer-easy-0-10|19425989|/scratch/h99859yz/procgen_full_shared_detggn_blockdiag_bxb_6m_s0_20260826_47/runs/FULL_SHARED_DETGGN_BLOCKDIAG_BXB_V1/caveflyer-easy-0-10/seed0/6m|RUNNING node821
+coinrun-easy-0-10|19425990|/scratch/h99859yz/procgen_full_shared_detggn_blockdiag_bxb_6m_s0_20260826_47/runs/FULL_SHARED_DETGGN_BLOCKDIAG_BXB_V1/coinrun-easy-0-10/seed0/6m|PENDING AssocMaxJobsLimit
