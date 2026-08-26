@@ -1,5 +1,21 @@
 # Current Project State
 
+## Task50 rollout-level RAT scheduler implementation frozen
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
+  is READY for its sole Bede gate. Task49 jobs `1074926-1074929` continue
+  independently and were not modified.
+- Task50 preserves the Task49 PPO boundary and strict full-shared Joint-2B
+  math. Its only scientific change creates clean Joint SGD at LR `.004`, holds
+  that LR constant across each full four-epoch rollout, computes exact
+  full-class behavior-to-final KL, and updates LR once for the next rollout
+  with thresholds `.005/.04`, factor `1.5`, and bounds `[1e-4,.5]`.
+- Frozen trainer/config hashes are `35bb29e...362846` and
+  `1ebd5f5...ebbbe9`. Only compile/shell/hash/diff checks ran locally; the sole
+  production gate and fresh Bede placement are next.
+
+Updated: 2026-08-27T00:04:00+08:00
+
 ## Task49 active on Bede after authorized zero-step migration
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`

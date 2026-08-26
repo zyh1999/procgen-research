@@ -1,5 +1,17 @@
 # Executor report
 
+Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
+
+Current conclusion: `CANDIDATE_NOT_READY`
+
+Task50 is frozen as the single rollout-level LR scheduler variant of Task49.
+The Joint optimizer is created cleanly at the fixed switch with LR `.004`;
+every Joint rollout records one behavior hash, one constant minibatch LR, exact
+full-class behavior-to-final KL and exactly one bounded next-rollout LR update.
+Task49 science remains live and untouched. The sole Bede production gate is
+the next action; no extra test or audit chain was run.
+
+
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
 
 Current conclusion: `CANDIDATE_NOT_READY`

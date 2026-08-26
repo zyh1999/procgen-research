@@ -1,40 +1,39 @@
-# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
+# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50
 
-Status: RUNNING_ON_BEDE
+Status: READY
 
-Method: `FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1`.
+Method: `FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1`.
 
-Task48 is `SUPERSEDED_BEFORE_EXECUTION`; no Task48 implementation, job, root,
-process, artifact or monitor exists and none may be created.
+Parent Task49 implementation is
+`e0dc2e5ca4efd85419e974e42561eea11145c96f`; frozen parent trainer/config are
+`4403ef006f53e8647adbcdb829a442037384f623e66eb69573843f21064db28a` and
+`e26f66a616b1d0314561a645ef26111da1b15988aad1391d1ef64b6a146d8135`.
 
-Use frozen Task06 commit `da34ce7c7d964765f336ac02111c9fde95aed1ec`
-as the strict deterministic full-shared Joint-2B parent. Preserve its complete
-actor empirical-Fisher score rows/RHS, deterministic full-network critic
-Jacobian/GGN/RHS, natural actor-critic cross blocks, full shared reconstruction,
-raw scales, damping `.5`, rollout/GAE/PopArt, momentum/history, adaptive KL,
-global clip, schedule and evaluation semantics.
+Preserve standard Procgen PPO with independent Adam through transition
+`503,808`, then the same full-shared strict deterministic Joint-2B network,
+actor empirical-Fisher rows, full-network critic Jacobian, every natural cross
+block, damping/FP64/RHS/reconstruction, PopArt/GAE, rollout 4096, minibatch
+512, four epochs, momentum/history, global clip, reward/evaluation/checkpoint,
+four environments, seed0 and intended 6M horizon.
 
-The only scientific difference is a fixed standard-PPO warmup through the
-complete rollout ending at transition `503,808`, followed by exactly one switch
-at the next rollout to the untouched parent Joint-2B update. PPO uses its own
-Adam state with LR `.001`, clip `.2`, four epochs, eight minibatches, value
-coefficient `1`, entropy coefficient `0`, and global gradient clip `.5`. The
-same network, PopArt state, environment/rollout state and RNG continue through
-the switch; PPO Adam state is not mapped into the clean parent optimizer.
+The only scientific difference is rollout-level Joint LR scheduling. At the
+single phase switch create a clean Joint SGD path at LR `.004`. Freeze behavior
+at each Joint rollout start; hold one LR constant through every minibatch of
+all four epochs; then compute exact full-class categorical mean
+`KL(pi_behavior || pi_final)` on the frozen rollout observations and update LR
+once for the next rollout: divide by 1.5 above `.04`, multiply by 1.5 below
+`.005`, otherwise unchanged, bounded to `[1e-4,.5]`. No other signal, rollback,
+line search, warmup, sweep or scientific change is permitted.
 
-The user authorized an atomic zero-step migration from CSF3 gpuH to Bede.
-CSF3 gate `19441667` was verified PENDING with elapsed zero, no node, process,
-root or artifact, then cancelled once and classified
-`CANCELLED_FOR_USER_AUTHORIZED_ZERO_STEP_BEDE_MIGRATION`.
+Run exactly one minimal Bede production gate proving model/device, one PPO
+update, one switch, Joint LR `.004`, one complete constant-LR Joint rollout,
+one post-rollout scheduler update and one finite strict cross-preserving solve.
+PASS permits exactly four fresh Bede seed0 intended-6M cells submitted once,
+one V100 each. Task49 jobs `1074926-1074929` and every historical/unrelated
+job/root remain untouched. Never retry, requeue or resubmit.
 
-The only Bede production gate is `1074924`. It completed `0:0` on gpu006 and
-proved construction/device, a real PPO update, one boundary switch and a
-finite full Joint-2B solve. Exactly one fresh seed0 intended-6M job for each
-BigFish `1074926`, BossFight `1074927`, CaveFlyer `1074928` and CoinRun
-`1074929` was then submitted together without dependencies or throttling.
-Never retry, requeue, resubmit, sweep or add seeds.
-
-Use exactly one 20-minute Task49 monitor, updated in place for Bede. Compare only immutable exact
-same-env/seed0/evaluation Paper rows at first common >=2M, >=4M and 5,980,160;
-cancel only the individual cell with exact Target/Paper <.60. Commit model-free
-evidence only and callback the ordinary ChatGPT Planner and coordinator.
+Update the existing sole automation `monitor-procgen-task49-ppo-warmup` in
+place after Task50 IDs exist to monitor both frozen Task49 and Task50 sets at
+20-minute cadence. Exact Paper comparison is only same env/seed0/evaluation
+at first common >=2M, >=4M and 5,980,160; cancel only an individual exact
+Target/Paper ratio below `.60`. Git model-free evidence only.
