@@ -97,10 +97,9 @@ class AdapterIdentityTests(unittest.TestCase):
     def test_missing_duplicate_and_ambient_fallback_rejected(self):
         self.assert_rejected(manifest={"files": []})
         self.assert_rejected(manifest={"files": [self.entry, copy.deepcopy(self.entry)]})
-        ambient = Path(self.temp.name) / "ambient" / "trainer.py"
-        ambient.parent.mkdir()
-        ambient.write_bytes(self.data)
-        self.assertTrue(ambient.is_file())
+        # The verified bytes remain present on disk, but absence from the
+        # manifest must still reject rather than falling back to that file.
+        self.assertTrue(self.target.is_file())
         self.assert_rejected(manifest={"files": []})
 
     def test_audit_math_mutation_rejected(self):
