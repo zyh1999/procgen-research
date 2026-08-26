@@ -1,0 +1,17 @@
+Task-ID: PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-HERMETIC-PREFLIGHT-20260826-35R
+Timestamp: 2026-08-26T12:55:05+08:00
+Classification: PRECHECK_BLOCKED
+Gate: frozen Task34R historical scaling audit, first and only Task35R execution
+Command identity: frozen audit_task34r.py SHA256 9d4929685bd8368f861770f155c5fcc0b7f86b91e9cfc92481987b0dc8ec2723
+Exit code: 1
+
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_hermetic_preflight_20260826_35r/local_gates/bundle/frozen/audit_task34r.py", line 33, in <module>
+    assert path.is_file() and path.stat().st_size > 0, path
+AssertionError: /net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_hermetic_preflight_20260826_35r/local_gates/bundle/frozen/train_shared_det_standard_mse_ggn_head_cvlm_v1.py
+
+Interpretation: the unchanged audit derives its target trainer/config paths from
+its own frozen directory, while the verified hermetic bundle stores the frozen
+trainer/config under code/. This is a deployment/path-layout local-gate failure
+before any actual-network preflight. The task forbids field repair or retry after
+any local gate failure. No gpuH preflight job was submitted.

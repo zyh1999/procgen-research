@@ -1,0 +1,12 @@
+Timestamp: 2026-08-26 Task35R placement refresh
+User: h99859yz
+Association: h99859yz|gpu-h200-fse-pgdr||gpu-h200-fse||4|100000
+QOS: gpu-h200-fse; MaxTRESPerUser=gres/gpu:h200=4
+Partition: gpuH UP; nodes node820-node823; 32 total H200 GPUs
+Node states: node820 mix, node821 mix, node822 mix, node823 mix-
+User gpuH jobs at refresh: none
+Task35R duplicate jobs/processes: none
+Task35R four preflight roots before gate: absent
+Task34R science root: absent
+Placement result: gpuH was authorized and compatible in principle, but no job was
+submitted because the mandatory frozen historical-scaling local gate failed first.

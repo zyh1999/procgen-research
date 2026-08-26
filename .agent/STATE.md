@@ -1,6 +1,45 @@
 # Current Project State
 
-Updated: 2026-08-26T12:16:11+08:00
+Updated: 2026-08-26T12:55:05+08:00
+
+## Task35R terminal hermetic preflight recovery
+
+- Task `PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-HERMETIC-PREFLIGHT-20260826-35R`
+  is terminal with unique conclusion `PRECHECK_BLOCKED`.
+- Planner assignment commit is
+  `189c5f0bff3a1a058042863c033667cd6cf25742`; hermetic implementation
+  freeze is `cbbd7dc812f97e436e459cf7910acb3f62f47d2d`; the scientific
+  Task34R implementation remains `55984df39bf883685583f22894edd5eb615f95ea`.
+- The deterministic Git-object bundle has archive SHA256
+  `3a9d9720ae7b3c9e6d13a2fd63521d51bba8cb62e7ae7ae2498553b57c00609f`
+  and manifest SHA256
+  `287a744078b10054d107974125bac6b5fac43fd944b6200ec54720cd2695c9af`;
+  31 entries include a 23-file reachable repository-local closure with
+  per-file repository path, Git blob, SHA256, size and mode.
+- Two independent builds were byte-identical. Missing `utils`, wrong content
+  hash, different Git-blob identity and ambient-path fallback were all
+  rejected. Launcher normalized-command equality passed.
+- CSF3 empty-CWD import passed from only the bundle `code/` root. The frozen
+  trainer, `utils.logger`, `utils.runners`, `utils.utils`, `vec_env` and all
+  observed local modules were manifest-backed; ambient fallback was false.
+- The first and only unchanged Task34R historical-scaling local gate then
+  failed before its numerical audit. `audit_task34r.py:33` expected the target
+  trainer beside itself at `bundle/frozen/train_shared_det_standard_mse_ggn_head_cvlm_v1.py`,
+  while the verified bundle places it at `bundle/code/`. This is a bounded
+  deployment/path-layout failure, not algorithm, numerical, GPU or scientific
+  evidence.
+- Per the task's no-field-repair rule, the audit was not changed or rerun.
+  No actual-network preflight was submitted. All four Task35R roots remain
+  absent; there are no jobs, models, checkpoints, transitions or monitor.
+- gpuH was refreshed and preferred: the user association/QOS permits four
+  H200s, the 32-H200 partition was UP with mixed capacity, and no user gpuH
+  or duplicate Task35R job existed. It was not silently replaced by another
+  queue; placement stopped solely on the earlier local gate.
+- Task34R jobs were not retried; Task32 and Task33 remain untouched. Complete
+  model-free evidence is in
+  `.agent/reports/PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-HERMETIC-PREFLIGHT-20260826-35R.md`
+  and
+  `remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_hermetic_preflight_20260826_35r/`.
 
 ## Task34R terminal standard-MSE GGN head CVLM precheck
 
