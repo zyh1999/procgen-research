@@ -1,5 +1,36 @@
 # Current Project State
 
+## Task49 active on Bede after authorized zero-step migration
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
+  is active with conclusion `CANDIDATE_NOT_READY` while its four Bede science
+  cells run. Frozen trainer/config hashes remain
+  `4403ef006f53e8647adbcdb829a442037384f623e66eb69573843f21064db28a`
+  and `e26f66a616b1d0314561a645ef26111da1b15988aad1391d1ef64b6a146d8135`.
+- CSF3 gate `19441667` was scheduler PENDING, elapsed `00:00:00`, start
+  unknown, node none, with no root/process/artifact. It was cancelled exactly
+  once under the user's migration authorization and is immutable
+  `CANCELLED_FOR_USER_AUTHORIZED_ZERO_STEP_BEDE_MIGRATION`.
+- Bede PPC64LE deployment uses account `bdman37g`, partition `gpu`, the native
+  Procgen/PyTorch environment under `/nobackup/projects/bdman37/yihe`, and
+  deployment-only wrapper hashes `27d72ff...e54f9` (gate) and
+  `bb44b4c...28f9df` (science). The trainer/config/science semantics did not
+  change.
+- The sole Bede minimal gate `1074924` completed `0:0` in `00:01:34` on
+  gpu006 with root `PRECHECK_PASS/rc0`. It executed PPO, switched exactly once,
+  and completed a strict Joint-2B solve with Cholesky info 0, finite scan PASS
+  and relative residual `3.17e-15`.
+- Four seed0 intended-6M jobs were submitted together once: BigFish `1074926`,
+  BossFight `1074927`, CaveFlyer `1074928`, CoinRun `1074929`. All initially
+  run with isolated roots and scientific-start markers; BF/Boss/Cave occupy
+  distinct V100s on gpu006 and Coin occupies gpu007. No startup hard error is
+  present. Bede jobs `1074901_*` were not touched.
+- The sole automation `monitor-procgen-task49-ppo-warmup` was updated in place
+  at 20-minute cadence to these four Bede IDs/roots. The immutable Paper seed0
+  CSV baseline was hash-verified and made read-only inside the Bede campaign.
+
+Updated: 2026-08-26T23:26:00+08:00
+
 ## Task45 active direct full-shared Joint-2B science
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45` is active

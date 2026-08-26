@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
 
-Status: READY
+Status: RUNNING_ON_BEDE
 
 Method: `FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1`.
 
@@ -22,14 +22,19 @@ coefficient `1`, entropy coefficient `0`, and global gradient clip `.5`. The
 same network, PopArt state, environment/rollout state and RNG continue through
 the switch; PPO Adam state is not mapped into the clean parent optimizer.
 
-Run only one minimal production gate proving construction/device, a real PPO
-update, one boundary switch and at least one finite full Joint-2B solve. PASS
-permits exactly one fresh seed0 intended-6M job for each BigFish, BossFight,
-CaveFlyer and CoinRun, submitted together without artificial throttling. Prefer
-gpuH after one live ownership/capacity/duplicate/root refresh. Never retry,
-requeue, resubmit, sweep or add seeds.
+The user authorized an atomic zero-step migration from CSF3 gpuH to Bede.
+CSF3 gate `19441667` was verified PENDING with elapsed zero, no node, process,
+root or artifact, then cancelled once and classified
+`CANCELLED_FOR_USER_AUTHORIZED_ZERO_STEP_BEDE_MIGRATION`.
 
-Use exactly one new 20-minute Task49 monitor. Compare only immutable exact
+The only Bede production gate is `1074924`. It completed `0:0` on gpu006 and
+proved construction/device, a real PPO update, one boundary switch and a
+finite full Joint-2B solve. Exactly one fresh seed0 intended-6M job for each
+BigFish `1074926`, BossFight `1074927`, CaveFlyer `1074928` and CoinRun
+`1074929` was then submitted together without dependencies or throttling.
+Never retry, requeue, resubmit, sweep or add seeds.
+
+Use exactly one 20-minute Task49 monitor, updated in place for Bede. Compare only immutable exact
 same-env/seed0/evaluation Paper rows at first common >=2M, >=4M and 5,980,160;
 cancel only the individual cell with exact Target/Paper <.60. Commit model-free
 evidence only and callback the ordinary ChatGPT Planner and coordinator.

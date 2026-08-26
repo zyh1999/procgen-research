@@ -1,0 +1,13 @@
+             JOBID|PARTITION|                    NAME|ST|      TIME|    NODELIST(REASON)|TRES_PER_NODE
+         1074901_0|      gpu|           sefggn-warm12| R|   1:01:36|              gpu026|gres/gpu:1
+         1074901_1|      gpu|           sefggn-warm12| R|   1:01:36|              gpu029|gres/gpu:1
+         1074901_2|      gpu|           sefggn-warm12| R|   1:01:36|              gpu030|gres/gpu:1
+         1074901_3|      gpu|           sefggn-warm12| R|   1:01:36|              gpu031|gres/gpu:1
+         1074901_4|      gpu|           sefggn-warm12| R|   1:01:36|              gpu031|gres/gpu:1
+         1074901_5|      gpu|           sefggn-warm12| R|   1:01:36|              gpu004|gres/gpu:1
+         1074901_6|      gpu|           sefggn-warm12| R|   1:01:36|              gpu004|gres/gpu:1
+         1074901_7|      gpu|           sefggn-warm12| R|   1:01:36|              gpu005|gres/gpu:1
+         1074901_8|      gpu|           sefggn-warm12| R|   1:01:36|              gpu005|gres/gpu:1
+         1074901_9|      gpu|           sefggn-warm12| R|   1:01:36|              gpu005|gres/gpu:1
+        1074901_10|      gpu|           sefggn-warm12| R|   1:01:36|              gpu005|gres/gpu:1
+        1074901_11|      gpu|           sefggn-warm12| R|   1:01:36|              gpu006|gres/gpu:1

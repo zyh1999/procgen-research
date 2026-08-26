@@ -1,0 +1,35 @@
+JobId=1074926 JobName=pg49-bf
+   SLUID=sBG9M0Z7CWP500
+   UserId=yihe(639800874) GroupId=yihe(639800874) MCS_label=N/A
+   Priority=4855 Nice=0 Account=bdman37g QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   DerivedExitCode=0:0
+   RunTime=00:00:09 TimeLimit=2-00:00:00 TimeMin=N/A
+   SubmitTime=2026-08-26T15:25:08 EligibleTime=2026-08-26T15:25:08
+   AccrueTime=2026-08-26T15:25:08
+   StartTime=2026-08-26T15:25:13 EndTime=2026-08-28T15:25:13 Deadline=N/A
+   PreemptEligibleTime=2026-08-26T15:25:13 PreemptTime=None
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-08-26T15:25:13 Scheduler=Main
+   Partition=gpu AllocNode:Sid=login2:2374397
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=gpu006
+   BatchHost=gpu006
+   NumNodes=1 NumCPUs=32 NumTasks=32 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=32,mem=129872M,node=1,billing=32,gres/gpu=1
+   AllocTRES=cpu=32,mem=129872M,node=1,billing=32,gres/gpu=1
+   Socks/Node=* NtasksPerN:B:S:C=32:0:*:* CoreSpec=*
+   JOB_GRES=gpu:tesla_v100-sxm2-32gb:1
+     Nodes=gpu006 CPU_IDs=64-95 Mem=129872 GRES=gpu:tesla_v100-sxm2-32gb:1(IDX:2)
+   MinCPUsNode=32 MinMemoryNode=129872M MinTmpDiskNode=0
+   Features=rhel8 DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/frozen/task49_science_bede.sbatch
+   SubmitLine=sbatch --parsable --job-name=pg49-bf --export=ALL,PROCGEN_ENV=bigfish-easy-0-10 /nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/frozen/task49_science_bede.sbatch
+   WorkDir=/users/yihe
+   StdErr=/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/scheduler/pg49-bf_1074926.err
+   StdIn=/dev/null
+   StdOut=/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/scheduler/pg49-bf_1074926.out
+   CpusPerTres=gpu:32
+   TresPerNode=gres/gpu:1
+

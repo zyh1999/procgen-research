@@ -1,5 +1,24 @@
 # Executor report
 
+Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
+
+Current conclusion: `CANDIDATE_NOT_READY`
+
+The user-authorized atomic CSF3-to-Bede migration is complete. CSF3 gate
+`19441667` was verified zero-step with no root/process/artifact and cancelled
+once; it is preserved as
+`CANCELLED_FOR_USER_AUTHORIZED_ZERO_STEP_BEDE_MIGRATION`.
+
+Bede gate `1074924` completed `0:0` on gpu006 with `PRECHECK_PASS`: a real PPO
+update, the single fixed boundary switch, and a finite full Joint-2B solve all
+ran; Cholesky info is zero and relative residual is `3.17e-15`. The four
+authorized seed0 6M cells were then submitted together exactly once and are
+RUNNING: BigFish `1074926`, BossFight `1074927`, CaveFlyer `1074928`, CoinRun
+`1074929`. All roots have scientific-start evidence and no immediate hard
+error. The existing 20-minute automation was updated in place; no duplicate
+monitor exists and no unrelated Bede job was touched.
+
+
 Task: `PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45`
 
 Current conclusion: `CANDIDATE_NOT_READY`

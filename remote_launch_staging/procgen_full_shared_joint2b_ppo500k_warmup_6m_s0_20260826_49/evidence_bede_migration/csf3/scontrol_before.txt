@@ -1,0 +1,31 @@
+JobId=19441667 JobName=pg49-gate
+   SLUID=sD1XM0Z4J6AZ00
+   UserId=h99859yz(778916) GroupId=fatpou01(10049) MCS_label=N/A
+   Priority=5642 Nice=0 Account=gpu-h200-fse-pgdr QOS=gpu-h200-fse
+   JobState=PENDING Reason=AssocGrpGRES Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   DerivedExitCode=0:0
+   RunTime=00:00:00 TimeLimit=00:30:00 TimeMin=N/A
+   SubmitTime=26/08/26 14:35 EligibleTime=26/08/26 14:35
+   AccrueTime=26/08/26 14:35
+   StartTime=Unknown EndTime=Unknown Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=26/08/26 15:13 Scheduler=Main
+   Partition=gpuH AllocNode:Sid=login1:2386341
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=
+   NumNodes=1-1 NumCPUs=8 NumTasks=1 CPUs/Task=8 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=8,mem=180G,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+   AllocTRES=(null)
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=8 MinMemoryNode=180G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/scratch/h99859yz/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/frozen/task49_gate_gpuh.sbatch
+   SubmitLine=sbatch --job-name=pg49-gate /scratch/h99859yz/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/frozen/task49_gate_gpuh.sbatch
+   WorkDir=/mnt/iusers01/fatpou01/compsci01/h99859yz
+   StdErr=/scratch/h99859yz/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/scheduler/pg49-gate_19441667.err
+   StdIn=/dev/null
+   StdOut=/scratch/h99859yz/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/scheduler/pg49-gate_19441667.out
+   TresPerNode=gres/gpu:h200:1
+   TresPerTask=cpu=8
+
