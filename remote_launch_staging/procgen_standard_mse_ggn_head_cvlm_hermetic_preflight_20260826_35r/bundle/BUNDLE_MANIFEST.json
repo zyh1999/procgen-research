@@ -1,0 +1,720 @@
+{
+  "entrypoint": "code/train_shared_det_standard_mse_ggn_head_cvlm_v1.py",
+  "files": [
+    {
+      "bundle_path": "audit_sources/task07/train_shared_paper_separateb_detggn_v1.py",
+      "git_blob": "fe57529ee508e837e5f7eada56fe7947357e3529",
+      "imports": [
+        "argparse",
+        "collections",
+        "datetime",
+        "json",
+        "kfac.ekfac",
+        "kfac.kfac",
+        "math",
+        "numpy",
+        "os",
+        "procgen",
+        "stable_baselines3.common.env_util",
+        "stable_baselines3.common.vec_env",
+        "time",
+        "torch",
+        "torch.func",
+        "torch.multiprocessing",
+        "torch.nn",
+        "torch.optim",
+        "torch.optim.lr_scheduler",
+        "torch.utils.tensorboard",
+        "tqdm",
+        "types",
+        "utils.logger",
+        "utils.runners",
+        "utils.utils",
+        "vec_env",
+        "yaml"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_paper_separateb_detggn_6m_s0_20260824_07/train_shared_paper_separateb_detggn_v1.py",
+      "sha256": "b0dad110c36dbab4c601aa9128ba51eb437bfc6a3e9cadf87be8fd2172f3729a",
+      "size": 45455,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "audit_sources/task13/adv_resnet_shared_paper_hybrid_head_detggn_v1_6m.yaml",
+      "git_blob": "48847b2f54761e639be93882a8d70d08cbab72a3",
+      "imports": [],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_paper_hybrid_head_detggn_6m_s0_20260824_08/adv_resnet_shared_paper_hybrid_head_detggn_v1_6m.yaml",
+      "sha256": "9497be42db0bac8abb504721677ca6608d9f698f101587980c1a726c1dd81fda",
+      "size": 825,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "audit_sources/task13/train_shared_paper_hybrid_head_detggn_v1.py",
+      "git_blob": "1dd932f0006f1b91e0f32521dcec24bb577faaf3",
+      "imports": [
+        "argparse",
+        "collections",
+        "datetime",
+        "json",
+        "kfac.ekfac",
+        "kfac.kfac",
+        "math",
+        "numpy",
+        "os",
+        "procgen",
+        "stable_baselines3.common.env_util",
+        "stable_baselines3.common.vec_env",
+        "time",
+        "torch",
+        "torch.func",
+        "torch.multiprocessing",
+        "torch.nn",
+        "torch.optim",
+        "torch.optim.lr_scheduler",
+        "torch.utils.tensorboard",
+        "tqdm",
+        "types",
+        "utils.logger",
+        "utils.runners",
+        "utils.utils",
+        "vec_env",
+        "yaml"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_paper_hybrid_head_detggn_6m_s0_20260824_08/train_shared_paper_hybrid_head_detggn_v1.py",
+      "sha256": "7bcf9bb6f25a6e40206bb2b08404423992ecdf088cf0f64f806c4a8e7a521e54",
+      "size": 54163,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "audit_sources/task32/train_shared_det_actor_weighted_gae_ggn_head_v1.py",
+      "git_blob": "ea9ee3fcde39a464d70e6db7c44ec1007cdc0ace",
+      "imports": [
+        "argparse",
+        "collections",
+        "datetime",
+        "json",
+        "kfac.ekfac",
+        "kfac.kfac",
+        "math",
+        "numpy",
+        "os",
+        "procgen",
+        "stable_baselines3.common.env_util",
+        "stable_baselines3.common.vec_env",
+        "time",
+        "torch",
+        "torch.func",
+        "torch.multiprocessing",
+        "torch.nn",
+        "torch.optim",
+        "torch.optim.lr_scheduler",
+        "torch.utils.tensorboard",
+        "tqdm",
+        "types",
+        "utils.logger",
+        "utils.runners",
+        "utils.utils",
+        "vec_env",
+        "yaml"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_actor_weighted_gae_ggn_head_6m_s0_20260825_32/train_shared_det_actor_weighted_gae_ggn_head_v1.py",
+      "sha256": "5d070556a7215b15a5715a4d6100eb1c1b440e5f3283949e94e3ee97ae89aa05",
+      "size": 64103,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/configs/adv_resnet_shared_det_standard_mse_ggn_head_cvlm_v1_6m.yaml",
+      "git_blob": "d561f9390836b166f955ca33f2787d33f0f3a474",
+      "imports": [],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_6m_s0_20260825_34r/adv_resnet_shared_det_standard_mse_ggn_head_cvlm_v1_6m.yaml",
+      "sha256": "52c133559825947cd233184f2468c4aa715c6c419274bb78f7f715d542718132",
+      "size": 926,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/train_shared_det_standard_mse_ggn_head_cvlm_v1.py",
+      "git_blob": "f480eb3b509fb693a45d3264ae44aa383cc5f2e6",
+      "imports": [
+        "argparse",
+        "collections",
+        "copy",
+        "datetime",
+        "json",
+        "kfac.ekfac",
+        "kfac.kfac",
+        "math",
+        "numpy",
+        "os",
+        "procgen",
+        "stable_baselines3.common.env_util",
+        "stable_baselines3.common.vec_env",
+        "time",
+        "torch",
+        "torch.func",
+        "torch.multiprocessing",
+        "torch.nn",
+        "torch.optim",
+        "torch.optim.lr_scheduler",
+        "torch.utils.tensorboard",
+        "tqdm",
+        "types",
+        "utils.logger",
+        "utils.runners",
+        "utils.utils",
+        "vec_env",
+        "yaml"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/utils/logger.py",
+        "code/utils/runners.py",
+        "code/utils/utils.py",
+        "code/vec_env/__init__.py"
+      ],
+      "repository_path": "remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_6m_s0_20260825_34r/train_shared_det_standard_mse_ggn_head_cvlm_v1.py",
+      "sha256": "ca53efd549ae58738c5c215c84dfe5f342c0f801d3eb0f7fb61a2507f31e69fc",
+      "size": 74577,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/convnet.py",
+      "git_blob": "fa81a447cfa82c6f617087463172e1dc517d2c3d",
+      "imports": [
+        "gym",
+        "torch",
+        "torchvision.ops",
+        "utils.transformer"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/utils/transformer.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/convnet.py",
+      "sha256": "580d162c1d4effe8c153af43ef56d3a98963770c021cd58a30500111552d96dd",
+      "size": 3097,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/logger.py",
+      "git_blob": "94f8df269c78ce1b30b5c3dbcc8d8a5a18199335",
+      "imports": [
+        "collections",
+        "contextlib",
+        "datetime",
+        "glob",
+        "json",
+        "numpy",
+        "os",
+        "os.path",
+        "pandas",
+        "shutil",
+        "sys",
+        "tempfile",
+        "tensorflow",
+        "tensorflow.core.util",
+        "tensorflow.python",
+        "tensorflow.python.util",
+        "time",
+        "utils"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/logger.py",
+      "sha256": "5dce73131f4acbb36bf3756b79e734a5cb0571f8b96d0de7f062c589f0803c43",
+      "size": 14791,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/monitor.py",
+      "git_blob": "ce862b20de803111970432510e18f86ed7352987",
+      "imports": [
+        "csv",
+        "glob",
+        "gym.core",
+        "json",
+        "os.path",
+        "pandas",
+        "time"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/monitor.py",
+      "sha256": "fa25b67b27a861ad28d2f951ad65418d22b72703724064ccf1fa9f1e4b8530a6",
+      "size": 5798,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/popart.py",
+      "git_blob": "965ef39553f3eecacca79f63840c9a2d0d4e8c51",
+      "imports": [
+        "math",
+        "numpy",
+        "torch",
+        "torch.nn",
+        "torch.nn.functional"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/popart.py",
+      "sha256": "e9fb6a2dd920b4baaf035863a060001a57add82a20e27b3c7037db25018d91d3",
+      "size": 3037,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/resnet.py",
+      "git_blob": "9fc700f807d4502e3c27b5b513813c264ebe609c",
+      "imports": [
+        "torch",
+        "torch.nn",
+        "torch.nn.functional"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/resnet.py",
+      "sha256": "1add6ddaed433ab62bd28aea3f59f72b66b6854c40c412d61a27fb1d77dcf805",
+      "size": 2736,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/rope.py",
+      "git_blob": "ef7482644d04d4daf47c28f5cb3cad105104de3a",
+      "imports": [
+        "torch",
+        "typing"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/rope.py",
+      "sha256": "9cd12b12bc4c040a4e36c9d29a223be9a135e93885dd545c2a29cb258c94499e",
+      "size": 4440,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/runners.py",
+      "git_blob": "1b2f90e2ca85021f8d22e58b250f9fdd2738a408",
+      "imports": [
+        "abc",
+        "numpy",
+        "torch",
+        "utils.utils"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/utils/utils.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/runners.py",
+      "sha256": "2a17f6c6808540522cd39cc03360c080f35022d98a3d25549380e62507283df2",
+      "size": 19124,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/running_mean_std.py",
+      "git_blob": "0ae0e6c6ac6f6a18ae622a1b91ec21040ed76a63",
+      "imports": [
+        "numpy",
+        "torch",
+        "torch.nn"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/running_mean_std.py",
+      "sha256": "c306406c9b109aa76518f1738e7d41acbd6b72d8c2f4b4e94dc262e5605f404b",
+      "size": 3305,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/seq_running_mean_std.py",
+      "git_blob": "526a20f52de07acba4610501b46dfcedf52c12ac",
+      "imports": [
+        "numpy",
+        "torch",
+        "torch.nn"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/seq_running_mean_std.py",
+      "sha256": "18b5b85a2b8a0de5ddbbc77541ca0bcaba30e1ef20ca671f948d708e572d5a40",
+      "size": 3301,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/transformer.py",
+      "git_blob": "4f7ce01e64bece26cbf8335e953ede12cf7057ae",
+      "imports": [
+        "functools",
+        "math",
+        "numpy",
+        "torch",
+        "torch.nn",
+        "utils.popart",
+        "utils.rope",
+        "utils.seq_running_mean_std"
+      ],
+      "mode": "100644",
+      "repository_local_dependencies": [
+        "code/utils/popart.py",
+        "code/utils/rope.py",
+        "code/utils/seq_running_mean_std.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/transformer.py",
+      "sha256": "ca00ee0d1cce6ce303d1fbb5e3ccba8d847012d0abdaa0e05da298c8620f8339",
+      "size": 19838,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/utils.py",
+      "git_blob": "2a84458f7488c594328fc2c8efa8a6147c8bf169",
+      "imports": [
+        "copy",
+        "numpy",
+        "os",
+        "random",
+        "scipy",
+        "torch",
+        "torch.distributions.categorical",
+        "torch.utils.data",
+        "utils.convnet",
+        "utils.popart",
+        "utils.resnet",
+        "utils.running_mean_std",
+        "utils.vision_transformers",
+        "utils.vit"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/utils/convnet.py",
+        "code/utils/popart.py",
+        "code/utils/resnet.py",
+        "code/utils/running_mean_std.py",
+        "code/utils/vision_transformers.py",
+        "code/utils/vit.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/utils.py",
+      "sha256": "3c39421c055fc3414b9fe55e17cd339576fb5567520c940254addaf0afb1b358",
+      "size": 19893,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/vision_transformers.py",
+      "git_blob": "4b1e294aaa01789fde9a64acc08defd9dfb3f006",
+      "imports": [
+        "functools",
+        "math",
+        "torch",
+        "torch.nn"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/vision_transformers.py",
+      "sha256": "60cb45b20ddb792d11714e24891cf6fcd11e8a652fc3ef2e0a0c4aa053569ed7",
+      "size": 10325,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/utils/vit.py",
+      "git_blob": "221766c33ae0c40d9f2150218ba72c57e282039c",
+      "imports": [
+        "einops",
+        "einops.layers.torch",
+        "torch"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/utils/vit.py",
+      "sha256": "32a0b261b27b47cb4831829554405042f686b6578fb6c7d6db0d32fbc49beb0c",
+      "size": 3667,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/__init__.py",
+      "git_blob": "9fbb2a6b19e8df06c045789ca9cf7357e2a6efda",
+      "imports": [
+        "vec_env.dummy_vec_env",
+        "vec_env.shmem_vec_env",
+        "vec_env.subproc_vec_env",
+        "vec_env.vec_env",
+        "vec_env.vec_monitor",
+        "vec_env.vec_normalize",
+        "vec_env.vec_remove_dict_obs"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/vec_env/dummy_vec_env.py",
+        "code/vec_env/shmem_vec_env.py",
+        "code/vec_env/subproc_vec_env.py",
+        "code/vec_env/vec_env.py",
+        "code/vec_env/vec_monitor.py",
+        "code/vec_env/vec_normalize.py",
+        "code/vec_env/vec_remove_dict_obs.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/__init__.py",
+      "sha256": "4eaff3aa854a57e64a3c95c043a49833d43fd1fcb93d4b6d30de9b35d2f7740f",
+      "size": 688,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/dummy_vec_env.py",
+      "git_blob": "8a49bb2278f7f40a3a3c67e7836fc2bddfe4d010",
+      "imports": [
+        ".util",
+        ".vec_env",
+        "numpy"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/vec_env/util.py",
+        "code/vec_env/vec_env.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/dummy_vec_env.py",
+      "sha256": "c966c0433f7f19c078e6c8f1c5ae9e3339e1e3a20c3a58ab93d2e5ec0e37f9d6",
+      "size": 2924,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/shmem_vec_env.py",
+      "git_blob": "db1c11becbc84d53a33b4c5ce40798f9227a6445",
+      "imports": [
+        ".util",
+        ".vec_env",
+        "ctypes",
+        "multiprocessing",
+        "numpy",
+        "utils.logger"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/utils/logger.py",
+        "code/vec_env/util.py",
+        "code/vec_env/vec_env.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/shmem_vec_env.py",
+      "sha256": "8640b2efe01fd7fead0a779ec6ea805b6bde4e56d98ddc3c63f531c1b846ca38",
+      "size": 5176,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/subproc_vec_env.py",
+      "git_blob": "8c74000889c44c06a50fd0e89a8dc04d272b7793",
+      "imports": [
+        ".vec_env",
+        "multiprocessing",
+        "numpy"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/vec_env/vec_env.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/subproc_vec_env.py",
+      "sha256": "4a106b6cfd7e43f2a168cfd01d5bd751ba3ad0beb1e83dd6403e7213d35b001d",
+      "size": 5069,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/util.py",
+      "git_blob": "ddc71c27e0599fe5072220bdb067ebe2c64d74d8",
+      "imports": [
+        "collections",
+        "gym",
+        "numpy"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/util.py",
+      "sha256": "1e42beda55d836b79599e4d69373604e5d21ef95c7d57f1967b48912bb9c4994",
+      "size": 1513,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/vec_env.py",
+      "git_blob": "32a7572f845e4c2904c446993887fc6b201fb24c",
+      "imports": [
+        "abc",
+        "cloudpickle",
+        "contextlib",
+        "gym.envs.classic_control",
+        "os",
+        "pickle"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/vec_env.py",
+      "sha256": "28af8e5674dfb4a4fcab69c96a51f8ffc93e0d1edaced13a3862f2fb7a321230",
+      "size": 6172,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/vec_monitor.py",
+      "git_blob": "334d49734316969bad4754c26dc39e6bcfc2189a",
+      "imports": [
+        ".",
+        "collections",
+        "numpy",
+        "time",
+        "utils.monitor"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/utils/monitor.py",
+        "code/vec_env/__init__.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/vec_monitor.py",
+      "sha256": "f34e7a8b808e7a57cbef41887a30ca50980c6ff031a87f3d0039fa670682ed28",
+      "size": 1680,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/vec_normalize.py",
+      "git_blob": "5cceb8fae4795d52861d7b7b960482ad159535aa",
+      "imports": [
+        ".",
+        "gym",
+        "numpy",
+        "torch",
+        "torchvision"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/vec_env/__init__.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/vec_normalize.py",
+      "sha256": "e6b0518260699151cc45ff196368895aac2c538fc427896d5d626f94fe64dd9d",
+      "size": 3882,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "code/vec_env/vec_remove_dict_obs.py",
+      "git_blob": "a6c465692d15ebddf9beabd876867a62d8345f06",
+      "imports": [
+        ".vec_env"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [
+        "code/vec_env/vec_env.py"
+      ],
+      "repository_path": "work/procgen_paper_2b5affd_6m_bede_20260722/source/vec_env/vec_remove_dict_obs.py",
+      "sha256": "df18ac9cf3a164c4b957e3515eb17dc88e77699c56c14ba35e33f3d949802157",
+      "size": 321,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "frozen/audit_task34r.py",
+      "git_blob": "36e3d280512de094baf00b022e16f562747f41ba",
+      "imports": [
+        "ast",
+        "hashlib",
+        "json",
+        "os",
+        "pathlib",
+        "torch",
+        "yaml"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_6m_s0_20260825_34r/audit_task34r.py",
+      "sha256": "9d4929685bd8368f861770f155c5fcc0b7f86b91e9cfc92481987b0dc8ec2723",
+      "size": 6045,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "frozen/gpuh_preflight.py",
+      "git_blob": "d467423058d525d8a70105a7af737e958511d5a8",
+      "imports": [
+        "copy",
+        "gym3",
+        "hashlib",
+        "importlib.util",
+        "json",
+        "math",
+        "numpy",
+        "os",
+        "pathlib",
+        "procgen",
+        "sys",
+        "torch",
+        "types"
+      ],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_6m_s0_20260825_34r/gpuh_preflight.py",
+      "sha256": "2baac759c26c4fb663ac24ff68a6de8b640bb9bd0c443ec8f65106de3d36759a",
+      "size": 40936,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    },
+    {
+      "bundle_path": "frozen/standard_mse_ggn_head_cvlm_6m_gpuh.sbatch",
+      "git_blob": "e62d6206d390f8b0efedb30fe66f2f07719364e5",
+      "imports": [],
+      "mode": "100755",
+      "repository_local_dependencies": [],
+      "repository_path": "remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_6m_s0_20260825_34r/standard_mse_ggn_head_cvlm_6m_gpuh.sbatch",
+      "sha256": "6dffce265e55f87fa5be848ec5bd9940fcecb6203f621a1454fb4f6a9c74caca",
+      "size": 4087,
+      "source_commit": "55984df39bf883685583f22894edd5eb615f95ea"
+    }
+  ],
+  "format_version": 1,
+  "included_repository_local_files": [
+    "code/train_shared_det_standard_mse_ggn_head_cvlm_v1.py",
+    "code/utils/convnet.py",
+    "code/utils/logger.py",
+    "code/utils/monitor.py",
+    "code/utils/popart.py",
+    "code/utils/resnet.py",
+    "code/utils/rope.py",
+    "code/utils/runners.py",
+    "code/utils/running_mean_std.py",
+    "code/utils/seq_running_mean_std.py",
+    "code/utils/transformer.py",
+    "code/utils/utils.py",
+    "code/utils/vision_transformers.py",
+    "code/utils/vit.py",
+    "code/vec_env/__init__.py",
+    "code/vec_env/dummy_vec_env.py",
+    "code/vec_env/shmem_vec_env.py",
+    "code/vec_env/subproc_vec_env.py",
+    "code/vec_env/util.py",
+    "code/vec_env/vec_env.py",
+    "code/vec_env/vec_monitor.py",
+    "code/vec_env/vec_normalize.py",
+    "code/vec_env/vec_remove_dict_obs.py"
+  ],
+  "method": "DET_STANDARD_MSE_GGN_HEAD_CVLM_V1",
+  "repository_import_root": "code",
+  "repository_local_import_closure": [
+    "code/train_shared_det_standard_mse_ggn_head_cvlm_v1.py",
+    "code/utils/convnet.py",
+    "code/utils/logger.py",
+    "code/utils/monitor.py",
+    "code/utils/popart.py",
+    "code/utils/resnet.py",
+    "code/utils/rope.py",
+    "code/utils/runners.py",
+    "code/utils/running_mean_std.py",
+    "code/utils/seq_running_mean_std.py",
+    "code/utils/transformer.py",
+    "code/utils/utils.py",
+    "code/utils/vision_transformers.py",
+    "code/utils/vit.py",
+    "code/vec_env/__init__.py",
+    "code/vec_env/dummy_vec_env.py",
+    "code/vec_env/shmem_vec_env.py",
+    "code/vec_env/subproc_vec_env.py",
+    "code/vec_env/util.py",
+    "code/vec_env/vec_env.py",
+    "code/vec_env/vec_monitor.py",
+    "code/vec_env/vec_normalize.py",
+    "code/vec_env/vec_remove_dict_obs.py"
+  ],
+  "source_commit": "55984df39bf883685583f22894edd5eb615f95ea",
+  "source_policy": "all payload bytes read from named frozen Git blobs",
+  "task_id": "PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-HERMETIC-PREFLIGHT-20260826-35R"
+}

@@ -1,0 +1,19 @@
+{
+  "bundle_sha256": "3a9d9720ae7b3c9e6d13a2fd63521d51bba8cb62e7ae7ae2498553b57c00609f",
+  "frozen_config_sha256": "52c133559825947cd233184f2468c4aa715c6c419274bb78f7f715d542718132",
+  "frozen_trainer_sha256": "ca53efd549ae58738c5c215c84dfe5f342c0f801d3eb0f7fb61a2507f31e69fc",
+  "independent_builds_byte_identical": true,
+  "manifest_fields": [
+    "repository_path",
+    "git_blob",
+    "sha256",
+    "size",
+    "mode"
+  ],
+  "manifest_sha256": "287a744078b10054d107974125bac6b5fac43fd944b6200ec54720cd2695c9af",
+  "negative_ambient_path_fallback": "REJECT",
+  "negative_different_git_blob": "REJECT",
+  "negative_missing_utils": "REJECT",
+  "negative_wrong_hash": "REJECT",
+  "result": "TASK35R_LOCAL_HERMETIC_TESTS_PASS"
+}

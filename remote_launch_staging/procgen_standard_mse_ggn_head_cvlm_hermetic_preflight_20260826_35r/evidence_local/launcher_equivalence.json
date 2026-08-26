@@ -1,0 +1,44 @@
+{
+  "allowed_differences": [
+    "bundle verification and extraction",
+    "repository import root",
+    "fresh non-overwriting preflight root",
+    "deployment provenance"
+  ],
+  "new_preflight_sha256": "5195d92df2a797f9878c779c17eb9ee82fbd79c616643b7dec205dbd505d38be",
+  "normalized_preflight_arguments_new": [
+    "$PY",
+    "$PREFLIGHT",
+    "$TRAINER",
+    "$CONFIG",
+    "$EVIDENCE/parameter_partition.json",
+    "$TRAINER_SHA",
+    "$CONFIG_SHA"
+  ],
+  "normalized_preflight_arguments_old": [
+    "$PY",
+    "$PREFLIGHT",
+    "$TRAINER",
+    "$CONFIG",
+    "$EVIDENCE/parameter_partition.json",
+    "$TRAINER_SHA",
+    "$CONFIG_SHA"
+  ],
+  "normalized_scientific_arguments": [
+    "$PY",
+    "-u",
+    "$TRAINER",
+    "--config",
+    "$(basename $CONFIG)",
+    "--env_name",
+    "$ENV_NAME",
+    "--seed",
+    "0",
+    "--device",
+    "0"
+  ],
+  "old_preflight_sha256": "ca8443094a9827bb9141c532e5a5f230ba940d52aaec857d9edd0f5a1662bc74",
+  "old_science_sha256": "6dffce265e55f87fa5be848ec5bd9940fcecb6203f621a1454fb4f6a9c74caca",
+  "result": "TASK35R_LAUNCHER_NORMALIZED_COMMAND_EQUALITY_PASS",
+  "scientific_identity_changed": false
+}
