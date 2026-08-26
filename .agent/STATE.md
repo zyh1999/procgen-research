@@ -1,5 +1,26 @@
 # Current Project State
 
+## Task39 terminal full-shared Joint-2B scale-recovery precheck
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-SCALE-RECOVERY-6M-S0-20260826-39`
+  is terminal with unique conclusion `PRECHECK_BLOCKED`.
+- Task38 was explicitly superseded before execution. Local and CSF3 scheduler,
+  process and scratch-root searches found no Task38 implementation, job, root
+  or scientific artifact; it is recorded `SUPERSEDED_BEFORE_EXECUTION`.
+- Frozen Task39 implementation commit `bd72327604f48cc74f0a18ea89085962665e2e03`
+  is pushed on `origin/agent-work`. It contains the exact two-block mean-Gram
+  normalization, same-block RHS normalization, strict 1024-row cross-preserving
+  system, relative damping `.5`, FP64 Jacobi/Cholesky and full reconstruction.
+- The pure CSF3 algebra gate passed. The sole actual-network gpuH preflight,
+  job `19407505`, then failed `FAILED/1:0` in 19 seconds on node820 before
+  model construction because the harness passed image size 3 to the ResNet
+  constructor, yielding a zero-size pooled tensor. Root is
+  `PRECHECK_FAIL/1`; no OOM/CUDA/NCCL/disk/nonfinite signature exists.
+- Per the no-repair/no-retry rule, the harness was not corrected and the
+  preflight was not resubmitted. No Task39 science job/root/process/transition/
+  trace/checkpoint/model/comparison/monitor exists. Await exactly one Planner
+  READY or NEED_DECISION task.
+
 Updated: 2026-08-26T14:37:00+08:00
 
 ## Task37 terminal standard-MSE GGN head CVLM science

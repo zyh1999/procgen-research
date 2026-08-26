@@ -2,10 +2,11 @@
 
 ## Current conclusion
 
-`CANDIDATE_NOT_READY`
+`PRECHECK_BLOCKED`
 
-Implementation is frozen for the mandatory one-shot production-network
-functional preflight. No Task39 science cell exists yet.
+The frozen pure FP64 algebra gate passed, but the one authorized production-
+network functional preflight failed during model construction. Per the task's
+no-repair/no-retry rule, no science cell was submitted.
 
 ## Task38 supersession
 
@@ -55,7 +56,48 @@ Local syntax compilation passed. The local interpreter has no PyTorch, so
 the actual numerical and production-network gate is intentionally executed
 once in the frozen CSF3 Python 3.9/PyTorch environment.
 
-## Preflight and science matrix
+## Preflight terminal evidence
 
-Pending the one-shot functional preflight. Science submission is forbidden
-until it records `PRECHECK_PASS` with complete 512+512 row evidence.
+The pure frozen CSF3 Python 3.9/PyTorch algebra gate emitted
+`TASK39_ALGEBRA_PASS`: exact direct reconstruction, nonzero cross block,
+overall/actor-only/critic-only/opposite rescaling invariance, normalized means
+one, Cholesky info zero, strict residual, and strict rejection of zero scale.
+
+The only production-network preflight was gpuH job `19407505`. Scheduler state
+is `FAILED/1:0`, elapsed `00:00:19`, node820; root state/rc are
+`PRECHECK_FAIL/1`. Trainer/config/preflight hashes in the root exactly match
+the frozen identities above. The H200 was visible and no OOM, CUDA, NCCL,
+disk, quota, NaN or Inf signature exists.
+
+The exact failure occurs before parameter construction, Jacobian rows or a
+Joint-2B solve. `preflight_full_shared_joint2b_scale_recovery.py:53` passes
+`3` as the ResNet image-size argument. The production constructor reaches
+`utils/resnet.py:41`, where successive pooling of the resulting 3x3 dummy
+image produces `(16x1x1) -> (16x0x0)` and raises:
+
+```text
+RuntimeError: Given input size: (16x1x1). Calculated output size: (16x0x0).
+Output size is too small
+```
+
+This is `precheck-failure/actual-network-construction-harness-image-size`, not
+scientific or solver evidence. The no-field-repair contract forbids correcting
+the harness or rerunning the gate under Task39.
+
+## Science matrix
+
+No Task39 science job, root, process, transition, trace, checkpoint, model,
+Paper comparison, early-stop action, or monitor exists. The four authorized
+cells were not submitted because `PRECHECK_PASS` was not obtained. Task38
+remains absent and Task37 evidence is unchanged.
+
+## Failure ledger
+
+| Item | State | Classification |
+|---|---|---|
+| Task38 | no local/remote implementation, job, root or artifact | `SUPERSEDED_BEFORE_EXECUTION` |
+| pure Task39 algebra | PASS | functional algebra only, not scientific evidence |
+| Task39 job `19407505` | FAILED/1:0; root PRECHECK_FAIL/1 | preflight harness actual-network construction failure |
+| Task39 science | absent | correctly blocked by failed mandatory gate |
+
+The unique terminal conclusion is `PRECHECK_BLOCKED`.
