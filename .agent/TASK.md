@@ -2,144 +2,125 @@ Status: READY
 
 # TASK.md
 
-Task-ID: `PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-HERMETIC-PREFLIGHT-20260826-35R`
+Task-ID: `PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-AUDIT-PATH-RECOVERY-20260826-36`
 
 ## 唯一目标
 
-仅修复Task34R的hermetic packaging/import path，使冻结方法`DET_STANDARD_MSE_GGN_HEAD_CVLM_V1`完成四环境各一次actual-network preflight。
+仅修复Task35R historical-scaling audit的trainer路径定位，使冻结audit读取hermetic manifest中位于`bundle/code/`的精确冻结trainer；local gate通过后，对四环境各运行一次actual-network preflight。
 
-本任务不得启动科学训练。它取代此前未执行的Task35草案，并且是唯一Task34R恢复目标。
+不得改变科学算法、bundle内容或启动6M训练。
 
-## 已确认分类
+## 冻结身份
 
-Task34R的四个旧job `19319418–19319421`均在模型构造前因：
+保持不变：
 
-`ModuleNotFoundError: No module named 'utils'`
-
-失败，分类为`infrastructure-failure/deployment-package-import`，不是算法、数值、GPU或科学失败。不得重试这些旧job。
-
-## 冻结科学身份
-
-必须保持Task34R implementation `55984df39bf883685583f22894edd5eb615f95ea`的以下内容字节或语义完全不变：
-
-- trainer及config；
-- standard frozen-lambda-return MSE；
-- \(D=I,\ W=I,\ K=J\)；
-- \(G=J^\top J/B,\ g=J^\top e/B\)；
-- Gaussian precision=1；
-- CVLM train/calibration pairing、阈值、trial及回滚规则；
-- 仅更新257个value-head参数；
-- actor、shared sampled critic、PopArt；
-- schedule、minibatch、epochs、momentum/history；
-- adaptive-KL、global clip及evaluation语义。
-
-保留历史缩放结论：Task13等效standard-coordinate damping为5、RHS multiplier为10，变换误差`1.1102230246251565e-16`。
+- Task34R implementation：`55984df39bf883685583f22894edd5eb615f95ea`
+- Trainer：`ca53efd549ae58738c5c215c84dfe5f342c0f801d3eb0f7fb61a2507f31e69fc`
+- Config：`52c133559825947cd233184f2468c4aa715c6c419274bb78f7f715d542718132`
+- Preflight：`2baac759c26c4fb663ac24ff68a6de8b640bb9bd0c443ec8f65106de3d36759a`
+- Historical audit数值逻辑：`9d4929685bd8368f861770f155c5fcc0b7f86b91e9cfc92481987b0dc8ec2723`
+- Bundle archive：`3a9d9720ae7b3c9e6d13a2fd63521d51bba8cb62e7ae7ae2498553b57c00609f`
+- Manifest：`287a744078b10054d107974125bac6b5fac43fd944b6200ec54720cd2695c9af`
+- Scientific launcher：`6dffce265e55f87fa5be848ec5bd9940fcecb6203f621a1454fb4f6a9c74caca`
 
 ## 唯一允许修改
 
-仅可版本化：
+版本化audit路径适配层，使audit通过显式参数获得trainer路径，而不是假设trainer与audit相邻。
 
-- source bundle；
-- bundle manifest/verifier；
-- deployment/preflight launcher；
-- import path及全新preflight root。
+该路径必须：
 
-不得修改trainer源码来绕过import。
+- 由manifest按精确repo path解析；
+- 位于当前验证bundle的`bundle/code/`内；
+- 匹配冻结Git blob、SHA256、size和mode；
+- 是regular non-symlink file；
+- 在audit执行前后保持相同identity/hash。
 
-## Hermetic Bundle要求
+不得：
 
-1. Bundle只能由冻结Git对象构建。
-2. 必须包含trainer/config及完整repository-local import closure，包括正确的：
+- 修改audit的任何数学断言；
+- 修改或复制trainer；
+- 在`bundle/frozen/`创建兼容文件或symlink；
+- 重建或修改bundle/manifest；
+- 使用ambient checkout或历史run root。
 
-   - `utils` package；
-   - `utils.logger`；
-   - trainer实际可达的其他local modules。
+## 必需负测试
 
-3. Manifest逐文件记录repo path、Git blob、SHA256、size和mode。
-4. 两次独立构建必须产生字节相同的archive和manifest。
-5. 在bundle外的空cwd中，仅以bundle root作为repository-local import root。
-6. 禁止从ambient checkout、历史run root、未记录scratch目录或网络补文件。
-7. 负测试必须拒绝缺失`utils`、错误hash、不同Git blob及ambient-path fallback。
+必须拒绝：
 
-## Launcher等价性
+- 旧的`bundle/frozen/...trainer.py`假路径；
+- symlink、路径逃逸；
+- 同字节不同manifest身份；
+- 错误blob/hash/size/mode；
+- 缺失或重复manifest条目；
+- ambient repository fallback；
+- 对audit数值逻辑的任何修改。
 
-新launcher与Task34R原launcher的规范化scientific command必须完全一致。唯一允许差异：
+## 单次Local Gate
 
-- bundle验证与解包；
-- import root；
-- 新的非覆盖preflight root；
-- deployment provenance字段。
+只允许运行一次完整local gate：
 
-env、seed、config、method、device参数和所有科学变量不得变化。
+1. 复核原bundle/archive/manifest hashes；
+2. 解析并记录精确trainer identity；
+3. empty-CWD import及module-origin ledger继续PASS；
+4. 运行冻结historical audit全部断言；
+5. 必须恢复以下结果：
 
-## Local Gates
+   - \(\|V-\operatorname{stopgrad}(R_\lambda)\|^2/(2B)\)
+   - \(G=J^\top J/B\)
+   - \(g=J^\top e/B\)
+   - Task13 effective standard-coordinate damping `5`
+   - RHS multiplier `10`
+   - transformed equality误差不超过既有FP64容差
 
-提交远端preflight前必须PASS：
+任何失败即`PRECHECK_BLOCKED`，不得修复或重跑。
 
-- compile/import smoke；
-- 空cwd trainer import；
-- `utils.logger`及所有local module origin均位于bundle manifest；
-- resolved config一致；
-- trainer/config hash一致；
-- launcher normalized-command equality；
-- Task34R历史scaling audit原样PASS；
-- 四个新preflight roots均不存在；
-- 没有Task34R science process/root或duplicate。
+## 四环境一次性Preflight
 
-任一本地门失败即`PRECHECK_BLOCKED`，不得提交远端preflight。
+Local Gate PASS后，对以下环境各提交恰好一次全新preflight：
 
-## 四个一次性Actual-Network Preflight
+- BigFish seed0
+- BossFight seed0
+- CaveFlyer seed0
+- CoinRun seed0
 
-Local Gates全部PASS后，允许对以下环境各提交恰好一次新preflight：
+使用互不覆盖且预先不存在的新roots。每格必须验证：
 
-- BigFish seed0；
-- BossFight seed0；
-- CaveFlyer seed0；
-- CoinRun seed0。
-
-必须使用全新、互不覆盖的preflight roots。不得修复后重提任何失败格。
-
-每格必须验证：
-
-- hermetic bundle及module origins；
-- production network构造与参数总数；
-- 精确257参数value-head partition；
-- standard MSE、\(G,g\)、sign、`1/B`及precision=1；
-- 完整512-row train minibatch；
-- validation block不参与当前\(G,g\)，但保留原训练schedule；
-- `ared_T=pred_T`达到FP64容差；
+- hermetic imports及module origins；
+- production network及257参数head partition；
+- standard MSE、`D=I`、`W=I`、precision=1；
+- 完整512-row train block；
+- calibration rows不进入当前\(G,g\)，但保留原训练schedule；
+- `ared_T=pred_T` FP64等式；
 - 非退化cross-minibatch`\rho_cv`回归；
-- rejected trial对参数、optimizer、momentum、PopArt和RNG bitwise回滚；
-- accepted delta仅由完整train rows构造；
+- rejected-trial完整bitwise rollback；
+- accepted delta只由完整train rows构造；
 - actor/shared方向、delta及policy logits与control bit-identical；
-- PopArt affine-scale回归；
-- Cholesky info0、finite residual和nonfinite/hard-error扫描。
+- PopArt affine-scale regression；
+- Cholesky info0、finite residual、NaN/Inf及hard-error扫描。
 
-## 验收标准
+任一失败不得现场修复、重提或切换科学身份。
 
-仅允许以下唯一结论之一：
+## 唯一结论
 
-- `PRECHECK_RECOVERED`：四环境preflight全部PASS，科学算法仍冻结；停止等待Planner。
-- `PRECHECK_BLOCKED`：任一local或actual-network gate失败。
-- `QUEUED_RESOURCE_WAIT`：提交后仅因队列/配额未运行。
-- `RESOURCE_PLACEMENT_BLOCKED`：刷新后没有符合约束的可用放置证据。
+仅允许：
 
-不得把scheduler完成单独视为preflight成功。
+- `PRECHECK_RECOVERED`：local gate与四环境preflight全部PASS；停止等待Planner。
+- `PRECHECK_BLOCKED`
+- `QUEUED_RESOURCE_WAIT`
+- `RESOURCE_PLACEMENT_BLOCKED`
+
+不得启动科学job、monitor、transition、checkpoint或model。
 
 ## 资源边界
 
-Executor负责刷新gpuH ownership、account、QOS、GRES、capacity、process和duplicate状态，并拥有全部live placement决定权。遵循用户偏好优先考虑gpuH；若不可用或不兼容，记录精确证据，不得静默换queue或改变科学身份。
-
-Planner不指定GPU、partition、卡数或并发。
+Executor负责刷新ownership、account、QOS、GRES、capacity、process、duplicate及live placement，并按用户偏好优先考虑gpuH。若不可用或不兼容，报告精确证据；不得静默换queue。Planner不指定具体GPU、partition、卡数或并发。
 
 ## 禁止事项
 
-- 不得启动任何6M科学job、monitor、transition或checkpoint。
-- 不得重试旧Task34R jobs。
-- 不得修改CVLM、damping、objective、threshold或comparison protocol。
+- 不得修改Task34R算法、trainer/config、CVLM或comparison protocol。
+- 不得重试Task34R/35R旧jobs。
+- 不得触碰Task32/Task33。
 - 不得加入GAE算子、actor weighting、Paper matching、joint/cross或sweep。
-- 不得触碰Task32/Task33及其roots/history。
-- 不得继续Task14–31 provenance observer框架。
 - 不得使用Jupyter。
 - 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
 - 不得规划MuJoCo或Isaac。
@@ -150,10 +131,10 @@ Planner不指定GPU、partition、卡数或并发。
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-HERMETIC-PREFLIGHT-20260826-35R.md`
+- `.agent/reports/PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-AUDIT-PATH-RECOVERY-20260826-36.md`
 
-报告必须包含bundle/manifest hashes、module-origin表、launcher等价性、四环境preflight矩阵、scheduler/root/artifact状态、完整failure ledger及唯一结论。
+报告必须包含路径适配diff、trainer manifest identity、负测试、historical audit、四环境preflight矩阵、scheduler/root/artifact状态、失败账本及唯一结论。
 
 提交代码和模型无关证据，不提交model/checkpoint。推送`origin/agent-work`并验证远端HEAD后回调Planner。
 
-User placement preference: prioritize gpuH after refreshing live ownership/account/QOS/GRES/capacity/duplicate state. Begin this unique READY task now. Do not run 6M science in this task; callback with exact preflight job IDs/states or the bounded terminal conclusion.
+Begin this unique READY task now. Preserve user placement preference: after the single local gate passes, refresh live gpuH ownership/account/QOS/GRES/capacity/duplicate state and prefer gpuH. Do not start 6M science in Task36. Callback with exact preflight job IDs/states or the bounded terminal conclusion.
