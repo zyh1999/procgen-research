@@ -1,0 +1,14 @@
+task=PROCGEN-FULL-SHARED-DETGGN-BLOCKDIAG-BXB-6M-S0-20260826-47
+job_id=19425990
+transition=2007040
+target_reward=2.2
+paper_reward=3.7
+ratio=0.5945945945945946
+decision=EARLY_STOPPED_ALGORITHM
+monitor_rc=3
+scheduler_state=CANCELLED_by_778916
+exit_code=0:0
+elapsed=00:39:48
+node=node822
+checkpoint_present=no
+hard_error_matches=0

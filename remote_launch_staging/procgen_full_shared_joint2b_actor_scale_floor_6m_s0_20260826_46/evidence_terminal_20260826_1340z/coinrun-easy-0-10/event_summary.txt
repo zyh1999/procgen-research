@@ -1,0 +1,15 @@
+task=PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46
+job_id=19424176
+state=COMPLETED
+exit_code=0:0
+elapsed=01:48:18
+node=node822
+root_status=PASS
+root_rc=0
+progress_rows=147
+trace_rows=46912
+checkpoint=metadata_only_not_copied
+hard_error_matches=0
+stage_2007040=6.2/3.7=1.6756756757_PASS
+stage_4014080=6.4/8.0=0.8_PASS
+stage_5980160=6.2/9.4=0.6595744681_PASS

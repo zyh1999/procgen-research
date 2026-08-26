@@ -1,0 +1,2 @@
+path=/scratch/h99859yz/procgen_full_shared_joint2b_actor_scale_floor_6m_s0_20260826_46/runs/FULL_SHARED_JOINT2B_CRITIC_ANCHORED_ACTOR_SCALE_FLOOR_V1/coinrun-easy-0-10/seed0/6m/model.ckpt size=3766013 mode=644 uid=778916 gid=10049 mtime=2026-08-26 13:35:22.000000000 +0100 inode=144122209995192447 type=regular file
+ed980e3e33666c0e2554ba09f9da5cf8f475918058eacb2286ea86e3653a2b17  /scratch/h99859yz/procgen_full_shared_joint2b_actor_scale_floor_6m_s0_20260826_46/runs/FULL_SHARED_JOINT2B_CRITIC_ANCHORED_ACTOR_SCALE_FLOOR_V1/coinrun-easy-0-10/seed0/6m/model.ckpt

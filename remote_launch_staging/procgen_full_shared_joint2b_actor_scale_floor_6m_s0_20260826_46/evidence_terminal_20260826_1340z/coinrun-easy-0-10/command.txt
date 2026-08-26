@@ -1,0 +1,1 @@
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/bin/python -u /scratch/h99859yz/procgen_full_shared_joint2b_actor_scale_floor_6m_s0_20260826_46/bundle/code/train_full_shared_joint2b_critic_anchored_actor_scale_floor_v1.py --config adv_resnet_full_shared_joint2b_critic_anchored_actor_scale_floor_v1_6m.yaml --env_name coinrun-easy-0-10 --seed 0 --device 0 

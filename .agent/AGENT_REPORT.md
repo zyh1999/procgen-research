@@ -126,3 +126,23 @@ BossFight, CaveFlyer and BigFish are now algorithm early stops, fixing the
 Task47 conclusion as `CANDIDATE_REJECT`. Task47 CoinRun `19425990` and Task46
 CoinRun `19424176` remain RUNNING on node822 and untouched. The sole 20-minute
 monitor continues for those two live cells.
+
+# Task46 / Task47 terminal delivery
+
+Task46 CoinRun `19424176` completed the endpoint with scheduler COMPLETED/0:0,
+root PASS/rc0 and exact ratios `1.6756756757`, `.8`, `.6595744681` at 2M, 4M
+and 5,980,160. Endpoint telemetry remained finite with Cholesky info0 and
+residual `3.77e-16`; the actor floor was active after actor-row collapse.
+Checkpoint bytes remain only on scratch; Git records metadata and hashes only.
+Task46 is terminal `CANDIDATE_REJECT` because its other three cells were legal
+algorithm early stops.
+
+Task47 CoinRun `19425990` stopped at exact2M, `2.20/3.70=.5945945946`.
+The frozen monitor returned rc3 and Slurm reports CANCELLED by778916 /0:0,
+elapsed00:39:48 on node822. Exact-stage actor/critic solves were finite,
+Cholesky info0, residuals at most `3.37e-14`, and hard-error scan zero. Task47
+is fully terminal `CANDIDATE_REJECT`: BF stopped at4M and all other cells at2M.
+
+No retry, requeue, resubmit, new candidate, model or checkpoint was committed.
+All jobs bound to the sole `procgen-3090` automation are terminal, so it may be
+retired after this origin-verified delivery.

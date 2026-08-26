@@ -150,3 +150,34 @@ The exact ledger, progress, selected exact/final trace rows, frozen identity,
 command/log hashes, scheduler state and zero hard-error scan are preserved in
 `evidence_monitor_20260826_1219z/caveflyer`. Task46 CoinRun `19424176` remains
 RUNNING and was not touched. Task46 remains `CANDIDATE_NOT_READY`.
+
+## CoinRun endpoint and final Task46 conclusion
+
+CoinRun `19424176` completed the full intended horizon. Slurm reports
+`COMPLETED/0:0`, elapsed 01:48:18 on node822; the root is `PASS`, rc0, with
+147 progress rows and 46,912 trace rows. Its three exact comparisons all pass:
+
+| Transition | Target | Paper | Ratio | Decision |
+|---:|---:|---:|---:|---|
+| 2,007,040 | 6.20 | 3.70 | 1.6756756757 | PASS |
+| 4,014,080 | 6.40 | 8.00 | .8 | PASS |
+| 5,980,160 | 6.20 | 9.40 | .6595744681 | PASS |
+
+At the endpoint trace the `.01` critic-anchored actor floor was active: raw
+actor scale and actor-row norm were zero, critic scale was `1.3228894e7`, and
+the effective actor scale was `132288.94`. The resulting solve remained
+finite: Cholesky info0, relative residual `3.7703e-16`, direction norm
+`.000271621`, shared/value direction norms `.000254063/.000096071`, clip scale
+`1`, finite scan PASS and no hard-error matches. Entropy and policy KL were
+zero at endpoint, which is retained as scientific telemetry rather than
+misclassified as an infrastructure failure.
+
+One checkpoint exists on scratch as a terminal artifact. Git contains only
+its path/size/mode/mtime/inode and SHA256 metadata; checkpoint bytes were not
+copied or committed. Full model-free terminal evidence is under
+`evidence_terminal_20260826_1340z/coinrun-easy-0-10`.
+
+Task46 is now fully terminal: BigFish stopped at 4M, BossFight and CaveFlyer
+stopped at 2M, and CoinRun completed the endpoint. With three algorithm early
+stops, the unique final conclusion is `CANDIDATE_REJECT`. No cell was retried,
+requeued or resubmitted.

@@ -221,3 +221,33 @@ are now algorithm early stops, so the campaign conclusion is irreversibly
 must continue naturally under its own exact-stage rule. Task46 CoinRun
 `19424176` also remains RUNNING on node822 after its independent 2M and 4M
 passes. Neither live cell was modified; the sole 20-minute monitor continues.
+
+## CoinRun exact 2M stop and final Task47 conclusion
+
+CoinRun `19425990` reached exact 2,007,040 with Target `2.20` and immutable
+Paper `3.70`, ratio `.5945945946`. The correct frozen Task47 monitor was
+applied exactly once, wrote `EARLY_STOPPED_ALGORITHM`, returned rc3 and
+cancelled only this cell. Slurm is authoritative: `CANCELLED by 778916`, exit
+`0:0`, elapsed 00:39:48 on node822. No checkpoint exists and no retry, requeue
+or resubmit occurred.
+
+The exact-stage numerical evidence is healthy:
+
+- independent actor/critic BxB Cholesky info `0/0`;
+- actor/critic relative residuals `3.3689e-14/7.1214e-15`;
+- raw actor/critic-J scales `2758.025/1971.083`;
+- actor/critic/summed direction norms `.459630/.551941/.788650`;
+- direction cosine `.209056`, shared contribution ratio `1.019669`, global
+  clip scale `.633995`;
+- entropy `1.252979`, behavior KL `4.0140e-8`, current-step KL `2.3381e-8`,
+  actor LR `.0001`;
+- finite scan PASS, no dual cross solve, and zero hard-error matches.
+
+The later pre-cancellation row is preserved only as bounded scheduling-lag
+evidence; the decision remains the exact 2M comparison. Complete model-free
+evidence is under `evidence_terminal_20260826_1340z/coinrun-easy-0-10`.
+
+Task47 is now fully terminal. BigFish stopped at 4M; BossFight, CaveFlyer and
+CoinRun stopped at 2M. All four were legal exact-stage algorithm early stops,
+so the unique final conclusion remains `CANDIDATE_REJECT`. No model or
+checkpoint is included in Git.

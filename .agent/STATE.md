@@ -1378,3 +1378,19 @@ Updated: 2026-08-26T14:37:00+08:00
 - Task46 CoinRun `19424176` remains independently RUNNING after exact 2M/4M
   passes. The sole 20-minute automation continues for both live Coin cells;
   no retry, requeue, resubmit or unrelated mutation occurred.
+
+# Task46 and Task47 terminal state (2026-08-26 13:40 CSF3)
+
+- Task46 CoinRun `19424176` completed scientifically: Slurm COMPLETED/0:0,
+  root PASS/rc0, exact 2M/4M/endpoint ratios `1.6756756757/.8/.6595744681`,
+  checkpoint present on scratch, hard-error scan zero. Only checkpoint metadata
+  is archived; model bytes are excluded from Git.
+- Task46 is fully terminal `CANDIDATE_REJECT`: BF stopped at4M, Boss/Cave at2M,
+  and Coin reached endpoint.
+- Task47 CoinRun `19425990` is terminal `EARLY_STOPPED_ALGORITHM` at exact2M,
+  `2.20/3.70=.5945945946`; scheduler CANCELLED by778916 /0:0 after00:39:48
+  on node822. Its BxB solves were finite, Cholesky info0 and hard-error scan0.
+- Task47 is fully terminal `CANDIDATE_REJECT`: BF stopped at4M and Boss/Cave/
+  Coin stopped at2M. No retry/requeue/resubmit occurred.
+- All cells bound to `procgen-3090` are terminal; after verified delivery the
+  sole automation may be retired/deleted.
