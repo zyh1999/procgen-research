@@ -34,3 +34,16 @@ runs on node820; the other three wait on `AssocMaxJobsLimit`.
 Task45 remains disjoint and untouched. Full frozen identities, roots and the
 replacement monitoring contract are in
 `.agent/reports/PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46.md`.
+
+# Task45 bounded monitor archive
+
+Task45 exact 2M decisions are now preserved: BigFish PASS
+`10.09/9.28=1.0872844828`, BossFight `EARLY_STOPPED_ALGORITHM`
+`0/2.92=0` and scheduler CANCELLED, and CoinRun PASS
+`6.20/3.70=1.6756756757`. Cave remains the prior numerical failure.
+
+CoinRun is still live but has a verified low-Fisher numerical degeneration at
+about 2.91M (actor scale `1.546e-52`, critic scale `2.643e5`, Inf direction and
+quadratics, NaN predicted KL, finite solver residual). There is no authorized
+cancel action before an eligible exact 4M row, so it was preserved and left
+running. Task46 was not modified.

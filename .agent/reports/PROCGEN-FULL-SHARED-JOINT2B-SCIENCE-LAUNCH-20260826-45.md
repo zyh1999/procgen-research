@@ -52,3 +52,34 @@ Preserve scheduler/root/process/progress/trace/checkpoint/numerical evidence and
 keep infrastructure, numerical and algorithm classifications separate.
 
 Current nonterminal conclusion: `CANDIDATE_NOT_READY`.
+
+## Exact 2M and numerical callback (2026-08-26 09:54Z)
+
+Scheduler and frozen-monitor reconciliation produced:
+
+| environment | exact transition | Target | Paper | ratio | scheduler/action |
+|---|---:|---:|---:|---:|---|
+| BigFish | 2,007,040 | 10.09 | 9.28 | 1.0872844828 | PASS; RUNNING |
+| BossFight | 2,007,040 | 0.00 | 2.92 | 0 | `EARLY_STOPPED_ALGORITHM`; CANCELLED by 778916 |
+| CaveFlyer | n/a | n/a | n/a | n/a | FAILED/1:0 numerical at about 536k |
+| CoinRun | 2,007,040 | 6.20 | 3.70 | 1.6756756757 | PASS; RUNNING |
+
+BossFight `19409682` is scheduler-authoritatively terminal after 00:50:17 on
+node820. Its root `RUNNING` marker and absent launcher rc are stale consequences
+of the monitor cancellation, not evidence that it remains live. The exact
+ledger, Paper/Target hashes and scheduler terminal row are preserved; it must
+never be retried.
+
+CoinRun `19409684` remains scheduler/root RUNNING, but its latest trace at
+2,908,160 transitions is algorithmically/numerically degenerate: entropy
+`2.550e-28`, actor raw scale `1.546e-52` versus critic scale `2.64341e5`,
+direction/gradient/actor and critic quadratics `Inf`, predicted KL `NaN`, clip
+scale `0`, LR `.5`, while the solve residual remains healthy at `7.44e-16`.
+This mirrors the low-Fisher singular amplification that terminated CaveFlyer.
+It is classified `RUNNING_NUMERICAL_DEGENERATION_NO_AUTHORIZED_CANCEL`, not an
+infrastructure failure and not a completed scientific result. Because its
+eligible exact 2M comparison passed and no exact >=4M comparison exists, the
+Executor did not cancel it.
+
+BigFish remains a healthy 2M PASS and continues. Task45 is therefore still
+nonterminal with unique current conclusion `CANDIDATE_NOT_READY`.

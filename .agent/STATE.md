@@ -1265,3 +1265,18 @@ Updated: 2026-08-26T14:37:00+08:00
   algorithm/numerical failure. No Task45 job/root/ledger was modified.
 - Use only the existing `procgen-3090` automation, updated in place, to monitor
   both frozen sets. Do not create another automation.
+
+# Task45 exact-stage and numerical state (2026-08-26 09:54Z)
+
+- BigFish `19409681` passed exact 2,007,040: `10.09/9.28=1.0872844828` and
+  remains RUNNING.
+- BossFight `19409682` failed exact 2,007,040: `0/2.92=0`; its frozen monitor
+  applied the authorized rule and scheduler now reports CANCELLED by 778916.
+  Classify `EARLY_STOPPED_ALGORITHM`; stale root RUNNING/absent rc are not live.
+- CaveFlyer `19409683` remains immutable FAILED/1:0 algorithm/numerical near
+  536k with low-Fisher nonfinite amplification.
+- CoinRun `19409684` passed exact 2M (`6.20/3.70=1.6756756757`) but is now
+  `RUNNING_NUMERICAL_DEGENERATION_NO_AUTHORIZED_CANCEL` near 2.91M: actor scale
+  `1.546e-52`, critic scale `2.643e5`, direction/grad/quadratics Inf, predicted
+  KL NaN, clip 0, LR .5 and residual `7.44e-16`. No exact 4M row exists, so no
+  cancellation was performed.

@@ -1,0 +1,39 @@
+{
+  "captured_utc": "2026-08-26T09:54:00Z",
+  "caveflyer": {
+    "classification": "ALGORITHM_NUMERICAL_FAILURE",
+    "job": "19409683",
+    "transitions": 536576,
+    "entropy": 1.6073312654306178e-37,
+    "actor_raw_scale": 3.348089605970483e-71,
+    "critic_raw_scale": 358824.48920466914,
+    "direction_l2": "Infinity",
+    "actor_quadratic": "Infinity",
+    "critic_quadratic": "Infinity",
+    "predicted_step_kl": "NaN",
+    "clip_scale": 0.0,
+    "relative_residual": 1.7120468814919153e-14,
+    "hard_error": "FloatingPointError: nonfinite Joint-2B scale-recovery solve"
+  },
+  "coinrun": {
+    "classification": "RUNNING_NUMERICAL_DEGENERATION_NO_AUTHORIZED_CANCEL",
+    "job": "19409684",
+    "transitions": 2908160,
+    "two_million_decision": "PASS",
+    "two_million_ratio": 1.6756756756756757,
+    "entropy": 2.5501849876388733e-28,
+    "actor_raw_scale": 1.5464722449091906e-52,
+    "critic_raw_scale": 264341.0005570196,
+    "direction_l2": "Infinity",
+    "grad_norm": "Infinity",
+    "actor_quadratic": "Infinity",
+    "critic_quadratic": "Infinity",
+    "predicted_step_kl": "NaN",
+    "clip_scale": 0.0,
+    "learning_rate": 0.5,
+    "relative_residual": 7.440165557396541e-16,
+    "scheduler_state": "RUNNING",
+    "root_status": "RUNNING",
+    "action": "PRESERVE_AND_MONITOR; NO_EXACT_4M_ROW; NO_CANCEL"
+  }
+}
