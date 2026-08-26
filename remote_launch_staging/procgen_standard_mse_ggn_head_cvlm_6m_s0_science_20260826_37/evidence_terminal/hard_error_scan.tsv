@@ -1,0 +1,5 @@
+environment	stdout_stderr_regex_hits	patterns
+BigFish	0	Traceback|OOM|CUDA error|NCCL|disk/quota|segfault|NaN/Inf|nonfinite|not SPD|Cholesky failure
+BossFight	0	Traceback|OOM|CUDA error|NCCL|disk/quota|segfault|NaN/Inf|nonfinite|not SPD|Cholesky failure
+CaveFlyer	0	Traceback|OOM|CUDA error|NCCL|disk/quota|segfault|NaN/Inf|nonfinite|not SPD|Cholesky failure
+CoinRun	0	Traceback|OOM|CUDA error|NCCL|disk/quota|segfault|NaN/Inf|nonfinite|not SPD|Cholesky failure

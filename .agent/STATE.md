@@ -1,6 +1,46 @@
 # Current Project State
 
-Updated: 2026-08-26T13:17:38+08:00
+Updated: 2026-08-26T14:37:00+08:00
+
+## Task37 terminal standard-MSE GGN head CVLM science
+
+- Task `PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-6M-S0-SCIENCE-20260826-37`
+  is terminal with unique conclusion `CANDIDATE_REJECT`.
+- Frozen assignment/control is `71f9e17e2fd8411faf34e4c2530800d66301e377`;
+  deployment freeze is `4be726357752b197d2c2fabf0d29500b193e8beb`.
+  Task36's four `PRECHECK_PASS/rc0` cells were reused and not rerun. Trainer,
+  config, bundle, manifest, CVLM, damping and scientific launcher identities
+  remained unchanged.
+- Exactly four fresh gpuH seed0 intended-6M cells ran once: BigFish `19397520`,
+  BossFight `19397521`, CaveFlyer `19397522`, CoinRun `19397523`. The existing
+  `procgen-3090` automation was converted in place to the only Task37 monitor.
+- At exact 2,007,040, Target/Paper rewards and ratios were BigFish
+  `3.96/9.28=.4267241379`, BossFight `0/2.92=0`, CaveFlyer
+  `1.27/4.45=.2853932584`, and CoinRun `0/3.70=0`. Every ratio is below 0.60;
+  the four-cell mean is `.1780293491`.
+- The frozen monitor wrote one rc3 `EARLY_STOPPED_ALGORITHM` ledger per cell.
+  Slurm terminal states are all `CANCELLED by 778916`: BigFish 00:37:13
+  node820, BossFight 00:37:15 node821, CaveFlyer 00:28:51 node822, CoinRun
+  00:27:22 node820. Scheduler evidence overrides stale root `RUNNING` markers
+  and absent trainer rc files.
+- Every root preserves scientific-start, command/provenance, progress, full
+  trace, stdout/stderr, hashes and exact `early_stop_2007040` evidence. There
+  are no checkpoints. Hard-error scans are zero; acted-stage Cholesky info is
+  zero and relative residuals are finite at `2.978e-17`--`3.745e-16`.
+- CVLM is numerically healthy but scientifically unsuccessful: BigFish and
+  CoinRun reject to zero head delta, BossFight accepts a negligible delta, and
+  CaveFlyer accepts a substantial held-out-positive delta yet achieves only
+  28.5% of Paper reward. No valid 4M or endpoint evidence exists.
+- Complete model-free evidence, including full metric traces, is retained in
+  the validated remote archive SHA256
+  `14e3cca153da5a90c9463cc7f64c440d9f9688f14b30309d1ad74bf228853e4c`.
+  The Git compact archive/tables are in
+  `remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_6m_s0_science_20260826_37/evidence_terminal/`.
+  No model/checkpoint is included.
+- No retry, requeue, resubmission, seed expansion, successor, sweep, second
+  monitor, Paper rerun, Jupyter/quarantined access or Task32/33 mutation is
+  authorized. Await exactly one ordinary ChatGPT Planner READY or
+  NEED_DECISION task.
 
 ## Task36 terminal audit-path recovery
 

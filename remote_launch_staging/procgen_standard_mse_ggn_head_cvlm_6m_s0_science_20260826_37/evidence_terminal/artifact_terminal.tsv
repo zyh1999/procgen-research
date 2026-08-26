@@ -1,0 +1,5 @@
+environment	job	scheduler_class	root_status	trainer_rc	monitor_rc	scientific_started	progress_rows	last_logged_transition	last_logged_reward	early_stop_dir	checkpoint	hard_error_hits	classification
+BigFish	19397520	CANCELLED	RUNNING_STALE	absent	3	yes	68	2785280	6.31	early_stop_2007040	absent	0	EARLY_STOPPED_ALGORITHM
+BossFight	19397521	CANCELLED	RUNNING_STALE	absent	3	yes	67	2744320	0.00	early_stop_2007040	absent	0	EARLY_STOPPED_ALGORITHM
+CaveFlyer	19397522	CANCELLED	RUNNING_STALE	absent	3	yes	53	2170880	0.58	early_stop_2007040	absent	0	EARLY_STOPPED_ALGORITHM
+CoinRun	19397523	CANCELLED	RUNNING_STALE	absent	3	yes	49	2007040	0.00	early_stop_2007040	absent	0	EARLY_STOPPED_ALGORITHM
