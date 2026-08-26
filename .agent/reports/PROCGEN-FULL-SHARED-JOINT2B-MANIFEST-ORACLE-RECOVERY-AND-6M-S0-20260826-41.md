@@ -56,12 +56,50 @@ oracle data.
 
 ## Production preflight
 
-Pending the single authorized production preflight at implementation freeze.
+The preflight/oracle implementation was frozen and pushed before the formal
+job at commit `a5743fb`. Preflight-only SHA256 identities are:
+
+- oracle implementation: `f52ad732b2b213aef35e377f0bc84026e4fa9f43f55313059dbbf22aa829c1b5`;
+- production preflight: `cd87d3bbc9030df2eed536cea1b0acf8c88bf3f6b858757e69ced040ca0f9660`;
+- negative regression: `f797324ddd3e69a8dcd94b8a9e24235db5794325c9572019fbc85348583ef81d`;
+- formal launcher: `ce6e14a01764ec1d0f9f4af969eb38be11d4ff8408f9023cebb71cf3073ecfdb`.
+
+Exactly one formal production preflight was submitted after fresh gpuH,
+ownership, duplicate and root checks:
+
+| job | scheduler | elapsed | node | root status/rc |
+|---|---|---:|---|---|
+| `19408491` | `FAILED/1:0` | 14 seconds | node820 | `PRECHECK_FAIL/1` |
+
+The production model construction, exact source hashes and frozen oracle
+comparison completed successfully; the earlier Task39 image-size failure and
+Task40 count mismatch did not recur. The job then failed while constructing
+the actor per-sample Jacobian, before actor/critic Jacobians, strict 1024-row
+system or solver evidence was complete. The exact exception is:
+
+```text
+RuntimeError: vmap: It looks like you're either (1) calling .item() on a Tensor
+or (2) attempting to use a Tensor in some data-dependent control flow ...
+```
+
+It arose from `torch.log_softmax(logits, -1)[0, action]`, where the vmapped
+scalar action was used as an indexing operand. This is classified
+`precheck-failure/preflight-harness-vmap-data-dependent-indexing`, not an
+algorithm, solver, numerical, GPU or scientific result. The required
+hard-error scan contains the expected Python traceback but no OOM, CUDA,
+NCCL, disk/quota or NaN/Inf failure signature. No `preflight.json` or PASS
+marker was produced.
+
+The single-preflight rule was honored: the harness was not repaired and job
+`19408491` was not retried, requeued or resubmitted.
 
 ## Science matrix
 
-No science job may exist before the production preflight is fully PASS.
+Because the sole production preflight did not PASS, no Task41 science job,
+root, process, transition, progress, trace, checkpoint, model, Paper comparison,
+cancellation or monitor exists. A post-terminal scheduler/process/artifact
+scan confirmed that only the unrelated multicore tunnel remained live.
 
 ## Conclusion
 
-Pending one allowed terminal conclusion.
+`PRECHECK_BLOCKED`

@@ -1,5 +1,36 @@
 # Current Project State
 
+## Task41 terminal production-manifest-oracle recovery precheck
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-MANIFEST-ORACLE-RECOVERY-AND-6M-S0-20260826-41`
+  is terminal with unique conclusion `PRECHECK_BLOCKED`.
+- Task39 trainer/config/science-launcher identities remain exact and the Task40
+  production HWC `(64,64,3)` to CHW `(3,64,64)`/image-size 64 construction
+  remains PASS. Task38 is still `SUPERSEDED_BEFORE_EXECUTION`; Task39 job
+  `19407505` and Task40 job `19407880` were not retried or relabeled.
+- gpuH local-gate job `19408345` completed `0:0` on node820. Two independent
+  Python 3.9 production constructions emitted byte-identical canonical oracle
+  SHA `62b1b10a81fc89ec621f0ceaf60735864cc899fafd6bda074c7414744506d303`.
+- The oracle proves 29 model parameter tensors/938,979 elements and 26 ordered
+  trainable optimizer/autograd/Joint-2B tensors/938,976 elements. The exact
+  three-element difference is the three one-element nontraining PopArt states
+  `last_v_layer.mean`, `last_v_layer.mean_sq` and
+  `last_v_layer.debiasing_term`; they do not enter Jacobians, solver columns or
+  delta. Required membership/order/source/hash negative gates all PASS.
+- Preflight-only implementation/oracle freeze `a5743fb` was pushed before the
+  formal job. Exactly one production preflight, `19408491`, then failed
+  `FAILED/1:0` after 14 seconds on node820 with root `PRECHECK_FAIL/1`.
+  Production model/oracle checks passed, but actor per-sample Jacobian creation
+  hit PyTorch vmap data-dependent tensor indexing at `[0, action]`, before
+  complete Jacobians, strict 1024-row system or solver evidence.
+- This is a preflight-harness failure, not algorithm/numerical/solver/GPU or
+  scientific evidence. No OOM/CUDA/NCCL/disk/quota/NaN/Inf signature exists.
+  The one-shot rule was honored: no repair, retry, science job/root/process,
+  transition, trace, checkpoint/model, Paper comparison, cancellation or
+  monitor exists. Await exactly one Planner READY or NEED_DECISION task.
+
+Updated: 2026-08-26T16:31:00+08:00
+
 ## Task40 terminal production-shape recovery precheck
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PRODUCTION-SHAPE-RECOVERY-AND-6M-S0-20260826-40`
