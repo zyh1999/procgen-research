@@ -22,11 +22,10 @@
 
 Updated: 2026-08-27T01:15:00+08:00
 
-## Task49 active on Bede after authorized zero-step migration
+## Task49 exact-2M CaveFlyer early stop; three cells remain live on Bede
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
-  is active with conclusion `CANDIDATE_NOT_READY` while its four Bede science
-  cells run. Frozen trainer/config hashes remain
+  remains `CANDIDATE_NOT_READY`. Frozen trainer/config hashes remain
   `4403ef006f53e8647adbcdb829a442037384f623e66eb69573843f21064db28a`
   and `e26f66a616b1d0314561a645ef26111da1b15988aad1391d1ef64b6a146d8135`.
 - CSF3 gate `19441667` was scheduler PENDING, elapsed `00:00:00`, start
@@ -42,16 +41,20 @@ Updated: 2026-08-27T01:15:00+08:00
   gpu006 with root `PRECHECK_PASS/rc0`. It executed PPO, switched exactly once,
   and completed a strict Joint-2B solve with Cholesky info 0, finite scan PASS
   and relative residual `3.17e-15`.
-- Four seed0 intended-6M jobs were submitted together once: BigFish `1074926`,
-  BossFight `1074927`, CaveFlyer `1074928`, CoinRun `1074929`. All initially
-  run with isolated roots and scientific-start markers; BF/Boss/Cave occupy
-  distinct V100s on gpu006 and Coin occupies gpu007. No startup hard error is
-  present. Bede jobs `1074901_*` were not touched.
+- At exact `2,007,040`, BigFish passed `8.64/9.28=.9310344828`, BossFight
+  passed `1.77/2.92=.6061643836`, and CoinRun passed
+  `9.00/3.70=2.4324324324`; all three remain RUNNING. CaveFlyer `1074928`
+  stopped at `0/4.45=0`: the frozen monitor wrote one
+  `EARLY_STOPPED_ALGORITHM` row and scheduler state is authoritative
+  `CANCELLED by 639800874`, exit `0:0`, elapsed `01:56:15`, node gpu006.
+  Its root RUNNING marker/absent rc are stale. Exact-stage solver telemetry is
+  finite with Cholesky info0, relative residual `9.09e-15` and hard-error
+  scan0. No repeat action or retry exists.
 - The sole automation `monitor-procgen-task49-ppo-warmup` was updated in place
   at 20-minute cadence to these four Bede IDs/roots. The immutable Paper seed0
   CSV baseline was hash-verified and made read-only inside the Bede campaign.
 
-Updated: 2026-08-26T23:26:00+08:00
+Updated: 2026-08-27T01:35:00+08:00
 
 ## Task45 active direct full-shared Joint-2B science
 

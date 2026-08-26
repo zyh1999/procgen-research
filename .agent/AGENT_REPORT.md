@@ -26,12 +26,19 @@ once; it is preserved as
 
 Bede gate `1074924` completed `0:0` on gpu006 with `PRECHECK_PASS`: a real PPO
 update, the single fixed boundary switch, and a finite full Joint-2B solve all
-ran; Cholesky info is zero and relative residual is `3.17e-15`. The four
-authorized seed0 6M cells were then submitted together exactly once and are
-RUNNING: BigFish `1074926`, BossFight `1074927`, CaveFlyer `1074928`, CoinRun
-`1074929`. All roots have scientific-start evidence and no immediate hard
-error. The existing 20-minute automation was updated in place; no duplicate
-monitor exists and no unrelated Bede job was touched.
+ran; Cholesky info is zero and relative residual is `3.17e-15`.
+
+At exact 2,007,040, BigFish `1074926` passed `.9310344828`, BossFight
+`1074927` passed `.6061643836` (strictly above `.60`), and CoinRun `1074929`
+passed `2.4324324324`; all remain RUNNING. CaveFlyer `1074928` recorded
+`0/4.45=0`, so the frozen monitor wrote one `EARLY_STOPPED_ALGORITHM` ledger
+row and returned rc3. Scheduler-authoritative terminal state is CANCELLED by
+639800874, exit `0:0`, elapsed `01:56:15`, node gpu006; the root RUNNING marker
+and absent rc are stale. Its switch count is one, exact-stage Cholesky info is
+zero, relative residual is `9.09e-15`, finite scan passed, and hard-error scan
+is zero. Complete bounded model-free evidence is archived; no model/checkpoint,
+repeat apply, retry, requeue or resubmit exists. Task50 was not changed and the
+sole 20-minute automation continues for all remaining live cells.
 
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45`

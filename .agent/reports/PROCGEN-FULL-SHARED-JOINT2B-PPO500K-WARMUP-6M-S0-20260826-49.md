@@ -1,6 +1,7 @@
 # PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
 
-Status: Bede science running; current conclusion `CANDIDATE_NOT_READY`.
+Status: Bede science running with one exact-2M algorithm early stop; current
+conclusion `CANDIDATE_NOT_READY`.
 
 Method: `FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1`.
 
@@ -114,3 +115,46 @@ four jobs/roots at 20-minute cadence. No second automation exists.
 
 Current bounded conclusion: `CANDIDATE_NOT_READY` pending exact 2M/4M/endpoint
 stages and terminal artifact verification.
+
+## Exact 2M stage and CaveFlyer bounded archive
+
+The sole frozen Task49 monitor (SHA256
+`4cd6dd6d343a7e79c5b3a49d58d1560c70c5b75330236017991b5d3531148ab5`)
+reconciled the first exact common transition at `2,007,040`. All immutable
+Paper `SHA256SUMS` entries were verified immediately before the decisions.
+
+| Environment | Job | Target | Paper | Ratio | Decision / scheduler |
+|---|---:|---:|---:|---:|---|
+| BigFish | `1074926` | 8.64 | 9.28 | 0.9310344828 | PASS; RUNNING |
+| BossFight | `1074927` | 1.77 | 2.92 | 0.6061643836 | PASS (strictly above `.60`); RUNNING |
+| CaveFlyer | `1074928` | 0.00 | 4.45 | 0.0 | `EARLY_STOPPED_ALGORITHM`; CANCELLED |
+| CoinRun | `1074929` | 9.00 | 3.70 | 2.4324324324 | PASS; RUNNING |
+
+For CaveFlyer, the exact target artifact SHA256 is
+`5480372a0522a9803225de4004ca77990fcba4b1e1b08d3e39dad14c4ff5d819`
+and the immutable Paper row SHA256 is
+`8d10f8614a1cb57d81c7705b7d2373c0c9de6b158c7cd1bdeabba2ca8236e292`.
+The monitor wrote one `EARLY_STOPPED_ALGORITHM` ledger row and returned rc3.
+Scheduler state immediately before apply was RUNNING on gpu006; authoritative
+terminal sacct is `CANCELLED by 639800874`, main exit `0:0`, elapsed
+`01:56:15`, start `2026-08-26T15:25:13`, end
+`2026-08-26T17:21:28`, node gpu006. The root's residual `RUNNING` marker and
+absent rc are stale and are not interpreted as a live job. No checkpoint is
+present and no repeat apply, retry, requeue or resubmit occurred.
+
+The phase ledger proves PPO ended at transition `503,808`, the first Joint-2B
+rollout began at `507,904`, switch count is exactly one, and Joint history
+started clean. At the exact stage, Cholesky info was `0`, finite scan passed,
+the applied solve residual was `1.6790261e-12`, relative residual was
+`9.0928192e-15`, actor raw scale was `2132.2119`, critic raw scale was
+`2692.6221`, natural cross-block Frobenius norm was `103.3706`, direction norm
+was `0.538161`, entropy was `0.392074`, and no hard-error signature matched.
+The bounded model-free archive includes the exact ledger, progress/trace and
+phase evidence, command/frozen identity, stdout/stderr snapshots, artifact
+hashes and scheduler before/after reconciliation; model/checkpoint bytes are
+excluded.
+
+BigFish, BossFight and CoinRun remain live. Task50 jobs `1075028-1075031`
+remain independently RUNNING and were not changed. The existing sole
+20-minute automation remains active for the three live Task49 cells and all
+Task50 cells; no second automation was created.

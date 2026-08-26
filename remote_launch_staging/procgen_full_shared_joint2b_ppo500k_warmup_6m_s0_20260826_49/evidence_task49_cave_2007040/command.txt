@@ -1,0 +1,1 @@
+/nobackup/projects/bdman37/yihe/ppc64le/envs/procgen_author/bin/python -u /nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/bundle/code/train_full_shared_joint2b_ppo500k_warmup_v1.py --config adv_resnet_full_shared_joint2b_ppo500k_warmup_v1_6m.yaml --env_name caveflyer-easy-0-10 --seed 0 --device 0 

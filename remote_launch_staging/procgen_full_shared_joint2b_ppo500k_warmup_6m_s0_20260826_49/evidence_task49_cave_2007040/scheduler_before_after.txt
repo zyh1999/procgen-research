@@ -1,0 +1,33 @@
+Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
+Method: FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1
+Environment: caveflyer-easy-0-10
+Seed: 0
+Job: 1074928
+
+Before frozen-monitor apply (authoritative monitor capture):
+state=RUNNING
+node=gpu006
+
+Frozen-monitor result:
+transition=2007040
+target_reward=0.00
+paper_reward=4.45
+ratio=0.0
+decision=EARLY_STOPPED_ALGORITHM
+monitor_rc=3
+
+After apply (scheduler-authoritative sacct):
+state=CANCELLED by 639800874
+exit_code=0:0
+elapsed=01:56:15
+start=2026-08-26T15:25:13
+end=2026-08-26T17:21:28
+node=gpu006
+
+Root reconciliation after scheduler cancellation:
+status=RUNNING (stale)
+rc=absent (stale)
+checkpoint=absent
+hard_error_matches=0
+
+No repeat monitor apply, cancellation, retry, requeue, or resubmit was performed.

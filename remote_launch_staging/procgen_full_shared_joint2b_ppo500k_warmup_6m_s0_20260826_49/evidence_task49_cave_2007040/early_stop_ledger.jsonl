@@ -1,0 +1,1 @@
+{"decision": "EARLY_STOPPED_ALGORITHM", "job": "1074928", "method": "FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1", "paper_reward": 4.45, "paper_sha256": "8d10f8614a1cb57d81c7705b7d2373c0c9de6b158c7cd1bdeabba2ca8236e292", "ratio": 0.0, "stage_floor": 2000000, "target_reward": 0.0, "target_sha256": "5480372a0522a9803225de4004ca77990fcba4b1e1b08d3e39dad14c4ff5d819", "transition": 2007040}
