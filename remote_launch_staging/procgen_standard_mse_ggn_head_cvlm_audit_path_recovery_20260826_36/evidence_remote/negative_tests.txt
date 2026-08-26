@@ -1,0 +1,20 @@
+Task36 audit-path negative test ledger
+
+Local Python suite: 7/7 PASS.
+Remote Python 3.9 identity assertions: all PASS.
+
+Rejected cases:
+- old bundle/frozen/train_shared_det_standard_mse_ggn_head_cvlm_v1.py false path
+- symlink component and lexical/resolved path escape
+- same bytes with a different repository manifest identity
+- wrong Git blob, SHA256, byte size, or Git mode
+- missing and duplicate manifest repository entries
+- ambient file fallback when the manifest identity is absent
+- any change to frozen audit numerical source SHA256
+
+The first remote test process reported only a shared-NFS TemporaryDirectory
+teardown error after the assertions had passed. Before the single complete
+local gate began, the test harness was versioned to reuse the already-present
+unmanifested target for the ambient-fallback negative instead of creating an
+extra temporary directory. Adapter/scientific/audit/bundle bytes were not
+changed. The corrected remote Python 3.9 suite then passed 7/7.

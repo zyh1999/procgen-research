@@ -1,0 +1,9 @@
+Task36 pre-submit gpuH placement snapshot
+association: user=h99859yz account=gpu-h200-fse-pgdr qos=gpu-h200-fse max_gres_gpu=4
+partition: gpuH UP; nodes node820-node823; 32 x H200 total
+nodes: node820 mixed, node821 mixed, node822 mixed, node823 mixed-
+user gpuH jobs before submit: none
+Task34R/Task35R/Task36 duplicate jobs before submit: none
+fresh Task36 roots before submit: four ABSENT
+selected placement: gpuH, one H200 per preflight, at most four concurrent
+alternative queue used: no

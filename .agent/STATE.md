@@ -1,6 +1,48 @@
 # Current Project State
 
-Updated: 2026-08-26T12:55:05+08:00
+Updated: 2026-08-26T13:17:38+08:00
+
+## Task36 terminal audit-path recovery
+
+- Task `PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-AUDIT-PATH-RECOVERY-20260826-36`
+  is terminal with unique conclusion `PRECHECK_RECOVERED`.
+- Control assignment is `2d35acca43e6d5f9f274354861f42bc7df503798`;
+  frozen path-adapter/test implementation is
+  `bc8d2f44dbebffe6a8119abae682a26ff9d325b3`. The Task34R scientific
+  implementation remains `55984df39bf883685583f22894edd5eb615f95ea`.
+- The adapter resolves the exact trainer manifest entry to `bundle/code/`,
+  checks repository path, Git blob, SHA256, size, mode, regular non-symlink
+  type and bundle containment, substitutes only the two stale target path
+  expressions in the in-memory frozen-audit AST, and verifies unchanged
+  trainer/config/audit device/inode/hash identity after execution.
+- Local and remote Python 3.9 negative suites reject the old `frozen/` path,
+  symlink/escape, different manifest identity, wrong blob/hash/size/mode,
+  missing/duplicate entries, ambient fallback and audit source mutation. A
+  first remote test teardown hit shared-NFS cleanup after assertions passed;
+  only the fixture was versioned before the complete gate began.
+- Exactly one complete local gate ran and passed. The immutable Task35R
+  archive/manifest, empty-CWD module origins and frozen historical audit all
+  passed. The recovered audit proves standard MSE, `G=J^T J/B`, `g=J^T e/B`,
+  precision one, Task13 effective damping 5 and RHS multiplier 10.
+- gpuH was refreshed after the gate: the user retained account/QOS and a
+  four-H200 limit, the 32-H200 partition was UP, no duplicate existed and all
+  four fresh roots were absent. No alternate queue was used.
+- Exactly four new actual-network preflights ran once: BigFish `19395683`,
+  BossFight `19395684`, CaveFlyer `19395685` and CoinRun `19395686`. All are
+  scheduler `COMPLETED/0:0` on node821 and root `PRECHECK_PASS/rc0` with the
+  exact compatibility marker and full ledgers.
+- Every environment proves the production 938,979-parameter network, exact
+  257-parameter value head, `D=I/W=I/K=J`, full train/calibration blocks,
+  non-degenerate cross-minibatch CVLM, bitwise rollback, train-only accepted
+  delta, actor/shared/logit identity, PopArt regression, Cholesky info 0 and
+  finite relative residual. Strict hard-error scans are zero; only the benign
+  initial cuBLAS context warning appears.
+- No science job, monitor, transition row, metric trace, checkpoint or model
+  exists. Task34R/35R were not retried and Task32/33 remain untouched.
+  Complete model-free evidence is in
+  `.agent/reports/PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-AUDIT-PATH-RECOVERY-20260826-36.md`
+  and
+  `remote_launch_staging/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/evidence_remote/`.
 
 ## Task35R terminal hermetic preflight recovery
 

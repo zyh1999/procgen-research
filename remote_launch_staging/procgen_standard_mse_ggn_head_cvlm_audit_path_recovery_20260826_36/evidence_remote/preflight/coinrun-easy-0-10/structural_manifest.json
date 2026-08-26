@@ -1,0 +1,528 @@
+{
+  "counts": {
+    "CRITIC_EXCLUSIVE": {
+      "numel": 257,
+      "tensors": 2
+    },
+    "POLICY_EXCLUSIVE": {
+      "numel": 3855,
+      "tensors": 2
+    },
+    "POPART_NONCURVATURE_STATE": {
+      "numel": 3,
+      "tensors": 3
+    },
+    "SHARED": {
+      "numel": 934864,
+      "tensors": 22
+    },
+    "total": {
+      "numel": 938979,
+      "tensors": 29
+    },
+    "trainable": {
+      "numel": 938976,
+      "tensors": 26
+    }
+  },
+  "critic_exclusive_names": [
+    "last_v_layer.weight",
+    "last_v_layer.bias"
+  ],
+  "optimizer_names": [
+    "backbone_net.conv_layers.0.weight",
+    "backbone_net.conv_layers.0.bias",
+    "backbone_net.conv_layers.2.conv1.weight",
+    "backbone_net.conv_layers.2.conv1.bias",
+    "backbone_net.conv_layers.2.conv2.weight",
+    "backbone_net.conv_layers.2.conv2.bias",
+    "backbone_net.conv_layers.3.conv1.weight",
+    "backbone_net.conv_layers.3.conv1.bias",
+    "backbone_net.conv_layers.3.conv2.weight",
+    "backbone_net.conv_layers.3.conv2.bias",
+    "backbone_net.conv_layers.4.weight",
+    "backbone_net.conv_layers.4.bias",
+    "backbone_net.conv_layers.6.conv1.weight",
+    "backbone_net.conv_layers.6.conv1.bias",
+    "backbone_net.conv_layers.6.conv2.weight",
+    "backbone_net.conv_layers.6.conv2.bias",
+    "backbone_net.conv_layers.7.conv1.weight",
+    "backbone_net.conv_layers.7.conv1.bias",
+    "backbone_net.conv_layers.7.conv2.weight",
+    "backbone_net.conv_layers.7.conv2.bias",
+    "backbone_net.linear.weight",
+    "backbone_net.linear.bias",
+    "pi_head.weight",
+    "pi_head.bias",
+    "last_v_layer.weight",
+    "last_v_layer.bias"
+  ],
+  "parameters": [
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.0.weight",
+      "numel": 216,
+      "optimizer_member": true,
+      "optimizer_position": 0,
+      "partition": "SHARED",
+      "position": 0,
+      "requires_grad": true,
+      "shape": [
+        8,
+        3,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.0.bias",
+      "numel": 8,
+      "optimizer_member": true,
+      "optimizer_position": 1,
+      "partition": "SHARED",
+      "position": 1,
+      "requires_grad": true,
+      "shape": [
+        8
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv1.weight",
+      "numel": 576,
+      "optimizer_member": true,
+      "optimizer_position": 2,
+      "partition": "SHARED",
+      "position": 2,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv1.bias",
+      "numel": 8,
+      "optimizer_member": true,
+      "optimizer_position": 3,
+      "partition": "SHARED",
+      "position": 3,
+      "requires_grad": true,
+      "shape": [
+        8
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv2.weight",
+      "numel": 576,
+      "optimizer_member": true,
+      "optimizer_position": 4,
+      "partition": "SHARED",
+      "position": 4,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.2.conv2.bias",
+      "numel": 8,
+      "optimizer_member": true,
+      "optimizer_position": 5,
+      "partition": "SHARED",
+      "position": 5,
+      "requires_grad": true,
+      "shape": [
+        8
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv1.weight",
+      "numel": 576,
+      "optimizer_member": true,
+      "optimizer_position": 6,
+      "partition": "SHARED",
+      "position": 6,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv1.bias",
+      "numel": 8,
+      "optimizer_member": true,
+      "optimizer_position": 7,
+      "partition": "SHARED",
+      "position": 7,
+      "requires_grad": true,
+      "shape": [
+        8
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv2.weight",
+      "numel": 576,
+      "optimizer_member": true,
+      "optimizer_position": 8,
+      "partition": "SHARED",
+      "position": 8,
+      "requires_grad": true,
+      "shape": [
+        8,
+        8,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.3.conv2.bias",
+      "numel": 8,
+      "optimizer_member": true,
+      "optimizer_position": 9,
+      "partition": "SHARED",
+      "position": 9,
+      "requires_grad": true,
+      "shape": [
+        8
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.4.weight",
+      "numel": 1152,
+      "optimizer_member": true,
+      "optimizer_position": 10,
+      "partition": "SHARED",
+      "position": 10,
+      "requires_grad": true,
+      "shape": [
+        16,
+        8,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.4.bias",
+      "numel": 16,
+      "optimizer_member": true,
+      "optimizer_position": 11,
+      "partition": "SHARED",
+      "position": 11,
+      "requires_grad": true,
+      "shape": [
+        16
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv1.weight",
+      "numel": 2304,
+      "optimizer_member": true,
+      "optimizer_position": 12,
+      "partition": "SHARED",
+      "position": 12,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv1.bias",
+      "numel": 16,
+      "optimizer_member": true,
+      "optimizer_position": 13,
+      "partition": "SHARED",
+      "position": 13,
+      "requires_grad": true,
+      "shape": [
+        16
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv2.weight",
+      "numel": 2304,
+      "optimizer_member": true,
+      "optimizer_position": 14,
+      "partition": "SHARED",
+      "position": 14,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.6.conv2.bias",
+      "numel": 16,
+      "optimizer_member": true,
+      "optimizer_position": 15,
+      "partition": "SHARED",
+      "position": 15,
+      "requires_grad": true,
+      "shape": [
+        16
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv1.weight",
+      "numel": 2304,
+      "optimizer_member": true,
+      "optimizer_position": 16,
+      "partition": "SHARED",
+      "position": 16,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv1.bias",
+      "numel": 16,
+      "optimizer_member": true,
+      "optimizer_position": 17,
+      "partition": "SHARED",
+      "position": 17,
+      "requires_grad": true,
+      "shape": [
+        16
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv2.weight",
+      "numel": 2304,
+      "optimizer_member": true,
+      "optimizer_position": 18,
+      "partition": "SHARED",
+      "position": 18,
+      "requires_grad": true,
+      "shape": [
+        16,
+        16,
+        3,
+        3
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.conv_layers.7.conv2.bias",
+      "numel": 16,
+      "optimizer_member": true,
+      "optimizer_position": 19,
+      "partition": "SHARED",
+      "position": 19,
+      "requires_grad": true,
+      "shape": [
+        16
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.linear.weight",
+      "numel": 921600,
+      "optimizer_member": true,
+      "optimizer_position": 20,
+      "partition": "SHARED",
+      "position": 20,
+      "requires_grad": true,
+      "shape": [
+        256,
+        3600
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "backbone_net.linear.bias",
+      "numel": 256,
+      "optimizer_member": true,
+      "optimizer_position": 21,
+      "partition": "SHARED",
+      "position": 21,
+      "requires_grad": true,
+      "shape": [
+        256
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "pi_head.weight",
+      "numel": 3840,
+      "optimizer_member": true,
+      "optimizer_position": 22,
+      "partition": "POLICY_EXCLUSIVE",
+      "position": 22,
+      "requires_grad": true,
+      "shape": [
+        15,
+        256
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "pi_head.bias",
+      "numel": 15,
+      "optimizer_member": true,
+      "optimizer_position": 23,
+      "partition": "POLICY_EXCLUSIVE",
+      "position": 23,
+      "requires_grad": true,
+      "shape": [
+        15
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "last_v_layer.weight",
+      "numel": 256,
+      "optimizer_member": true,
+      "optimizer_position": 24,
+      "partition": "CRITIC_EXCLUSIVE",
+      "position": 24,
+      "requires_grad": true,
+      "shape": [
+        1,
+        256
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "last_v_layer.bias",
+      "numel": 1,
+      "optimizer_member": true,
+      "optimizer_position": 25,
+      "partition": "CRITIC_EXCLUSIVE",
+      "position": 25,
+      "requires_grad": true,
+      "shape": [
+        1
+      ],
+      "trainable_member": true
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "last_v_layer.mean",
+      "numel": 1,
+      "optimizer_member": false,
+      "optimizer_position": null,
+      "partition": "POPART_NONCURVATURE_STATE",
+      "position": 26,
+      "requires_grad": false,
+      "shape": [
+        1
+      ],
+      "trainable_member": false
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "last_v_layer.mean_sq",
+      "numel": 1,
+      "optimizer_member": false,
+      "optimizer_position": null,
+      "partition": "POPART_NONCURVATURE_STATE",
+      "position": 27,
+      "requires_grad": false,
+      "shape": [
+        1
+      ],
+      "trainable_member": false
+    },
+    {
+      "dtype": "torch.float32",
+      "name": "last_v_layer.debiasing_term",
+      "numel": 1,
+      "optimizer_member": false,
+      "optimizer_position": null,
+      "partition": "POPART_NONCURVATURE_STATE",
+      "position": 28,
+      "requires_grad": false,
+      "shape": [],
+      "trainable_member": false
+    }
+  ],
+  "schema": "hybrid_head_structural_manifest_v1",
+  "trainable_names": [
+    "backbone_net.conv_layers.0.weight",
+    "backbone_net.conv_layers.0.bias",
+    "backbone_net.conv_layers.2.conv1.weight",
+    "backbone_net.conv_layers.2.conv1.bias",
+    "backbone_net.conv_layers.2.conv2.weight",
+    "backbone_net.conv_layers.2.conv2.bias",
+    "backbone_net.conv_layers.3.conv1.weight",
+    "backbone_net.conv_layers.3.conv1.bias",
+    "backbone_net.conv_layers.3.conv2.weight",
+    "backbone_net.conv_layers.3.conv2.bias",
+    "backbone_net.conv_layers.4.weight",
+    "backbone_net.conv_layers.4.bias",
+    "backbone_net.conv_layers.6.conv1.weight",
+    "backbone_net.conv_layers.6.conv1.bias",
+    "backbone_net.conv_layers.6.conv2.weight",
+    "backbone_net.conv_layers.6.conv2.bias",
+    "backbone_net.conv_layers.7.conv1.weight",
+    "backbone_net.conv_layers.7.conv1.bias",
+    "backbone_net.conv_layers.7.conv2.weight",
+    "backbone_net.conv_layers.7.conv2.bias",
+    "backbone_net.linear.weight",
+    "backbone_net.linear.bias",
+    "pi_head.weight",
+    "pi_head.bias",
+    "last_v_layer.weight",
+    "last_v_layer.bias"
+  ]
+}

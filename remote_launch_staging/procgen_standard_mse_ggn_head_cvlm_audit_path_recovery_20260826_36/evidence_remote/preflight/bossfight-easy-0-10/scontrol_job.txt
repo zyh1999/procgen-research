@@ -1,0 +1,34 @@
+JobId=19395684 JobName=t36r-boss-pre
+   SLUID=sD1XM0Y7VN7A00
+   UserId=h99859yz(778916) GroupId=fatpou01(10049) MCS_label=N/A
+   Priority=5631 Nice=0 Account=gpu-h200-fse-pgdr QOS=gpu-h200-fse
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   DerivedExitCode=0:0
+   RunTime=00:00:17 TimeLimit=00:30:00 TimeMin=N/A
+   SubmitTime=26/08/26 06:13 EligibleTime=26/08/26 06:13
+   AccrueTime=26/08/26 06:13
+   StartTime=26/08/26 06:13 EndTime=26/08/26 06:43 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=26/08/26 06:13 Scheduler=Main
+   Partition=gpuH AllocNode:Sid=login1:2814031
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=node821
+   BatchHost=node821
+   NumNodes=1 NumCPUs=8 NumTasks=1 CPUs/Task=8 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=8,mem=120G,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+   AllocTRES=cpu=8,mem=120G,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   JOB_GRES=gpu:h200:1
+     Nodes=node821 CPU_IDs=24-31 Mem=122880 GRES=gpu:h200:1(IDX:2)
+   MinCPUsNode=8 MinMemoryNode=120G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/frozen/standard_mse_ggn_head_cvlm_audit_path_preflight_gpuh.sbatch
+   SubmitLine=sbatch --job-name=t36r-boss-pre --export=ALL,PROCGEN_ENV=bossfight-easy-0-10 /scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/frozen/standard_mse_ggn_head_cvlm_audit_path_preflight_gpuh.sbatch
+   WorkDir=/mnt/iusers01/fatpou01/compsci01/h99859yz
+   StdErr=/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/scheduler/t36r-boss-pre_19395684.err
+   StdIn=/dev/null
+   StdOut=/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/scheduler/t36r-boss-pre_19395684.out
+   TresPerNode=gres/gpu:h200:1
+   TresPerTask=cpu=8
+

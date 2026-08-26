@@ -1,0 +1,211 @@
+{
+  "ambient_repository_fallback": false,
+  "bundle_root": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle",
+  "config_sha256": "52c133559825947cd233184f2468c4aa715c6c419274bb78f7f715d542718132",
+  "config_top_level_keys": [
+    "algo",
+    "algo_config",
+    "env_config",
+    "log_config",
+    "nets_config"
+  ],
+  "cwd": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/empty_cwd",
+  "module_origins": [
+    {
+      "git_blob": "f480eb3b509fb693a45d3264ae44aa383cc5f2e6",
+      "kind": "file_module",
+      "manifest_path": "code/train_shared_det_standard_mse_ggn_head_cvlm_v1.py",
+      "module": "standard_mse_cvlm_trainer",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/train_shared_det_standard_mse_ggn_head_cvlm_v1.py",
+      "sha256": "ca53efd549ae58738c5c215c84dfe5f342c0f801d3eb0f7fb61a2507f31e69fc"
+    },
+    {
+      "kind": "namespace_package",
+      "manifest_path": null,
+      "module": "utils",
+      "origin": null,
+      "search_locations": [
+        "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils"
+      ]
+    },
+    {
+      "git_blob": "fa81a447cfa82c6f617087463172e1dc517d2c3d",
+      "kind": "file_module",
+      "manifest_path": "code/utils/convnet.py",
+      "module": "utils.convnet",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/convnet.py",
+      "sha256": "580d162c1d4effe8c153af43ef56d3a98963770c021cd58a30500111552d96dd"
+    },
+    {
+      "git_blob": "94f8df269c78ce1b30b5c3dbcc8d8a5a18199335",
+      "kind": "file_module",
+      "manifest_path": "code/utils/logger.py",
+      "module": "utils.logger",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/logger.py",
+      "sha256": "5dce73131f4acbb36bf3756b79e734a5cb0571f8b96d0de7f062c589f0803c43"
+    },
+    {
+      "git_blob": "ce862b20de803111970432510e18f86ed7352987",
+      "kind": "file_module",
+      "manifest_path": "code/utils/monitor.py",
+      "module": "utils.monitor",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/monitor.py",
+      "sha256": "fa25b67b27a861ad28d2f951ad65418d22b72703724064ccf1fa9f1e4b8530a6"
+    },
+    {
+      "git_blob": "965ef39553f3eecacca79f63840c9a2d0d4e8c51",
+      "kind": "file_module",
+      "manifest_path": "code/utils/popart.py",
+      "module": "utils.popart",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/popart.py",
+      "sha256": "e9fb6a2dd920b4baaf035863a060001a57add82a20e27b3c7037db25018d91d3"
+    },
+    {
+      "git_blob": "9fc700f807d4502e3c27b5b513813c264ebe609c",
+      "kind": "file_module",
+      "manifest_path": "code/utils/resnet.py",
+      "module": "utils.resnet",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/resnet.py",
+      "sha256": "1add6ddaed433ab62bd28aea3f59f72b66b6854c40c412d61a27fb1d77dcf805"
+    },
+    {
+      "git_blob": "ef7482644d04d4daf47c28f5cb3cad105104de3a",
+      "kind": "file_module",
+      "manifest_path": "code/utils/rope.py",
+      "module": "utils.rope",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/rope.py",
+      "sha256": "9cd12b12bc4c040a4e36c9d29a223be9a135e93885dd545c2a29cb258c94499e"
+    },
+    {
+      "git_blob": "1b2f90e2ca85021f8d22e58b250f9fdd2738a408",
+      "kind": "file_module",
+      "manifest_path": "code/utils/runners.py",
+      "module": "utils.runners",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/runners.py",
+      "sha256": "2a17f6c6808540522cd39cc03360c080f35022d98a3d25549380e62507283df2"
+    },
+    {
+      "git_blob": "0ae0e6c6ac6f6a18ae622a1b91ec21040ed76a63",
+      "kind": "file_module",
+      "manifest_path": "code/utils/running_mean_std.py",
+      "module": "utils.running_mean_std",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/running_mean_std.py",
+      "sha256": "c306406c9b109aa76518f1738e7d41acbd6b72d8c2f4b4e94dc262e5605f404b"
+    },
+    {
+      "git_blob": "526a20f52de07acba4610501b46dfcedf52c12ac",
+      "kind": "file_module",
+      "manifest_path": "code/utils/seq_running_mean_std.py",
+      "module": "utils.seq_running_mean_std",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/seq_running_mean_std.py",
+      "sha256": "18b5b85a2b8a0de5ddbbc77541ca0bcaba30e1ef20ca671f948d708e572d5a40"
+    },
+    {
+      "git_blob": "4f7ce01e64bece26cbf8335e953ede12cf7057ae",
+      "kind": "file_module",
+      "manifest_path": "code/utils/transformer.py",
+      "module": "utils.transformer",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/transformer.py",
+      "sha256": "ca00ee0d1cce6ce303d1fbb5e3ccba8d847012d0abdaa0e05da298c8620f8339"
+    },
+    {
+      "git_blob": "2a84458f7488c594328fc2c8efa8a6147c8bf169",
+      "kind": "file_module",
+      "manifest_path": "code/utils/utils.py",
+      "module": "utils.utils",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/utils.py",
+      "sha256": "3c39421c055fc3414b9fe55e17cd339576fb5567520c940254addaf0afb1b358"
+    },
+    {
+      "git_blob": "4b1e294aaa01789fde9a64acc08defd9dfb3f006",
+      "kind": "file_module",
+      "manifest_path": "code/utils/vision_transformers.py",
+      "module": "utils.vision_transformers",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/vision_transformers.py",
+      "sha256": "60cb45b20ddb792d11714e24891cf6fcd11e8a652fc3ef2e0a0c4aa053569ed7"
+    },
+    {
+      "git_blob": "221766c33ae0c40d9f2150218ba72c57e282039c",
+      "kind": "file_module",
+      "manifest_path": "code/utils/vit.py",
+      "module": "utils.vit",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/utils/vit.py",
+      "sha256": "32a0b261b27b47cb4831829554405042f686b6578fb6c7d6db0d32fbc49beb0c"
+    },
+    {
+      "git_blob": "9fbb2a6b19e8df06c045789ca9cf7357e2a6efda",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/__init__.py",
+      "module": "vec_env",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/__init__.py",
+      "sha256": "4eaff3aa854a57e64a3c95c043a49833d43fd1fcb93d4b6d30de9b35d2f7740f"
+    },
+    {
+      "git_blob": "8a49bb2278f7f40a3a3c67e7836fc2bddfe4d010",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/dummy_vec_env.py",
+      "module": "vec_env.dummy_vec_env",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/dummy_vec_env.py",
+      "sha256": "c966c0433f7f19c078e6c8f1c5ae9e3339e1e3a20c3a58ab93d2e5ec0e37f9d6"
+    },
+    {
+      "git_blob": "db1c11becbc84d53a33b4c5ce40798f9227a6445",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/shmem_vec_env.py",
+      "module": "vec_env.shmem_vec_env",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/shmem_vec_env.py",
+      "sha256": "8640b2efe01fd7fead0a779ec6ea805b6bde4e56d98ddc3c63f531c1b846ca38"
+    },
+    {
+      "git_blob": "8c74000889c44c06a50fd0e89a8dc04d272b7793",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/subproc_vec_env.py",
+      "module": "vec_env.subproc_vec_env",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/subproc_vec_env.py",
+      "sha256": "4a106b6cfd7e43f2a168cfd01d5bd751ba3ad0beb1e83dd6403e7213d35b001d"
+    },
+    {
+      "git_blob": "ddc71c27e0599fe5072220bdb067ebe2c64d74d8",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/util.py",
+      "module": "vec_env.util",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/util.py",
+      "sha256": "1e42beda55d836b79599e4d69373604e5d21ef95c7d57f1967b48912bb9c4994"
+    },
+    {
+      "git_blob": "32a7572f845e4c2904c446993887fc6b201fb24c",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/vec_env.py",
+      "module": "vec_env.vec_env",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/vec_env.py",
+      "sha256": "28af8e5674dfb4a4fcab69c96a51f8ffc93e0d1edaced13a3862f2fb7a321230"
+    },
+    {
+      "git_blob": "334d49734316969bad4754c26dc39e6bcfc2189a",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/vec_monitor.py",
+      "module": "vec_env.vec_monitor",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/vec_monitor.py",
+      "sha256": "f34e7a8b808e7a57cbef41887a30ca50980c6ff031a87f3d0039fa670682ed28"
+    },
+    {
+      "git_blob": "5cceb8fae4795d52861d7b7b960482ad159535aa",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/vec_normalize.py",
+      "module": "vec_env.vec_normalize",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/vec_normalize.py",
+      "sha256": "e6b0518260699151cc45ff196368895aac2c538fc427896d5d626f94fe64dd9d"
+    },
+    {
+      "git_blob": "a6c465692d15ebddf9beabd876867a62d8345f06",
+      "kind": "file_module",
+      "manifest_path": "code/vec_env/vec_remove_dict_obs.py",
+      "module": "vec_env.vec_remove_dict_obs",
+      "origin": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code/vec_env/vec_remove_dict_obs.py",
+      "sha256": "df18ac9cf3a164c4b957e3515eb17dc88e77699c56c14ba35e33f3d949802157"
+    }
+  ],
+  "repository_import_root": "/net/scratch/h99859yz/procgen_standard_mse_ggn_head_cvlm_audit_path_recovery_20260826_36/preflight/bigfish-easy-0-10/bundle/code",
+  "result": "TASK35R_EMPTY_CWD_IMPORT_PASS",
+  "trainer_sha256": "ca53efd549ae58738c5c215c84dfe5f342c0f801d3eb0f7fb61a2507f31e69fc"
+}

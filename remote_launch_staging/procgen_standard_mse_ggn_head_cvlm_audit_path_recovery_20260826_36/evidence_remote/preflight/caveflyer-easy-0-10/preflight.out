@@ -1,0 +1,26 @@
+Setting seed: 0
+Logging to logs/shared.adv.resnet.dropout_0.0.damping_0.5.lr_0.5/caveflyer-easy-0-10.20260826-061530_0
+creating environment
+Running on device: cuda:0
+training...
+
+Number of parameters: 938979.0
+
+GPUH_STANDARD_MSE_GGN_HEAD_CVLM_COMPATIBILITY_PASS
+canonical_production_config_path=PASS
+resolved_configuration_three_way=BIT_IDENTICAL
+resolved_config_sha256=c5da36cbdcaa7908eed90a6996fec05f1d88195fb81868f6f6badb159a347fcd
+actual_procgen_rollout_lambda_returns=PASS
+standard_mse_D_I_W_I_K_J=PASS
+complete_8x512_schedule_and_disjoint_next_minibatch=PASS
+same_minibatch_ared_pred_abs_error=8.327e-17
+opposing_case_accept_rho=1
+opposing_case_reject_rho=-1.2905
+rejected_trial_rollback=BIT_IDENTICAL
+accepted_direction_train_rows_only=PASS
+actor_shared_directions_deltas_logits=BIT_IDENTICAL
+only_257_head_parameters_differ_scientifically=PASS
+popart_affine_reward_scale=PASS
+head_fp64_cholesky_info_max=0
+head_fp64_relative_residual=5.877e-16
+gpu=NVIDIA H200 total_bytes=150111977472
