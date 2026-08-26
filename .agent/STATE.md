@@ -1,5 +1,24 @@
 # Current Project State
 
+## Task45 active direct full-shared Joint-2B science
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45` is active
+  under the user's explicit direct-science override; current conclusion is
+  `CANDIDATE_NOT_READY` pending scientific stages.
+- Frozen trainer/config/science launcher/oracle hashes are exact. Deployment
+  freeze `9f0fcc2b076693964ac331477e4d1b8977660313` changes only Task45 root/task
+  routing; the normalized science command and algorithm remain unchanged.
+- Minimal SHA/command/root/duplicate/gpuH checks passed. Exactly four seed0 6M
+  jobs were submitted once: BigFish `19409681`, BossFight `19409682`,
+  CaveFlyer `19409683`, CoinRun `19409684`.
+- All four are initially `RUNNING` on node820 with isolated fresh roots,
+  `scientific_started.marker`, trainer PID, frozen identity and active first
+  minibatches. No immediate hard infrastructure or nonfinite error exists.
+- Task43 preflight discrepancies remain unresolved evidence and were not
+  relabeled PASS. No old task/job was retried or modified.
+
+Updated: 2026-08-26T18:08:00+08:00
+
 ## Task43 terminal structural-zero recovery local gate
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-STRUCTURAL-ZERO-RECOVERY-AND-6M-S0-20260826-43`
