@@ -60,6 +60,17 @@ BossFight and CoinRun passed exact 4M and remain RUNNING. Task50 was untouched;
 no repeat apply, retry, requeue or resubmit occurred, and the sole automation
 continues.
 
+CoinRun `1074929` is now a clean scientific endpoint completion:
+scheduler `COMPLETED/0:0`, root `PASS/rc0`, elapsed `06:14:32`, gpu007. Its
+exact rewards are `9.00/3.70` at 2M, `9.50/8.00` at 4M and `9.80/9.40` at
+5,980,160, all PASS. The one phase switch is preserved; final Joint-2B
+telemetry is finite with Cholesky info0, relative residual `2.469e-14` and
+hard-error scan0. The actual checkpoint is `model.ckpt`, a regular 3,766,013
+byte mode664 file. Only its stat metadata was archived; contents were not
+copied, hashed, modified or committed. BossFight remains RUNNING and
+untouched, as do Task50 live cells. No retry, requeue, resubmit or cancellation
+occurred, and the sole automation continues.
+
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45`
 

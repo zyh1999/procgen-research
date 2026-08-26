@@ -1,0 +1,1 @@
+{"decision": "PASS", "job": "1074929", "method": "FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1", "paper_reward": 3.7, "paper_sha256": "0db1a7538f2ffbcf8c94bec8c84273134b0e08d9eaa5e8366d6b6f15f59e5aeb", "ratio": 2.4324324324324325, "stage_floor": 2000000, "target_reward": 9.0, "target_sha256": "89b15f54e1d0368af373c5588803044b9a0319225186e9eae1e6803356a6edac", "transition": 2007040}

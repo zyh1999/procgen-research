@@ -1,0 +1,7 @@
+transition=2007040 target=9.00 paper=3.70 ratio=2.4324324324324325 decision=PASS
+transition=4014080 target=9.50 paper=8.00 ratio=1.1875 decision=PASS
+transition=5980160 target=9.80 paper=9.40 ratio=1.0425531914893618 decision=PASS
+
+progress_csv_sha256=91f04c4891563bc3cfe266dda36e081a6d6c73bba0256765ac8c8dc2ba71c046
+paper_coin_sha256=0db1a7538f2ffbcf8c94bec8c84273134b0e08d9eaa5e8366d6b6f15f59e5aeb
+comparison_identity=same env, seed0, evaluation/reward semantics, exact transition

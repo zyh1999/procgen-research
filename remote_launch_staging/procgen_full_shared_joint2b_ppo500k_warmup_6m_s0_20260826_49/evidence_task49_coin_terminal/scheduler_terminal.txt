@@ -1,0 +1,21 @@
+Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
+Method: FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1
+Environment: coinrun-easy-0-10
+Seed: 0
+Job: 1074929
+
+scheduler_state=COMPLETED
+exit_code=0:0
+elapsed=06:14:32
+start=2026-08-26T15:25:13
+end=2026-08-26T21:39:45
+node=gpu007
+root_status=PASS
+root_rc=0
+scientific_endpoint=5980160
+hard_error_matches=0
+phase_switch_count=1
+latest_joint_cholesky_info=0
+latest_joint_finite_scan=PASS
+latest_joint_relative_residual=2.469188228126528e-14
+No retry, requeue, resubmit, cancellation, or post-terminal mutation occurred.

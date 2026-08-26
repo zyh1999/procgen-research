@@ -29,7 +29,7 @@
 
 Updated: 2026-08-27T03:40:00+08:00
 
-## Task49 BigFish 4M and CaveFlyer 2M early stops; Boss/Coin remain live
+## Task49 Coin endpoint PASS; Boss live; BigFish/Cave early-stopped
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
   remains `CANDIDATE_NOT_READY`. Frozen trainer/config hashes remain
@@ -64,12 +64,20 @@ Updated: 2026-08-27T03:40:00+08:00
   root RUNNING/absent rc are stale. The exact-stage solve was finite with
   Cholesky info0, relative residual `5.84e-15`, hard-error scan0 and no
   checkpoint. BossFight passed exact 4M `3.92/3.45=1.1362` and CoinRun passed
-  `9.50/8=1.1875`; both remain RUNNING and untouched.
+  `9.50/8=1.1875`; both were left RUNNING and untouched at that stage.
+- CoinRun `1074929` subsequently completed scheduler/root cleanly:
+  `COMPLETED/0:0`, root `PASS/rc0`, elapsed `06:14:32`, gpu007. Its exact
+  endpoint row is `9.80/9.40=1.0425531915` PASS after earlier 2M/4M PASSes.
+  Phase switch count is one, latest Joint-2B telemetry is finite with
+  Cholesky info0, relative residual `2.469e-14` and hard-error scan0. The
+  actual checkpoint filename is `model.ckpt` (regular file, 3,766,013 bytes,
+  mode664); Git records metadata only and contains no checkpoint bytes.
+  BossFight remains the sole live Task49 cell and was untouched.
 - The sole automation `monitor-procgen-task49-ppo-warmup` was updated in place
   at 20-minute cadence to these four Bede IDs/roots. The immutable Paper seed0
   CSV baseline was hash-verified and made read-only inside the Bede campaign.
 
-Updated: 2026-08-27T03:55:00+08:00
+Updated: 2026-08-27T05:55:00+08:00
 
 ## Task45 active direct full-shared Joint-2B science
 

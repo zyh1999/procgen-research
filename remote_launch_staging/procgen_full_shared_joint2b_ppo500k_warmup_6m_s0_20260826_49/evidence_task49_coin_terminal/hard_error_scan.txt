@@ -1,0 +1,2 @@
+hard_error_matches=0
+patterns=Traceback|out of memory|OOM|NCCL error|CUDA error|disk quota|No space left|nonfinite|NaN|Inf

@@ -1,0 +1,14 @@
+path=/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/runs/FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1/coinrun-easy-0-10/seed0/6m/model.ckpt
+filename='/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_warmup_6m_s0_20260826_49/runs/FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1/coinrun-easy-0-10/seed0/6m/model.ckpt'
+type=regular file
+size_bytes=3766013
+mode=664
+uid=639800874
+gid=639600607
+device=4f53a12a
+inode=144116345737330669
+links=1
+mtime=2026-08-26 21:39:45.000000000 +0100
+ctime=2026-08-26 21:39:45.000000000 +0100
+checkpoint_content_copied=false
+checkpoint_hash_computed=false

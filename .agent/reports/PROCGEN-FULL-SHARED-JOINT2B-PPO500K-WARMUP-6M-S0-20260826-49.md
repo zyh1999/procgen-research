@@ -1,7 +1,7 @@
 # PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
 
 Status: Bede science running with Cave exact-2M and BigFish exact-4M algorithm
-early stops; current
+early stops, CoinRun endpoint completion, and BossFight still live; current
 conclusion `CANDIDATE_NOT_READY`.
 
 Method: `FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1`.
@@ -114,8 +114,8 @@ original `SHA256SUMS`, and made read-only under the Bede campaign. The existing
 automation `monitor-procgen-task49-ppo-warmup` was updated in place to these
 four jobs/roots at 20-minute cadence. No second automation exists.
 
-Current bounded conclusion: `CANDIDATE_NOT_READY` pending exact 2M/4M/endpoint
-stages and terminal artifact verification.
+Current bounded conclusion: `CANDIDATE_NOT_READY`; final Task49 classification
+awaits the remaining BossFight terminal evidence.
 
 ## Exact 2M stage and CaveFlyer bounded archive
 
@@ -189,7 +189,48 @@ complete source logs/trace remain at the immutable Bede root and no
 model/checkpoint bytes were committed.
 
 BossFight passed exact 4M (`3.92/3.45=1.1362`) and CoinRun passed exact 4M
-(`9.50/8.00=1.1875`); both remain RUNNING. CaveFlyer remains the archived 2M
+(`9.50/8.00=1.1875`); both were left RUNNING at that stage. CaveFlyer remains the archived 2M
 algorithm stop. Task50 Boss/Cave remain archived 2M stops while Task50
 BigFish/Coin continue RUNNING. No live cell was touched, and the sole
+20-minute automation remains active.
+
+## CoinRun scientific endpoint completion
+
+CoinRun `1074929` is scheduler-authoritatively `COMPLETED/0:0`, elapsed
+`06:14:32`, start `2026-08-26T15:25:13`, end
+`2026-08-26T21:39:45`, node gpu007. Root status is `PASS`, root rc is `0`,
+and the exact endpoint progress row at `5,980,160` is present.
+
+| Transition | Target | Paper | Ratio | Decision |
+|---:|---:|---:|---:|---|
+| 2,007,040 | 9.00 | 3.70 | 2.4324324324 | PASS |
+| 4,014,080 | 9.50 | 8.00 | 1.1875 | PASS |
+| 5,980,160 | 9.80 | 9.40 | 1.0425531915 | PASS |
+
+The comparison is same environment, seed0, evaluation/reward semantics and
+exact transition against immutable Paper CoinRun SHA256
+`0db1a7538f2ffbcf8c94bec8c84273134b0e08d9eaa5e8366d6b6f15f59e5aeb`.
+The complete progress CSV SHA256 is
+`91f04c4891563bc3cfe266dda36e081a6d6c73bba0256765ac8c8dc2ba71c046`.
+
+The phase ledger records exactly one switch: PPO ends at `503,808`, Joint-2B
+begins at `507,904`, and Joint optimizer history starts clean. At the endpoint
+row, actor/critic raw scales were `26486.0938/46697.9023`, cross Frobenius was
+`1719.9210`, direction norm was `.515510`, entropy was `.208797`, Cholesky
+info0 and the exact-row relative residual was `3.8605e-14`. The final trace at
+`6,004,736` remained finite with actor/critic raw scales
+`27377.8516/46653.3672`, cross Frobenius `847.5983`, Cholesky info0 and
+relative residual `2.4692e-14`. Hard-error scan is zero.
+
+The actual frozen checkpoint artifact is `model.ckpt`, not `checkpoint.pt`.
+It is a regular non-symlink file of `3,766,013` bytes, mode `664`, one link,
+mtime `2026-08-26 21:39:45 +0100`, at the exact CoinRun root. Only stat
+metadata was recorded: checkpoint contents were not copied, hashed, modified
+or committed. The bounded model-free Git archive contains progress,
+phase/frozen identity, root status/rc, terminal telemetry/log snapshots,
+scheduler and checkpoint metadata, and per-file hashes.
+
+BossFight remains RUNNING near endpoint and was not touched. BigFish and
+CaveFlyer remain their archived algorithm stops. Task50 live cells were not
+modified. No retry, requeue, resubmit or cancellation occurred, and the sole
 20-minute automation remains active.
