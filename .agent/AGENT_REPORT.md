@@ -26,9 +26,10 @@ requeue or resubmit exists, and the sole 20-minute automation remains active.
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
 
-Current conclusion: `CANDIDATE_NOT_READY`
+Current conclusion: `CANDIDATE_REJECT`
 
-The user-authorized atomic CSF3-to-Bede migration is complete. CSF3 gate
+Task49 is fully terminal. The user-authorized atomic CSF3-to-Bede migration is
+complete. CSF3 gate
 `19441667` was verified zero-step with no root/process/artifact and cancelled
 once; it is preserved as
 `CANCELLED_FOR_USER_AUTHORIZED_ZERO_STEP_BEDE_MIGRATION`.
@@ -39,7 +40,7 @@ ran; Cholesky info is zero and relative residual is `3.17e-15`.
 
 At exact 2,007,040, BigFish `1074926` passed `.9310344828`, BossFight
 `1074927` passed `.6061643836` (strictly above `.60`), and CoinRun `1074929`
-passed `2.4324324324`; all remain RUNNING. CaveFlyer `1074928` recorded
+passed `2.4324324324`; each continued at that stage. CaveFlyer `1074928` recorded
 `0/4.45=0`, so the frozen monitor wrote one `EARLY_STOPPED_ALGORITHM` ledger
 row and returned rc3. Scheduler-authoritative terminal state is CANCELLED by
 639800874, exit `0:0`, elapsed `01:56:15`, node gpu006; the root RUNNING marker
@@ -56,7 +57,7 @@ is authoritative CANCELLED by639800874, exit `0:0`, elapsed `04:14:32`, node
 gpu006; root RUNNING/absent rc are stale. Exact-stage Cholesky info was zero,
 finite scan passed, relative residual was `5.84e-15`, hard-error scan was zero
 and no checkpoint exists. Complete bounded model-free evidence is archived.
-BossFight and CoinRun passed exact 4M and remain RUNNING. Task50 was untouched;
+BossFight and CoinRun passed exact 4M and continued. Task50 was untouched;
 no repeat apply, retry, requeue or resubmit occurred, and the sole automation
 continues.
 
@@ -67,9 +68,23 @@ exact rewards are `9.00/3.70` at 2M, `9.50/8.00` at 4M and `9.80/9.40` at
 telemetry is finite with Cholesky info0, relative residual `2.469e-14` and
 hard-error scan0. The actual checkpoint is `model.ckpt`, a regular 3,766,013
 byte mode664 file. Only its stat metadata was archived; contents were not
-copied, hashed, modified or committed. BossFight remains RUNNING and
-untouched, as do Task50 live cells. No retry, requeue, resubmit or cancellation
-occurred, and the sole automation continues.
+copied, hashed, modified or committed.
+
+BossFight `1074927` subsequently completed `COMPLETED/0:0`, root `PASS/rc0`,
+elapsed `06:21:25` on gpu006. Its exact stages are
+`1.77/2.92=.6061643836`, `3.92/3.45=1.1362318841`, and endpoint
+`2.90/3.14=.9235668790`, all PASS. The phase switch count is one; final
+Joint-2B telemetry remained finite with Cholesky info0, relative residual
+`1.695e-13` and hard-error scan0. Its regular non-symlink `model.ckpt` is
+3,766,013 bytes and mode664; only stat metadata was recorded, never checkpoint
+contents or a content hash.
+
+Final effective ratios are BigFish `.4834337349`, BossFight `.9235668790`,
+CaveFlyer `0`, and CoinRun `1.0425531915`, with mean `.6123884514`. Task49 has
+only two endpoints, two algorithm early stops and one endpoint above Paper, so
+its unique terminal conclusion is `CANDIDATE_REJECT`. Task50 live cells remain
+untouched; the sole automation remains active for them. No retry, requeue,
+resubmit or new candidate action occurred.
 
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45`

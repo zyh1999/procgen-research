@@ -1,0 +1,21 @@
+Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
+Method: FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1
+Environment: bossfight-easy-0-10
+Seed: 0
+Job: 1074927
+
+scheduler_state=COMPLETED
+exit_code=0:0
+elapsed=06:21:25
+start=2026-08-26T15:25:13
+end=2026-08-26T21:46:38
+node=gpu006
+root_status=PASS
+root_rc=0
+scientific_endpoint=5980160
+hard_error_matches=0
+phase_switch_count=1
+final_joint_cholesky_info=0
+final_joint_finite_scan=PASS
+final_joint_relative_residual=1.694828741479472e-13
+No retry, requeue, resubmit, cancellation, or post-terminal mutation occurred.

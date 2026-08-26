@@ -1,0 +1,15 @@
+BossFight:
+transition=2007040 target=1.77 paper=2.92 ratio=0.6061643835616438 decision=PASS
+transition=4014080 target=3.92 paper=3.45 ratio=1.136231884057971 decision=PASS
+transition=5980160 target=2.90 paper=3.14 ratio=0.9235668789808917 decision=PASS
+
+Task49 final matrix:
+BigFish effective_final_ratio=0.48343373493975905 terminal=EARLY_STOPPED_ALGORITHM stage=4014080
+BossFight effective_final_ratio=0.9235668789808917 terminal=COMPLETED endpoint=5980160
+CaveFlyer effective_final_ratio=0.0 terminal=EARLY_STOPPED_ALGORITHM stage=2007040
+CoinRun effective_final_ratio=1.0425531914893618 terminal=COMPLETED endpoint=5980160
+four_environment_mean_ratio=0.6123884513525031
+endpoint_count=2
+algorithm_early_stop_count=2
+endpoint_above_paper_count=1
+unique_conclusion=CANDIDATE_REJECT

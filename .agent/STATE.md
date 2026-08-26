@@ -3,8 +3,8 @@
 ## Task50 exact-2M Boss/Cave early stops; BF/Coin remain live
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
-  remains `CANDIDATE_NOT_READY`. Task49 continues independently and was not
-  modified.
+  remains `CANDIDATE_NOT_READY`. Task49 is independently terminal and Task50
+  was not modified by its archive.
 - Task50 preserves the Task49 PPO boundary and strict full-shared Joint-2B
   math. Its only scientific change creates clean Joint SGD at LR `.004`, holds
   that LR constant across each full four-epoch rollout, computes exact
@@ -24,15 +24,16 @@
   node gpu016. Root RUNNING markers/absent rc are stale. Exact-stage solves
   were finite with Cholesky info0, relative residuals `5.55e-14/8.54e-15`,
   hard-error scan0 and no checkpoint.
-- The sole automation continues to monitor Task49+50 separately at 20-minute
-  cadence; no live cell was altered by archival.
+- The sole automation continues at 20-minute cadence for Task50's live cells;
+  no live cell was altered by the Task49 archive.
 
-Updated: 2026-08-27T03:40:00+08:00
+Updated: 2026-08-27T06:30:00+08:00
 
-## Task49 Coin endpoint PASS; Boss live; BigFish/Cave early-stopped
+## Task49 fully terminal: CANDIDATE_REJECT
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`
-  remains `CANDIDATE_NOT_READY`. Frozen trainer/config hashes remain
+  is fully terminal with unique conclusion `CANDIDATE_REJECT`. Frozen
+  trainer/config hashes remain
   `4403ef006f53e8647adbcdb829a442037384f623e66eb69573843f21064db28a`
   and `e26f66a616b1d0314561a645ef26111da1b15988aad1391d1ef64b6a146d8135`.
 - CSF3 gate `19441667` was scheduler PENDING, elapsed `00:00:00`, start
@@ -50,7 +51,7 @@ Updated: 2026-08-27T03:40:00+08:00
   and relative residual `3.17e-15`.
 - At exact `2,007,040`, BigFish passed `8.64/9.28=.9310344828`, BossFight
   passed `1.77/2.92=.6061643836`, and CoinRun passed
-  `9.00/3.70=2.4324324324`; all three remain RUNNING. CaveFlyer `1074928`
+  `9.00/3.70=2.4324324324`; all three continued at that stage. CaveFlyer `1074928`
   stopped at `0/4.45=0`: the frozen monitor wrote one
   `EARLY_STOPPED_ALGORITHM` row and scheduler state is authoritative
   `CANCELLED by 639800874`, exit `0:0`, elapsed `01:56:15`, node gpu006.
@@ -72,12 +73,25 @@ Updated: 2026-08-27T03:40:00+08:00
   Cholesky info0, relative residual `2.469e-14` and hard-error scan0. The
   actual checkpoint filename is `model.ckpt` (regular file, 3,766,013 bytes,
   mode664); Git records metadata only and contains no checkpoint bytes.
-  BossFight remains the sole live Task49 cell and was untouched.
+- BossFight `1074927` also completed cleanly: scheduler `COMPLETED/0:0`, root
+  `PASS/rc0`, elapsed `06:21:25`, gpu006. Its exact stages were
+  `1.77/2.92=.6061643836` at 2M, `3.92/3.45=1.1362318841` at 4M, and
+  `2.90/3.14=.9235668790` at endpoint, all PASS. The phase switch count is
+  one; final Joint-2B telemetry is finite with Cholesky info0, relative
+  residual `1.695e-13` and hard-error scan0. Its `model.ckpt` is also a
+  regular non-symlink 3,766,013-byte mode664 file; only stat metadata was
+  recorded and no checkpoint bytes were copied or hashed.
+- Final effective ratios are BigFish `.4834337349`, BossFight `.9235668790`,
+  CaveFlyer `0`, CoinRun `1.0425531915`; mean `.6123884514`. Two endpoints,
+  two algorithm early stops and one endpoint above Paper fail the Task49
+  promising criteria, fixing `CANDIDATE_REJECT`.
 - The sole automation `monitor-procgen-task49-ppo-warmup` was updated in place
-  at 20-minute cadence to these four Bede IDs/roots. The immutable Paper seed0
-  CSV baseline was hash-verified and made read-only inside the Bede campaign.
+  at 20-minute cadence to these four Bede IDs/roots. Task49 is now terminal;
+  the sole automation remains active only for Task50 live cells. The immutable
+  Paper seed0 CSV baseline was hash-verified and made read-only inside the
+  Bede campaign.
 
-Updated: 2026-08-27T05:55:00+08:00
+Updated: 2026-08-27T06:30:00+08:00
 
 ## Task45 active direct full-shared Joint-2B science
 

@@ -1,0 +1,1 @@
+{"event": "PPO_WARMUP_TO_JOINT2B_SWITCH", "first_joint_rollout_transition": 507904, "joint_optimizer_state_entries_before_first_step": 0, "last_ppo_transition": 503808, "phase": "joint2b", "ppo_optimizer_state_tensors": 26, "previous_phase": "ppo_warmup", "switch_count": 1}
