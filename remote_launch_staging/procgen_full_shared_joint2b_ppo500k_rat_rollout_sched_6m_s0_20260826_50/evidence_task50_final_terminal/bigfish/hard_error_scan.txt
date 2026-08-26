@@ -1,0 +1,3 @@
+hard_error_match_count=/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_rat_rollout_sched_6m_s0_20260826_50/runs/FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1/bigfish-easy-0-10/seed0/6m/stdout.log:0
+/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_rat_rollout_sched_6m_s0_20260826_50/runs/FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1/bigfish-easy-0-10/seed0/6m/stderr.log:0
+finite_scan_last="joint_finite_scan_pass": 1.0

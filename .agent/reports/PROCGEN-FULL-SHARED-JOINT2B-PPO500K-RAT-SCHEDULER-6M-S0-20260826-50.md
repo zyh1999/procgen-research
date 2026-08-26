@@ -1,7 +1,8 @@
 # PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50
 
-Status: Bede science running with two exact-2M algorithm early stops; current
-conclusion `CANDIDATE_NOT_READY`.
+Status: fully terminal on Bede. BossFight and CaveFlyer stopped at exact 2M;
+BigFish and CoinRun completed the endpoint. Unique conclusion:
+`CANDIDATE_REJECT`.
 
 Method: `FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1`.
 
@@ -82,8 +83,8 @@ The existing automation `monitor-procgen-task49-ppo-warmup` was updated in
 place at 20-minute cadence to monitor the Task49 and Task50 sets with separate
 frozen monitors and ledgers. No second automation exists.
 
-Current conclusion: `CANDIDATE_NOT_READY` pending exact 2M/4M/endpoint stages
-and terminal artifact verification.
+Final conclusion: `CANDIDATE_REJECT`; the complete terminal matrix is recorded
+below.
 
 ## Exact 2M stage and bounded BossFight/CaveFlyer archive
 
@@ -134,6 +135,63 @@ The bounded model-free Git archive contains exact ledgers, complete progress
 and rollout-scheduler tables, phase/frozen identities, terminal trace/log
 snapshots, scheduler reconciliation and per-file SHA256 manifests. Complete
 source traces/logs remain immutable at the Bede roots; no model/checkpoint was
-committed. BigFish and CoinRun remain live. All remaining Task49 cells remain
-live and untouched. The sole 20-minute automation remains active for all live
-Task49/Task50 cells.
+committed. BigFish and CoinRun continued at that stage. Task49 remained
+untouched. No retry, requeue or resubmit occurred.
+
+## BigFish and CoinRun endpoint completions
+
+BigFish `1075028` and CoinRun `1075031` are both scheduler-authoritatively
+`COMPLETED/0:0`, elapsed `06:13:26`, start `2026-08-26T17:07:42`, end
+`2026-08-26T23:21:08`, node gpu016. Both roots are `PASS/rc0`, and each has
+an exact endpoint progress row at `5,980,160`.
+
+| Environment | Transition | Target | Paper | Ratio | Decision |
+|---|---:|---:|---:|---:|---|
+| BigFish | 2,007,040 | 10.48 | 9.28 | 1.1293103448 | PASS |
+| BigFish | 4,014,080 | 10.52 | 13.28 | 0.7921686747 | PASS |
+| BigFish | 5,980,160 | 10.55 | 14.71 | 0.7171991842 | PASS |
+| CoinRun | 2,007,040 | 8.80 | 3.70 | 2.3783783784 | PASS |
+| CoinRun | 4,014,080 | 9.40 | 8.00 | 1.175 | PASS |
+| CoinRun | 5,980,160 | 9.50 | 9.40 | 1.0106382979 | PASS |
+
+Both phase ledgers record exactly one switch from PPO at `503,808` to Joint-2B
+at `507,904`, with clean Joint optimizer state and LR `.004`. In the final
+BigFish rollout, LR stayed `.004` across all minibatches, behavior-final KL
+was `.0064782`, the reason was `KL_IN_BAND_UNCHANGED`, and the scheduler update
+count was exactly one. Its actor/critic raw scales were
+`4586.7227/6113.5381`, natural cross-block Frobenius norm was `179.1353`,
+direction norm `.507031`, Cholesky info0, finite scan1 and relative residual
+`4.3111e-15`.
+
+In CoinRun's penultimate rollout, KL `.1081465` triggered the single frozen
+`.004 -> .0026666667` update. The final rollout then used only
+`.0026666667`, recorded zero within-rollout LR changes, KL `.0175938`, reason
+`KL_IN_BAND_UNCHANGED`, and exactly one scheduler update. Its actor/critic raw
+scales were `5984.0869/22317.7539`, cross Frobenius `446.7604`, direction norm
+`.470891`, Cholesky info0, finite scan1 and relative residual `1.3187e-14`.
+Both hard-error scans are zero.
+
+Each root contains `model.ckpt` as a regular non-symlink file of `3,766,013`
+bytes, mode `664`, one link. Only stat metadata was recorded; checkpoint
+contents were not copied, hashed, modified or committed.
+
+## Final Task50 matrix and conclusion
+
+| Environment | Terminal stage | Effective ratio | Classification |
+|---|---:|---:|---|
+| BigFish | 5,980,160 | 0.7171991842 | COMPLETED / endpoint PASS |
+| BossFight | 2,007,040 | 0.1335616438 | `EARLY_STOPPED_ALGORITHM` |
+| CaveFlyer | 2,007,040 | 0.4719101124 | `EARLY_STOPPED_ALGORITHM` |
+| CoinRun | 5,980,160 | 1.0106382979 | COMPLETED / endpoint PASS |
+
+The four-environment effective-ratio mean is `0.5833273096`. Only two
+environments reached the endpoint, two cells were algorithm early stops, only
+one endpoint strictly exceeded Paper, and the mean ratio is below one.
+Therefore Task50 fails the multi-environment promising criteria and its unique
+terminal conclusion is `CANDIDATE_REJECT`.
+
+Task49 delivery `e36750423ff48bfdfc718c6607465a4dd16fe839` was already
+verified and remains untouched. Task49 and Task50 are now both fully terminal,
+so the sole automation `monitor-procgen-task49-ppo-warmup` may be deleted after
+this delivery is verified. No retry, requeue, resubmit, successor or model-byte
+action occurred.

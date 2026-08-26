@@ -2,7 +2,7 @@
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
 
-Current conclusion: `CANDIDATE_NOT_READY`
+Current conclusion: `CANDIDATE_REJECT`
 
 Task50 is frozen as the single rollout-level LR scheduler variant of Task49.
 The Joint optimizer is created cleanly at the fixed switch with LR `.004`;
@@ -20,8 +20,28 @@ terminal state for both is CANCELLED by639800874, exit `0:0`, elapsed
 `02:14:05`, node gpu016; root RUNNING/absent rc are stale. Exact-stage solves
 were finite with Cholesky info0, relative residuals `5.55e-14/8.54e-15`, hard
 error scan0 and no checkpoint. Complete bounded model-free evidence is
-archived. Task49 and Task50 BF/Coin were untouched; no repeat apply, retry,
-requeue or resubmit exists, and the sole 20-minute automation remains active.
+archived. Task49 and Task50 BF/Coin were untouched at that stage; no repeat
+apply, retry, requeue or resubmit exists.
+
+BigFish `1075028` and CoinRun `1075031` subsequently completed
+`COMPLETED/0:0`, root `PASS/rc0`, elapsed `06:13:26` on gpu016. BigFish exact
+ratios are `1.1293103448`, `.7921686747`, and endpoint `.7171991842`.
+CoinRun exact ratios are `2.3783783784`, `1.175`, and endpoint
+`1.0106382979`; all six stages PASS. Their final strict Joint-2B telemetry is
+finite with Cholesky info0, relative residuals `4.311e-15/1.319e-14`, zero
+hard errors, constant minibatch LR within every final rollout and exactly one
+rollout scheduler update. Both `model.ckpt` files are regular non-symlinks,
+3,766,013 bytes and mode664; only stat metadata was archived, never bytes or
+content hashes.
+
+Final effective ratios are BigFish `.7171991842`, BossFight `.1335616438`,
+CaveFlyer `.4719101124`, and CoinRun `1.0106382979`, with mean
+`.5833273096`. With two endpoints, two algorithm early stops and one endpoint
+above Paper, Task50's unique terminal conclusion is `CANDIDATE_REJECT`.
+Task49 delivery `e36750423ff48bfdfc718c6607465a4dd16fe839` remains verified;
+all Task49+50 deliveries are complete, so the sole automation may be deleted
+after this push is verified. No retry, requeue, resubmit, successor or model
+action occurred.
 
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`

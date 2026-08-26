@@ -1,10 +1,10 @@
 # Current Project State
 
-## Task50 exact-2M Boss/Cave early stops; BF/Coin remain live
+## Task50 fully terminal: CANDIDATE_REJECT
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
-  remains `CANDIDATE_NOT_READY`. Task49 is independently terminal and Task50
-  was not modified by its archive.
+  is fully terminal with unique conclusion `CANDIDATE_REJECT`. Task49 is
+  independently terminal and was not modified by this archive.
 - Task50 preserves the Task49 PPO boundary and strict full-shared Joint-2B
   math. Its only scientific change creates clean Joint SGD at LR `.004`, holds
   that LR constant across each full four-epoch rollout, computes exact
@@ -16,7 +16,7 @@
   one update per rollout, nonzero cross blocks, Cholesky info0 and residuals
   at most `1.05e-15`.
 - At exact `2,007,040`, BigFish passed `10.48/9.28=1.1293103448` and CoinRun
-  passed `8.80/3.70=2.3783783784`; both remain RUNNING. BossFight `1075029`
+  passed `8.80/3.70=2.3783783784`; both continued. BossFight `1075029`
   stopped at `.39/2.92=.1335616438` and CaveFlyer `1075030` stopped at
   `2.10/4.45=.4719101124`. Their frozen monitors each wrote one
   `EARLY_STOPPED_ALGORITHM` row and returned rc3. Both scheduler records are
@@ -24,10 +24,25 @@
   node gpu016. Root RUNNING markers/absent rc are stale. Exact-stage solves
   were finite with Cholesky info0, relative residuals `5.55e-14/8.54e-15`,
   hard-error scan0 and no checkpoint.
-- The sole automation continues at 20-minute cadence for Task50's live cells;
-  no live cell was altered by the Task49 archive.
+- BigFish `1075028` and CoinRun `1075031` completed scheduler/root cleanly:
+  both `COMPLETED/0:0`, root `PASS/rc0`, elapsed `06:13:26`, gpu016. BigFish
+  exact 4M/endpoint ratios are `.7921686747/.7171991842`; CoinRun exact
+  4M/endpoint ratios are `1.175/1.0106382979`. Final rollout telemetry is
+  finite with Cholesky info0, one constant minibatch LR per rollout, exactly
+  one scheduler update, relative residuals `4.311e-15/1.319e-14`, and hard
+  error scan0.
+- Both terminal roots contain a regular non-symlink `model.ckpt` of 3,766,013
+  bytes and mode664. Git records stat metadata only; no checkpoint bytes or
+  content hashes were copied.
+- Final effective ratios are BigFish `.7171991842`, BossFight `.1335616438`,
+  CaveFlyer `.4719101124`, CoinRun `1.0106382979`; mean `.5833273096`. Two
+  endpoints, two algorithm early stops and one endpoint above Paper fix the
+  Task50 conclusion as `CANDIDATE_REJECT`.
+- Task49 delivery `e36750423ff48bfdfc718c6607465a4dd16fe839` and Task50 are
+  both complete. With no bound live cells remaining, the sole automation
+  `monitor-procgen-task49-ppo-warmup` may be deleted after verified delivery.
 
-Updated: 2026-08-27T06:30:00+08:00
+Updated: 2026-08-27T07:15:00+08:00
 
 ## Task49 fully terminal: CANDIDATE_REJECT
 
