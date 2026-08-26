@@ -1394,3 +1394,17 @@ Updated: 2026-08-26T14:37:00+08:00
   Coin stopped at2M. No retry/requeue/resubmit occurred.
 - All cells bound to `procgen-3090` are terminal; after verified delivery the
   sole automation may be retired/deleted.
+
+# Task49 implementation state
+
+- Task48 is verified `SUPERSEDED_BEFORE_EXECUTION`: no implementation, job,
+  root, process, artifact or monitor exists.
+- Task49 `FULL_SHARED_JOINT2B_PPO500K_WARMUP_V1` is the sole active candidate.
+  It preserves the frozen Task06 full-shared deterministic strict Joint-2B and
+  adds only standard PPO through transition503808 followed by one rollout-
+  boundary switch to the clean parent optimizer.
+- PPO identity is frozen: independent Adam LR.001, clip.2, epochs4,
+  minibatches8, vf1, entropy0 and max-grad-norm.5. No Task45 normalization,
+  Task46 floor, Task47 block diagonal or Task48 trust-region logic exists.
+- Local syntax/config/launcher checks passed. The one authorized production
+  gate and subsequent launch remain pending.

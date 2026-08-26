@@ -146,3 +146,13 @@ is fully terminal `CANDIDATE_REJECT`: BF stopped at4M and all other cells at2M.
 No retry, requeue, resubmit, new candidate, model or checkpoint was committed.
 All jobs bound to the sole `procgen-3090` automation are terminal, so it may be
 retired after this origin-verified delivery.
+
+# Task49 active implementation
+
+Task48 has been proven absent and recorded `SUPERSEDED_BEFORE_EXECUTION`.
+Task49 versions the exact Task06 deterministic full-shared Joint-2B trainer
+with one scientific change: Paper-matched PPO for 123 complete rollouts through
+503,808 transitions, then exactly one boundary switch to untouched Joint-2B.
+PPO has an independent Adam state and Joint-2B optimizer state is asserted
+clean at switch. Local compile, config and launcher checks passed; the sole
+minimal production gate is the next action.

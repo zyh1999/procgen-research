@@ -1,0 +1,10 @@
+Task48 status: SUPERSEDED_BEFORE_EXECUTION
+Superseded by: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49
+Local implementation/config/report search: no Task48 or KL-trust candidate identity found.
+CSF3 scheduler search: no pg48/task48/trust job found for h99859yz on 2026-08-26.
+CSF3 process search: no Task48/trust process found.
+CSF3 root search: no task48 or 20260826_48 root found. The pre-existing
+/scratch/h99859yz/trust-region-main path is unrelated historical storage and
+was not accessed or modified beyond its pathname appearing in the bounded find.
+No Task48 implementation, job, root, process, transition, artifact, model,
+checkpoint, monitor, cancellation, retry, requeue or resubmit exists.
