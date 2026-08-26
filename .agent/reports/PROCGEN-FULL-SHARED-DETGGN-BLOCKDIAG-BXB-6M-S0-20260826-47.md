@@ -124,3 +124,58 @@ No exact Task47 comparison row exists yet. No model or checkpoint is included
 in Git. The current bounded conclusion is `QUEUED_RESOURCE_WAIT`: three cells
 are scientifically running and the fourth is queued solely on the live user
 H200 concurrency limit.
+
+## Exact 2M decisions: BossFight and CaveFlyer
+
+At the first exact common row, 2,007,040, the frozen Task47 monitor wrote one
+decision per cell and was applied exactly once to each failing cell:
+
+| Environment | Job | Target | Paper | Ratio | Action |
+|---|---:|---:|---:|---:|---|
+| BigFish | `19425987` | 8.28 | 9.28 | .8922413793 | PASS; remains RUNNING |
+| BossFight | `19425988` | .07 | 2.92 | .02397260274 | `EARLY_STOPPED_ALGORITHM` |
+| CaveFlyer | `19425989` | 2.50 | 4.45 | .5617977528 | `EARLY_STOPPED_ALGORITHM` |
+
+BossFight and CaveFlyer both became scheduler-authoritative `CANCELLED by
+778916`, exit `0:0`, elapsed 00:34:55 on node821. Their root `RUNNING` marker
+and absent launcher rc are stale effects of scheduler cancellation. Neither
+cell has a checkpoint. No repeat apply, retry, requeue or resubmit occurred.
+
+The exact-stage numerical evidence is healthy and distinguishes these reward
+failures from infrastructure or solver failures:
+
+| Metric at 2,007,040 | BossFight | CaveFlyer |
+|---|---:|---:|
+| raw actor scale | 114106.859 | 45954.703 |
+| raw critic-J scale | 311227.125 | 93429.281 |
+| weighted critic scale | 31122.713 | 9342.928 |
+| actor direction norm | .494923 | .448758 |
+| critic direction norm | .608464 | .486435 |
+| summed direction norm | .885544 | .717909 |
+| actor/critic direction cosine | .280614 | .177263 |
+| shared actor/critic norm ratio | .853081 | .944758 |
+| global clip scale | .564625 | .696467 |
+| actor/critic relative residual max | 1.6665e-13 | 1.1197e-13 |
+| Cholesky info max | 0 | 0 |
+| finite scan | PASS | PASS |
+| hard-error matches | 0 | 0 |
+
+At the stage row, Boss entropy was `.3210`, logged behavior KL
+`7.735e-7`, and LR `.0001`; Cave entropy was `.3911`, KL `1.442e-7`, and LR
+`.0001`. Both maintained separate actor/critic BxB solves and
+`blockdiag_no_dual_cross_solve=1`.
+
+Because the 20-minute monitor acted after the exact rows were already durable,
+the processes had advanced to later transitions before scheduler cancellation.
+Those later rows are retained only as pre-cancel numerical evidence; the
+scientific decision remains the exact 2,007,040 comparison above. Full progress,
+logs, selected exact/final trace rows, artifact hashes, scheduler state and
+zero hard-error scans are under
+`evidence_monitor_20260826_1300z/{bossfight,caveflyer}-easy-0-10`.
+
+Task47 CoinRun `19425990` started naturally on node822 immediately after the
+two slots released; BigFish and CoinRun remain RUNNING. Task46 CoinRun
+`19424176` independently passed its exact 4,014,080 comparison,
+`6.4/8.0=.8`, and remains RUNNING. No live cell was cancelled or otherwise
+modified by this archive. Task47 is nonterminal and its current bounded
+conclusion is `CANDIDATE_NOT_READY`.

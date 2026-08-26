@@ -1,0 +1,7 @@
+authoritative_before=RUNNING
+monitor_rc=3
+apply_transition=2007040
+authoritative_after=CANCELLED_by_778916
+hard_error_scan_count=0
+checkpoint_present=no
+metric_trace_size=76554784

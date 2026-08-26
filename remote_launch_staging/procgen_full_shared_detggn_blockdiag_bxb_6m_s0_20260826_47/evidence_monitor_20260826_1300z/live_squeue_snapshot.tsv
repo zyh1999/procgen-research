@@ -1,0 +1,4 @@
+JOBID|NAME|STATE|REASON|PARTITION|QOS|TRES_PER_NODE|TIME|NODELIST
+19424176|pg46-coin|RUNNING|None|gpuH|gpu-h200-fse|gres/gpu:h200:1|1:15:31|node822
+19425990|pg47-coin|RUNNING|None|gpuH|gpu-h200-fse|gres/gpu:h200:1|2:21|node822
+19425987|pg47-bf|RUNNING|None|gpuH|gpu-h200-fse|gres/gpu:h200:1|37:17|node820

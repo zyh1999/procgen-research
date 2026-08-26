@@ -1344,3 +1344,22 @@ Updated: 2026-08-26T14:37:00+08:00
   allowed H200. Current Task47 conclusion: `QUEUED_RESOURCE_WAIT`.
 - The sole `procgen-3090` automation was updated in place at 20-minute cadence
   for Task46 Coin plus Task47 four. No second automation exists.
+
+# Task47 exact 2M actionable state (2026-08-26 13:00 CSF3)
+
+- BigFish `19425987` exact 2,007,040: `8.28/9.28=.8922413793` PASS;
+  remains RUNNING node820.
+- BossFight `19425988` exact 2,007,040: `.07/2.92=.02397260274`;
+  frozen Task47 monitor rc3, scheduler CANCELLED by 778916 / 0:0 after
+  00:34:55 on node821. Classify `EARLY_STOPPED_ALGORITHM`.
+- CaveFlyer `19425989` exact 2,007,040: `2.50/4.45=.5617977528`;
+  frozen Task47 monitor rc3, scheduler CANCELLED by 778916 / 0:0 after
+  00:34:55 on node821. Classify `EARLY_STOPPED_ALGORITHM`.
+- Boss/Cave root RUNNING markers and absent rc files are stale cancellation
+  artifacts. Both exact-stage solves are finite, Cholesky info0, residuals
+  <=1.67e-13 and hard-error scans zero; these are reward failures.
+- Task47 CoinRun `19425990` started naturally on node822 and remains RUNNING.
+  Task47 current conclusion is `CANDIDATE_NOT_READY`.
+- Task46 CoinRun `19424176` passed exact 4M `6.4/8.0=.8` and remains RUNNING.
+  The sole 20-minute automation continues monitoring BF/Coin Task47 and Coin
+  Task46; no retry/requeue/resubmit occurred.

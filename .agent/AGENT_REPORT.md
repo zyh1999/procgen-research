@@ -95,3 +95,19 @@ once: BF `19425987`, Boss `19425988`, Cave `19425989` are RUNNING and Coin
 `19425990` is naturally PENDING on the four-H200 user limit. Current Task47
 conclusion is `QUEUED_RESOURCE_WAIT`; the existing automation was updated in
 place and no duplicate monitor exists.
+
+# Task47 exact 2M archive update
+
+BigFish `19425987` passed exact 2M at `8.28/9.28=.8922413793` and remains
+RUNNING. BossFight `19425988` (`.07/2.92=.0239726`) and CaveFlyer `19425989`
+(`2.50/4.45=.56179775`) were each cancelled once by the correct frozen Task47
+monitor and are terminal `EARLY_STOPPED_ALGORITHM`. Both scheduler records are
+`CANCELLED by 778916`, exit `0:0`, elapsed 00:34:55 on node821; stale root
+RUNNING markers are not live.
+
+Both cells retained finite actor/critic BxB solves, Cholesky info0, residuals
+below `1.67e-13` and zero hard-error matches, so these are reward failures.
+Task47 CoinRun `19425990` started naturally and remains RUNNING with BigFish.
+Task46 CoinRun `19424176` independently passed exact 4M at `.8` and remains
+RUNNING. Task47 is nonterminal `CANDIDATE_NOT_READY`; the sole automation
+continues and no live cell was touched by archival.
