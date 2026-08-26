@@ -1,19 +1,21 @@
-# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-SCIENCE-LAUNCH-20260826-45
+# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46
 
 Status: READY
 
-Directly launch the frozen `FULL_SHARED_JOINT2B_SCALE_RECOVERY_V1` seed0 6M
-four-environment science matrix under the user's explicit override. Run no new
-preflight, local gate, negative test or audit. Preserve trainer/config/oracle,
-strict full-shared Joint-2B natural cross blocks, block-relative normalization,
-relative damping `.5` and the normalized frozen science command exactly.
+Implement exactly one scientific delta from Task45 while preserving strict
+full-shared Joint-2B: use
+`s_pi_eff=max(s_pi_raw, 0.01*s_v_raw)` for actor row/RHS normalization and keep
+critic normalization at positive finite `s_v_raw`. Preserve all rows, RHS,
+natural cross blocks, reconstruction, relative damping `.5`, network,
+rollout/GAE/PopArt/optimizer/schedule/evaluation and checkpoint semantics.
 
-Perform only frozen SHA, command, live gpuH ownership/capacity, duplicate and
-fresh-root checks. Submit BigFish, BossFight, CaveFlyer and CoinRun exactly
-once at isolated Task45 roots. No retry, requeue, resubmit, extra seed, sweep,
-second candidate or historical-job mutation.
+Run only exact parent-to-child diff/SHA, syntax/import, normalized command,
+fresh scheduler/capacity/duplicate/root and non-overlap checks. Run no micro or
+negative tests, oracle/Jacobian reference, production preflight or audit chain.
+Then submit exactly one fresh seed0 6M job for BigFish, BossFight, CaveFlyer and
+CoinRun, with no retry/requeue/resubmit/sweep/extra seed. Do not cancel, modify
+or overwrite any Task45 job/root/ledger.
 
-Compare only exact same-environment seed0 Paper rows at first common >=2M,
-first common >=4M and 5,980,160. Cancel a cell only for exact Target/Paper <
-.60 with complete evidence. Push model-free evidence only and callback the
-Planner/coordinator with frozen identities, job IDs, roots and initial states.
+Monitor Task45 and Task46 within the existing sole Procgen automation. Compare
+only exact matching Paper seed0 rows at first common >=2M, first common >=4M
+and 5,980,160; cancel only the individual cell for exact Target/Paper <.60.
