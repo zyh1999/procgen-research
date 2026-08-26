@@ -1,0 +1,18 @@
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:242: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.
+  interpolation: int = Image.BILINEAR,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:288: DeprecationWarning: NEAREST is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.NEAREST or Dither.NONE instead.
+  interpolation: int = Image.NEAREST,
+/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torchvision/transforms/_functional_pil.py:321: DeprecationWarning: BICUBIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BICUBIC instead.
+  interpolation: int = Image.BICUBIC,
+Traceback (most recent call last):
+  File "/scratch/h99859yz/procgen_full_shared_joint2b_actor_gather_recovery_6m_s0_20260826_42/frozen/task42_preflight_wrapper.py", line 40, in <module>
+    exec(compile(patched, str(source_path) + "[TASK42_GATHER_ONLY]", "exec"), namespace)
+  File "/net/scratch/h99859yz/procgen_full_shared_joint2b_manifest_oracle_recovery_6m_s0_20260826_41/frozen/preflight_full_shared_joint2b_manifest_oracle_recovery.py[TASK42_GATHER_ONLY]", line 301, in <module>
+  File "/net/scratch/h99859yz/procgen_full_shared_joint2b_manifest_oracle_recovery_6m_s0_20260826_41/frozen/preflight_full_shared_joint2b_manifest_oracle_recovery.py[TASK42_GATHER_ONLY]", line 220, in main
+  File "/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/lib64/python3.9/site-packages/torch/testing/_comparison.py", line 1530, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: Tensor-likes are not equal!
+
+Mismatched elements: 1035714 / 1048576 (98.8%)
+Greatest absolute difference: 1.9206858326015208e-14 at index (612, 902)
+Greatest relative difference: 1.1036722475186101e-08 at index (47, 627)

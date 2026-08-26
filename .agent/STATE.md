@@ -1,5 +1,39 @@
 # Current Project State
 
+## Task43 terminal structural-zero recovery local gate
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-STRUCTURAL-ZERO-RECOVERY-AND-6M-S0-20260826-43`
+  is terminal with unique conclusion `PRECHECK_BLOCKED`.
+- Frozen trainer/config/science-launcher identities and Task41 oracle SHA
+  `62b1b10a81fc89ec621f0ceaf60735864cc899fafd6bda074c7414744506d303`
+  remained exact. Task40 shape, Task41 oracle and Task42 gather PASS artifacts
+  were reused without rebuilding.
+- The bounded structural-zero helper preserved all 26 tensors/938,976 columns,
+  allowed `None` only for the opposite exclusive head, materialized with
+  `zeros_like`, and rejected wrong roles, nonzero disconnected tensors,
+  deletion/reordering and shape/dtype/device drift. All negative rules passed.
+- Exactly one gpuH equivalence gate, `19409128`, failed `FAILED/1:0` after 15
+  seconds on node820. The real model/oracle checks passed, then the first actor
+  vmap/reference comparison mismatched all 216 elements of shared tensor
+  `backbone_net.conv_layers.0.weight`; maximum absolute error was
+  `0.8025436401367188` and maximum relative error `1.9264323711395264`.
+- Complete 512-row actor/critic equivalence, strict 1024x938976 reference,
+  block/cross, solver and delta evidence were therefore not established. This
+  is a local preflight-reference equivalence failure, not algorithm, solver,
+  GPU or scientific evidence. It was not repaired or rerun.
+- The user then explicitly overrode the local-gate stop rule and prohibited
+  further test/audit chains. Exactly one production preflight, `19409435`, ran
+  on gpuH node820 and failed `FAILED/1:0` after 14 seconds with root
+  `PRECHECK_FAIL/1`. Production construction reached the Joint-2B numerical
+  reference, where strict equality rejected 1,035,714/1,048,576 elements;
+  maximum absolute difference was `1.9206858326015208e-14`.
+- The production preflight was not repaired or retried. No Task43 science
+  job/root/process/transition/trace/checkpoint/model/Paper comparison/
+  cancellation/monitor exists. Task39--42 jobs remain immutable and Task38
+  remains `SUPERSEDED_BEFORE_EXECUTION`.
+
+Updated: 2026-08-26T18:03:00+08:00
+
 ## Task42 terminal actor-gather recovery local gate
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-ACTOR-GATHER-RECOVERY-AND-6M-S0-20260826-42`

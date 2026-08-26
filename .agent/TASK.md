@@ -1,21 +1,23 @@
-# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-ACTOR-GATHER-RECOVERY-AND-6M-S0-20260826-42
+# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-STRUCTURAL-ZERO-RECOVERY-AND-6M-S0-20260826-43
 
 Status: READY
 
-Recover only Task41 preflight's actor per-sample log-prob tensor indexing by
-replacing `[0, action]` with the specified equivalent `torch.gather`. Keep the
-trainer, config, science launcher, Task41 canonical oracle, ordered parameter
-collection, Task40 production shape, strict full-shared Joint-2B natural cross
-blocks, block-relative normalization, relative damping .5 and all scientific
-semantics byte-identical.
+Recover only Task42's explicit actor/critic reference handling for structurally
+disconnected parameters. Use `allow_unused=True` only in the preflight
+reference, permit actor `None` only for critic-exclusive value-head tensors and
+critic `None` only for policy-exclusive tensors, and materialize each allowed
+entry as `zeros_like` without deleting or reordering any of the 938,976 columns.
+Keep trainer, config, science launcher, Task40 shape, Task41 oracle, Task42
+gather, strict full-shared Joint-2B natural cross blocks, block-relative
+normalization, relative damping .5 and all scientific semantics byte-identical.
 
-Before the production preflight, fixed logits/actions and the actual frozen
-production model must prove gather equality for values, logits gradients,
-ordered trainable-parameter gradients and the complete 512-row actor Jacobian
-against explicit non-vmap indexing. Preserve action boundaries, row/column
-order, shape, dtype, inputs and RNG. Reject wrong dtype/range/dimension/reshape,
-sign/reduction changes, parameter reorder and forward-only equality with a
-different Jacobian. Reuse Task40/41 PASS artifacts without rebuilding them.
+Before the production preflight, the production model must prove complete
+512-row actor and critic vmap Jacobians equal explicit per-sample references,
+with actor value-head 257 columns and critic policy-head 3,855 columns strictly
+zero, shared columns connected in both, full oracle order/metadata preserved,
+and input/model/RNG/optimizer/PopArt state unchanged. Reject disallowed-role
+None, connected gradients replaced by zero, deleted/reordered columns and
+wrong shape/dtype/device. Reuse Task40/41/42 PASS artifacts without rebuilding.
 
 Only after the equivalence gate PASS, submit exactly one production preflight.
 It must reuse and match the Task41 oracle, verify the complete production
@@ -32,8 +34,17 @@ immutable Paper seed0 rows at first common >=2M, first common >=4M and
 resubmit, sweep, second candidate, extra seed, Paper rerun, provenance-observer
 framework, Jupyter or quarantined access.
 
-Task38 remains SUPERSEDED_BEFORE_EXECUTION. Task39 job 19407505, Task40 job
-19407880 and Task41 job 19408491 remain immutable and must not be retried or
-relabeled. Update the Task42 report, STATE and AGENT_REPORT; push model-free evidence only to
+Task38 remains SUPERSEDED_BEFORE_EXECUTION. Task39–42 jobs remain immutable and
+must not be retried or relabeled. Update the Task43 report, STATE and
+AGENT_REPORT; push model-free evidence only to
 origin/agent-work, verify the Delivery SHA and callback Planner/coordinator
 with exactly one allowed conclusion.
+
+## User execution override after local gate 19409128
+
+The user superseded the local-gate stop rule after its terminal evidence was
+preserved. Do not add or rerun micro/negative/audit gates. Use only the already
+passed structural-zero role/shape/dtype/device compatibility checks as the
+immediate-crash guard, then run the sole production preflight. If production
+model/Jacobian/solver construction completes without an immediate hard error,
+submit the four authorized science cells once.
