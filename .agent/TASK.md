@@ -2,128 +2,158 @@ Status: READY
 
 # TASK.md
 
-Task-ID: `PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-AUDIT-PATH-RECOVERY-20260826-36`
+Task-ID: `PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-6M-S0-SCIENCE-20260826-37`
 
 ## 唯一目标
 
-仅修复Task35R historical-scaling audit的trainer路径定位，使冻结audit读取hermetic manifest中位于`bundle/code/`的精确冻结trainer；local gate通过后，对四环境各运行一次actual-network preflight。
+运行冻结方法`DET_STANDARD_MSE_GGN_HEAD_CVLM_V1`的四环境seed0、intended-6M科学检验，判断标准per-sample head GGN与cross-minibatch CVLM能否改善Task13固定相对阻尼的跨环境失败。
 
-不得改变科学算法、bundle内容或启动6M训练。
+不得修改算法或创建第二候选。
 
 ## 冻结身份
 
-保持不变：
+必须保持Task34R/36验证身份不变：
 
-- Task34R implementation：`55984df39bf883685583f22894edd5eb615f95ea`
 - Trainer：`ca53efd549ae58738c5c215c84dfe5f342c0f801d3eb0f7fb61a2507f31e69fc`
 - Config：`52c133559825947cd233184f2468c4aa715c6c419274bb78f7f715d542718132`
 - Preflight：`2baac759c26c4fb663ac24ff68a6de8b640bb9bd0c443ec8f65106de3d36759a`
-- Historical audit数值逻辑：`9d4929685bd8368f861770f155c5fcc0b7f86b91e9cfc92481987b0dc8ec2723`
-- Bundle archive：`3a9d9720ae7b3c9e6d13a2fd63521d51bba8cb62e7ae7ae2498553b57c00609f`
+- Historical audit：`9d4929685bd8368f861770f155c5fcc0b7f86b91e9cfc92481987b0dc8ec2723`
+- Bundle：`3a9d9720ae7b3c9e6d13a2fd63521d51bba8cb62e7ae7ae2498553b57c00609f`
 - Manifest：`287a744078b10054d107974125bac6b5fac43fd944b6200ec54720cd2695c9af`
-- Scientific launcher：`6dffce265e55f87fa5be848ec5bd9940fcecb6203f621a1454fb4f6a9c74caca`
+- Science launcher：`6dffce265e55f87fa5be848ec5bd9940fcecb6203f621a1454fb4f6a9c74caca`
+- Task36 adapter：`7b8cd684f448b730720e4acd1a9c6762faac95778339471770bd40b11f889dd4`
 
-## 唯一允许修改
+直接复用Task36四环境`PRECHECK_PASS`，不得重跑preflight。
 
-版本化audit路径适配层，使audit通过显式参数获得trainer路径，而不是假设trainer与audit相邻。
+## 科学定义
 
-该路径必须：
+保持：
 
-- 由manifest按精确repo path解析；
-- 位于当前验证bundle的`bundle/code/`内；
-- 匹配冻结Git blob、SHA256、size和mode；
-- 是regular non-symlink file；
-- 在audit执行前后保持相同identity/hash。
+\[
+e=V-\operatorname{stopgrad}(R_\lambda),\qquad D=I,\quad W=I,
+\]
 
-不得：
+\[
+G=J^\top J/B,\qquad g=J^\top e/B,\qquad
+(G+\mu I)u=-g.
+\]
 
-- 修改audit的任何数学断言；
-- 修改或复制trainer；
-- 在`bundle/frozen/`创建兼容文件或symlink；
-- 重建或修改bundle/manifest；
-- 使用ambient checkout或历史run root。
+仅更新257个value-head参数；Gaussian precision为1。Cross-minibatch CVLM的完整512-row train block、独立512-row calibration block、\(\rho_{\rm cv}\)阈值、trial上限、bitwise rollback、momentum/history、global clip及\(\alpha\)更新规则全部冻结。
 
-## 必需负测试
+Actor、shared sampled critic、PopArt、rollout、lambda-return、schedule、adaptive-KL和evaluation保持严格control身份。
 
-必须拒绝：
+## 启动前检查
 
-- 旧的`bundle/frozen/...trainer.py`假路径；
-- symlink、路径逃逸；
-- 同字节不同manifest身份；
-- 错误blob/hash/size/mode；
-- 缺失或重复manifest条目；
-- ambient repository fallback；
-- 对audit数值逻辑的任何修改。
+Executor必须刷新并记录：
 
-## 单次Local Gate
+- scheduler、ownership、account、QOS、GRES和capacity；
+- Procgen jobs、trainer processes及duplicate；
+- 四个新science roots不存在；
+- bundle、manifest、trainer、config、launcher hashes；
+- hermetic import无ambient fallback；
+- Task36四个PASS证据完整。
 
-只允许运行一次完整local gate：
+若存在identity漂移、duplicate或root碰撞，停止，不得提交。
 
-1. 复核原bundle/archive/manifest hashes；
-2. 解析并记录精确trainer identity；
-3. empty-CWD import及module-origin ledger继续PASS；
-4. 运行冻结historical audit全部断言；
-5. 必须恢复以下结果：
+Executor负责live placement，并按用户偏好优先考虑gpuH；若不可用或不兼容，报告精确证据，不得静默换queue或改变科学身份。
 
-   - \(\|V-\operatorname{stopgrad}(R_\lambda)\|^2/(2B)\)
-   - \(G=J^\top J/B\)
-   - \(g=J^\top e/B\)
-   - Task13 effective standard-coordinate damping `5`
-   - RHS multiplier `10`
-   - transformed equality误差不超过既有FP64容差
+## 科学矩阵
 
-任何失败即`PRECHECK_BLOCKED`，不得修复或重跑。
+仅允许各提交一次：
 
-## 四环境一次性Preflight
+- `bigfish-easy-0-10`, seed0
+- `bossfight-easy-0-10`, seed0
+- `caveflyer-easy-0-10`, seed0
+- `coinrun-easy-0-10`, seed0
 
-Local Gate PASS后，对以下环境各提交恰好一次全新preflight：
+每格：
 
-- BigFish seed0
-- BossFight seed0
-- CaveFlyer seed0
-- CoinRun seed0
+- intended horizon 6M；
+- terminal convention `5,980,160`；
+- 全新且互不覆盖的root；
+- 独立status、rc、stdout、stderr、progress、metric trace和checkpoint；
+- 启动时仅复核冻结bundle身份，不重新运行Task36完整preflight。
 
-使用互不覆盖且预先不存在的新roots。每格必须验证：
+禁止retry、requeue或resubmit。
 
-- hermetic imports及module origins；
-- production network及257参数head partition；
-- standard MSE、`D=I`、`W=I`、precision=1；
-- 完整512-row train block；
-- calibration rows不进入当前\(G,g\)，但保留原训练schedule；
-- `ared_T=pred_T` FP64等式；
-- 非退化cross-minibatch`\rho_cv`回归；
-- rejected-trial完整bitwise rollback；
-- accepted delta只由完整train rows构造；
-- actor/shared方向、delta及policy logits与control bit-identical；
-- PopArt affine-scale regression；
-- Cholesky info0、finite residual、NaN/Inf及hard-error扫描。
+## 唯一Monitor
 
-任一失败不得现场修复、重提或切换科学身份。
+创建一个只绑定本任务四个job IDs/roots的5分钟monitor，负责：
+
+- scheduler优先于stale marker；
+- 核对process、progress、trace、checkpoint、status及rc；
+- 扫描Traceback、OOM、CUDA、NCCL、disk、stall及NaN/Inf；
+- 仅在规定stage执行Paper比较；
+- 四格终态后退役。
+
+不得触碰Task32或重提Task33。
+
+## 严格同阶段早停
+
+仅比较相同环境、seed0、evaluation语义的immutable matching Paper RAT：
+
+- first common `>=2M`
+- first common `>=4M`
+- `5,980,160`
+
+只有：
+
+\[
+\mathrm{Target}/\mathrm{Paper}<0.60
+\]
+
+才可取消该单格并记录`EARLY_STOPPED_ALGORITHM`。无精确共同row不得操作；中间Target不得比较Paper terminal。
+
+## 必需证据
+
+每个stage记录：
+
+- Target/Paper reward及ratio；
+- KL、actor LR、entropy；
+- MSE、TD error、GAE统计；
+- PopArt mean/std；
+- \(G\) trace、spectrum、condition、effective rank；
+- \(\alpha,\mu\)、trial数和accept/reject率；
+- `pred_T`、`ared_T`、`ared_C`、`\rho_cv`；
+- MSE gradient、raw GGN及最终head delta的norm/cosine；
+- momentum/global-clip前后变化；
+- prediction change；
+- residual、Cholesky info及hard-error/nonfinite扫描。
+
+必须判断：
+
+- CVLM实际相对阻尼与Task13固定等效damping 5的差异；
+- BigFish是否再次2M通过后4M失败；
+- CaveFlyer是否保持成功；
+- held-out acceptance是否对应后续GAE/reward稳定性。
 
 ## 唯一结论
 
 仅允许：
 
-- `PRECHECK_RECOVERED`：local gate与四环境preflight全部PASS；停止等待Planner。
-- `PRECHECK_BLOCKED`
 - `QUEUED_RESOURCE_WAIT`
 - `RESOURCE_PLACEMENT_BLOCKED`
+- `CANDIDATE_INCONCLUSIVE_INFRASTRUCTURE`
+- `CANDIDATE_REJECT`
+- `STANDARD_GGN_CVLM_SEED0_PROMISING`
+- `CANDIDATE_NOT_READY`
 
-不得启动科学job、monitor、transition、checkpoint或model。
+`STANDARD_GGN_CVLM_SEED0_PROMISING`要求：至少三个环境到达5,980,160、最多一个算法早停、至少两个环境终点超过Paper、计入早停stage ratio后的四环境平均ratio大于1，且CVLM和数值证据健康。
 
-## 资源边界
-
-Executor负责刷新ownership、account、QOS、GRES、capacity、process、duplicate及live placement，并按用户偏好优先考虑gpuH。若不可用或不兼容，报告精确证据；不得静默换queue。Planner不指定具体GPU、partition、卡数或并发。
+不得启动seeds1–2或正式x3扩展。
 
 ## 禁止事项
 
-- 不得修改Task34R算法、trainer/config、CVLM或comparison protocol。
-- 不得重试Task34R/35R旧jobs。
-- 不得触碰Task32/Task33。
-- 不得加入GAE算子、actor weighting、Paper matching、joint/cross或sweep。
+- 不得修改trainer、config、CVLM、threshold、damping定义或comparison protocol。
+- 不得使用GAE时序算子、actor weighting、Paper matching、joint/cross或sweep。
+- 不得重跑Paper或Task36 preflight。
+- 不得重试、requeue或resubmit任何cell。
+- 不得修改Task32或重提Task33。
+- 不得覆盖历史root或改写失败分类。
 - 不得使用Jupyter。
 - 不得访问`.54`、`ws4090-31`或`10.49.7.54`。
 - 不得规划MuJoCo或Isaac。
+- Planner不指定具体GPU、partition、卡数或并发。
 
 ## 报告与推送
 
@@ -131,10 +161,10 @@ Executor负责刷新ownership、account、QOS、GRES、capacity、process、dupl
 
 - `.agent/STATE.md`
 - `.agent/AGENT_REPORT.md`
-- `.agent/reports/PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-AUDIT-PATH-RECOVERY-20260826-36.md`
+- `.agent/reports/PROCGEN-STANDARD-MSE-GGN-HEAD-CVLM-6M-S0-SCIENCE-20260826-37.md`
 
-报告必须包含路径适配diff、trainer manifest identity、负测试、historical audit、四环境preflight矩阵、scheduler/root/artifact状态、失败账本及唯一结论。
+报告必须包含冻结身份、启动检查、job/root映射、2M/4M/终点表、CVLM诊断、scheduler/artifact/error状态、历史失败账本及唯一结论。
 
 提交代码和模型无关证据，不提交model/checkpoint。推送`origin/agent-work`并验证远端HEAD后回调Planner。
 
-Begin this unique READY task now. Preserve user placement preference: after the single local gate passes, refresh live gpuH ownership/account/QOS/GRES/capacity/duplicate state and prefer gpuH. Do not start 6M science in Task36. Callback with exact preflight job IDs/states or the bounded terminal conclusion.
+Begin this unique science READY now. Refresh live gpuH state and prefer gpuH. Reuse Task36 PRECHECK_PASS without rerunning it. Submit exactly the four authorized seed0 intended-6M cells once, with fresh roots and no retries. Callback immediately with frozen assignment/delivery, exact job IDs/roots and initial scheduler states so the existing automation procgen-3090 can be converted—not duplicated—into the sole 5-minute Task37 science monitor.
