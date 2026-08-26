@@ -1,0 +1,36 @@
+Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50
+Method: FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1
+Environment: bossfight-easy-0-10
+Seed: 0
+Job: 1075029
+
+Before frozen-monitor apply:
+state=RUNNING
+node=gpu016
+elapsed=02:14:04
+
+Frozen-monitor result:
+transition=2007040
+target_reward=0.39
+paper_reward=2.92
+ratio=0.13356164383561644
+target_sha256=816d02e776ef684dd193424f81c7125f940632844c2a7a006959dd34eed3089e
+paper_sha256=4082868eeec196363e284fd7af68807f20bc0142e7de7e8cf355851a5d89337c
+decision=EARLY_STOPPED_ALGORITHM
+monitor_rc=3
+
+After apply:
+state=CANCELLED by 639800874
+exit_code=0:0
+elapsed=02:14:05
+start=2026-08-26T17:07:42
+end=2026-08-26T19:21:47
+node=gpu016
+
+root_status=RUNNING (stale)
+root_rc=absent (stale)
+checkpoint=absent
+hard_error_matches=0
+exact_stage_cholesky_info=0
+exact_stage_relative_residual=5.55e-14
+No repeat apply, cancellation, retry, requeue, or resubmit was performed.

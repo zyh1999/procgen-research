@@ -9,10 +9,19 @@ The Joint optimizer is created cleanly at the fixed switch with LR `.004`;
 every Joint rollout records one behavior hash, one constant minibatch LR, exact
 full-class behavior-to-final KL and exactly one bounded next-rollout LR update.
 The sole Bede gate `1075026` passed on gpu015 with finite strict Joint2B/cross
-evidence. Four seed0 6M cells were submitted together exactly once and are
-RUNNING: BF `1075028`, Boss `1075029`, Cave `1075030`, Coin `1075031`.
-Task49 science remains live and untouched. The existing automation was updated
-in place; no extra test/audit chain or second monitor exists.
+evidence.
+
+At exact 2,007,040, BF `1075028` passed `10.48/9.28=1.1293103448` and Coin
+`1075031` passed `8.80/3.70=2.3783783784`; both remain RUNNING. Boss `1075029`
+recorded `.39/2.92=.1335616438` and Cave `1075030` recorded
+`2.10/4.45=.4719101124`. Each frozen monitor wrote one
+`EARLY_STOPPED_ALGORITHM` ledger row and returned rc3. Scheduler-authoritative
+terminal state for both is CANCELLED by639800874, exit `0:0`, elapsed
+`02:14:05`, node gpu016; root RUNNING/absent rc are stale. Exact-stage solves
+were finite with Cholesky info0, relative residuals `5.55e-14/8.54e-15`, hard
+error scan0 and no checkpoint. Complete bounded model-free evidence is
+archived. Task49 and Task50 BF/Coin were untouched; no repeat apply, retry,
+requeue or resubmit exists, and the sole 20-minute automation remains active.
 
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-WARMUP-6M-S0-20260826-49`

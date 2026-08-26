@@ -1,10 +1,10 @@
 # Current Project State
 
-## Task50 rollout-level RAT scheduler implementation frozen
+## Task50 exact-2M Boss/Cave early stops; BF/Coin remain live
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
-  is `CANDIDATE_NOT_READY` with four active Bede science cells. Task49 jobs
-  `1074926-1074929` continue independently and were not modified.
+  remains `CANDIDATE_NOT_READY`. Task49 continues independently and was not
+  modified.
 - Task50 preserves the Task49 PPO boundary and strict full-shared Joint-2B
   math. Its only scientific change creates clean Joint SGD at LR `.004`, holds
   that LR constant across each full four-epoch rollout, computes exact
@@ -15,12 +15,19 @@
   PRECHECK_PASS, exact `.004` switch LR, constant per-rollout minibatch LR,
   one update per rollout, nonzero cross blocks, Cholesky info0 and residuals
   at most `1.05e-15`.
-- Four jobs were submitted together once and initially run on gpu016: BigFish
-  `1075028`, BossFight `1075029`, CaveFlyer `1075030`, CoinRun `1075031`.
-  Their roots are fresh and scientifically started. The sole automation now
-  monitors Task49+50 separately at 20-minute cadence.
+- At exact `2,007,040`, BigFish passed `10.48/9.28=1.1293103448` and CoinRun
+  passed `8.80/3.70=2.3783783784`; both remain RUNNING. BossFight `1075029`
+  stopped at `.39/2.92=.1335616438` and CaveFlyer `1075030` stopped at
+  `2.10/4.45=.4719101124`. Their frozen monitors each wrote one
+  `EARLY_STOPPED_ALGORITHM` row and returned rc3. Both scheduler records are
+  authoritative `CANCELLED by 639800874`, exit `0:0`, elapsed `02:14:05`,
+  node gpu016. Root RUNNING markers/absent rc are stale. Exact-stage solves
+  were finite with Cholesky info0, relative residuals `5.55e-14/8.54e-15`,
+  hard-error scan0 and no checkpoint.
+- The sole automation continues to monitor Task49+50 separately at 20-minute
+  cadence; no live cell was altered by archival.
 
-Updated: 2026-08-27T01:15:00+08:00
+Updated: 2026-08-27T03:40:00+08:00
 
 ## Task49 exact-2M CaveFlyer early stop; three cells remain live on Bede
 
