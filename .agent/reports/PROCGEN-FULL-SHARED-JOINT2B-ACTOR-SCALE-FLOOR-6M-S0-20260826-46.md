@@ -4,7 +4,7 @@ Task-ID: `PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46`
 
 Method: `FULL_SHARED_JOINT2B_CRITIC_ANCHORED_ACTOR_SCALE_FLOOR_V1`
 
-Current conclusion: `QUEUED_RESOURCE_WAIT`
+Current conclusion: `CANDIDATE_NOT_READY`
 
 ## Frozen implementation
 
@@ -85,3 +85,29 @@ cancelling that individual cell with a complete ledger. Scheduler state
 overrides stale root markers.
 
 No model or checkpoint is included in Git evidence.
+
+## BossFight exact 2M early stop (2026-08-26 10:48Z)
+
+BossFight `19424174` reached the exact 2,007,040 common row with Target `0.00`
+and immutable Paper `2.92`, ratio `0`. The frozen Task46 monitor was applied
+once, wrote `EARLY_STOPPED_ALGORITHM`, returned rc3 and cancelled only this
+cell. Scheduler-authoritative terminal state is `CANCELLED by 778916`, exit
+`0:0`, elapsed 00:50:44 on node821.
+
+The root `RUNNING` marker and absent launcher rc are stale consequences of the
+scheduler cancellation and do not make the cell live. The exact ledger,
+scheduler before/after state, command/frozen identity and progress/trace/log
+hashes are preserved under `evidence_monitor_20260826_1048z`. No checkpoint
+existed and the bounded hard-error scan returned zero.
+
+The preserved latest numerical row at 2,748,416 transitions shows the intended
+floor active: raw actor scale `5.919e-57`, critic scale `1.80053e5`, effective
+actor scale `1.80053e3` (`.01` of critic), finite direction `4.983e-05`, clip
+scale `1`, predicted KL `0`, Cholesky info `0`, residual `1.60e-16` and finite
+scan PASS. Thus the terminal classification is performance-based algorithm
+early stop, not an infrastructure or nonfinite solver failure.
+
+At this snapshot BigFish `19424173` remains RUNNING after exact 2M PASS
+`10.09/9.28=1.0872844828`; CaveFlyer `19424175` and CoinRun `19424176` are
+RUNNING. Task46 is nonterminal and now classified `CANDIDATE_NOT_READY`. No
+remaining Task46 or Task45 job was modified.

@@ -1,0 +1,38 @@
+{
+  "captured_utc": "2026-08-26T10:48:53Z",
+  "job": "19424174",
+  "environment": "bossfight-easy-0-10",
+  "classification": "EARLY_STOPPED_ALGORITHM",
+  "scheduler": {
+    "state": "CANCELLED by 778916",
+    "exit_code": "0:0",
+    "elapsed": "00:50:44",
+    "node": "node821"
+  },
+  "root": {
+    "status": "RUNNING_STALE_AFTER_SCHEDULER_CANCEL",
+    "rc": "absent",
+    "checkpoint": "absent",
+    "hard_error_scan_matches": 0
+  },
+  "stage": {
+    "transition": 2007040,
+    "target": 0.0,
+    "paper": 2.92,
+    "ratio": 0.0,
+    "monitor_rc": 3
+  },
+  "latest_preserved_numerical": {
+    "transition": 2748416,
+    "entropy": 1.0429061112133787e-30,
+    "actor_raw_scale": 5.918695909098299e-57,
+    "critic_raw_scale": 180053.20779436262,
+    "actor_effective_scale": 1800.5320779436263,
+    "floor_active": true,
+    "direction_l2": 4.982819882570766e-05,
+    "predicted_step_kl": 0.0,
+    "clip_scale": 1.0,
+    "relative_residual": 1.6010930154916054e-16,
+    "finite_scan_pass": true
+  }
+}

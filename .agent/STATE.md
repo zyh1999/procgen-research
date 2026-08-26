@@ -1266,6 +1266,20 @@ Updated: 2026-08-26T14:37:00+08:00
 - Use only the existing `procgen-3090` automation, updated in place, to monitor
   both frozen sets. Do not create another automation.
 
+# Task46 BossFight terminal event (2026-08-26 10:48Z)
+
+- BossFight `19424174`: exact 2,007,040 Target `0`, Paper `2.92`, ratio `0`;
+  frozen monitor rc3, scheduler `CANCELLED by 778916`, exit `0:0`, elapsed
+  00:50:44 on node821. Classify `EARLY_STOPPED_ALGORITHM`; stale root RUNNING
+  and absent rc are not live.
+- Its `.01` critic-anchored actor floor was active and kept the preserved
+  direction/solver finite; this was a reward failure rather than nonfinite or
+  infrastructure failure.
+- BigFish remains RUNNING after 2M PASS; CaveFlyer and CoinRun are RUNNING.
+  Task46 current conclusion is `CANDIDATE_NOT_READY`.
+- Task45 was read-only and unchanged.
+
+
 # Task45 exact-stage and numerical state (2026-08-26 09:54Z)
 
 - BigFish `19409681` passed exact 2,007,040: `10.09/9.28=1.0872844828` and

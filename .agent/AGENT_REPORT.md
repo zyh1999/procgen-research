@@ -22,7 +22,7 @@ and `remote_launch_staging/procgen_full_shared_joint2b_science_launch_20260826_4
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46`
 
-Current conclusion: `QUEUED_RESOURCE_WAIT`
+Current conclusion: `CANDIDATE_NOT_READY`
 
 The critic-anchored `.01` actor scale floor is implemented and frozen at
 `829c58773c2b6a9bc01db2546f0145c24fb118d0`. Minimal syntax/import/hash,
@@ -34,6 +34,17 @@ runs on node820; the other three wait on `AssocMaxJobsLimit`.
 Task45 remains disjoint and untouched. Full frozen identities, roots and the
 replacement monitoring contract are in
 `.agent/reports/PROCGEN-FULL-SHARED-JOINT2B-ACTOR-SCALE-FLOOR-6M-S0-20260826-46.md`.
+
+# Task46 BossFight archive update
+
+BossFight `19424174` is terminal `EARLY_STOPPED_ALGORITHM` at exact 2,007,040:
+`0/2.92=0`; scheduler is CANCELLED by 778916 after 00:50:44 on node821. Full
+model-free ledger, before/after scheduler evidence, numerical snapshot and
+artifact hashes are committed. The actor scale floor was active and numerical
+telemetry remained finite, so this is an algorithm reward early stop rather
+than an infrastructure/numerical failure. Remaining Task46 cells and all
+Task45 cells were untouched; Task46 remains `CANDIDATE_NOT_READY`.
+
 
 # Task45 bounded monitor archive
 
