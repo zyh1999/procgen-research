@@ -1,6 +1,6 @@
 # Current Project State
 
-## Task61 post-solve entropy quick diagnostic ready for remote gate
+## Task61 post-solve entropy quick diagnostic running on Bede
 
 - Task61 is the sole active READY objective. It derives only from frozen
   Task55 beta1 no-warmup strict Joint-2B and targets BossFight/CaveFlyer seed0
@@ -13,9 +13,16 @@
   Joint-only and applied projections/divergences are logged separately; the
   Joint history buffer is explicitly kept entropy-free.
 - Parent trainer/config hashes match the assignment. Minimal local Python and
-  shell compilation checks pass. No Task51--60 job/root was modified.
+  shell compilation checks pass. Sole gate `1078146` completed `0:0` in
+  `00:02:01` on gpu011 with `PRECHECK_PASS`: strict `1024x938976`, nonzero
+  cross blocks, Cholesky info0, relative residual `6.587e-16`, entropy
+  value-head norm exactly zero and precise hard-error scan zero.
+- BossFight `1078147` and CaveFlyer `1078148` were submitted in one bounded
+  action and are both RUNNING on distinct one-V100 allocations on gpu011.
+  Fresh roots, trainer PIDs, frozen identities and finite initial traces exist.
+  No Task51--60 job/root was modified.
 
-Updated: 2026-08-27T23:34:00+08:00
+Updated: 2026-08-27T23:43:00+08:00
 
 ## Task54 eta-min 1/256 quick diagnostic terminal
 

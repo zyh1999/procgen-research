@@ -13,9 +13,19 @@ global clip and fixed LR `.004`; value-head-exclusive entropy is asserted
 exactly zero and the retained Joint history buffer excludes entropy.
 
 Parent trainer/config identities match the assignment and minimal compile,
-config and launcher checks pass. Exactly one remote production gate remains;
-only its PASS permits one simultaneous BossFight/CaveFlyer launch to fresh
-2M roots. No Task51--60 job or root has been touched.
+config and launcher checks pass. Sole Bede gate `1078146` completed `0:0` in
+`00:02:01` on gpu011 with `PRECHECK_PASS`. Its final trace records strict
+`1024x938976`, nonzero cross blocks, Cholesky info0, relative residual
+`6.587e-16`, entropy coefficient `.01`, entropy value-head norm exactly zero,
+separate Joint/applied predictions and finite scans; precise hard errors are
+zero.
+
+BossFight `1078147` and CaveFlyer `1078148` were submitted together exactly
+once to fresh Bede roots. Both are RUNNING on gpu011 with separate one-V100
+allocations, roots, PIDs, logs and evidence. Initial traces are finite with
+fixed LR `.004`, phase switch zero, nonzero cross blocks, Cholesky info0,
+entropy excluded from system/RHS/history and no hard errors. No Task51--60 job
+or root has been touched.
 
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-FIXEDLR-DUALTRUST-BETA1-BETA4-6M-S0-20260827-51`

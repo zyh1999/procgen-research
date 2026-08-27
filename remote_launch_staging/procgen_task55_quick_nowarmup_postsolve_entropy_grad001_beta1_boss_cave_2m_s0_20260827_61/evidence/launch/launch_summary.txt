@@ -1,0 +1,10 @@
+task_id=PROCGEN-TASK55-QUICK-NOWARMUP-POSTSOLVE-ENTROPY-GRAD001-BETA1-BOSS-CAVE-2M-S0-20260827-61
+implementation=60948b47a5d8d36ce91305118662ead7e83cbefc
+gate=1078146|COMPLETED|0:0|00:02:01|gpu011|PRECHECK_PASS|rc0
+submission=ONE_BOUNDED_ACTION_TWO_INDEPENDENT_JOBS
+boss=1078147|RUNNING|gpu011|gres/gpu:1
+cave=1078148|RUNNING|gpu011|gres/gpu:1
+boss_root=/nobackup/projects/bdman37/yihe/procgen_task55_quick_nowarmup_postsolve_entropy_grad001_beta1_boss_cave_2m_s0_20260827_61/runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/bossfight-easy-0-10/seed0/2m_quick
+cave_root=/nobackup/projects/bdman37/yihe/procgen_task55_quick_nowarmup_postsolve_entropy_grad001_beta1_boss_cave_2m_s0_20260827_61/runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/caveflyer-easy-0-10/seed0/2m_quick
+precise_gate_hard_errors=0
+initial_science_hard_errors=0

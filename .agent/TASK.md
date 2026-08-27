@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-TASK55-QUICK-NOWARMUP-POSTSOLVE-ENTROPY-GRAD001-BETA1-BOSS-CAVE-2M-S0-20260827-61
 
-Status: READY_IMPLEMENTED_LOCAL_GATES_PASS
+Status: RUNNING_QUICK_READ_ONLY
 
 Method: `FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1`
 
@@ -23,10 +23,9 @@ Entropy must be exactly zero on critic-exclusive value-head parameters and
 must not enter the system, RHS, solve, eta controller or Joint history buffer.
 The unchanged actual rollout `D_pi/D_v` measurements drive eta feedback.
 
-Run only local compile/config/launcher checks and exactly one remote production
-gate covering import/construction/shape/device/one finite solver start and the
-entropy-separation assertions. Gate failure is terminal with no repair/retry.
-On gate PASS submit BossFight and CaveFlyer together exactly once at fresh
-roots. Never retry/requeue/resubmit, touch Task51--60, create another arm or
-coefficient, or commit model/checkpoint bytes. At endpoint compare read-only
-against immutable Paper and Task55 beta1; never cancel for reward.
+The sole Bede gate `1078146` is `COMPLETED/0:0` and `PRECHECK_PASS`. BossFight
+`1078147` and CaveFlyer `1078148` were submitted together exactly once and are
+RUNNING on distinct one-V100 allocations on gpu011. Never retry/requeue/
+resubmit, touch Task51--60, create another arm or coefficient, or commit
+model/checkpoint bytes. At endpoint compare read-only against immutable Paper
+and Task55 beta1; never cancel for reward.

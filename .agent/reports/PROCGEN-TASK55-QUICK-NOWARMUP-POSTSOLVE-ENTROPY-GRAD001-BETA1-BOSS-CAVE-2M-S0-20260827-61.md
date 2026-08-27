@@ -2,8 +2,8 @@
 
 ## Status
 
-`CANDIDATE_NOT_READY` — implementation and minimal local gates are complete;
-the sole production gate has not yet run.
+`CANDIDATE_NOT_READY` — the sole production gate passed and both authorized
+quick cells are running.
 
 ## Frozen parent
 
@@ -36,14 +36,46 @@ dual-trust controller.
 - config contains only the explicit `.01` post-solve coefficient: PASS
 - method is beta1 only; no warmup, LR or trust-band change: PASS
 
-## Remote gate and science matrix
+## Frozen Task61 identities
 
-Pending exactly one production gate. On PASS only:
+- Implementation commit: `60948b47a5d8d36ce91305118662ead7e83cbefc`
+- Trainer SHA256: `3f4946dbb7fa674d3996fc9dc27fc5cea080ebcca23989e1c1491562198d56dd`
+- Config SHA256: `eba2d9f6a18d06839087fefa3e77ce047735adcf1c5a792ee528be0516006856`
+- Gate wrapper SHA256: `1b3e14128714fd6fe3cd03e065b2afb780bacee873dd33c95485cc39d2341fc4`
+- Science wrapper SHA256: `45f82f2b078e32367cb48240083b1ac474ca6dab6d2d6a60170c24eb49a7afc7`
+- Read-only monitor SHA256: `ab00df29ae106506649c37051c559879bd917606cb8e1c82331fd57fda81af8d`
+
+## Sole production gate
+
+Job `1078146` is scheduler-authoritatively `COMPLETED/0:0`, elapsed
+`00:02:01`, node gpu011; root is `PRECHECK_PASS/rc0`. The gate proves the real
+production model/device path, strict `1024x938976` Joint system, nonzero
+natural cross blocks, Cholesky info0 and relative residual
+`6.587411024709103e-16`.
+
+The final minibatch records entropy gradient norm `.0851079`, policy norm
+`.0292955`, shared norm `.0799070`, value-exclusive norm exactly `0`, scaled
+entropy norm `.000851079`, Joint/entropy cosine `-.0938228`, finite applied
+actor/critic projections and all three separation flags (system, RHS,
+history) equal to one. Fixed LR is `.004`; actual rollout `D_pi/D_v` is
+`3.2259e-05/.0056531`. Precise hard-error scan is zero. The Gym deprecation
+text is benign and contains no traceback, OOM, CUDA/NCCL, disk, NaN or Inf.
+
+## Science launch
+
+Live Bede refresh showed five idle compatible nodes, no Task61 job/process,
+and absent fresh roots. Both cells were submitted in the same bounded action,
+with no dependency, hold or throttle.
 
 | Environment | Seed | Horizon | Job | Root | State |
 |---|---:|---:|---|---|---|
-| BossFight | 0 | 2,007,040 | pending | fresh | not submitted |
-| CaveFlyer | 0 | 2,007,040 | pending | fresh | not submitted |
+| BossFight | 0 | 2,007,040 | 1078147 | `runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/bossfight-easy-0-10/seed0/2m_quick` | RUNNING gpu011 |
+| CaveFlyer | 0 | 2,007,040 | 1078148 | `runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/caveflyer-easy-0-10/seed0/2m_quick` | RUNNING gpu011 |
+
+Each allocation has one V100, its own Slurm job/root/PID/log chain and frozen
+identity. Initial traces reach `16,384`: LR `.004`, phase switch zero, beta1,
+natural cross nonzero, Cholesky info0, residuals near `5e-16`, entropy
+value-head norm zero, all finite scans PASS and hard-error scans zero.
 
 No retry, requeue, resubmit or reward-based cancellation is allowed. Model and
 checkpoint bytes/hashes remain outside Git.
