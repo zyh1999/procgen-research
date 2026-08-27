@@ -1,0 +1,37 @@
+Task-ID: PROCGEN-TASK55-QUICK-NOWARMUP-POSTSOLVE-ENTROPY-GRAD001-BETA1-BOSS-CAVE-2M-S0-20260827-61
+classification: CANCELLED_FOR_USER_AUTHORIZED_GPUH_SPEED_MIGRATION
+science_identity_changed: no
+retry_requeue_resubmit: no
+
+Bede source jobs, cancelled once at low progress after the read-only speed audit:
+- BossFight 1078147, gpu011, RUNNING before cancellation, elapsed about 00:28:56, last complete progress transition 245760, scheduler terminal CANCELLED by639800874/0:0 at 2026-08-27T17:06:36+01:00.
+- CaveFlyer 1078148, gpu011, RUNNING before cancellation, elapsed about 00:28:56, last complete progress transition 245760, scheduler terminal CANCELLED by639800874/0:0 at 2026-08-27T17:06:36+01:00.
+- Trainer PIDs 927353 and 927362 were gone after cancellation.
+- Both partial runs had finite Joint2B telemetry, Cholesky info0, nonzero natural cross blocks, fixed LR .004, postsolve entropy separation flags set, and no infrastructure hard error.
+
+Fresh CSF3 submission, exactly once and together:
+- BossFight job19507047 -> /scratch/h99859yz/procgen_task55_quick_nowarmup_postsolve_entropy_grad001_beta1_boss_cave_2m_s0_20260827_61/runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/bossfight-easy-0-10/seed0/2m_quick
+- CaveFlyer job19507048 -> /scratch/h99859yz/procgen_task55_quick_nowarmup_postsolve_entropy_grad001_beta1_boss_cave_2m_s0_20260827_61/runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/caveflyer-easy-0-10/seed0/2m_quick
+- Initially both jobs were PENDING/zero-step with reason AssocGrpGRES and both roots were absent.
+
+Idle Procgen allocation release, explicitly authorized and performed once:
+- 19487251 procgen-qv-A: all scientific child steps terminal; released at 2026-08-27T17:12+01:00; scheduler terminal CANCELLED by778916/0:0, node820.
+- 19487252 procgen-qv-B: all scientific child steps terminal; released at 2026-08-27T17:12+01:00; scheduler terminal CANCELLED by778916/0:0, node822.
+- classification: RELEASED_AFTER_TERMINAL_PROCGEN_QUICK_WORK_TO_UNBLOCK_TASK61_NORMAL_GPUH
+- No other allocation or job was cancelled or modified.
+
+Natural start after GRES release:
+- 19507047 RUNNING node822, start 2026-08-27T17:12+01:00, root RUNNING, trainer_pid51634.
+- 19507048 RUNNING node822, start 2026-08-27T17:12+01:00, root RUNNING, trainer_pid51643.
+- Both use one H200 allocation each; observed device NVIDIA H200 and GPU utilization 94 percent during the initial verification.
+- Initial traces reached at least Boss 61440 and Cave 65536 transitions.
+- Both preserve strict 1024x938976 Joint2B, fixed LR .004, phase_switch_count0, PPO state0, nonzero natural cross blocks, Cholesky info0, finite relative residuals, postsolve_entropy_coef .01, value-exclusive entropy gradient norm exactly 0, and entropy-absent-from-system/RHS/history flags all 1.
+- Hard-error scan found no Traceback, OOM, CUDA, NCCL, disk/quota, NaN or Inf failure; only benign torchvision deprecation warnings were present.
+
+Frozen identities:
+- implementation 60948b47a5d8d36ce91305118662ead7e83cbefc
+- trainer 3f4946dbb7fa674d3996fc9dc27fc5cea080ebcca23989e1c1491562198d56dd
+- config eba2d9f6a18d06839087fefa3e77ce047735adcf1c5a792ee528be0516006856
+- Bede wrapper 45f82f2b078e32367cb48240083b1ac474ca6dab6d2d6a60170c24eb49a7afc7
+- CSF3 wrapper ea04718ee9c2ccc3c222a1e5571c3df14430f690a4b55bb6e4ed366557a8b3c2
+- read-only monitor ab00df29ae106506649c37051c559879bd917606cb8e1c82331fd57fda81af8d

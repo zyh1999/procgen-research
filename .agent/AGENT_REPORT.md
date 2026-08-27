@@ -483,3 +483,22 @@ early stops. Four-environment mean ratios are beta1 `.637663` and beta4
 updates, cross blocks, Cholesky0, finite residuals and clean error scans prove
 healthy execution rather than infrastructure failure. Both arms are
 `CANDIDATE_REJECT`; model/checkpoint bytes are excluded and no retry occurred.
+
+# Task61 gpuH speed-migration delivery
+
+The user-authorized atomic migration is complete without changing Task61
+science. Bede jobs1078147/1078148 are terminal user-speed cancellations, not
+algorithm failures or retries. A deployment-only CSF3 wrapper preserves the
+exact trainer/config/method command identity. Fresh jobs19507047/19507048 were
+submitted once and left untouched while zero-step pending. After explicit
+follow-up authorization, only the two verified-idle Procgen allocations
+19487251/19487252 were released; every scientific child step was already
+terminal. The existing Task61 jobs then started naturally together on node822.
+
+Initial Boss/Cave traces are finite and preserve LR.004, no warmup/switch,
+strict1024x938976 Joint2B, natural cross blocks, Cholesky0, postsolve entropy
+coefficient.01, exact-zero value-head entropy gradient and all entropy
+separation assertions. No hard error, retry, requeue, resubmit, model byte or
+unrelated scheduler mutation occurred. The coordinator should replace the sole
+Task61 automation binding in place with jobs19507047/19507048 and their exact
+CSF3 roots; no second automation is needed.

@@ -1736,3 +1736,19 @@ Updated: 2026-08-26T14:37:00+08:00
   not infrastructure or solver.
 - Both Task51 arms are final `CANDIDATE_REJECT`. Checkpoints remain remote and
   are represented only by stat metadata; no retry/requeue/resubmit occurred.
+
+# Task61 user-authorized gpuH speed migration
+
+- Frozen science identity remains trainer `3f4946db...`, config `eba2d9f6...`,
+  method `FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1`.
+- Bede jobs1078147/1078148 were cancelled once at low progress and are terminal
+  `CANCELLED/0:0`; classification is
+  `CANCELLED_FOR_USER_AUTHORIZED_GPUH_SPEED_MIGRATION`, not failure or retry.
+- Fresh normal gpuH jobs19507047 Boss and19507048 Cave were submitted together
+  once. They initially waited zero-step on AssocGrpGRES.
+- After all scientific child steps were confirmed terminal, idle Procgen parent
+  allocations19487251/19487252 were released exactly once and classified
+  `RELEASED_AFTER_TERMINAL_PROCGEN_QUICK_WORK_TO_UNBLOCK_TASK61_NORMAL_GPUH`.
+- Existing jobs19507047/19507048 then started naturally on node822. Both roots
+  are RUNNING with PIDs and finite strict-Joint2B/postsolve-entropy telemetry;
+  hard-error scan0. No retry/requeue/resubmit or unrelated mutation occurred.

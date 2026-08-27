@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-TASK55-QUICK-NOWARMUP-POSTSOLVE-ENTROPY-GRAD001-BETA1-BOSS-CAVE-2M-S0-20260827-61
 
-Status: RUNNING_QUICK_READ_ONLY
+Status: RUNNING_QUICK_READ_ONLY_GPUH_MIGRATED
 
 Method: `FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1`
 
@@ -23,9 +23,14 @@ Entropy must be exactly zero on critic-exclusive value-head parameters and
 must not enter the system, RHS, solve, eta controller or Joint history buffer.
 The unchanged actual rollout `D_pi/D_v` measurements drive eta feedback.
 
-The sole Bede gate `1078146` is `COMPLETED/0:0` and `PRECHECK_PASS`. BossFight
-`1078147` and CaveFlyer `1078148` were submitted together exactly once and are
-RUNNING on distinct one-V100 allocations on gpu011. Never retry/requeue/
-resubmit, touch Task51--60, create another arm or coefficient, or commit
-model/checkpoint bytes. At endpoint compare read-only against immutable Paper
-and Task55 beta1; never cancel for reward.
+The sole Bede gate `1078146` is `COMPLETED/0:0` and `PRECHECK_PASS`. Under the
+explicit user speed-migration authorization, low-progress Bede jobs `1078147`
+and `1078148` were cancelled exactly once and classified
+`CANCELLED_FOR_USER_AUTHORIZED_GPUH_SPEED_MIGRATION`. Exact fresh CSF3 jobs
+`19507047` BossFight and `19507048` CaveFlyer were submitted together once and
+are RUNNING on node822. Idle Procgen allocations `19487251/19487252` were
+released only after all scientific child work was terminal, classified
+`RELEASED_AFTER_TERMINAL_PROCGEN_QUICK_WORK_TO_UNBLOCK_TASK61_NORMAL_GPUH`.
+Never retry/requeue/resubmit, touch Task51--60, create another arm or
+coefficient, or commit model/checkpoint bytes. At endpoint compare read-only
+against immutable Paper and Task55 beta1; never cancel for reward.

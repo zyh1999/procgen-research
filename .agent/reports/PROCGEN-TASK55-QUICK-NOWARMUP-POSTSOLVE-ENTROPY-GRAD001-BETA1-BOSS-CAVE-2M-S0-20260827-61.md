@@ -3,7 +3,8 @@
 ## Status
 
 `CANDIDATE_NOT_READY` — the sole production gate passed and both authorized
-quick cells are running.
+quick cells are running after the user-authorized atomic speed migration to
+CSF3 gpuH.
 
 ## Frozen parent
 
@@ -79,3 +80,51 @@ value-head norm zero, all finite scans PASS and hard-error scans zero.
 
 No retry, requeue, resubmit or reward-based cancellation is allowed. Model and
 checkpoint bytes/hashes remain outside Git.
+
+## User-authorized Bede to CSF3 speed migration
+
+A read-only placement audit measured only about 135--143 transitions/second on
+the Bede V100 cells, with roughly four hours remaining, while the frozen
+Task61 identity was compatible with the established CSF3 Procgen environment.
+The user explicitly authorized an atomic fresh-root migration.
+
+The deployment-only CSF3 wrapper SHA256 is
+`ea04718ee9c2ccc3c222a1e5571c3df14430f690a4b55bb6e4ed366557a8b3c2`.
+Its normalized scientific command is identical to the frozen Bede command;
+only scheduler/deployment paths and fresh roots differ. It is frozen in commit
+`7d7ab8576a4f782daf28e1e460cf77e180f4624d`.
+
+Jobs `1078147/1078148` were cancelled exactly once at low progress, after
+healthy finite traces and before any endpoint. Both became scheduler-terminal
+`CANCELLED by 639800874/0:0` at `2026-08-27T17:06:36+01:00`; their trainer
+PIDs were gone. This is solely
+`CANCELLED_FOR_USER_AUTHORIZED_GPUH_SPEED_MIGRATION`, not a retry and not an
+algorithm, numerical or infrastructure failure.
+
+Exactly two fresh normal gpuH jobs were submitted together once. They initially
+waited zero-step on `AssocGrpGRES`, with fresh roots still absent. Immediate
+reconfirmation proved the two old Procgen Jupyter parent allocations had only
+batch/extern live and every scientific child step was terminal. Under the
+explicit follow-up authorization, exactly allocations `19487251/19487252`
+were released once at `17:12+01:00`, classified
+`RELEASED_AFTER_TERMINAL_PROCGEN_QUICK_WORK_TO_UNBLOCK_TASK61_NORMAL_GPUH`.
+No Task61 job was cancelled, modified, requeued or resubmitted, and no other
+job/allocation was touched.
+
+| Environment | Job | Exact CSF3 root | Initial authoritative state |
+|---|---:|---|---|
+| BossFight | 19507047 | `/scratch/h99859yz/procgen_task55_quick_nowarmup_postsolve_entropy_grad001_beta1_boss_cave_2m_s0_20260827_61/runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/bossfight-easy-0-10/seed0/2m_quick` | RUNNING node822, root RUNNING, PID51634 |
+| CaveFlyer | 19507048 | `/scratch/h99859yz/procgen_task55_quick_nowarmup_postsolve_entropy_grad001_beta1_boss_cave_2m_s0_20260827_61/runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1/caveflyer-easy-0-10/seed0/2m_quick` | RUNNING node822, root RUNNING, PID51643 |
+
+Both started naturally at `17:12+01:00`. Initial traces reached at least
+61,440/65,536 transitions. They verify LR `.004`, rollout-zero Joint2B,
+phase-switch zero, PPO state zero, strict `1024x938976`, nonzero natural cross
+blocks, Cholesky info0 and finite residuals. Post-solve entropy coefficient is
+`.01`; value-exclusive entropy norm is exactly zero and all three
+entropy-absent-from-system/RHS/history flags equal one. The H200 was 94 percent
+utilized during verification. Precise hard-error scan was zero; only benign
+torchvision deprecation warnings occurred.
+
+The existing sole Task61 automation must be updated in place to bind jobs
+`19507047/19507048` and these two exact CSF3 roots. No second automation is
+authorized.
