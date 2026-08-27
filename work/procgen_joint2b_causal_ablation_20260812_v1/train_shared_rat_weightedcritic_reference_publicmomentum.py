@@ -581,11 +581,6 @@ def learn(world_size, algo, actor_critic, writer, venv, device,
                     # sample geometry and uses no random signs or projection.
                     joint_K = actor_kernel + critic_kernel
             weighted_K = joint_K * joint_ratio.to(joint_K.dtype).unsqueeze(0)
-            eye = torch.eye(
-                weighted_K.shape[0],
-                device=device,
-                dtype=weighted_K.dtype,
-            )
             linear_solve_dtype_name = str(getattr(
                 algo_config, 'linear_solve_dtype', 'float32'
             )).lower()
@@ -600,6 +595,16 @@ def learn(world_size, algo, actor_critic, writer, venv, device,
                 torch.float64
                 if linear_solve_dtype_name in {'float64', 'fp64', 'double'}
                 else weighted_K.dtype
+            )
+            # Add the configured ridge after promoting the kernel.  Adding a
+            # small damping term to a very large float32 deterministic RAT
+            # kernel can round the ridge away before the requested float64
+            # solve sees it, leaving an exactly singular system.
+            weighted_K_solve = weighted_K.to(linear_solve_dtype)
+            solve_eye = torch.eye(
+                weighted_K.shape[0],
+                device=device,
+                dtype=linear_solve_dtype,
             )
             configured_actor_damping = float(getattr(
                 algo_config, 'rat_actor_damping', algo_config.cg_damping
@@ -674,11 +679,11 @@ def learn(world_size, algo, actor_critic, writer, venv, device,
                 actor_damping = configured_actor_damping
                 critic_damping = configured_critic_damping
             actor_solve_system = (
-                weighted_K + actor_damping * eye
-            ).to(linear_solve_dtype)
+                weighted_K_solve + actor_damping * solve_eye
+            )
             critic_solve_system = (
-                weighted_K + critic_damping * eye
-            ).to(linear_solve_dtype)
+                weighted_K_solve + critic_damping * solve_eye
+            )
             # Backward-compatible alias for the stacked-system causal
             # diagnostic below.  RAT B-row modes do not enter that path.
             solve_system = actor_solve_system
