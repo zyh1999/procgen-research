@@ -16,12 +16,24 @@
   `PRECHECK_PASS/rc0`, strict 1024x938976, cross-preserving, Cholesky info0,
   finite, fixed LR `.004`, and one actor plus one critic trust update.
 - All eight science cells were submitted once in one action as
-  `1075096-1075103`. All eight are RUNNING (allocation count 8, actual running
-  concurrency 8, pending 0) on gpu023/024/029/030 with isolated roots,
-  scientific-start markers and trainer PIDs. Bede had sufficient immediate
-  capacity, so no CSF3 split was used.
+  `1075096-1075103`. At exact `2,007,040`, both BigFish and CoinRun cells
+  passed in both arms. Both BossFight and CaveFlyer cells were below `.60` in
+  both arms; the correct frozen monitor wrote one independent ledger and
+  cancelled each exactly once. Scheduler-authoritative terminal jobs are
+  beta1 Boss/Cave `1075097/1075098` and beta4 Boss/Cave `1075101/1075102`, all
+  `CANCELLED by 639800874`, exit `0:0`. Jobs `1075096/1075099/1075100/1075103`
+  remain RUNNING. All exact-stage solves were finite with Cholesky info0 and
+  hard-error scan0.
+- Task52 Slot A quick mirrors remain RUNNING at roughly 1.39M--1.41M trace
+  transitions, past the single 503,808 switch, with fixed LR `.004`, finite
+  solves and no exact 2M row yet.
+- Task54 Slot B validator recovery remains RUNNING at roughly 573,440 trace
+  transitions. All four switched exactly once; eta values demonstrably descend
+  below `1/64`, reaching the configured `1/256` in three current actor paths.
+  LR is fixed `.004`, Cholesky info is zero, residuals are finite and hard-error
+  scans are zero.
 
-Updated: 2026-08-27T14:02:00+08:00
+Updated: 2026-08-27T16:55:00+08:00
 
 ## Task50 fully terminal: CANDIDATE_REJECT
 

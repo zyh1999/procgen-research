@@ -1,0 +1,3 @@
+root_status=RUNNING
+root_rc=ABSENT
+checkpoint=ABSENT

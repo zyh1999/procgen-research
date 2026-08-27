@@ -85,5 +85,43 @@ Requested allocations: 8. Initial allocated/RUNNING concurrency: 8. PENDING:
 0, so there are no pending reasons. Initial hard-error scan is zero; the only
 stderr content is the known Gym deprecation notice.
 
-Current bounded conclusion: `CANDIDATE_NOT_READY` while all eight cells run
+Initial bounded conclusion was `CANDIDATE_NOT_READY` while all eight cells ran
 under exact-stage Paper monitoring.
+
+## Exact 2M monitor action (2026-08-27T07:45Z pass)
+
+All immutable Paper files passed `SHA256SUMS`. The first exact common row was
+`2,007,040` for every arm/environment:
+
+| Arm | Environment/job | Target/Paper | Ratio | Action |
+|---|---|---:|---:|---|
+| beta1 | BigFish 1075096 | 10.45/9.28 | 1.1260775862 | PASS, continue |
+| beta1 | BossFight 1075097 | .44/2.92 | .1506849315 | EARLY_STOPPED_ALGORITHM |
+| beta1 | CaveFlyer 1075098 | 2.50/4.45 | .5617977528 | EARLY_STOPPED_ALGORITHM |
+| beta1 | CoinRun 1075099 | 6.50/3.70 | 1.7567567568 | PASS, continue |
+| beta4 | BigFish 1075100 | 10.51/9.28 | 1.1325431034 | PASS, continue |
+| beta4 | BossFight 1075101 | .92/2.92 | .3150684932 | EARLY_STOPPED_ALGORITHM |
+| beta4 | CaveFlyer 1075102 | 2.30/4.45 | .5168539326 | EARLY_STOPPED_ALGORITHM |
+| beta4 | CoinRun 1075103 | 7.40/3.70 | 2.0 | PASS, continue |
+
+For the four strict-below-threshold cells, paired monitor SHA
+`73451eadf7a64b7ad49d2dbf4d96452463bdb04ca4d9f12cd856cb91478580f2`
+was called once with the correct method and distinct root ledger. Every call
+wrote `EARLY_STOPPED_ALGORITHM`, returned rc3 and cancelled only its bound job.
+Scheduler-authoritative terminal evidence is:
+
+- beta1 Boss `1075097`: `CANCELLED by 639800874`, exit `0:0`, elapsed
+  `02:51:45`, gpu023;
+- beta1 Cave `1075098`: same classification, elapsed `02:51:46`, gpu024;
+- beta4 Boss `1075101`: same classification, elapsed `02:51:46`, gpu029;
+- beta4 Cave `1075102`: same classification, elapsed `02:51:46`, gpu030.
+
+The four roots retain stale `RUNNING` markers and absent rc files after
+scheduler cancellation. No checkpoint exists. Each evidence directory records
+scheduler and accounting before/after/terminal state, input and monitor hashes,
+exact ledger, command/rc, artifact metadata, final metric/rollout telemetry and
+hard-error scan. The solves were finite, Cholesky info was zero, natural cross
+blocks remained nonzero, LR was `.004`, and hard-error matches were zero.
+
+BigFish and CoinRun in both arms remain RUNNING and untouched. The campaign is
+not fully terminal, so the bounded conclusion remains `CANDIDATE_NOT_READY`.

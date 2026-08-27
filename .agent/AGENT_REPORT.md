@@ -16,14 +16,29 @@ columns, nonzero natural cross blocks, fixed LR, direction-correct once-only
 dual-trust updates, Cholesky info0 and residuals below `1.7e-15`.
 
 All eight seed0 intended-6M cells were submitted exactly once in a single
-bounded Bede launch: beta1 `1075096-1075099`, beta4 `1075100-1075103`. All
-eight immediately became RUNNING on gpu023/024/029/030, each with a distinct
-fresh root, scientific-start marker and trainer PID. Allocation count and
-actual RUNNING concurrency are both eight; pending count is zero. Sufficient
-Bede capacity existed, so CSF3 was not used. The coordinator should bind one
-20-minute automation to these eight jobs and the single paired monitor SHA
-`73451ead...580f2`, passing each root's exact beta method and keeping separate
-ledgers.
+bounded Bede launch: beta1 `1075096-1075099`, beta4 `1075100-1075103`.
+
+At exact transition `2,007,040`, immutable Paper hashes passed and the stage
+matrix was: beta1 BF `10.45/9.28=1.1260775862` PASS, Boss
+`.44/2.92=.1506849315` early stop, Cave `2.50/4.45=.5617977528` early stop,
+Coin `6.50/3.70=1.7567567568` PASS; beta4 BF
+`10.51/9.28=1.1325431034` PASS, Boss `.92/2.92=.3150684932` early stop, Cave
+`2.30/4.45=.5168539326` early stop, Coin `7.40/3.70=2.0` PASS. The correct
+frozen arm monitor was applied exactly once to each below-threshold root and
+returned rc3. Scheduler-authoritative states are `CANCELLED by 639800874`,
+exit `0:0`, elapsed `02:51:45--02:51:46`, on gpu023/024/029/030. Their root
+RUNNING markers/absent rc are stale. Exact-stage telemetry has fixed LR `.004`,
+nonzero natural cross blocks, Cholesky info0, finite residuals and hard-error
+scan0. Complete model-free evidence is archived under
+`evidence_monitor_20260827_074540/`.
+
+Task51 BF/Coin in both arms remain RUNNING and were not modified. Task52 Slot A
+remains pre-2M at approximately 1.39M--1.41M trace transitions, while Task54
+Slot B is around 573,440 and has switched exactly once. Task54 proves the
+recovered eta lower bound is active: actor eta reaches `.00390625` in beta1
+Boss/Cave and beta4 Cave, while beta4 Boss is `.011561...`; fixed LR `.004`,
+cross blocks, Cholesky info0, finite residuals and zero hard errors persist.
+No Task52/54 action was eligible in this pass.
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
 
