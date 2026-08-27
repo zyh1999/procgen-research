@@ -364,3 +364,12 @@ checkpoint is represented only by regular-file size/mode metadata; no model
 bytes or hashes were copied. Full bounded model-free evidence and exact Paper
 plus Task52 comparisons are recorded in the Task54 report. Task51 and Task55
 remain live.
+# Task56 implementation freeze
+
+The user narrowed Task56 before launch. No paired warmup `.01/.005` step,
+root, or process was created. The active Task56 is now one no-warmup Task55
+ablation on Slot A only: critic upper trust threshold `.04 -> .01`, with actor
+band `.005/.04`, critic lower `.005`, eta_min `1/64`, rollout-zero Joint2B,
+fixed LR `.004` and both natural cross blocks unchanged. Compile/config/shell
+checks pass and the four fresh beta1/beta4 Boss/Cave roots are pending a single
+concurrent Slot A launch. Slot B is untouched.
