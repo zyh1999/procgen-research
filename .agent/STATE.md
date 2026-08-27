@@ -1,5 +1,24 @@
 # Current Project State
 
+## Task51 paired fixed-LR dual-trust implementation frozen locally
+
+- The sole active task is
+  `PROCGEN-FULL-SHARED-JOINT2B-FIXEDLR-DUALTRUST-BETA1-BETA4-6M-S0-20260827-51`.
+  It contains only the authorized `beta_v=1` and `beta_v=4` arms.
+- Task50 PPO warmup and full cross-preserving strict Joint-2B identity are
+  preserved. Joint parameter LR is fixed at `.004`; actor and critic metric
+  multipliers adapt independently once per full rollout from exact policy KL
+  and fixed-PopArt-coordinate Gaussian value KL.
+- Local compile and launcher checks pass. Trainer SHA is
+  `af66fa0a...4430d`; beta configs are `57f6ca2...975c9` and
+  `2f802e6...e9a20`; paired monitor is `73451ea...580f2`.
+- No Task51 remote gate/science job/root exists yet. After the implementation
+  push, exactly one Bede gate covers both arms; only PASS permits all eight
+  once-only science submissions. Placement targets six concurrent GPUs,
+  preferring Bede and using a verified CSF3 gpuH remainder only if necessary.
+
+Updated: 2026-08-27T13:05:00+08:00
+
 ## Task50 fully terminal: CANDIDATE_REJECT
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`

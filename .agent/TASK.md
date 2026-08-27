@@ -1,40 +1,41 @@
-# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50
+# Task-ID: PROCGEN-FULL-SHARED-JOINT2B-FIXEDLR-DUALTRUST-BETA1-BETA4-6M-S0-20260827-51
 
-Status: RUNNING_ON_BEDE
+Status: READY
 
-Method: `FULL_SHARED_JOINT2B_PPO500K_RAT_ROLLOUT_SCHED_V1`.
+Paired methods:
 
-Parent Task49 implementation is
-`e0dc2e5ca4efd85419e974e42561eea11145c96f`; frozen parent trainer/config are
-`4403ef006f53e8647adbcdb829a442037384f623e66eb69573843f21064db28a` and
-`e26f66a616b1d0314561a645ef26111da1b15988aad1391d1ef64b6a146d8135`.
+- `FULL_SHARED_JOINT2B_FIXEDLR_DUALTRUST_BETA1_V1`
+- `FULL_SHARED_JOINT2B_FIXEDLR_DUALTRUST_BETA4_V1`
 
-Preserve standard Procgen PPO with independent Adam through transition
-`503,808`, then the same full-shared strict deterministic Joint-2B network,
-actor empirical-Fisher rows, full-network critic Jacobian, every natural cross
-block, damping/FP64/RHS/reconstruction, PopArt/GAE, rollout 4096, minibatch
-512, four epochs, momentum/history, global clip, reward/evaluation/checkpoint,
-four environments, seed0 and intended 6M horizon.
+Parent Task50 implementation is `e4f8cfc23bf406989f72db61ca8aadf5407d99d4`
+and terminal delivery is `5cbdb7d30c6601bc69a0a4237670b4f141924298`.
+Preserve the PPO/Adam warmup through exactly 503,808 transitions, the one
+switch to the full-shared strict deterministic Joint-2B path, all actor and
+critic rows, all 938,976 trainable columns, both natural cross blocks,
+damping `.5`, global clip `.5`, PopArt/GAE, rollout/minibatch/epoch, momentum,
+evaluation and checkpoint semantics.
 
-The only scientific difference is rollout-level Joint LR scheduling. At the
-single phase switch create a clean Joint SGD path at LR `.004`. Freeze behavior
-at each Joint rollout start; hold one LR constant through every minibatch of
-all four epochs; then compute exact full-class categorical mean
-`KL(pi_behavior || pi_final)` on the frozen rollout observations and update LR
-once for the next rollout: divide by 1.5 above `.04`, multiply by 1.5 below
-`.005`, otherwise unchanged, bounded to `[1e-4,.5]`. No other signal, rollback,
-line search, warmup, sweep or scientific change is permitted.
+Joint parameter LR is fixed at `.004` for every minibatch and rollout. The
+only paired scientific difference is `beta_v=1` versus `beta_v=4`. Both arms
+start `eta_pi=eta_v=1`; within a rollout they are constant. The strict system
+uses `lambda_pi=eta_pi`, `lambda_v=beta_v*eta_v`, scaled rows
+`[sqrt(lambda_pi) A; sqrt(lambda_v) C]`, and inverse-scaled actor/critic RHS,
+with objective weights fixed at one. After each complete Joint rollout,
+measure exact full-distribution policy KL and
+`beta_v/2 * mean((Vbar_final-Vbar_behavior)^2)` in a fixed PopArt coordinate.
+Update each eta once with band `.005/.04`, factor `1.5`, bounds `[1/64,64]`;
+higher divergence strengthens the corresponding metric.
 
-The sole Bede gate `1075026` passed model/device, one PPO
-update, one switch, Joint LR `.004`, one complete constant-LR Joint rollout,
-post-rollout scheduler updates and finite strict cross-preserving solves.
-Exactly four fresh Bede seed0 intended-6M cells were submitted once, one V100
-each: BigFish `1075028`, BossFight `1075029`, CaveFlyer `1075030`, CoinRun
-`1075031`. Task49 jobs `1074926-1074929` and every historical/unrelated job/root
-remain untouched. Never retry, requeue or resubmit.
+Run exactly one concise Bede production gate covering both arms. Only a full
+PASS permits eight fresh seed0 intended-6M cells, four environments per arm,
+each submitted exactly once. Target six simultaneous GPUs if live capacity
+allows: prefer Bede, and only if fewer than six Bede slots are immediately
+usable may the remaining independent cells use freshly verified CSF3 gpuH
+deployment. Keep disjoint roots/logs and identical normalized scientific
+commands. No retry, requeue, resubmit, extra beta, sweep or unrelated mutation.
 
-Update the existing sole automation `monitor-procgen-task49-ppo-warmup` in
-place after Task50 IDs exist to monitor both frozen Task49 and Task50 sets at
-20-minute cadence. Exact Paper comparison is only same env/seed0/evaluation
-at first common >=2M, >=4M and 5,980,160; cancel only an individual exact
-Target/Paper ratio below `.60`. Git model-free evidence only.
+Use immutable Paper RAT seed0 and act only at exact common first >=2M, first
+>=4M, and 5,980,160. Only a per-cell ratio below `.60` permits one frozen
+monitor application. Return all identities, gate evidence, jobs, roots,
+partitions, nodes, pending reasons, allocation count and actual RUNNING
+concurrency. The coordinator owns the sole 20-minute automation.
