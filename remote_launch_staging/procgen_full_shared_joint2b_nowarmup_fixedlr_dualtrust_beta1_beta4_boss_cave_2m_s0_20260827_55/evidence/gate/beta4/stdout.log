@@ -1,0 +1,80 @@
+Setting seed: 0
+Logging to logs/shared.adv.resnet.dropout_0.0.damping_0.5.lr_0.004/bigfish-easy-0-10.20260827-091136_0
+creating environment
+Running on device: cuda:0
+training...
+
+Number of parameters: 938979.0
+
+-------------------------------------------------------------------
+| action_max                     | 14                             |
+| action_min                     | 0                              |
+| adv_avg                        | 0.000318                       |
+| adv_max                        | 5.32                           |
+| adv_med                        | -0.571                         |
+| adv_min                        | -0.571                         |
+| adv_var                        | 1                              |
+| clipfrac                       | 0                              |
+| critic_ratio_max               | 1                              |
+| critic_ratio_min               | 1                              |
+| critic_rows                    | 512                            |
+| critic_trust_reason            | IN_BAND_UNCHANGED              |
+| critic_trust_update_count_t... | 1                              |
+| curr_lr                        | 0.004                          |
+| entropy                        | 2.71                           |
+| eplenmean                      | 94.6                           |
+| eprewmean                      | 1.19                           |
+| fps                            | 152                            |
+| grad_norm                      | 0.538                          |
+| joint_actor_critic_cross_fr... | 0.278                          |
+| joint_actor_fisher_quadratic   | 0.0315                         |
+| joint_actor_raw_scale          | 28.1                           |
+| joint_actor_rhs_norm           | 22.6                           |
+| joint_applied_solve_residual   | 3.34e-14                       |
+| joint_cholesky_info_max        | 0                              |
+| joint_clip_scale               | 0.929                          |
+| joint_critic_actor_cross_fr... | 0.278                          |
+| joint_critic_ggn_quadratic     | 0.857                          |
+| joint_critic_objective_coef    | 1                              |
+| joint_critic_raw_scale         | 3.67                           |
+| joint_critic_rhs_norm          | 24.4                           |
+| joint_cross_block_frobenius    | 0.278                          |
+| joint_direction_l2             | 0.538                          |
+| joint_finite_scan_pass         | 1                              |
+| joint_jacobi_scale_max         | 1.39                           |
+| joint_jacobi_scale_min         | 1.31                           |
+| joint_kernel_mode              | exact_deterministic_ggn_2b     |
+| joint_linear_solve_dtype       | torch.float64                  |
+| joint_normalized_value_pred... | 0.00345                        |
+| joint_optimizer_state_entries  | 26                             |
+| joint_parameter_columns        | 9.39e+05                       |
+| joint_policy_delta_l2          | 0.000196                       |
+| joint_popart_std               | 0.352                          |
+| joint_predicted_critic_dive... | 2.37e-05                       |
+| joint_predicted_step_kl        | 2.18e-07                       |
+| joint_raw_value_prediction_... | 0.00122                        |
+| joint_relative_solve_residual  | 6.65e-16                       |
+| joint_shared_delta_l2          | 0.000947                       |
+| joint_solve_residual           | 3.47e-14                       |
+| joint_solver_mode              | symmetrized_jacobi_fullfp64... |
+| joint_system_rows              | 1.02e+03                       |
+| joint_value_delta_l2           | 0.00175                        |
+| kl                             | 9.12e-05                       |
+| loss_pi                        | 9.56e-05                       |
+| loss_v                         | 1.17                           |
+| lr                             | 0.004                          |
+| misc/nupdates                  | 0                              |
+| misc/serial_timesteps          | 4.1e+03                        |
+| misc/time_elapsed              | 26.8                           |
+| misc/total_timesteps           | 4.1e+03                        |
+| optimizer_history_correction   | 1                              |
+| optimizer_momentum             | 1e-06                          |
+| optimizer_momentum_semantics   | paper_sgd_momentum_1e-6        |
+| ratio_max                      | 1.04                           |
+| ratio_min                      | 0.974                          |
+| ret_avg                        | 3.35e-08                       |
+| ret_max                        | 5.32                           |
+| ret_med                        | -0.571                         |
+| ret_min                        | -0.571                         |
+| ret_var                        | 1                              |
+-------------------------------------------------------------------

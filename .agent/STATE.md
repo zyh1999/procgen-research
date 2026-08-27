@@ -1,5 +1,32 @@
 # Current Project State
 
+## Task55 no-warmup matched quick diagnostic running on Bede
+
+- Task `PROCGEN-FULL-SHARED-JOINT2B-NOWARMUP-FIXEDLR-DUALTRUST-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-55`
+  removes only Task51's 503,808-transition PPO warmup. Rollout zero uses the
+  complete strict deterministic full-shared Joint-2B path. Fixed LR `.004`,
+  beta1/beta4, dual-trust bands and `eta_min=1/64` remain matched.
+- Frozen implementation/origin commit is
+  `3a850cd3870854123c76693a974a2fe45e952203`; trainer SHA is
+  `91b835f16989a42293f6566d8fb9893dcd7b9ca969d1685d2d313f3f695f2f81`.
+- Sole minimal Bede gate `1075104` completed `0:0` in `00:02:50` on gpu029.
+  Both beta arms are `PRECHECK_PASS/rc0`: first rollout is Joint2B, phase
+  switch count is zero, PPO optimizer state is empty, LR is fixed `.004`,
+  strict rows/columns are `1024x938976`, both natural cross blocks are present,
+  Cholesky info is zero and finite scans pass.
+- Four fresh 2M cells were submitted once in one bounded action and are all
+  RUNNING: beta1 Boss `1075105` gpu029, beta1 Cave `1075106` gpu030, beta4
+  Boss `1075107` gpu031 and beta4 Cave `1075108` gpu031. Each has an isolated
+  root, trainer PID and live Joint telemetry; phase-switch count is zero,
+  solver residuals are finite and targeted hard-error scans are zero.
+- Task55 is a read-only quick diagnostic and cannot replace Task51. At exact
+  `2,007,040`, its frozen monitor records Paper and matched warmup comparisons
+  without scheduler cancellation.
+- The existing sole automation `monitor-procgen-task51-dual-trust` was updated
+  in place to include these four jobs; no second automation was created.
+
+Updated: 2026-08-27T16:19:01+08:00
+
 ## Task51 paired fixed-LR dual-trust science running on Bede
 
 - The sole active task is

@@ -1,0 +1,10 @@
+captured_at=2026-08-27T16:17:07+08:00
+gate=1075104|pg55-nowarm-gate|COMPLETED|0:0|00:02:50|gpu029
+beta1_boss=1075105|pg55-b1-boss|RUNNING|gpu029|gres/gpu:1
+beta1_cave=1075106|pg55-b1-cave|RUNNING|gpu030|gres/gpu:1
+beta4_boss=1075107|pg55-b4-boss|RUNNING|gpu031|gres/gpu:1
+beta4_cave=1075108|pg55-b4-cave|RUNNING|gpu031|gres/gpu:1
+submission=ONE_BOUNDED_ACTION_NO_DEPENDENCY_NO_HOLD_NO_THROTTLE
+initial_running_count=4
+initial_pending_count=0
+hard_error_scan=0

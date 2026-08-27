@@ -311,3 +311,26 @@ No science jobs or roots exist and no retry/requeue/resubmit occurred. Current
 conclusion is `QUEUED_RESOURCE_WAIT`. The coordinator's sole automation
 `monitor-procgen-task49-ppo-warmup` tracks this gate at20-minute cadence and
 will wake the same Executor; no duplicate automation was created.
+# Task55 no-warmup implementation, gate and launch
+
+Task55 freezes a matched quick diagnostic whose sole scientific difference
+from Task51 is `ppo_warmup_transitions=0`. The Joint SGD path is initialized
+with clean state before rollout zero; the parent PPO Adam object remains
+unstepped and no PPO-to-Joint phase switch can occur. Full actor Fisher rows,
+critic Jacobian rows, both cross blocks, the 1024-row solve, fixed LR `.004`,
+dual-trust adaptation, beta1/beta4 and `eta_min=1/64` are unchanged.
+
+Implementation `3a850cd3870854123c76693a974a2fe45e952203` was pushed and
+verified on `origin/agent-work` before remote work. The sole Bede gate
+`1075104` completed `0:0`; both arms produced `PRECHECK_PASS/rc0` with
+Joint2B from the first rollout, zero phase switches, fixed LR, nonzero natural
+cross blocks, strict `1024x938976`, Cholesky info0 and finite residuals.
+
+After one fresh capacity/duplicate/root check, all four cells were submitted
+exactly once without dependencies or throttling: `1075105` beta1 Boss,
+`1075106` beta1 Cave, `1075107` beta4 Boss and `1075108` beta4 Cave. All four
+started RUNNING naturally on Bede gpu029/gpu030/gpu031 with separate roots and
+PIDs. Initial traces are Joint2B-only, show phase-switch count0 and PPO state0,
+retain both cross blocks, and have finite Cholesky/residual telemetry. Targeted
+hard-error scans are zero. The sole existing 20-minute automation was updated
+in place; Task51/52/53/54 were not modified.

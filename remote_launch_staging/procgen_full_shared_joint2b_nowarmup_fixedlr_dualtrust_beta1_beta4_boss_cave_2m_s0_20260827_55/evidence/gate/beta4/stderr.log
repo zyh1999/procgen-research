@@ -1,0 +1,5 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Epoch starts:   0%|          | 0/3 [00:00<?, ?it/s]Stepping environment...:   0%|          | 0/3 [00:00<?, ?it/s]Minibatch training...:   0%|          | 0/3 [00:01<?, ?it/s]  Minibatch training...:   0%|          | 0/3 [00:26<?, ?it/s, cf=0, entropy=2.71, kl=9.12e-5, loss_pi=9.56e-5, loss_v=1.17, lr=0.004]Minibatch training...:   0%|          | 0/3 [00:26<?, ?it/s, cf=0, entropy=2.71, kl=9.12e-5, loss_pi=9.56e-5, loss_v=1.17, lr=0.004]
