@@ -1,0 +1,23 @@
+Task-ID=PROCGEN-TASK55-GPUH-QUICK-NOWARMUP-CRITIC-BUDGET-DV001-PLACEMENT-RECOVERY-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-57
+implementation=24de226d68aa3af9a4805061263b4a1d92b1e674
+allocation=19487251 node820
+step=19487251.9 FAILED/1:0 elapsed03:01:43
+controller_rcs=beta1_boss1,beta1_cave0,beta4_boss0,beta4_cave0
+
+beta1_boss=FAIL/rc1,last_progress1310720,reward0.35,last_trace1318912,no_checkpoint,no_exact_endpoint
+beta1_cave=PASS/rc0,endpoint2007040,reward0.0,paper4.45,ratio0.0
+beta4_boss=PASS/rc0,endpoint2007040,reward0.29,paper2.92,ratio0.09931506849315068
+beta4_cave=PASS/rc0,endpoint2007040,reward0.0,paper4.45,ratio0.0
+
+paper_boss_sha256=4082868eeec196363e284fd7af68807f20bc0142e7de7e8cf355851a5d89337c
+paper_cave_sha256=8d10f8614a1cb57d81c7705b7d2373c0c9de6b158c7cd1bdeabba2ca8236e292
+baseline_sha256s=all_OK
+
+matched_task55_no_warmup_rewards=beta1_boss0.19,beta1_cave3.10,beta4_boss0.26,beta4_cave0.0
+matched_task52_warmup_h200_rewards=beta1_boss0.70,beta1_cave4.07,beta4_boss0.62,beta4_cave3.94
+
+terminal_identity=rollout0_joint,switch0,ppo_state0,lr0.004,critic_upper0.01,full_cross,chol0,finite
+checkpoint_metadata_completed_cells=regular_non_symlink,size3766013,mode640
+hard_errors_completed_cells=0
+classification=QUICK_DV001_TERMINAL_READ_ONLY_WITH_ONE_ALGORITHM_FAILURE
+action=read-only archive; no scancel/retry/requeue/resubmit

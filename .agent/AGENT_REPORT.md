@@ -431,4 +431,16 @@ empty progress and no checkpoint. Each raised the same singular FP64
 raw critic Gram scale had already reached diagonal medians1e14-1e15 and block
 norms1e16-1e18 while actor Fisher was zero, so fixed absolute damping remained
 numerically ineffective. No Paper comparison is eligible. The event is
-archived as algorithm/numerical failure with no retry or unrelated mutation.
+  archived as algorithm/numerical failure with no retry or unrelated mutation.
+
+# Task57 terminal read-only archive
+
+Task57 step19487251.9 is terminal FAILED/1:0 solely because beta1 Boss failed
+at1.31M. The other three cells are PASS/rc0 at exact2,007,040: beta1 Cave
+`0/4.45=0`, beta4 Boss `.29/2.92=.099315`, beta4 Cave `0/4.45=0`. All three
+retain fixed LR.004, critic upper.01, nonzero cross blocks, Cholesky0, finite
+residuals and clean hard-error scans. No read-only quick cell was cancelled.
+Compared with Task55/Task52, the tighter critic budget shows no rescue signal;
+the campaign is archived as
+`QUICK_DV001_TERMINAL_READ_ONLY_WITH_ONE_ALGORITHM_FAILURE` without changing
+Task51.

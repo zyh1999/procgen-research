@@ -1680,3 +1680,19 @@ Updated: 2026-08-26T14:37:00+08:00
 - This is an algorithm/numerical fixed-absolute-damping scale failure, not
   OOM/CUDA/NCCL/disk/quota infrastructure. Task60 is terminal without repair,
   retry, requeue or resubmit; Task51 and remaining Task57 roots are untouched.
+
+# Task57 terminal read-only archive
+
+- Step19487251.9 is terminal FAILED/1:0 because beta1 Boss was the previously
+  archived algorithm/numerical failure. Beta1 Cave, beta4 Boss and beta4 Cave
+  independently completed PASS/rc0 at exact2,007,040.
+- Exact Task57/Paper results are beta1 Cave `0/4.45=0`, beta4 Boss
+  `.29/2.92=.099315`, and beta4 Cave `0/4.45=0`. Beta1 Boss has no eligible
+  endpoint comparison.
+- Completed cells retain rollout0 Joint, fixed LR.004, critic upper.01,
+  nonzero cross, Cholesky0, finite residuals and hard-error scan0. Checkpoints
+  are metadata-only in evidence.
+- Tightening the critic budget from Task55 `.04` to `.01` did not rescue the
+  matched no-warmup cells: it was materially worse for beta1 Cave, unchanged
+  for beta4 Cave, only `.03` better for beta4 Boss, and beta1 Boss failed.
+  Task57 is terminal read-only with no scheduler mutation or retry.

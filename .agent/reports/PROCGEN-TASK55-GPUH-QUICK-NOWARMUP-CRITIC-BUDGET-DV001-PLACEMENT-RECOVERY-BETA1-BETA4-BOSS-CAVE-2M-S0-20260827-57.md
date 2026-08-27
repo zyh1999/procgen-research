@@ -86,3 +86,35 @@ The full bounded metadata and artifact hashes are in
 `evidence/actionable_beta1_boss_1318912/summary.txt`. Beta1 Cave, beta4 Boss
 and beta4 Cave remain RUNNING and were not modified. Current campaign
 conclusion remains `RUNNING_QUICK_READ_ONLY_WITH_ONE_ALGORITHM_FAILURE`.
+
+## Terminal read-only archive
+
+Step `19487251.9` is terminal `FAILED/1:0` after `03:01:43` on node820. That
+aggregate state is caused solely by the already archived beta1 BossFight
+`FAIL/rc1`; beta1 CaveFlyer, beta4 BossFight and beta4 CaveFlyer each finished
+`PASS/rc0` with 49 progress rows ending at exact transition `2,007,040`.
+
+| arm | environment | Task57 | Paper | ratio | Task55 no-warmup | Task52 warmup H200 |
+|---|---|---:|---:|---:|---:|---:|
+| beta1 | BossFight | failed at 1.31M | 2.92 | ineligible | .19 | .70 |
+| beta1 | CaveFlyer | 0.00 | 4.45 | 0 | 3.10 | 4.07 |
+| beta4 | BossFight | .29 | 2.92 | .0993150685 | .26 | .62 |
+| beta4 | CaveFlyer | 0.00 | 4.45 | 0 | 0.00 | 3.94 |
+
+All immutable baseline checks passed. BossFight and CaveFlyer Paper progress
+hashes are respectively `4082868e...5d89337c` and
+`8d10f861...8236e292`. Task57 is read-only: even though all three endpoint
+ratios are below `.60`, no cell was cancelled and Task51 was not mutated.
+
+The completed endpoints preserve rollout-zero Joint2B, phase switch0, PPO
+state0, fixed LR `.004`, critic upper `.01`, nonzero cross blocks, Cholesky
+info0 and finite residuals (`6.52e-14` to `7.00e-13`). Hard-error scans are
+zero. Each completed checkpoint is recorded only as regular non-symlink,
+3,766,013 bytes, mode0640; no checkpoint bytes or hashes enter Git.
+
+Relative to matched Task55, tighter critic upper `.01` improves only beta4
+Boss by `.03`, collapses beta1 Cave from `3.10` to zero, leaves beta4 Cave at
+zero, and beta1 Boss fails before endpoint. It is also below Task52 in every
+comparable cell. The bounded conclusion is
+`QUICK_DV001_TERMINAL_READ_ONLY_WITH_ONE_ALGORITHM_FAILURE`; it does not
+replace authoritative Task51 evidence.
