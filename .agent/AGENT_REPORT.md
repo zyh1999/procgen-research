@@ -349,3 +349,18 @@ Cholesky info0, finite residuals and hard-error scan0. Each root has a regular
 bytes or hashes. Complete bounded model-free evidence and matched Task51
 comparisons are archived in the Task52 report. Task51, Task54 and Task55 were
 left running under their frozen rules.
+
+# Task54 exact-2M terminal quick archive
+
+Task54 step `19487252.4` completed `0:0`; all four roots are `PASS/rc0` at
+exact 2,007,040. Task54/Paper ratios are beta1 Boss `.263699`, beta1 Cave
+`.907865`, beta4 Boss `.178082` and beta4 Cave `.701124`. The two Boss cells
+remain below `.60`, but Task54 is read-only and no Task51 scheduler or ledger
+was changed.
+
+All endpoints preserve fixed LR `.004`, eta_pi `1/256`, nonzero natural cross
+blocks, Cholesky info0, finite residuals and hard-error scan0. Each root's
+checkpoint is represented only by regular-file size/mode metadata; no model
+bytes or hashes were copied. Full bounded model-free evidence and exact Paper
+plus Task52 comparisons are recorded in the Task54 report. Task51 and Task55
+remain live.

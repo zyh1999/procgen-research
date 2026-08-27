@@ -1,0 +1,4 @@
+bigfish_seed0_progress.csv: OK
+bossfight_seed0_progress.csv: OK
+caveflyer_seed0_progress.csv: OK
+coinrun_seed0_progress.csv: OK

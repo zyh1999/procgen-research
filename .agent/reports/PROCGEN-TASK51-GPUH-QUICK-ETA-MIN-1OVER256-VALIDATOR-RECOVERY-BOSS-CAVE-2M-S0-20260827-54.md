@@ -59,3 +59,36 @@ left untouched. There was no retry, restart, requeue, resubmit, extra network
 port, model/checkpoint commit, or credential exposure.
 
 Current bounded conclusion: `RUNNING_QUICK_MIRROR`.
+
+## Exact-2M terminal archive
+
+Task54 persistent step `19487252.4` completed `0:0` in `02:34:35` on
+node822. All four roots are `PASS/rc0`, contain 49 progress rows, and end at
+the exact transition `2,007,040`. The parent Slot B allocation remains
+RUNNING and was not modified.
+
+| Arm | Environment | Task54 | Paper | Task54/Paper | Task52 | Task54/Task52 |
+|---|---|---:|---:|---:|---:|---:|
+| beta1 | BossFight | .77 | 2.92 | .2636986301 | .70 | 1.1000000000 |
+| beta1 | CaveFlyer | 4.04 | 4.45 | .9078651685 | 4.07 | .9926289926 |
+| beta4 | BossFight | .52 | 2.92 | .1780821918 | .62 | .8387096774 |
+| beta4 | CaveFlyer | 3.12 | 4.45 | .7011235955 | 3.94 | .7918781726 |
+
+Both BossFight arms remain below the Paper `.60` threshold, while both
+CaveFlyer arms pass. This is a terminal read-only quick diagnostic: no Task51
+ledger or scheduler state was changed and no cancellation was attempted.
+Lowering eta_min improves beta1 Boss relative to Task52, is essentially neutral
+for beta1 Cave, and is lower for both beta4 cells at this seed/stage.
+
+All endpoint records preserve one PPO-to-Joint switch, fixed LR `.004`,
+eta_pi at `1/256`, natural nonzero cross blocks, Cholesky info0, finite scans,
+and relative residuals from `5.127e-16` to `7.491e-16`. Endpoint eta_v is
+`1/256` except beta4 Boss (`.0087890625`). Hard-error scans are zero.
+
+Each root has one regular non-symlink `model.ckpt`, size 3,766,013 bytes and
+mode640. Only stat metadata is archived; model bytes and content hashes were
+not copied or committed. The bounded evidence directory contains progress,
+final trace/scheduler records, identity hashes, log tails, scheduler state,
+Paper hash verification and exact comparison ledger.
+
+Terminal conclusion: `QUICK_ETA_MIN_1OVER256_TERMINAL_READ_ONLY`.
