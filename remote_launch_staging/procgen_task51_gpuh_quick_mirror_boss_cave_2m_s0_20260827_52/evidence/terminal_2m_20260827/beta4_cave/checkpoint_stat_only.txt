@@ -1,0 +1,1 @@
+name=model.ckpt size=3766013 mode=640 regular=regular file inode=144122246502328345

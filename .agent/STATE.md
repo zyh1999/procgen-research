@@ -1,5 +1,22 @@
 # Current Project State
 
+## Task52 quick mirror terminal read-only archive
+
+- Task52 Slot A step `19487251.1` completed `0:0` in `02:33:34` on node820.
+  All four roots are `PASS/rc0` at exact `2,007,040`, with clean progress,
+  trace, scheduler and checkpoint metadata.
+- Exact Paper ratios are beta1 Boss `.239726`, beta1 Cave `.914607`, beta4
+  Boss `.212329` and beta4 Cave `.885393`. Boss is below `.60` in both arms;
+  Cave passes in both arms. This is read-only quick evidence: no Task51 job or
+  ledger was mutated.
+- Relative residuals are `5.692e-16`--`2.264e-15`, Cholesky info0, finite
+  scans PASS and hard-error scans zero. Checkpoint stat metadata only was
+  archived; no checkpoint bytes or hashes entered Git.
+- Task52 conclusion is `QUICK_MIRROR_TERMINAL_READ_ONLY`. Task51/54/55 remain
+  live under the sole automation.
+
+Updated: 2026-08-27T17:12:04+08:00
+
 ## Task55 no-warmup matched quick diagnostic running on Bede
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-NOWARMUP-FIXEDLR-DUALTRUST-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-55`

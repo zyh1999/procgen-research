@@ -334,3 +334,18 @@ PIDs. Initial traces are Joint2B-only, show phase-switch count0 and PPO state0,
 retain both cross blocks, and have finite Cholesky/residual telemetry. Targeted
 hard-error scans are zero. The sole existing 20-minute automation was updated
 in place; Task51/52/53/54 were not modified.
+# Task52 exact-2M terminal quick archive
+
+Task52 step `19487251.1` is terminal `COMPLETED/0:0`; all four independent
+roots are `PASS/rc0` at exact 2,007,040. Exact Task52/Paper ratios are beta1
+Boss `.239726`, beta1 Cave `.914607`, beta4 Boss `.212329` and beta4 Cave
+`.885393`. The Boss cells are below the Paper threshold, but Task52 is a
+read-only quick mirror and no scheduler cancellation or Task51 mutation was
+performed.
+
+All endpoint solves retain fixed LR `.004`, eta1/64, nonzero cross blocks,
+Cholesky info0, finite residuals and hard-error scan0. Each root has a regular
+3,766,013-byte mode640 checkpoint; Git includes stat metadata only, not model
+bytes or hashes. Complete bounded model-free evidence and matched Task51
+comparisons are archived in the Task52 report. Task51, Task54 and Task55 were
+left running under their frozen rules.
