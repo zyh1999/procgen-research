@@ -434,7 +434,10 @@ def learn(world_size, algo, actor_critic, writer, venv, device,
             if critic_param_scope == 'head_only':
                 critic_J = J_v * critic_head_column_mask.to(J_v.dtype)
 
-            if ablation_mode == 'rat_weighted_critic':
+            if (
+                ablation_mode == 'rat_weighted_critic'
+                and configured_score_mode == 'gaussian_unit'
+            ):
                 # In train_shared.py the pseudo target is
                 #   sample_v = v + xi, xi ~ N(0,1)
                 # and vf_logp = -(v - stopgrad(sample_v))^2.
@@ -992,7 +995,11 @@ def learn(world_size, algo, actor_critic, writer, venv, device,
                 critic_rows=critic_rows,
                 joint_system_rows=num_sa + critic_rows,
                 joint_kernel_mode=(
-                    'rat_reference_combined_sampled_b'
+                    (
+                        'rat_reference_combined_deterministic_xi1_b'
+                        if configured_score_mode == 'clean'
+                        else 'rat_reference_combined_sampled_b'
+                    )
                     if ablation_mode == 'rat_weighted_critic'
                     else (
                         'rat_expected_gaussian_score_b'
@@ -1105,7 +1112,11 @@ def learn(world_size, algo, actor_critic, writer, venv, device,
                     2 if rat_b_mode else 1
                 ),
                 joint_critic_score_mode=(
-                    'gaussian_value_score_reference'
+                    (
+                        'deterministic_unit_value_score'
+                        if configured_score_mode == 'clean'
+                        else 'gaussian_value_score_reference'
+                    )
                     if ablation_mode == 'rat_weighted_critic'
                     else (
                         'gaussian_value_score_analytic_expectation'
