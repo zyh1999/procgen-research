@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-TASK55-QUICK-NOWARMUP-POSTSOLVE-ENTROPY-GRAD001-BETA1-BOSS-CAVE-2M-S0-20260827-61
 
-Status: RUNNING_QUICK_READ_ONLY_GPUH_MIGRATED
+Status: QUICK_POSTSOLVE_ENTROPY_TERMINAL_READ_ONLY_NO_RESCUE
 
 Method: `FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1`
 
@@ -34,3 +34,11 @@ released only after all scientific child work was terminal, classified
 Never retry/requeue/resubmit, touch Task51--60, create another arm or
 coefficient, or commit model/checkpoint bytes. At endpoint compare read-only
 against immutable Paper and Task55 beta1; never cancel for reward.
+
+Terminal result: CSF3 jobs `19507047/19507048` are `COMPLETED/0:0`, roots
+`PASS/rc0`, with exact `2,007,040`. Frozen monitor SHA `ab00df29...af8d`
+ran read-only once per root. Boss `.52/2.92=.178082`; Cave
+`2.30/4.45=.516854`; both are below `.60` and no cancellation occurred.
+Compared with Task55 beta1 controls (`.19` Boss, `3.10` Cave), post-solve
+entropy improved Boss but remained far below Paper and worsened Cave below the
+threshold. Task61 is terminal without rescue, retry or successor.

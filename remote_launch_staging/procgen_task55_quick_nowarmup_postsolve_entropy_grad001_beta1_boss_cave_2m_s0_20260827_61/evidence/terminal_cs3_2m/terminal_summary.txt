@@ -1,0 +1,29 @@
+Task-ID: PROCGEN-TASK55-QUICK-NOWARMUP-POSTSOLVE-ENTROPY-GRAD001-BETA1-BOSS-CAVE-2M-S0-20260827-61
+conclusion: QUICK_POSTSOLVE_ENTROPY_TERMINAL_READ_ONLY_NO_RESCUE
+
+Scheduler and artifacts:
+- BossFight job19507047 COMPLETED/0:0, elapsed00:55:08, node822, root PASS/rc0.
+- CaveFlyer job19507048 COMPLETED/0:0, elapsed00:54:08, node822, root PASS/rc0.
+- Both have exact progress row2,007,040 and a regular non-symlink model.ckpt of size3,766,013 mode0644. Checkpoint bytes and content hashes were not read, copied or committed.
+- Hard-error scans are zero for Traceback, OOM, CUDA, NCCL, disk/quota and floating-point exceptions.
+
+Frozen read-only monitor:
+- SHA256 ab00df29ae106506649c37051c559879bd917606cb8e1c82331fd57fda81af8d.
+- Invoked exactly once per distinct terminal root; both invocations returned0.
+- Action is READ_ONLY_NO_CANCELLATION_ENDPOINT; no scancel path was used.
+- Immutable Paper inputs retained original full-progress SHA256 values:
+  Boss4082868eeec196363e284fd7af68807f20bc0142e7de7e8cf355851a5d89337c;
+  Cave8d10f8614a1cb57d81c7705b7d2373c0c9de6b158c7cd1bdeabba2ca8236e292.
+
+Exact endpoint comparison:
+- BossFight Target.52 / Paper2.92 = .17808219178082194, below.60.
+- CaveFlyer Target2.30 / Paper4.45 = .5168539325842696, below.60.
+- Matched Task55 beta1 no-warmup controls were Boss.19/2.92=.06506849315068493 and Cave3.10/4.45=.6966292134831461.
+- Post-solve entropy improved Boss by +.33 reward but remained far below Paper; it reduced Cave by -.80 and changed the matched Cave control from PASS to below threshold. It does not rescue the paired hard-environment quick diagnostic.
+
+Final numerical and entropy-separation evidence:
+- Boss final rollout: LR.004, eta_pi.052734375, eta_v.015625, D_pi.02421925, D_v.01106511, cross Frobenius32401.5309, Cholesky info0, relative residual4.1237e-13. Final minibatch entropy2.05628, entropy-grad norm10.8990, policy4.9051, shared9.7329, value-exclusive0, scaled norm.108990, joint/entropy cosine-.0180783.
+- Cave final rollout: LR.004, eta_pi15.3947071, eta_v6.8420920, D_pi.00751883, D_v.00769401, cross Frobenius2982.5616, Cholesky info0, relative residual3.4216e-14. Final minibatch entropy2.61535, entropy-grad norm5.77729, policy2.08988, shared5.38605, value-exclusive0, scaled norm.0577729, joint/entropy cosine-.302296.
+- Both retain strict1024x938976 Joint2B, finite scan1 and postsolve entropy absent-from-system/RHS/history flags all1.
+
+Git evidence includes progress CSVs and the one-line monitor ledgers only. No model/checkpoint bytes or hashes are included.

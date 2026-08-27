@@ -2,9 +2,8 @@
 
 ## Status
 
-`CANDIDATE_NOT_READY` — the sole production gate passed and both authorized
-quick cells are running after the user-authorized atomic speed migration to
-CSF3 gpuH.
+`QUICK_POSTSOLVE_ENTROPY_TERMINAL_READ_ONLY_NO_RESCUE` — both migrated cells
+completed cleanly at the exact endpoint, but both remain below `.60` of Paper.
 
 ## Frozen parent
 
@@ -128,3 +127,35 @@ torchvision deprecation warnings occurred.
 The existing sole Task61 automation must be updated in place to bind jobs
 `19507047/19507048` and these two exact CSF3 roots. No second automation is
 authorized.
+
+## Exact 2M terminal result
+
+Both normal gpuH jobs are scheduler-authoritatively `COMPLETED/0:0` on
+node822: Boss `19507047` elapsed `00:55:08`, Cave `19507048` elapsed
+`00:54:08`. Roots are `PASS/rc0`, each has exact progress `2,007,040`, and
+hard-error scans are zero. Each checkpoint is represented only by regular-file
+metadata (3,766,013 bytes, mode0644); no checkpoint bytes or content hashes
+were read, copied or committed.
+
+Frozen monitor SHA `ab00df29ae106506649c37051c559879bd917606cb8e1c82331fd57fda81af8d`
+was invoked read-only exactly once per root and returned0. Immutable Paper
+full-progress hashes matched the frozen originals. The ledgers record:
+
+| Environment | Target | Paper | Ratio | Decision/action |
+|---|---:|---:|---:|---|
+| BossFight | .52 | 2.92 | .1780821918 | below threshold; read-only, no cancellation |
+| CaveFlyer | 2.30 | 4.45 | .5168539326 | below threshold; read-only, no cancellation |
+
+Matched Task55 beta1 no-warmup controls were Boss `.19` (`.065068` Paper
+ratio) and Cave `3.10` (`.696629`). Thus the `.01` post-solve entropy ascent
+improved Boss by `.33` but left it far below Paper, while Cave fell by `.80`
+and crossed from PASS to below threshold. This paired quick diagnostic shows no
+rescue.
+
+Final Boss/Cave telemetry remains numerically healthy: fixed LR `.004`, exact
+strict `1024x938976`, natural cross Frobenius `32401.53/2982.56`, Cholesky
+info0, relative residual `4.12e-13/3.42e-14`, and finite scans PASS. Final
+entropy gradients have full norms `10.899/5.777`, policy norms `4.905/2.090`,
+shared norms `9.733/5.386`, and exact-zero value-exclusive norms. All three
+entropy separation flags remain one. The conclusion is scientific for this
+quick matched pair, not an infrastructure or solver failure.

@@ -1752,3 +1752,15 @@ Updated: 2026-08-26T14:37:00+08:00
 - Existing jobs19507047/19507048 then started naturally on node822. Both roots
   are RUNNING with PIDs and finite strict-Joint2B/postsolve-entropy telemetry;
   hard-error scan0. No retry/requeue/resubmit or unrelated mutation occurred.
+
+# Task61 exact-2M terminal read-only archive
+
+- Jobs19507047/19507048 are COMPLETED/0:0 on node822; roots PASS/rc0 with
+  exact2,007,040, checkpoint metadata present and hard-error scans0.
+- Frozen monitor ran once/root in read-only mode: Boss `.52/2.92=.178082`,
+  Cave `2.30/4.45=.516854`; both are below `.60`, with no scancel.
+- Compared with Task55 beta1 (`.19` Boss, `3.10` Cave), entropy helped Boss
+  modestly but not enough and harmed Cave by `.80`. Final strict Joint2B,
+  cross, Cholesky, residual and entropy-separation evidence is healthy.
+- Conclusion `QUICK_POSTSOLVE_ENTROPY_TERMINAL_READ_ONLY_NO_RESCUE`; no retry,
+  successor, model bytes or unrelated mutation.

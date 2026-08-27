@@ -502,3 +502,16 @@ separation assertions. No hard error, retry, requeue, resubmit, model byte or
 unrelated scheduler mutation occurred. The coordinator should replace the sole
 Task61 automation binding in place with jobs19507047/19507048 and their exact
 CSF3 roots; no second automation is needed.
+
+# Task61 terminal read-only result
+
+Both migrated cells completed0:0 with PASS/rc0 roots and exact2,007,040.
+Frozen monitor SHAab00df29 ran once per root without a cancellation path:
+Boss `.52/2.92=.178082`, Cave `2.30/4.45=.516854`. Both are below threshold.
+Against matched Task55 beta1, post-solve entropy increases Boss from.19 to.52
+but decreases Cave from3.10 to2.30, so it does not rescue the paired quick
+diagnostic. Final LR.004, strict1024x938976, natural cross, Cholesky0, finite
+residual and exact-zero value-exclusive entropy gradient establish healthy
+execution. Task61 is terminal
+`QUICK_POSTSOLVE_ENTROPY_TERMINAL_READ_ONLY_NO_RESCUE`; model bytes remain
+remote and there was no retry, requeue, resubmit, scancel or successor.
