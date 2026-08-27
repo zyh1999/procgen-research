@@ -444,3 +444,14 @@ Compared with Task55/Task52, the tighter critic budget shows no rescue signal;
 the campaign is archived as
 `QUICK_DV001_TERMINAL_READ_ONLY_WITH_ONE_ALGORITHM_FAILURE` without changing
 Task51.
+
+# Task51 final paired terminal archive
+
+All eight Task51 cells are terminal. The four surviving BF/Coin jobs completed
+0:0 at exact5,980,160 with endpoint ratios beta1 `.806254/1.031915` and beta4
+`.789259/.946809`; the four prior Boss/Cave cells remain legal 2M algorithm
+early stops. Four-environment mean ratios are beta1 `.637663` and beta4
+`.641997`, with beta4 worse at both endpoints. Final LR.004, coefficient
+updates, cross blocks, Cholesky0, finite residuals and clean error scans prove
+healthy execution rather than infrastructure failure. Both arms are
+`CANDIDATE_REJECT`; model/checkpoint bytes are excluded and no retry occurred.

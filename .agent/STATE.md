@@ -1696,3 +1696,19 @@ Updated: 2026-08-26T14:37:00+08:00
   matched no-warmup cells: it was materially worse for beta1 Cave, unchanged
   for beta4 Cave, only `.03` better for beta4 Boss, and beta1 Boss failed.
   Task57 is terminal read-only with no scheduler mutation or retry.
+
+# Task51 fully terminal paired rejection
+
+- The four surviving BigFish/CoinRun jobs are COMPLETED/0:0 with root PASS/rc0
+  and exact5,980,160. Endpoint ratios are beta1 BF `.806254`, beta1 Coin
+  `1.031915`, beta4 BF `.789259`, beta4 Coin `.946809`; all comparator
+  decisions are PASS and no endpoint cancellation occurred.
+- Together with the immutable 2M Boss/Cave early stops, beta1 and beta4 each
+  have two early stops and two endpoints. Their four-environment mean ratios
+  are `.637663` and `.641997`; beta4 is worse at both completed endpoints.
+- Final fixed-LR/dual-trust execution is numerically healthy: LR.004 unchanged,
+  eta values at1/64, nonzero cross blocks, Cholesky0, finite residuals, all
+  parameter blocks updated and hard-error scans0. Failure is scientific reward,
+  not infrastructure or solver.
+- Both Task51 arms are final `CANDIDATE_REJECT`. Checkpoints remain remote and
+  are represented only by stat metadata; no retry/requeue/resubmit occurred.

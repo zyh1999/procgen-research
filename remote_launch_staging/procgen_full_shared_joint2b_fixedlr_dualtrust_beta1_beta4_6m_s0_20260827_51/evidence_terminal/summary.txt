@@ -1,0 +1,24 @@
+Task-ID=PROCGEN-FULL-SHARED-JOINT2B-FIXEDLR-DUALTRUST-BETA1-BETA4-6M-S0-20260827-51
+monitor_sha256=73451eadf7a64b7ad49d2dbf4d96452463bdb04ca4d9f12cd856cb91478580f2
+
+beta1_bigfish=1075096 COMPLETED/0:0 elapsed09:54:49 gpu023 PASS/rc0 endpoint11.86 paper14.71 ratio0.806254248810333
+beta1_boss=1075097 EARLY_STOPPED_ALGORITHM exact2M0.44/2.92 ratio0.1506849315
+beta1_cave=1075098 EARLY_STOPPED_ALGORITHM exact2M2.50/4.45 ratio0.5617977528
+beta1_coin=1075099 COMPLETED/0:0 elapsed09:56:57 gpu024 PASS/rc0 endpoint9.7 paper9.4 ratio1.0319148936170213
+
+beta4_bigfish=1075100 COMPLETED/0:0 elapsed09:54:54 gpu029 PASS/rc0 endpoint11.61 paper14.71 ratio0.7892590074779061
+beta4_boss=1075101 EARLY_STOPPED_ALGORITHM exact2M0.92/2.92 ratio0.3150684932
+beta4_cave=1075102 EARLY_STOPPED_ALGORITHM exact2M2.30/4.45 ratio0.5168539326
+beta4_coin=1075103 COMPLETED/0:0 elapsed09:55:54 gpu030 PASS/rc0 endpoint8.9 paper9.4 ratio0.9468085106382979
+
+beta1_four_environment_mean_ratio=0.6376629566818386
+beta4_four_environment_mean_ratio=0.641997485979051
+paired_eight_cell_mean_ratio=0.6398302213304448
+
+completed_roots=146_progress_rows,endpoint5980160,checkpoint_regular_non_symlink_size3766013_mode664,hard_errors0
+completed_final_identity=lr0.004,within_rollout_change0,eta_pi0.015625,eta_v0.015625,cross_nonzero,chol0,finite1
+completed_final_residual_range=4.79e-16_to_1.04e-15
+paper_sha256s=all_OK
+endpoint_monitor_mode=without_apply; all endpoint decisions PASS; no scheduler mutation
+conclusion=CANDIDATE_REJECT_BOTH_ARMS
+model_checkpoint_bytes=not_copied_not_hashed_not_committed

@@ -125,3 +125,66 @@ blocks remained nonzero, LR was `.004`, and hard-error matches were zero.
 
 BigFish and CoinRun in both arms remain RUNNING and untouched. The campaign is
 not fully terminal, so the bounded conclusion remains `CANDIDATE_NOT_READY`.
+
+## Exact 4M and terminal endpoint results
+
+The four surviving BigFish/CoinRun cells passed exact 4,014,080 and completed
+scheduler `COMPLETED/0:0`, root `PASS/rc0`, with exact 5,980,160 progress.
+All immutable Paper files again passed `SHA256SUMS`. The frozen comparator was
+run without `--apply` to write the three PASS stages to each distinct ledger;
+no scheduler mutation occurred.
+
+| arm | environment | 2M ratio | 4M ratio | endpoint Target/Paper | endpoint ratio | terminal |
+|---|---|---:|---:|---:|---:|---|
+| beta1 | BigFish | 1.126078 | .906627 | 11.86/14.71 | .806254 | COMPLETED/0:0 |
+| beta1 | BossFight | .150685 | — | — | — | EARLY_STOPPED_ALGORITHM at2M |
+| beta1 | CaveFlyer | .561798 | — | — | — | EARLY_STOPPED_ALGORITHM at2M |
+| beta1 | CoinRun | 1.756757 | 1.187500 | 9.70/9.40 | 1.031915 | COMPLETED/0:0 |
+| beta4 | BigFish | 1.132543 | .817018 | 11.61/14.71 | .789259 | COMPLETED/0:0 |
+| beta4 | BossFight | .315068 | — | — | — | EARLY_STOPPED_ALGORITHM at2M |
+| beta4 | CaveFlyer | .516854 | — | — | — | EARLY_STOPPED_ALGORITHM at2M |
+| beta4 | CoinRun | 2.000000 | 1.125000 | 8.90/9.40 | .946809 | COMPLETED/0:0 |
+
+The four-environment means, including each early-stop ratio at its legal
+stage, are `.637663` for beta1 and `.641997` for beta4; the paired eight-cell
+mean is `.639830`. Beta4's mean advantage is only `.004335`, while beta4 is
+strictly worse than beta1 at both completed endpoints. Thus the RAT-implied
+`beta_v=4` does not show a meaningful advantage over beta1.
+
+## Terminal artifacts and dual-trust health
+
+Completed jobs `1075096/1075099/1075100/1075103` elapsed
+`09:54:49/09:56:57/09:54:54/09:55:54` on
+gpu023/gpu024/gpu029/gpu030. Every root has 146 progress rows, a regular
+non-symlink 3,766,013-byte mode0664 checkpoint and hard-error scan zero.
+Checkpoint bytes and hashes are excluded from Git.
+
+All final solves retain both natural cross blocks (Frobenius `41.54` to
+`130.76`), Cholesky info0, finite scan1 and relative residuals `4.79e-16` to
+`1.04e-15`. Policy/shared/value delta norms are all nonzero. The rollout
+scheduler retains LR `.004`, within-rollout LR change count0 and exactly one
+actor plus critic decision. At the final rollout both eta values are at the
+lower bound `1/64`; measured value divergence is below `.005` in every
+completed cell, while actor divergence is below or inside its band. This is
+numerically healthy execution, but it did not prevent two early failures per
+arm or make BigFish exceed Paper.
+
+The completed progress/trace hashes are:
+
+| job | progress SHA256 | trace SHA256 | endpoint-ledger SHA256 |
+|---:|---|---|---|
+| 1075096 | `e2efbcd2...7b01a3` | `a515f915...7b4cdc` | `a09bf772...eae60` |
+| 1075099 | `c303fed9...818ae` | `829428f5...ea584` | `053d9d01...936b34` |
+| 1075100 | `509ddeb6...10e70e` | `ca149e0b...ef2027` | `ae62ac8a...e60aef` |
+| 1075103 | `6d2d393c...9942af` | `3a124421...029d46` | `5db4ddd5...0fb03b` |
+
+Full model-free terminal metadata is archived under `evidence_terminal/`.
+
+## Final conclusion
+
+Both arms are `CANDIDATE_REJECT`. Each has two 2M algorithm early stops,
+only two endpoint cells, only CoinRun above Paper at endpoint, and an average
+four-environment ratio far below one. Fixed parameter LR plus independent
+dual-trust coefficient adaptation therefore does not repair the full-shared
+deterministic Joint2B cross-environment failure in seed0. No retry, requeue,
+resubmit, successor or model/checkpoint commit was performed.
