@@ -61,3 +61,28 @@ No retry, requeue or resubmit occurred.
 The existing sole automation was updated in place at its unchanged 20-minute
 cadence to monitor Task51, Task55 and Task57. No second automation was created.
 Current conclusion: `RUNNING_QUICK_READ_ONLY`.
+
+## Actionable beta1 BossFight failure at 1.31M
+
+The bounded 2026-08-27 13:28Z monitor pass found beta1 BossFight terminal at
+the cell level while allocation `19487251` and step `19487251.9` remain
+RUNNING for the other three independent cells. Root state is `FAIL/rc1`, PID
+`1985952` is dead, the last progress row is transition `1,310,720` reward
+`.35`, and the last trace is transition `1,318,912`. There is no exact
+2,007,040 row and no checkpoint, so no Paper comparison or scheduler action
+is eligible.
+
+The terminal exception is `RuntimeError: Task51 natural actor-critic cross
+blocks vanished` at the frozen trainer's `Advantage_Update`. Immediately
+before failure, the actor raw scale was exactly zero, actor Fisher quadratic
+and policy delta were zero, and both natural cross norms had collapsed to
+`1.4155319819142736e-38`, while the critic raw scale remained `834463.8125`.
+The preceding solve itself was finite with Cholesky info0 and relative
+residual `2.8879584719616574e-14`. Targeted scans found no OOM, CUDA, NCCL,
+disk or quota error. This is therefore an `algorithm/numerical` failure caused
+by actor/cross collapse, not infrastructure, GPU or linear-solver failure.
+
+The full bounded metadata and artifact hashes are in
+`evidence/actionable_beta1_boss_1318912/summary.txt`. Beta1 Cave, beta4 Boss
+and beta4 Cave remain RUNNING and were not modified. Current campaign
+conclusion remains `RUNNING_QUICK_READ_ONLY_WITH_ONE_ALGORITHM_FAILURE`.

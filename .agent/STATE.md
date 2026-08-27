@@ -1650,3 +1650,18 @@ Updated: 2026-08-26T14:37:00+08:00
   Joint2B with switch0/PPO state0/LR `.004`, critic upper `.01`, nonzero cross,
   Cholesky0, finite residuals and zero hard-error matches. Slot B remains
   untouched. The existing sole automation was updated in place.
+
+# Task57 beta1 Boss actionable failure
+
+- Beta1 BossFight is cell-terminal `FAIL/rc1` at last trace transition
+  `1,318,912` (last progress `1,310,720`, reward `.35`); trainer PID1985952
+  is dead and no endpoint/checkpoint exists.
+- Frozen runtime raised `Task51 natural actor-critic cross blocks vanished`.
+  Actor raw Fisher scale was exactly zero, policy delta/quadratic were zero,
+  and cross norm was `1.416e-38`, while critic scale remained `8.345e5`.
+- The preceding solve remained finite, Cholesky info0, relative residual
+  `2.888e-14`; no OOM/CUDA/NCCL/disk/quota evidence exists. Classification is
+  algorithm/numerical, not infrastructure or solver.
+- Allocation19487251/step19487251.9 remains RUNNING for beta1 Cave and both
+  beta4 cells. No cancellation, restart, retry, requeue or resubmit occurred.
+  Task51 BF/Coin cells remain live below endpoint and healthy.

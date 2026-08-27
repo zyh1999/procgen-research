@@ -408,4 +408,16 @@ verify rollout0 Joint, switch0, PPO state0, fixed LR `.004`, critic upper
 `.01`, 1024 rows, nonzero cross blocks, Cholesky0 and finite residuals. The
 H200 is fully utilized with about 78.6 GiB model/process memory visible. Slot B
 and all Task51/55/56 state remain untouched; the sole automation was updated
-in place without duplication.
+  in place without duplication.
+
+# Task57 beta1 Boss bounded failure archive
+
+At the 2026-08-27 13:28Z pass, beta1 BossFight was root-terminal `FAIL/rc1`
+at trace transition1,318,912 with no endpoint row. Its actor empirical-Fisher
+scale reached exactly zero and the natural cross blocks collapsed to
+`1.416e-38`; the frozen invariant then raised `Task51 natural actor-critic
+cross blocks vanished`. The last solve was nevertheless finite with Cholesky
+info0 and residual `2.888e-14`, and infrastructure/GPU error scans were clean.
+This is archived as an algorithm/numerical failure without Paper comparison
+or scheduler action. The other three Task57 processes and all Task51 jobs were
+left untouched.

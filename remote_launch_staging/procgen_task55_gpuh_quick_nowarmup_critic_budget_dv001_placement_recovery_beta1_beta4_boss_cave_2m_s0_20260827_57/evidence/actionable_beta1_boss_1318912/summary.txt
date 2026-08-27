@@ -1,0 +1,53 @@
+Task-ID: PROCGEN-TASK55-GPUH-QUICK-NOWARMUP-CRITIC-BUDGET-DV001-PLACEMENT-RECOVERY-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-57
+event: BETA1_BOSS_ALGORITHM_NUMERICAL_FAILURE
+observed_at_utc: 2026-08-27T13:28Z
+allocation: 19487251 RUNNING node820
+step: 19487251.9 RUNNING because the other three independent cells remain live
+cell: beta1 BossFight seed0
+root: /scratch/h99859yz/procgen_task55_gpuh_quick_nowarmup_critic_budget_dv001_placement_recovery_beta1_beta4_boss_cave_2m_s0_20260827_57/runs/FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_DV001_BETA1_V1/bossfight-easy-0-10/seed0/2m_quick_nowarmup_critic_budget_dv001
+root_status: FAIL
+root_rc: 1
+trainer_pid: 1985952 DEAD
+last_progress_transition: 1310720
+last_progress_reward: 0.35
+last_trace_transition: 1318912
+endpoint_2007040_present: false
+paper_comparison: ineligible; no exact endpoint row
+checkpoint: absent
+
+failure:
+RuntimeError: Task51 natural actor-critic cross blocks vanished
+trainer_location: train_full_shared_joint2b_nowarmup_critic_budget_dv001_v1.py:451 Advantage_Update
+
+last_frozen_telemetry:
+training_phase=joint2b
+phase_switch_count=0
+ppo_optimizer_state_tensors=0
+curr_lr=0.004
+critic_trust_upper=0.01
+eta_pi=0.015625
+eta_v=0.015625
+joint_actor_raw_scale=0.0
+joint_actor_critic_cross_frobenius=1.4155319819142736e-38
+joint_critic_actor_cross_frobenius=1.4155319819142736e-38
+joint_critic_raw_scale=834463.8125
+joint_actor_fisher_quadratic=0.0
+joint_policy_delta_l2=0.0
+joint_cholesky_info_max=0
+joint_relative_solve_residual=2.8879584719616574e-14
+joint_finite_scan_pass=1.0
+
+artifact_sha256:
+progress.csv 42c7fb33bd3a5afcd85b805d48bc6f6416c32122c6a265a5c4d6372afcf7aa4d
+metric_trace.jsonl 68e965005841eb1004729c3f8e35898681d2f680b9d88a550c618a7a7b185b8e
+rollout_scheduler.jsonl 8c3567d1fb8cad8dadc7a4eeec5decdaa040820f9120f2ce002d036a40a3996d
+command.txt 7cef67482638144950e3f3d7052f475e71757d843a5addf7e85e3ef0fd4698d0
+stderr.log e01779b3ee787e34658fc2062afe342065e57efd39a864ddc0143283fd588421
+stdout.log 585df371120a06742bfe13773c39233852b70a911f6584ad36996faa8fbf1b86
+status 4f8e9e45f8a9e1843b81eaf3bdf52a6b778d415d23bf985774a9d34a43f69bd5
+rc 4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865
+
+classification: algorithm/numerical failure, not infrastructure/GPU/solver failure
+action: read-only archive only; no cancel/restart/retry/requeue/resubmit
+other_task57_cells: beta1 Cave, beta4 Boss, beta4 Cave remain RUNNING and untouched
+task51_snapshot: four live BF/Coin jobs remain RUNNING, finite, hard-error-free, and below endpoint
