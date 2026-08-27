@@ -1,27 +1,32 @@
-# Task-ID: PROCGEN-TASK55-GPUH-QUICK-NOWARMUP-CRITIC-BUDGET-DV001-PLACEMENT-RECOVERY-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-57
+# Task-ID: PROCGEN-TASK55-QUICK-NOWARMUP-POSTSOLVE-ENTROPY-GRAD001-BETA1-BOSS-CAVE-2M-S0-20260827-61
 
-Status: RUNNING_QUICK_READ_ONLY
+Status: READY_IMPLEMENTED_LOCAL_GATES_PASS
 
-Task56 is terminal `RESOURCE_PLACEMENT_BLOCKED` and immutable. Task57 is a
-fresh placement-only recovery using byte-identical Task56 trainer/config
-science: no PPO warmup, rollout-zero strict full-shared Joint2B, fixed LR
-`.004`, full 1024 rows and both natural cross blocks, actor thresholds
-`.005/.04`, critic thresholds `.005/.01`, eta bounds `[1/64,64]`, multiplier
-`1.5`, beta1/beta4 and matched solver/PopArt/objective/evaluation semantics.
+Method: `FULL_SHARED_JOINT2B_NOWARMUP_FIXEDLR_DUALTRUST_POSTSOLVE_ENTGRAD001_BETA1_V1`
 
-Create one fresh persistent step inside Slot A allocation `19487251/node820`.
-Match the successful Task52 step shape: eight CPUs, one H200, and inherited
-parent memory with no explicit request above its fixed `64G`. Validate the
-resolved request is at most `64G` before exactly one launch attempt. Run four
-concurrent beta1/beta4 BossFight/CaveFlyer seed0 processes to exact 2,007,040,
-with distinct roots/logs/PIDs and no MPS.
+Execute exactly one bounded beta1 seed0 quick diagnostic for BossFight and
+CaveFlyer to exact transition `2,007,040`.
 
-No preflight suite, science change, retry, requeue, resubmit, Slot B use,
-credential exposure, model/checkpoint Git content, or Task51/55/56 mutation.
-On successful launch update the existing sole automation in place; never create
-a second automation.
+Strict parent is Task55 freeze `3a850cd3870854123c76693a974a2fe45e952203`,
+trainer SHA256 `91b835f16989a42293f6566d8fb9893dcd7b9ca969d1685d2d313f3f695f2f81`
+and beta1 config SHA256
+`75fb59290d4bd2399986e372a62e56b4aaa6df7becb205f41ee332538f04425f`.
+Preserve rollout-zero Joint2B, PPO state zero, fixed LR `.004`, beta1,
+dual-trust bands `.005/.04`, eta bounds `[1/64,64]`, damping `.5`, global clip
+`.5`, PopArt, complete natural cross blocks and strict `1024x938976` system.
 
-Task57 persistent step `19487251.9` is RUNNING on node820. All four roots and
-trainer PIDs exist, each has a scientific-start marker and a finite rollout-zero
-Joint2B trace. The existing sole automation now monitors Task51, Task55 and
-Task57 at the unchanged 20-minute cadence.
+The sole scientific change is `postsolve_entropy_coef=.01`: compute the
+standard current-policy entropy ascent gradient only after the unchanged
+Joint system/RHS/history/solve/direction, add `.01` times that gradient to the
+applied direction, then use the parent's single global clip and fixed LR.
+Entropy must be exactly zero on critic-exclusive value-head parameters and
+must not enter the system, RHS, solve, eta controller or Joint history buffer.
+The unchanged actual rollout `D_pi/D_v` measurements drive eta feedback.
+
+Run only local compile/config/launcher checks and exactly one remote production
+gate covering import/construction/shape/device/one finite solver start and the
+entropy-separation assertions. Gate failure is terminal with no repair/retry.
+On gate PASS submit BossFight and CaveFlyer together exactly once at fresh
+roots. Never retry/requeue/resubmit, touch Task51--60, create another arm or
+coefficient, or commit model/checkpoint bytes. At endpoint compare read-only
+against immutable Paper and Task55 beta1; never cancel for reward.

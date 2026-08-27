@@ -1,5 +1,22 @@
 # Current Project State
 
+## Task61 post-solve entropy quick diagnostic ready for remote gate
+
+- Task61 is the sole active READY objective. It derives only from frozen
+  Task55 beta1 no-warmup strict Joint-2B and targets BossFight/CaveFlyer seed0
+  to exact `2,007,040`.
+- The sole scientific delta is `postsolve_entropy_coef=.01`: the standard
+  entropy ascent gradient is formed after the unchanged Joint system/RHS/
+  history/solve, added to the final applied direction, and passed through the
+  parent's one global clip and fixed LR `.004`.
+- Value-head-exclusive entropy gradient is required to be exactly zero.
+  Joint-only and applied projections/divergences are logged separately; the
+  Joint history buffer is explicitly kept entropy-free.
+- Parent trainer/config hashes match the assignment. Minimal local Python and
+  shell compilation checks pass. No Task51--60 job/root was modified.
+
+Updated: 2026-08-27T23:34:00+08:00
+
 ## Task54 eta-min 1/256 quick diagnostic terminal
 
 - Slot B step `19487252.4` is `COMPLETED/0:0` after `02:34:35` on node822;
