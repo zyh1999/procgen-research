@@ -1,30 +1,22 @@
-# Task-ID: PROCGEN-TASK55-GPUH-QUICK-NOWARMUP-CRITIC-BUDGET-DV001-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-56
+# Task-ID: PROCGEN-TASK55-GPUH-QUICK-NOWARMUP-CRITIC-BUDGET-DV001-PLACEMENT-RECOVERY-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-57
 
-Status: RESOURCE_PLACEMENT_BLOCKED
+Status: IMPLEMENTATION_FROZEN
 
-Run exactly four read-only quick cells on CSF3 Slot A allocation `19487251`
-(`node820`): beta1/beta4 BossFight and CaveFlyer, seed0, exact horizon
-2,007,040. The parent is frozen Task55: Joint2B begins at rollout zero with
-no PPO update or phase switch, parameter LR remains `.004`, both natural cross
-blocks and the full 1024-row system remain present, and eta bounds, multiplier,
-damping, clipping, PopArt, objectives, evaluation and reward semantics remain
-unchanged.
+Task56 is terminal `RESOURCE_PLACEMENT_BLOCKED` and immutable. Task57 is a
+fresh placement-only recovery using byte-identical Task56 trainer/config
+science: no PPO warmup, rollout-zero strict full-shared Joint2B, fixed LR
+`.004`, full 1024 rows and both natural cross blocks, actor thresholds
+`.005/.04`, critic thresholds `.005/.01`, eta bounds `[1/64,64]`, multiplier
+`1.5`, beta1/beta4 and matched solver/PopArt/objective/evaluation semantics.
 
-The sole scientific difference is a critic trust upper budget of `.01` instead
-of `.04`. The actor band remains `.005/.04`; the critic lower threshold remains
-`.005`; eta_min remains `1/64`. Run all four processes concurrently on the
-single allocated H200 without MPS, using fresh roots and one persistent Slurm
-step. Minimal compile/config/hash/CUDA/start checks only. No retry, requeue,
-resubmit, cancellation, negative suite, audit, second budget, or Task51/55
-mutation. Slot B `19487252` remains untouched.
+Create one fresh persistent step inside Slot A allocation `19487251/node820`.
+Match the successful Task52 step shape: eight CPUs, one H200, and inherited
+parent memory with no explicit request above its fixed `64G`. Validate the
+resolved request is at most `64G` before exactly one launch attempt. Run four
+concurrent beta1/beta4 BossFight/CaveFlyer seed0 processes to exact 2,007,040,
+with distinct roots/logs/PIDs and no MPS.
 
-Task56 is a quick read-only diagnostic and cannot replace Task51 or Task55.
-At exact 2,007,040 archive Paper and matched Task55/Task52 comparisons without
-scheduler cancellation. Keep model/checkpoint/token bytes out of Git. Update
-the existing sole automation in place; never create a second automation.
-
-The single authorized Slot A `srun` creation attempt was rejected before a
-Slurm step or science process existed because it requested `100G` inside the
-parent allocation's fixed `64G`. No root or scientific-start marker exists.
-The no-retry rule therefore ends Task56 as `RESOURCE_PLACEMENT_BLOCKED`; Slot B
-was not used and the existing automation was not changed.
+No preflight suite, science change, retry, requeue, resubmit, Slot B use,
+credential exposure, model/checkpoint Git content, or Task51/55/56 mutation.
+On successful launch update the existing sole automation in place; never create
+a second automation.

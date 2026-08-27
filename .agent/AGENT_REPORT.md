@@ -377,3 +377,12 @@ allocation's `64G`. There is no Task56 step ID, root, process, scientific-start
 marker or progress. It was not retried or moved to Slot B. Classification is
 `RESOURCE_PLACEMENT_BLOCKED`, separate from scientific evidence; Slot B and the
 existing automation are untouched.
+# Task57 placement recovery freeze
+
+Task57 is a fresh deployment-only successor to immutable Task56. Its trainer,
+beta configs and scientific semantics are byte-identical; only Task-ID,
+campaign/root routing and the Slurm step request differ. Live accounting shows
+Slot A has eight CPUs, `64G` and one H200, while successful Task52 step
+`19487251.1` inherited exactly those resources without explicit `ReqMem`.
+Task57 is frozen to that request shape for one exactly-once launch attempt.
+Slot B and all Task51/55/56 state remain untouched.

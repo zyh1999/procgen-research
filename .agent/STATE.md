@@ -1638,3 +1638,12 @@ Updated: 2026-08-26T14:37:00+08:00
   exist. Per the no-retry rule, Task56 is terminal
   `RESOURCE_PLACEMENT_BLOCKED`. Slot B remains untouched and the existing
   automation was not changed.
+# Task57 placement recovery implementation frozen
+
+- Task56 remains immutable `RESOURCE_PLACEMENT_BLOCKED`; it is not retried.
+- Task57 reuses Task56 trainer/config/bundle hashes exactly and changes only
+  fresh campaign/root routing plus the step resource request.
+- Successful Task52 step accounting proves the compatible Slot A shape is
+  eight CPUs, one H200 and inherited parent `64G` with no explicit `ReqMem`.
+  Task57 will use that bounded shape for one launch attempt; Slot B remains
+  untouched.
