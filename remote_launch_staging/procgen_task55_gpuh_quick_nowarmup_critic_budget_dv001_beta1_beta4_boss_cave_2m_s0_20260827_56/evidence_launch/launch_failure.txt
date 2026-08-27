@@ -1,0 +1,21 @@
+captured_at=2026-08-27T12:13:32+01:00
+task_id=PROCGEN-TASK55-GPUH-QUICK-NOWARMUP-CRITIC-BUDGET-DV001-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-56
+implementation_commit=70c3711438c552f5b457e00f17ce6406638174d7
+parent_allocation=19487251
+parent_state=RUNNING
+parent_node=node820
+parent_req_tres=cpu=8,mem=64G,node=1,billing=9,gres/gpu=1,gres/gpu:h200=1
+requested_step_memory=100G
+srun_client_pid=1704394
+srun_error=srun: error: Unable to create step for job 19487251: Memory required by task is not available
+srun_error_sha256=dc4597d3954a85f0dde13393818620914a0329c35baec2f9b92363eea3b51508
+slurm_step_id=ABSENT
+science_roots=ABSENT
+science_processes=ABSENT
+scientific_started_markers=ABSENT
+slot_b_allocation=19487252
+slot_b_state=RUNNING
+slot_b_node=node822
+slot_b_task56_files_or_processes=ABSENT
+retry_requeue_resubmit=NONE
+classification=RESOURCE_PLACEMENT_BLOCKED_PRE_SCIENCE_STEP_CREATION

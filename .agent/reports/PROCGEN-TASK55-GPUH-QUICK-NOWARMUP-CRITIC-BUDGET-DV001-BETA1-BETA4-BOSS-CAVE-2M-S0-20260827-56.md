@@ -32,4 +32,27 @@ and accurate action reason. Actor adaptation remains bound to the original
 
 ## Placement and launch
 
-Pending remote freeze and exactly-once launch callback.
+The remote code bundle was frozen under:
+
+`/scratch/h99859yz/procgen_task55_gpuh_quick_nowarmup_critic_budget_dv001_beta1_beta4_boss_cave_2m_s0_20260827_56`
+
+- Bundle SHA256: `e2c961036d39557420d417f7d175d206335a76c00736ef7172d92d8f419f0578`
+- Parent allocation: `19487251`, `RUNNING`, node820
+- Parent allocation TRES: `cpu=8,mem=64G,gres/gpu:h200=1`
+- Slot B `19487252`: `RUNNING`, node822, untouched
+
+The single authorized `srun` command requested `100G`. Slurm rejected step
+creation before the wrapper or any cell process ran:
+
+`srun: error: Unable to create step for job 19487251: Memory required by task is not available`
+
+The error file SHA256 is
+`dc4597d3954a85f0dde13393818620914a0329c35baec2f9b92363eea3b51508`.
+Accounting contains no Task56 step ID; the campaign has no `runs/` directory,
+root, PID, progress, marker, checkpoint, or scientific artifact. A process scan
+also found no Task56 process. The failed launch command was not retried with a
+smaller request, moved to Slot B, requeued, or resubmitted.
+
+This is a pre-science Slurm step-creation/resource-request failure, not an
+algorithmic or numerical result. Terminal conclusion:
+`RESOURCE_PLACEMENT_BLOCKED`.

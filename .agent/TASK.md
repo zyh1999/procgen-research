@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-TASK55-GPUH-QUICK-NOWARMUP-CRITIC-BUDGET-DV001-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-56
 
-Status: IMPLEMENTATION_FROZEN
+Status: RESOURCE_PLACEMENT_BLOCKED
 
 Run exactly four read-only quick cells on CSF3 Slot A allocation `19487251`
 (`node820`): beta1/beta4 BossFight and CaveFlyer, seed0, exact horizon
@@ -22,3 +22,9 @@ Task56 is a quick read-only diagnostic and cannot replace Task51 or Task55.
 At exact 2,007,040 archive Paper and matched Task55/Task52 comparisons without
 scheduler cancellation. Keep model/checkpoint/token bytes out of Git. Update
 the existing sole automation in place; never create a second automation.
+
+The single authorized Slot A `srun` creation attempt was rejected before a
+Slurm step or science process existed because it requested `100G` inside the
+parent allocation's fixed `64G`. No root or scientific-start marker exists.
+The no-retry rule therefore ends Task56 as `RESOURCE_PLACEMENT_BLOCKED`; Slot B
+was not used and the existing automation was not changed.
