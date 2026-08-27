@@ -1,0 +1,8 @@
+captured_at=2026-08-27T12:06:41Z
+1075105|COMPLETED|0:0|03:38:16|gpu029|2026-08-27T12:51:46
+1075106|COMPLETED|0:0|03:41:14|gpu030|2026-08-27T12:54:44
+1075107|COMPLETED|0:0|03:52:15|gpu031|2026-08-27T13:05:45
+1075108|COMPLETED|0:0|03:52:15|gpu031|2026-08-27T13:05:45
+
+All four main jobs, batch steps and extern steps were scheduler-authoritatively
+COMPLETED/0:0. No cancellation, retry, requeue or resubmit occurred.

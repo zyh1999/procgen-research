@@ -58,14 +58,50 @@ show Joint2B from the beginning, phase-switch count zero, PPO optimizer state
 zero, fixed LR `.004`, nonzero cross blocks, Cholesky info0 and finite strict
 residuals. Targeted Traceback/OOM/CUDA/NCCL/disk/quota/NaN/Inf scans are zero.
 
-## Monitoring and conclusion
+## Terminal scheduler and artifacts
 
-The existing `monitor-procgen-task51-dual-trust` automation was updated in
-place at 20-minute cadence. Task55's exact 2,007,040 endpoint comparison is
-read-only: the frozen monitor records Paper and matched Task51/Task52 evidence
-but never cancels a scheduler job. Task55 cannot replace the authoritative
-Task51 matrix.
+All four jobs are scheduler-authoritatively `COMPLETED/0:0`:
 
-Current bounded conclusion: `QUEUED_RESOURCE_WAIT` is not applicable because
-all four jobs are RUNNING. Scientific conclusion remains pending exact 2M
-terminal evidence.
+| arm | environment | job | elapsed | node | root |
+|---|---|---:|---:|---|---|
+| beta1 | BossFight | 1075105 | 03:38:16 | gpu029 | PASS/rc0 |
+| beta1 | CaveFlyer | 1075106 | 03:41:14 | gpu030 | PASS/rc0 |
+| beta4 | BossFight | 1075107 | 03:52:15 | gpu031 | PASS/rc0 |
+| beta4 | CaveFlyer | 1075108 | 03:52:15 | gpu031 | PASS/rc0 |
+
+Every root has 49 progress rows ending at exact `2,007,040`, 16,236 valid
+trace rows, and one regular non-symlink `model.ckpt` of 3,766,013 bytes with
+mode `0664`. Checkpoint evidence is stat metadata only; no checkpoint bytes or
+content hashes were read, copied or committed. Targeted hard-error scans are
+zero in all four cells.
+
+## Exact endpoint comparison
+
+The immutable Paper `SHA256SUMS` verified all four baseline files before the
+frozen read-only monitor was invoked exactly once per root.
+
+| arm | environment | Target | Paper | ratio | read-only decision |
+|---|---|---:|---:|---:|---|
+| beta1 | BossFight | .19 | 2.92 | .0650684932 | BELOW_PAPER_THRESHOLD_AT_TERMINAL_ENDPOINT |
+| beta1 | CaveFlyer | 3.10 | 4.45 | .6966292135 | PASS |
+| beta4 | BossFight | .26 | 2.92 | .0890410959 | BELOW_PAPER_THRESHOLD_AT_TERMINAL_ENDPOINT |
+| beta4 | CaveFlyer | 0 | 4.45 | 0 | BELOW_PAPER_THRESHOLD_AT_TERMINAL_ENDPOINT |
+
+The monitor action is `READ_ONLY_NO_CANCELLATION_ENDPOINT`; no job was
+cancelled. Compared with matched warmup Task51, no-warmup improves only beta1
+Cave (3.10 versus 2.50) and is worse in the other three cells. Compared with
+Task52's warmup H200 quick mirror (.70/4.07/.62/3.94), every no-warmup result
+is lower.
+
+## Numerical evidence and conclusion
+
+All final cells preserve Joint2B from rollout zero, no PPO phase, fixed LR
+`.004`, natural cross blocks, Cholesky info0 and finite scans. Relative solve
+residuals range from `7.250e-16` to `1.004e-12`; no infrastructure or hard
+numerical failure is present. The poor ratios are therefore scientific quick
+evidence rather than scheduler or deployment failure.
+
+Bounded conclusion: `QUICK_NOWARMUP_TERMINAL_READ_ONLY`. Three of four cells
+finish below the Paper `.60` threshold, so removing the 503,808-transition PPO
+warmup is not supported by this matched quick diagnostic. Task55 does not
+replace or mutate the authoritative Task51 matrix.

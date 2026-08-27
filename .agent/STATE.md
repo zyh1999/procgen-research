@@ -11,7 +11,7 @@
   Cholesky info0, finite residuals and zero hard-error matches. Checkpoint stat
   metadata only was archived; no model bytes or hashes entered Git.
 - Task54 conclusion is `QUICK_ETA_MIN_1OVER256_TERMINAL_READ_ONLY`. Task51 and
-  Task55 remain live under the sole automation.
+  Task57 remain live under the sole automation; Task55 is now terminal.
 
 Updated: 2026-08-27T18:29:08+08:00
 
@@ -32,7 +32,7 @@ Updated: 2026-08-27T18:29:08+08:00
 
 Updated: 2026-08-27T17:12:04+08:00
 
-## Task55 no-warmup matched quick diagnostic running on Bede
+## Task55 no-warmup matched quick diagnostic terminal on Bede
 
 - Task `PROCGEN-FULL-SHARED-JOINT2B-NOWARMUP-FIXEDLR-DUALTRUST-BETA1-BETA4-BOSS-CAVE-2M-S0-20260827-55`
   removes only Task51's 503,808-transition PPO warmup. Rollout zero uses the
@@ -46,18 +46,18 @@ Updated: 2026-08-27T17:12:04+08:00
   switch count is zero, PPO optimizer state is empty, LR is fixed `.004`,
   strict rows/columns are `1024x938976`, both natural cross blocks are present,
   Cholesky info is zero and finite scans pass.
-- Four fresh 2M cells were submitted once in one bounded action and are all
-  RUNNING: beta1 Boss `1075105` gpu029, beta1 Cave `1075106` gpu030, beta4
-  Boss `1075107` gpu031 and beta4 Cave `1075108` gpu031. Each has an isolated
-  root, trainer PID and live Joint telemetry; phase-switch count is zero,
-  solver residuals are finite and targeted hard-error scans are zero.
-- Task55 is a read-only quick diagnostic and cannot replace Task51. At exact
-  `2,007,040`, its frozen monitor records Paper and matched warmup comparisons
-  without scheduler cancellation.
-- The existing sole automation `monitor-procgen-task51-dual-trust` was updated
-  in place to include these four jobs; no second automation was created.
+- All four jobs are `COMPLETED/0:0`; roots are `PASS/rc0` with exact
+  `2,007,040`, finite Joint2B telemetry, Cholesky info0 and hard-error scan0.
+- Exact Paper ratios are beta1 Boss `.065068`, beta1 Cave `.696629`, beta4
+  Boss `.089041` and beta4 Cave `0`. The frozen monitor wrote read-only
+  terminal ledgers once per root and never cancelled a job.
+- Checkpoint metadata only is recorded: each `model.ckpt` is a regular
+  non-symlink file of 3,766,013 bytes, mode0664. No model bytes or hashes were
+  copied or committed.
+- Conclusion: `QUICK_NOWARMUP_TERMINAL_READ_ONLY`. Three of four cells are
+  below `.60`; Task55 cannot replace or mutate Task51.
 
-Updated: 2026-08-27T16:19:01+08:00
+Updated: 2026-08-27T20:06:41+08:00
 
 ## Task51 paired fixed-LR dual-trust science running on Bede
 

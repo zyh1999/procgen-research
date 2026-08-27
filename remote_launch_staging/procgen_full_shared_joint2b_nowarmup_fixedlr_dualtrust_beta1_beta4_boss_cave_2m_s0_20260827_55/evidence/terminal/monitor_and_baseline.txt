@@ -1,0 +1,12 @@
+monitor_sha256=c71a5528e480bb351f1666436de761735ebf89db07db76ff196ffdb3652ad5df
+paper_baseline=/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_ppo500k_rat_rollout_sched_6m_s0_20260826_50/paper_rat_seed0_baseline
+paper_sha256sums=PASS_ALL_FOUR
+monitor_mode=READ_ONLY_NO_CANCELLATION_ENDPOINT
+
+paper_bossfight_sha256=4082868eeec196363e284fd7af68807f20bc0142e7de7e8cf355851a5d89337c
+paper_caveflyer_sha256=8d10f8614a1cb57d81c7705b7d2373c0c9de6b158c7cd1bdeabba2ca8236e292
+
+The frozen monitor was invoked once per distinct root after all Paper hashes
+verified. It wrote one exact 2,007,040 row to each root ledger and has no
+scancel path. Checkpoint files were stat-ed only; no checkpoint bytes or
+content hashes were read, copied or committed.

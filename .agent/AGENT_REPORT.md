@@ -334,6 +334,23 @@ PIDs. Initial traces are Joint2B-only, show phase-switch count0 and PPO state0,
 retain both cross blocks, and have finite Cholesky/residual telemetry. Targeted
 hard-error scans are zero. The sole existing 20-minute automation was updated
 in place; Task51/52/53/54 were not modified.
+
+# Task55 exact-2M terminal read-only archive
+
+Jobs `1075105-1075108` are all scheduler `COMPLETED/0:0` and all roots are
+`PASS/rc0` with exact 2,007,040 progress, 16,236 valid trace rows and clean
+hard-error scans. The immutable Paper baseline hashes verified before the
+frozen monitor `c71a5528...5df` wrote one read-only endpoint ledger per root.
+Exact ratios are beta1 Boss `.065068`, beta1 Cave `.696629`, beta4 Boss
+`.089041` and beta4 Cave `0`; no cancellation occurred.
+
+All cells retain rollout-zero Joint2B, fixed LR `.004`, nonzero natural cross
+blocks, Cholesky info0 and finite residuals. Each checkpoint is represented
+only by stat metadata (regular non-symlink, 3,766,013 bytes, mode0664); no
+checkpoint bytes or hashes entered Git. The bounded conclusion is
+`QUICK_NOWARMUP_TERMINAL_READ_ONLY`: only beta1 Cave passes `.60`, and the
+no-warmup result is lower than the matched Task52 warmup mirror in all four
+cells. Task51 and Task57 were not modified.
 # Task52 exact-2M terminal quick archive
 
 Task52 step `19487251.1` is terminal `COMPLETED/0:0`; all four independent
