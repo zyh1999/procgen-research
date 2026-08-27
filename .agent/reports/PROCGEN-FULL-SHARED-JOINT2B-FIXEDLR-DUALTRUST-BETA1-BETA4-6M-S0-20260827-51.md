@@ -37,12 +37,53 @@ Frozen local SHA256 identities before remote work:
 Local syntax/bytecode and both launcher shell checks pass. Each cell uses its
 own runtime/log directory, avoiding cross-arm same-environment log collisions.
 
-## Gate and launch matrix
+## Sole paired production gate
 
-Pending the sole two-arm Bede production gate. No science job or root exists
-at this report stage. Gate PASS will be followed immediately by all eight
-once-only submissions, targeting six simultaneous GPUs based on the immediate
-live capacity refresh. Allocation count and actual RUNNING concurrency will
-be reported separately.
+Bede job `1075095` completed `0:0` in `00:01:47` on gpu023. Both roots are
+`PRECHECK_PASS/rc0`. Each arm ran one real PPO rollout, switched exactly once,
+and completed one full Joint rollout. Both use 1,024 rows and 938,976 ordered
+parameter columns, retain nonzero equal-transpose natural cross blocks, use
+fixed LR `.004` with zero within/between-rollout LR changes, report Cholesky
+info0, finite scan PASS and strict FP64 residuals.
 
-Current bounded conclusion: `QUEUED_RESOURCE_WAIT` pending the sole gate.
+| Gate arm | D_pi | D_v | eta_pi | eta_v | cross Frobenius | rel. residual |
+|---|---:|---:|---:|---:|---:|---:|
+| beta1 | .0006223299 | .0744025186 | 1 -> 2/3 | 1 -> 1.5 | 9.3080698130 | 1.589e-15 |
+| beta4 | .0007693351 | .1080075875 | 1 -> 2/3 | 1 -> 1.5 | 9.0059423814 | 1.641e-15 |
+
+Thus both measurements exercised the required directions: low actor
+divergence weakened the actor metric and high value divergence strengthened
+the critic metric, exactly once per block. PopArt mean/std were fixed within
+each Joint rollout (`.3004482388/.3621089160`). Complete model-free gate
+JSONL, switch, hash, rc/status and empty scheduler stdout/err are archived
+under `evidence_gate/`; no checkpoint/model was copied.
+
+## Capacity and eight-cell launch
+
+The immediate Bede refresh showed three completely idle four-V100 nodes plus
+seven mixed nodes, partition `gpu` UP with two-day limit, account `bdman37g`,
+and no Task51 job/root/duplicate. This supplied more than the requested six
+immediately usable slots, so no CSF3 split or second deployment wrapper was
+needed. All eight cells were submitted in one bounded action, without
+dependencies, holds or throttling.
+
+| Arm | Environment | Job | Initial state | Node | Exact root suffix |
+|---|---|---:|---|---|---|
+| beta1 | BigFish | 1075096 | RUNNING | gpu023 | `BETA1_V1/bigfish-easy-0-10/seed0/6m` |
+| beta1 | BossFight | 1075097 | RUNNING | gpu023 | `BETA1_V1/bossfight-easy-0-10/seed0/6m` |
+| beta1 | CaveFlyer | 1075098 | RUNNING | gpu024 | `BETA1_V1/caveflyer-easy-0-10/seed0/6m` |
+| beta1 | CoinRun | 1075099 | RUNNING | gpu024 | `BETA1_V1/coinrun-easy-0-10/seed0/6m` |
+| beta4 | BigFish | 1075100 | RUNNING | gpu029 | `BETA4_V1/bigfish-easy-0-10/seed0/6m` |
+| beta4 | BossFight | 1075101 | RUNNING | gpu029 | `BETA4_V1/bossfight-easy-0-10/seed0/6m` |
+| beta4 | CaveFlyer | 1075102 | RUNNING | gpu030 | `BETA4_V1/caveflyer-easy-0-10/seed0/6m` |
+| beta4 | CoinRun | 1075103 | RUNNING | gpu030 | `BETA4_V1/coinrun-easy-0-10/seed0/6m` |
+
+All roots share campaign prefix
+`/nobackup/projects/bdman37/yihe/procgen_full_shared_joint2b_fixedlr_dualtrust_beta1_beta4_6m_s0_20260827_51/runs/FULL_SHARED_JOINT2B_FIXEDLR_DUALTRUST_`.
+Every root has `RUNNING`, `scientific_started.marker`, job ID and trainer PID.
+Requested allocations: 8. Initial allocated/RUNNING concurrency: 8. PENDING:
+0, so there are no pending reasons. Initial hard-error scan is zero; the only
+stderr content is the known Gym deprecation notice.
+
+Current bounded conclusion: `CANDIDATE_NOT_READY` while all eight cells run
+under exact-stage Paper monitoring.

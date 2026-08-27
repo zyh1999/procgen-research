@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-FULL-SHARED-JOINT2B-FIXEDLR-DUALTRUST-BETA1-BETA4-6M-S0-20260827-51
 
-Status: READY
+Status: RUNNING_ON_BEDE
 
 Paired methods:
 
@@ -39,3 +39,9 @@ Use immutable Paper RAT seed0 and act only at exact common first >=2M, first
 monitor application. Return all identities, gate evidence, jobs, roots,
 partitions, nodes, pending reasons, allocation count and actual RUNNING
 concurrency. The coordinator owns the sole 20-minute automation.
+
+The sole paired gate is Bede job `1075095`, terminal `COMPLETED/0:0` with
+both beta roots `PRECHECK_PASS/rc0`. All eight authorized science cells were
+submitted once in one bounded action as Bede jobs `1075096-1075103`; all
+started immediately on gpu023/gpu024/gpu029/gpu030 with disjoint fresh roots.
+Never duplicate, retry, requeue or resubmit them.

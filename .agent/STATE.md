@@ -1,6 +1,6 @@
 # Current Project State
 
-## Task51 paired fixed-LR dual-trust implementation frozen locally
+## Task51 paired fixed-LR dual-trust science running on Bede
 
 - The sole active task is
   `PROCGEN-FULL-SHARED-JOINT2B-FIXEDLR-DUALTRUST-BETA1-BETA4-6M-S0-20260827-51`.
@@ -12,12 +12,16 @@
 - Local compile and launcher checks pass. Trainer SHA is
   `af66fa0a...4430d`; beta configs are `57f6ca2...975c9` and
   `2f802e6...e9a20`; paired monitor is `73451ea...580f2`.
-- No Task51 remote gate/science job/root exists yet. After the implementation
-  push, exactly one Bede gate covers both arms; only PASS permits all eight
-  once-only science submissions. Placement targets six concurrent GPUs,
-  preferring Bede and using a verified CSF3 gpuH remainder only if necessary.
+- Sole Bede gate `1075095` completed `0:0` on gpu023; beta1 and beta4 are both
+  `PRECHECK_PASS/rc0`, strict 1024x938976, cross-preserving, Cholesky info0,
+  finite, fixed LR `.004`, and one actor plus one critic trust update.
+- All eight science cells were submitted once in one action as
+  `1075096-1075103`. All eight are RUNNING (allocation count 8, actual running
+  concurrency 8, pending 0) on gpu023/024/029/030 with isolated roots,
+  scientific-start markers and trainer PIDs. Bede had sufficient immediate
+  capacity, so no CSF3 split was used.
 
-Updated: 2026-08-27T13:05:00+08:00
+Updated: 2026-08-27T14:02:00+08:00
 
 ## Task50 fully terminal: CANDIDATE_REJECT
 

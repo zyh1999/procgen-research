@@ -2,7 +2,7 @@
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-FIXEDLR-DUALTRUST-BETA1-BETA4-6M-S0-20260827-51`
 
-Current conclusion: `QUEUED_RESOURCE_WAIT`
+Current conclusion: `CANDIDATE_NOT_READY`
 
 The bounded paired Task51 implementation is locally frozen. Both arms retain
 Task50's exact PPO boundary and full-shared strict deterministic Joint-2B
@@ -10,8 +10,20 @@ coupling. They differ only in critic metric base weight one versus four. The
 Joint parameter LR remains exactly `.004`; independent actor/value metric
 coefficients update once after each full rollout from exact full-distribution
 policy KL and fixed-PopArt-coordinate value-model KL. Compile, shell, config
-pair-diff and root-isolation checks pass. No remote gate or science mutation
-has occurred yet; the next authorized action is the sole two-arm Bede gate.
+pair-diff and root-isolation checks pass. Sole Bede gate `1075095` completed
+`0:0`; both arm roots are `PRECHECK_PASS/rc0` with strict 1024x938976 rows and
+columns, nonzero natural cross blocks, fixed LR, direction-correct once-only
+dual-trust updates, Cholesky info0 and residuals below `1.7e-15`.
+
+All eight seed0 intended-6M cells were submitted exactly once in a single
+bounded Bede launch: beta1 `1075096-1075099`, beta4 `1075100-1075103`. All
+eight immediately became RUNNING on gpu023/024/029/030, each with a distinct
+fresh root, scientific-start marker and trainer PID. Allocation count and
+actual RUNNING concurrency are both eight; pending count is zero. Sufficient
+Bede capacity existed, so CSF3 was not used. The coordinator should bind one
+20-minute automation to these eight jobs and the single paired monitor SHA
+`73451ead...580f2`, passing each root's exact beta method and keeping separate
+ledgers.
 
 Task: `PROCGEN-FULL-SHARED-JOINT2B-PPO500K-RAT-SCHEDULER-6M-S0-20260826-50`
 

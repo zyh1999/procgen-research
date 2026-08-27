@@ -1,0 +1,20 @@
+Task51 immediate pre-launch Bede capacity:
+partition gpu UP, time limit 2-00:00:00
+3 nodes idle (12 V100), 7 nodes mixed, 21 nodes allocated, 1 drained
+account bdman37g; QOS normal; no Task51 duplicate; campaign runs root absent
+
+One bounded eight-cell submission:
+1075096|RUNNING|gpu|gpu023|pg51-beta1-bf|gres/gpu:1
+1075097|RUNNING|gpu|gpu023|pg51-beta1-boss|gres/gpu:1
+1075098|RUNNING|gpu|gpu024|pg51-beta1-cave|gres/gpu:1
+1075099|RUNNING|gpu|gpu024|pg51-beta1-coin|gres/gpu:1
+1075100|RUNNING|gpu|gpu029|pg51-beta4-bf|gres/gpu:1
+1075101|RUNNING|gpu|gpu029|pg51-beta4-boss|gres/gpu:1
+1075102|RUNNING|gpu|gpu030|pg51-beta4-cave|gres/gpu:1
+1075103|RUNNING|gpu|gpu030|pg51-beta4-coin|gres/gpu:1
+
+Requested allocations=8
+Allocated allocations=8
+Actual RUNNING concurrency=8
+PENDING=0
+No CSF3 placement or deployment wrapper was needed.
