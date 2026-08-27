@@ -1,0 +1,19 @@
+Task-ID=PROCGEN-RAT-BXB-DETERMINISTIC-XI1-FP64RIDGE-RECOVERY-QUICK-2M-S0-20260827-60
+implementation=73e7833
+allocation=19487252 node822
+gate_step=19487252.13 COMPLETED/0:0 PRECHECK_PASS
+science_step=19487252.14 FAILED/1:0 elapsed00:01:32
+controller_status=TERMINAL
+controller_rcs=bigfish1,bossfight1,caveflyer1,coinrun1
+
+bigfish=FAIL/rc1,last_trace16384,reward1.3010752201080322,progress_empty,checkpoint_absent
+bossfight=FAIL/rc1,last_trace16384,reward0.0,progress_empty,checkpoint_absent
+caveflyer=FAIL/rc1,last_trace12288,reward3.75,progress_empty,checkpoint_absent
+coinrun=FAIL/rc1,last_trace8192,reward0.0,progress_empty,checkpoint_absent
+
+common_exception=torch._C._LinAlgError: torch.linalg.solve input matrix is singular
+trainer_location=train_shared_rat_weightedcritic_reference_publicmomentum.py:691
+identity=rat_reference_combined_deterministic_xi1_b,rows512,rhs2,xi_mean_min_max1,xi_std0,damping0.5
+classification=algorithm/numerical fixed-absolute-damping scale failure
+paper_comparison=ineligible; no exact2007040 progress row
+action=archive only; no retry/requeue/resubmit/cancel

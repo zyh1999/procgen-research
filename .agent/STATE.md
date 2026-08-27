@@ -1665,3 +1665,18 @@ Updated: 2026-08-26T14:37:00+08:00
 - Allocation19487251/step19487251.9 remains RUNNING for beta1 Cave and both
   beta4 cells. No cancellation, restart, retry, requeue or resubmit occurred.
   Task51 BF/Coin cells remain live below endpoint and healthy.
+
+# Task60 terminal FP64-ridge science-start failure
+
+- Gate step19487252.13 passed, but exactly-once science step19487252.14 is
+  terminal `FAILED/1:0` after00:01:32 on node822.
+- All four roots are `FAIL/rc1`; BigFish/Boss reached16,384, Cave12,288 and
+  Coin8,192 trace transitions. Progress files are empty and checkpoints absent,
+  so no exact2M/Paper comparison is eligible.
+- Every cell raised the same singular `torch.linalg.solve` at frozen line691.
+  The actor Fisher was zero while critic Gram scale reached1e14-1e15 diagonal
+  medians and1e16-1e18 block norms. Adding fixed `.5` after FP64 promotion did
+  not make the ridge effective at these raw scales.
+- This is an algorithm/numerical fixed-absolute-damping scale failure, not
+  OOM/CUDA/NCCL/disk/quota infrastructure. Task60 is terminal without repair,
+  retry, requeue or resubmit; Task51 and remaining Task57 roots are untouched.

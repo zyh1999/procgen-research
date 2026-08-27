@@ -420,4 +420,15 @@ cross blocks vanished`. The last solve was nevertheless finite with Cholesky
 info0 and residual `2.888e-14`, and infrastructure/GPU error scans were clean.
 This is archived as an algorithm/numerical failure without Paper comparison
 or scheduler action. The other three Task57 processes and all Task51 jobs were
-left untouched.
+  left untouched.
+
+# Task60 four-cell terminal numerical archive
+
+The sole Task60 gate passed, then science step19487252.14 failed1:0 after
+00:01:32. All four roots are FAIL/rc1 at only8K-16K trace transitions with
+empty progress and no checkpoint. Each raised the same singular FP64
+`torch.linalg.solve`. Although the `.5` ridge was added after promotion, the
+raw critic Gram scale had already reached diagonal medians1e14-1e15 and block
+norms1e16-1e18 while actor Fisher was zero, so fixed absolute damping remained
+numerically ineffective. No Paper comparison is eligible. The event is
+archived as algorithm/numerical failure with no retry or unrelated mutation.
