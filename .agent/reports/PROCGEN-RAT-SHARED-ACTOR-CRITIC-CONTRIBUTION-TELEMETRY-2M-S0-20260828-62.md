@@ -2,7 +2,7 @@
 
 ## Status
 
-`FROZEN_PENDING_PRODUCTION_GATE`
+`QUEUED_RESOURCE_WAIT`
 
 ## Frozen parent
 
@@ -27,3 +27,20 @@ gradient decompositions; they do not replace H or populate `.grad`.
 Local Python compile and shell syntax checks pass. Remote gate, placement,
 job/root matrix and terminal Early/Middle/Late aggregates will be appended
 after their bounded events.
+
+## Placement and gate submission
+
+Live CSF3 refresh found gpuH UP and compatible, 32 H200s across node820--823,
+but the shared association GRES was saturated by unrelated account users.
+The Task62 campaign/root and duplicate process/job checks passed. Bede also
+had idle compatible V100 nodes, but the user preference was CSF3 and the
+exactly-once gate had not yet been submitted.
+
+The frozen bundle was deployed to
+`/scratch/h99859yz/procgen_rat_shared_actor_critic_contribution_telemetry_2m_s0_20260828_62`.
+All five remote frozen hashes match the implementation commit. The sole gate
+job `19528173` was submitted once, requesting one H200, 8 CPUs and 64G. It is
+zero-step `PENDING (AssocGrpGRES)`, elapsed `00:00:00`, node none; the gate
+root remains absent until Slurm starts the job. This is resource queueing, not
+preflight, infrastructure or scientific failure. No retry/requeue/resubmit or
+science job exists.

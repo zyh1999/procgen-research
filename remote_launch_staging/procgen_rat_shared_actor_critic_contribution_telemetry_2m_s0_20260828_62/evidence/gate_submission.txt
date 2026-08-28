@@ -1,0 +1,17 @@
+Task-ID=PROCGEN-RAT-SHARED-ACTOR-CRITIC-CONTRIBUTION-TELEMETRY-2M-S0-20260828-62
+implementation_commit=8c06e790ea82fc19065887af92cdf8f1c9118ef5
+gate_job=19528173
+gate_root=/scratch/h99859yz/procgen_rat_shared_actor_critic_contribution_telemetry_2m_s0_20260828_62/gate/production
+partition=gpuH
+account=gpu-h200-fse-pgdr
+qos=gpu-h200-fse
+requested_gres=gpu:h200:1
+submission_state=PENDING
+submission_reason=AssocGrpGRES
+elapsed=00:00:00
+node=None_assigned
+root_absent_before_submission=PASS
+duplicate_absent_before_submission=PASS
+remote_frozen_hashes_match=PASS
+classification=QUEUED_RESOURCE_WAIT
+retry_requeue_resubmit=NONE

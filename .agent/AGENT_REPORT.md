@@ -518,6 +518,7 @@ remote and there was no retry, requeue, resubmit, scancel or successor.
 # 2026-08-28 Task62 freeze
 
 Frozen `RAT_SHARED_PAPER_ACTOR_CRITIC_TELEMETRY_ONLY_V1` from exact Paper RAT
-parent `2b5affd6...`. Compile/shell checks pass. The only pending authorization
-step is the unique production gate, followed on PASS by exactly four seed0 2M
-diagnostic cells. No Task51--61 mutation and no model bytes.
+parent `2b5affd6...`. Compile/shell checks and remote hashes pass. Sole gpuH
+gate `19528173` is zero-step `PENDING (AssocGrpGRES)`; no node/root/science
+job. Conclusion `QUEUED_RESOURCE_WAIT`, with no retry and no Task51--61
+mutation.

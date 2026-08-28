@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-RAT-SHARED-ACTOR-CRITIC-CONTRIBUTION-TELEMETRY-2M-S0-20260828-62
 
-Status: READY
+Status: QUEUED_RESOURCE_WAIT
 
 Method: `RAT_SHARED_PAPER_ACTOR_CRITIC_TELEMETRY_ONLY_V1`
 
@@ -26,3 +26,8 @@ Run one minimal production gate exactly once. PASS permits four fresh CSF3
 gpuH jobs submitted together once; failure is terminal without retry. Never
 reward-stop this diagnostic, touch Task51--61, create another method/seed, or
 commit checkpoint/model bytes.
+
+The sole gate is job `19528173`, submitted once to CSF3 gpuH. It is zero-step
+`PENDING (AssocGrpGRES)` with no node or gate root yet. Do not cancel, migrate,
+duplicate, retry, requeue or resubmit it. Science remains unlaunched until this
+exact gate completes `PRECHECK_PASS`.
