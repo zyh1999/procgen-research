@@ -701,3 +701,14 @@ healthy FP64 solver/reconstruction evidence. BF/Boss/Cave/Coin jobs
 with finite first updates; Cave/Coin wait naturally in queue. One read-only
 20-minute Task66 automation now binds exactly these jobs/roots. No model bytes,
 retry, scheduler mutation, or Task62--65 access occurred.
+
+# 2026-08-29 Task66 final delivery
+
+Task66 is fully terminal: Bede1084427--1084430 are `COMPLETED/0:0`, all roots
+are PASS/rc0 at exact2,007,040, and every frozen complete-record aggregate
+passes. RHS10 yields a split regime: BigFish/Cave post-inverse directions are
+critic-dominant, while Boss/Coin remain strongly actor-dominant. Endpoint
+rewards `7.31/0/1.50/0` do not show a general rescue. Exact coefficients,
+strict1024/full-cross identity, Cholesky/reconstruction/finite checks and hard
+error scans remain clean. Delivery contains only model-free evidence and
+checkpoint stat metadata, never checkpoint bytes or content hashes.

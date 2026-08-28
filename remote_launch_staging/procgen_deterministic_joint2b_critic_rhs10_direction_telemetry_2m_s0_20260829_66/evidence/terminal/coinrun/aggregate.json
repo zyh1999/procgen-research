@@ -1,0 +1,281 @@
+{
+  "overall": {
+    "clip_rate": 0.5028061224489796,
+    "curr_lr": {
+      "median": 0.008649755859375,
+      "p10": 0.00022500000000000002,
+      "p90": 0.5
+    },
+    "joint_clip_scale": {
+      "median": 0.9979246854782104,
+      "p10": 0.1521142080426216,
+      "p90": 1.0
+    },
+    "joint_predicted_step_kl": {
+      "median": 7.23271987226326e-05,
+      "p10": 6.489522448305255e-08,
+      "p90": 0.002054975205101073
+    },
+    "joint_predicted_value_divergence": {
+      "median": 8.746986779328836e-08,
+      "p10": 5.762519593444093e-11,
+      "p90": 0.005519497813656927
+    },
+    "kl": {
+      "median": 0.020439269952476025,
+      "p10": 2.5399700916750593e-06,
+      "p90": 0.08012725114822387
+    },
+    "postinverse_actor_metric_energy_share": {
+      "median": 0.9972666501998901,
+      "p10": 0.9432528555393219,
+      "p90": 0.9993551135063171
+    },
+    "postinverse_actor_metric_norm_share": {
+      "median": 0.9502516090869904,
+      "p10": 0.8030338764190674,
+      "p90": 0.9752262353897094
+    },
+    "postinverse_full_actor_critic_cosine": {
+      "median": 0.0019471291452646255,
+      "p10": -0.035584495216608045,
+      "p90": 0.056608879566192635
+    },
+    "postinverse_full_actor_norm_share": {
+      "median": 0.7716547250747681,
+      "p10": 0.09651280492544176,
+      "p90": 0.9350275039672852
+    },
+    "postinverse_full_actor_signed_projection_share": {
+      "median": 0.9201005101203918,
+      "p10": 0.014761385042220354,
+      "p90": 0.9953965842723846
+    },
+    "postinverse_full_cancellation_amplification": {
+      "median": 0.878746509552002,
+      "p10": 0.7372447907924652,
+      "p90": 0.9510487854480744
+    },
+    "postinverse_shared_actor_norm_share": {
+      "median": 0.8421269953250885,
+      "p10": 0.17028511166572569,
+      "p90": 0.9675948262214661
+    },
+    "postinverse_shared_actor_signed_projection_share": {
+      "median": 0.9669420421123505,
+      "p10": 0.03820339813828468,
+      "p90": 0.9994315683841705
+    },
+    "records": 15680
+  },
+  "status": "TASK66_AGGREGATION_PASS",
+  "thirds": {
+    "early": {
+      "clip_rate": 0.9074003067484663,
+      "curr_lr": {
+        "median": 0.332525673007965,
+        "p10": 0.002562890625,
+        "p90": 0.5
+      },
+      "joint_clip_scale": {
+        "median": 0.2138044387102127,
+        "p10": 0.07790281251072884,
+        "p90": 0.9800204336643219
+      },
+      "joint_predicted_step_kl": {
+        "median": 0.0007241407292895019,
+        "p10": 2.891777342028945e-07,
+        "p90": 0.0031552250729873776
+      },
+      "joint_predicted_value_divergence": {
+        "median": 0.0031259479001164436,
+        "p10": 8.660868644483344e-08,
+        "p90": 0.013720302376896143
+      },
+      "kl": {
+        "median": 0.017972750589251518,
+        "p10": 8.732784044696018e-05,
+        "p90": 0.052966583520174026
+      },
+      "postinverse_actor_metric_energy_share": {
+        "median": 0.9797607362270355,
+        "p10": 0.8760157227516174,
+        "p90": 0.9989537000656128
+      },
+      "postinverse_actor_metric_norm_share": {
+        "median": 0.8743347525596619,
+        "p10": 0.726634681224823,
+        "p90": 0.968651294708252
+      },
+      "postinverse_full_actor_critic_cosine": {
+        "median": 0.013402890879660845,
+        "p10": -0.03481590561568737,
+        "p90": 0.10971679165959358
+      },
+      "postinverse_full_actor_norm_share": {
+        "median": 0.13491933047771454,
+        "p10": 0.05194766819477081,
+        "p90": 0.5407693386077881
+      },
+      "postinverse_full_actor_signed_projection_share": {
+        "median": 0.02671165019273758,
+        "p10": 0.006197109119966626,
+        "p90": 0.5832622349262238
+      },
+      "postinverse_full_cancellation_amplification": {
+        "median": 0.8781305849552155,
+        "p10": 0.7224095165729523,
+        "p90": 0.9524933397769928
+      },
+      "postinverse_shared_actor_norm_share": {
+        "median": 0.2890523225069046,
+        "p10": 0.06315331906080246,
+        "p90": 0.6230676174163818
+      },
+      "postinverse_shared_actor_signed_projection_share": {
+        "median": 0.14136430621147156,
+        "p10": 0.007082724245265126,
+        "p90": 0.7368998825550079
+      },
+      "records": 5216
+    },
+    "late": {
+      "clip_rate": 0.31916920731707316,
+      "curr_lr": {
+        "median": 0.002562890625,
+        "p10": 0.00015000000000000001,
+        "p90": 0.029192926025390625
+      },
+      "joint_clip_scale": {
+        "median": 1.0,
+        "p10": 0.862923514842987,
+        "p90": 1.0
+      },
+      "joint_predicted_step_kl": {
+        "median": 1.4073369129619095e-05,
+        "p10": 5.431461964633401e-08,
+        "p90": 0.00110190297709778
+      },
+      "joint_predicted_value_divergence": {
+        "median": 5.457553076126942e-09,
+        "p10": 1.228167081923637e-11,
+        "p90": 5.599515930043714e-07
+      },
+      "kl": {
+        "median": 0.027555285021662712,
+        "p10": 1.2879960877398846e-06,
+        "p90": 0.09116059616208078
+      },
+      "postinverse_actor_metric_energy_share": {
+        "median": 0.9982169270515442,
+        "p10": 0.9868735671043396,
+        "p90": 0.9995225667953491
+      },
+      "postinverse_actor_metric_norm_share": {
+        "median": 0.9594496190547943,
+        "p10": 0.8965957045555115,
+        "p90": 0.9786119580268859
+      },
+      "postinverse_full_actor_critic_cosine": {
+        "median": 0.0018227804685011506,
+        "p10": -0.023083162121474737,
+        "p90": 0.027042984589934364
+      },
+      "postinverse_full_actor_norm_share": {
+        "median": 0.9041138291358948,
+        "p10": 0.6896724462509156,
+        "p90": 0.9606502950191498
+      },
+      "postinverse_full_actor_signed_projection_share": {
+        "median": 0.98848557472229,
+        "p10": 0.8316034615039826,
+        "p90": 0.9984901905059814
+      },
+      "postinverse_full_cancellation_amplification": {
+        "median": 0.9118492901325226,
+        "p10": 0.7935679793357849,
+        "p90": 0.9638058245182037
+      },
+      "postinverse_shared_actor_norm_share": {
+        "median": 0.9391511380672455,
+        "p10": 0.8045654952526093,
+        "p90": 0.9861806213855743
+      },
+      "postinverse_shared_actor_signed_projection_share": {
+        "median": 0.995868593454361,
+        "p10": 0.9451589167118073,
+        "p90": 1.000071930885315
+      },
+      "records": 5248
+    },
+    "middle": {
+      "clip_rate": 0.28297546012269936,
+      "curr_lr": {
+        "median": 0.0038443359374999994,
+        "p10": 0.00015000000000000004,
+        "p90": 0.029192926025390625
+      },
+      "joint_clip_scale": {
+        "median": 1.0,
+        "p10": 0.8656325936317444,
+        "p90": 1.0
+      },
+      "joint_predicted_step_kl": {
+        "median": 1.5585254914185498e-05,
+        "p10": 5.038553929637146e-08,
+        "p90": 0.0010701678693294525
+      },
+      "joint_predicted_value_divergence": {
+        "median": 2.5970980033207525e-08,
+        "p10": 4.620111064557175e-11,
+        "p90": 3.2314198961103102e-06
+      },
+      "kl": {
+        "median": 0.02539428323507309,
+        "p10": 1.1508775514812442e-06,
+        "p90": 0.0865064486861229
+      },
+      "postinverse_actor_metric_energy_share": {
+        "median": 0.9978854358196259,
+        "p10": 0.9922318160533905,
+        "p90": 0.999336838722229
+      },
+      "postinverse_actor_metric_norm_share": {
+        "median": 0.9559928774833679,
+        "p10": 0.9187107980251312,
+        "p90": 0.9748867154121399
+      },
+      "postinverse_full_actor_critic_cosine": {
+        "median": -0.004505831748247147,
+        "p10": -0.04645310901105404,
+        "p90": 0.035197680816054344
+      },
+      "postinverse_full_actor_norm_share": {
+        "median": 0.8193576633930206,
+        "p10": 0.47460493445396423,
+        "p90": 0.9121969640254974
+      },
+      "postinverse_full_actor_signed_projection_share": {
+        "median": 0.9544958174228668,
+        "p10": 0.44917336106300354,
+        "p90": 0.991507351398468
+      },
+      "postinverse_full_cancellation_amplification": {
+        "median": 0.843742847442627,
+        "p10": 0.7264273762702942,
+        "p90": 0.9183720946311951
+      },
+      "postinverse_shared_actor_norm_share": {
+        "median": 0.8729923069477081,
+        "p10": 0.5944920182228088,
+        "p90": 0.9474169611930847
+      },
+      "postinverse_shared_actor_signed_projection_share": {
+        "median": 0.9801976680755615,
+        "p10": 0.6850264668464661,
+        "p90": 0.9983407557010651
+      },
+      "records": 5216
+    }
+  }
+}

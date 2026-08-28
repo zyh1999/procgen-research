@@ -1954,3 +1954,15 @@ BF/Boss are RUNNING on gpu018 with healthy first-update traces; Cave/Coin are
 naturally PENDING Resources/Priority with absent roots. Status
 `SCIENCE_RUNNING_WITH_QUEUED_CELLS`; the sole Task66 20-minute monitor is
 active and Task62--65 remain untouched.
+
+# 2026-08-29 Task66 final terminal
+
+All four Bede jobs1084427--1084430 completed naturally `0:0` with PASS/rc0
+roots at exact2,007,040 and valid 15,680-record frozen aggregates. Endpoint
+rewards BF/Boss/Cave/Coin are `7.31/0/1.50/0`. RHS10 is critic-dominant in
+BigFish/Cave but actor-dominant in Boss/Coin: overall median actor full signed
+projection shares are `.02741/.99938/.02913/.92010`, despite actor-heavy raw
+metric energy in every environment. Coefficients, strict2B/full-cross,
+solver/reconstruction/finite checks and hard-error scans are clean. Final
+status `TERMINAL_TELEMETRY_COMPLETE_TASK66_AGGREGATION_PASS`; only model-free
+evidence and checkpoint stat metadata are archived.

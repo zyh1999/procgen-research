@@ -1,6 +1,6 @@
 # PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS10-DIRECTION-TELEMETRY-2M-S0-20260829-66
 
-Status: `SCIENCE_RUNNING_WITH_QUEUED_CELLS`
+Status: `TERMINAL_TELEMETRY_COMPLETE_TASK66_AGGREGATION_PASS`
 
 Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1`
 
@@ -62,3 +62,42 @@ shares are `.013345/.000189` and `.284375/.141625`. Cave/Coin remain zero-step
 queued with absent roots and may start naturally. Reward is read-only and never
 early-stops. The sole 20-minute automation is
 `monitor-procgen-task66-rhs10-direction-telemetry`.
+
+## Final terminal result
+
+All four jobs completed naturally with scheduler `COMPLETED/0:0`, root
+`PASS/rc0`, exact transition `2,007,040`, and 15,680 complete telemetry records
+per environment. BigFish/BossFight/CaveFlyer/CoinRun elapsed times were
+`02:43:50/02:46:18/02:45:56/02:45:55` on
+`gpu018/gpu018/gpu017/gpu008`. Endpoint rewards were
+`7.31/0.00/1.50/0.00`, versus immutable Paper `9.28/2.92/4.45/3.70`; reward
+was read-only and never controlled execution.
+
+All four frozen aggregates report `TASK66_AGGREGATION_PASS`. Overall median
+post-inverse actor full norm shares are `.14320/.97532/.14361/.77165`, while
+actor signed projection shares are `.02741/.99938/.02913/.92010`. Shared actor
+signed projection medians are `.07314/.99998/.07035/.96694`. Thus RHS10 is
+critic-dominant in BigFish and CaveFlyer, but strongly actor-dominant in
+BossFight and CoinRun. This is an environment-dependent intermediate regime
+between Task63 objective1 and Task65 RHS40; it does not generally rescue
+reward.
+
+The raw metric remains actor-heavy in every environment: median actor metric
+energy shares are `.97179/.99670/.98840/.99727`. Median full actor/critic
+cosines are close to zero (`.00235/-.000054/.00636/.00195`), with median
+cancellation/amplification `.86851/.97567/.87060/.87875`. Clip rates are
+`.99981/.44190/.93335/.50281`; median KL is
+`.01662/.02609/.01586/.02044`, and median LR is
+`.5/.0017086/.33333/.0086498`.
+
+Endpoint records retain curvature `.1`, objective `10`, RHS weight
+`31.622776601683793`, strict1024/full-cross identity, Cholesky info `0`, exact
+zero RHS reconstruction, alpha reconstruction below `4e-15`, direction
+reconstruction below `5e-8`, structural zeros and finite scans. Final relative
+solve residuals are `2.629e-15/2.656e-13/3.613e-15/7.119e-13`; refined hard
+error scans are empty.
+
+Each remote checkpoint is a regular non-symlink 3,766,013-byte mode0664 file.
+Only `stat` metadata is archived; no model/checkpoint bytes or content hashes
+entered Git. Complete model-free evidence is under
+`remote_launch_staging/procgen_deterministic_joint2b_critic_rhs10_direction_telemetry_2m_s0_20260829_66/evidence/terminal/`.
