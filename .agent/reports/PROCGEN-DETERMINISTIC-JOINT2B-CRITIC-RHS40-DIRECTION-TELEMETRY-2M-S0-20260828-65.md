@@ -1,6 +1,6 @@
 # PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS40-DIRECTION-TELEMETRY-2M-S0-20260828-65
 
-Status: `IMPLEMENTATION_FROZEN_PRECHECK_PENDING`
+Status: `RESOURCE_PLACEMENT_BLOCKED`
 
 Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1`
 
@@ -28,3 +28,15 @@ post-inverse direction decomposition remains telemetry-only.
 
 Local compile, config identity, wrapper syntax and exact parent-to-Task65 diff
 checks pass. No model/checkpoint content or hash is included.
+
+## Bounded placement result
+
+Implementation commit `acf1664b66e3aacb798eec4f84d5529e4facbb38` was
+pushed and matched `origin/agent-work`. The immediate CSF3 refresh could not
+authenticate: the prior control socket no longer existed, the scoped SSH call
+returned `Permission denied (keyboard-interactive)`, and an interactive reopen
+stopped at the user password/MFA prompt. Therefore no live capacity/root check
+could be completed, no campaign was deployed, and no gate or science job was
+submitted. This is external authentication/resource-placement blocking, not a
+scientific, numerical, code, or gate failure. Task64 Coin and all unrelated
+jobs remained untouched.
