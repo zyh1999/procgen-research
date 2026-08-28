@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-RAT-SHARED-ACTOR-CRITIC-CONTRIBUTION-TELEMETRY-2M-S0-20260828-62
 
-Status: QUEUED_RESOURCE_WAIT
+Status: SCIENCE_RUNNING
 
 Method: `RAT_SHARED_PAPER_ACTOR_CRITIC_TELEMETRY_ONLY_V1`
 
@@ -27,7 +27,8 @@ gpuH jobs submitted together once; failure is terminal without retry. Never
 reward-stop this diagnostic, touch Task51--61, create another method/seed, or
 commit checkpoint/model bytes.
 
-The sole gate is job `19528173`, submitted once to CSF3 gpuH. It is zero-step
-`PENDING (AssocGrpGRES)` with no node or gate root yet. Do not cancel, migrate,
-duplicate, retry, requeue or resubmit it. Science remains unlaunched until this
-exact gate completes `PRECHECK_PASS`.
+The CSF3 gate `19528173` was cancelled exactly once at zero steps under the
+user-authorized Bede migration and is immutable. The sole Bede gate `1078175`
+completed `PRECHECK_PASS`. BigFish/BossFight/CaveFlyer/CoinRun science jobs
+`1078176`--`1078179` were submitted together exactly once and are RUNNING on
+four distinct V100 allocations. Do not duplicate, retry, requeue or resubmit.

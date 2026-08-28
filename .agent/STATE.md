@@ -1771,3 +1771,14 @@ is frozen and pushed. Sole gate `19528173` is zero-step `PENDING
 (AssocGrpGRES)` on CSF3 gpuH with no node/root. Original Paper RAT science is
 unchanged; no retry or science submission exists. Current conclusion is
 `QUEUED_RESOURCE_WAIT`.
+
+# 2026-08-28 Task62 Bede gate and science launch
+
+The user-authorized zero-step migration is complete. CSF3 gate19528173 is
+immutable `CANCELLED/0:0` with no root or scientific step. Sole Bede gate
+1078175 is `COMPLETED/0:0 PRECHECK_PASS` on gpu002. Four fresh exact2M jobs
+1078176--1078179 were submitted together once and are RUNNING on gpu002,
+gpu002, gpu003 and gpu005 with one V100 each. All roots/PIDs exist, complete
+actor/critic contribution records are accumulating, finite/reconstruction and
+structural-zero invariants pass, and precise hard-error scans are clean.
+Current conclusion: `SCIENCE_RUNNING`; no retry/requeue/resubmit or model bytes.

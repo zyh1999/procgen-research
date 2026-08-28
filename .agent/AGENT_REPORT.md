@@ -522,3 +522,18 @@ parent `2b5affd6...`. Compile/shell checks and remote hashes pass. Sole gpuH
 gate `19528173` is zero-step `PENDING (AssocGrpGRES)`; no node/root/science
 job. Conclusion `QUEUED_RESOURCE_WAIT`, with no retry and no Task51--61
 mutation.
+
+# 2026-08-28 Task62 Bede migration and launch delivery
+
+CSF3 gate19528173 was cancelled exactly once only after its zero-step identity
+was reverified. Deployment-only Bede wrappers retain the frozen Task62
+trainer/config/aggregator identities. Sole Bede gate1078175 completed
+PRECHECK_PASS on gpu002 with the original RAT update intact, finite H/gradient
+reconstruction, and exact exclusive-head structural zeros.
+
+Science jobs1078176 BF,1078177 Boss,1078178 Cave and1078179 Coin were submitted
+together exactly once to fresh roots and are RUNNING on four V100 allocations
+across gpu002/gpu003/gpu005. Initial complete contribution traces pass finite,
+shape, reconstruction and structural-zero checks; precise hard-error scans are
+zero. Current conclusion is `SCIENCE_RUNNING`. No Task51--61 mutation,
+retry/requeue/resubmit, automation creation or model/checkpoint Git content.
