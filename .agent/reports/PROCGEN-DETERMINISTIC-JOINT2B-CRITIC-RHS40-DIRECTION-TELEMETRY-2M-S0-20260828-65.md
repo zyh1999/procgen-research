@@ -1,6 +1,6 @@
 # PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS40-DIRECTION-TELEMETRY-2M-S0-20260828-65
 
-Status: `SCIENCE_RUNNING`
+Status: `TERMINAL_TELEMETRY_COMPLETE_TASK65_AGGREGATION_PASS`
 
 Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1`
 
@@ -81,3 +81,34 @@ nonzero cross, Cholesky `0`, finite scan PASS and residuals in
 shares are `.0181/.00615/.0122/.00383`, showing the intended RHS40 critic-heavy
 direction at the first update, but this is only an initial snapshot. Reward is
 read-only and never early-stops. Task64 Coin was not touched.
+
+## Final Task65 terminal result
+
+All four jobs completed naturally with scheduler `COMPLETED/0:0`, root
+`PASS/rc0`, exact transition `2,007,040`, 49 progress rows and 15,680 complete
+telemetry records per cell. BigFish/BossFight/CaveFlyer/CoinRun elapsed times
+were `02:44:19/02:46:49/02:45:53/02:45:53` on `gpu017/gpu017/gpu022/gpu022`.
+Their endpoint rewards were `2.11/0.00/3.20/8.20`, versus immutable Paper
+`9.28/2.92/4.45/3.70` and Task63 parent `5.08/.04/0/10.00`. Reward remained a
+read-only sanity check.
+
+Every frozen aggregate reports `TASK65_AGGREGATION_PASS`. Overall median raw
+actor metric energy shares are `.96743/.96203/.98083/.97166`, but median
+post-inverse full actor norm shares fall to
+`.03791/.03309/.03775/.03369`, and actor signed projection shares fall to
+`.001724/.001057/.001517/.002361`. Shared actor signed projection medians are
+only `.003951/.004156/.003553/.003873`. Thus the exact RHS40 intervention
+reliably makes the coupled solved direction critic-dominant despite an
+actor-heavy raw metric; unlike Task64, this changes the intended RHS rather
+than curvature. It does not provide a general reward rescue.
+
+All endpoint coefficients remain curvature `.1`, objective `40`, RHS weight
+`126.49110640673517`, strict1024 and full-cross. Cholesky info is zero, relative
+residuals are `6.848e-16`--`3.976e-15`, RHS reconstruction is exact zero, alpha
+reconstruction is at `1.214e-15`--`1.506e-15`, direction reconstruction is
+`1.520e-8`--`9.465e-8`, finite scans pass, and scoped hard-error scans are
+empty. Each remote checkpoint is a regular 3,766,013-byte mode0664 file; only
+stat metadata is archived, never model bytes or content hashes.
+
+Complete model-free evidence is under
+`remote_launch_staging/procgen_deterministic_joint2b_critic_rhs40_direction_telemetry_2m_s0_20260828_65/evidence/terminal/`.

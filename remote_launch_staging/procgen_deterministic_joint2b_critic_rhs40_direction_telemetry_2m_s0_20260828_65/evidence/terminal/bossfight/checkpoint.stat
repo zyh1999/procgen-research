@@ -1,0 +1,8 @@
+  File: /nobackup/projects/bdman37/yihe/procgen_deterministic_joint2b_critic_rhs40_direction_telemetry_2m_s0_20260828_65/runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1/bossfight-easy-0-10/seed0/2m/runtime/logs/shared.adv.resnet.dropout_0.0.damping_0.5.lr_0.5/bossfight-easy-0-10.20260828-134936_0/model.ckpt
+  Size: 3766013   	Blocks: 7360       IO Block: 4194304 regular file
+Device: 4f53a12ah/1330880810d	Inode: 144116345955438513  Links: 1
+Access: (0664/-rw-rw-r--)  Uid: (639800874/    yihe)   Gid: (639600607/ bdman37)
+Access: 2026-08-28 16:35:59.000000000 +0100
+Modify: 2026-08-28 16:35:59.000000000 +0100
+Change: 2026-08-28 16:35:59.000000000 +0100
+ Birth: -

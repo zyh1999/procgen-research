@@ -1897,6 +1897,18 @@ jobs1078983--1078986 were submitted together once and are all RUNNING, one V100
 per cell, on gpu017/gpu022 with distinct roots. Initial transition4096 telemetry
 is finite and exact. Status `SCIENCE_RUNNING`; Task64 Coin remains untouched.
 
+# 2026-08-28 Task65 final terminal
+
+All four Bede jobs1078983--1078986 completed naturally `0:0` with PASS/rc0
+roots at exact2,007,040 and valid 15,680-record frozen aggregates. Endpoint
+rewards BF/Boss/Cave/Coin are `2.11/0/3.20/8.20`. RHS40 produces consistent
+critic-dominant post-inverse directions: overall median actor full projection
+shares are only `.001724/.001057/.001517/.002361`, despite raw actor metric
+energy shares above `.962` in every environment. Solvers, reconstruction,
+finite and hard-error evidence are clean. Final status
+`TERMINAL_TELEMETRY_COMPLETE_TASK65_AGGREGATION_PASS`; only checkpoint stat
+metadata, never model bytes or hashes, is archived.
+
 # 2026-08-28 Task65 implementation freeze
 
 Task65 corrects the user's intended causal variable: Task63 curvature remains

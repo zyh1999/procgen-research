@@ -663,6 +663,17 @@ First complete records have strict1024/cross/Cholesky0/finite healthy evidence
 and zero hard errors. No Task64, unrelated job, model, or checkpoint content was
 modified or accessed.
 
+# 2026-08-28 Task65 final delivery
+
+Task65 is fully terminal: Bede1078983--1078986 are `COMPLETED/0:0`, all roots
+are PASS/rc0 at exact2,007,040, and all frozen complete-record aggregates pass.
+The requested RHS40 intervention decisively shifts the post-inverse solved
+direction toward critic contribution across all four environments, even though
+the raw metric remains actor-heavy. It does not generally rescue reward. All
+coefficient/strict2B/cross/solver/reconstruction/finite checks remain exact and
+hard-error scans are empty. The delivery contains model-free evidence and
+checkpoint stat metadata only.
+
 # 2026-08-28 Task64 final delivery
 
 Task64 Coin19531932 completed naturally with exact2M PASS/rc0 reward0 and clean
