@@ -2,7 +2,7 @@
 
 ## Status
 
-`SCIENCE_RUNNING_PARTIAL_TERMINAL`
+`TERMINAL_TRAINING_COMPLETE_TELEMETRY_AGGREGATION_PARTIAL_FAILURE`
 
 ## Scientific identity
 
@@ -121,3 +121,25 @@ CoinRun `19531932` naturally started and remains RUNNING on `node821`; at the
 09:57Z refresh it was at transition `696,320`, with finite strict-1024 telemetry,
 and remains untouched. Status is `SCIENCE_RUNNING_PARTIAL_TERMINAL`. Full
 model-free evidence is in `evidence/partial_terminal_boss_cave_20260828.md`.
+
+## CoinRun and final conclusion
+
+CoinRun `19531932` naturally completed `COMPLETED/0:0` after `00:46:17` on
+`node821`. Its PASS/rc0 root reaches exact `2,007,040` with reward `0.00`,
+15,680 complete trace records, checkpoint stat metadata only, healthy final
+Cholesky/residual/reconstruction/finite evidence, and zero hard errors. The
+final actor raw scale is `3.607e-25` versus critic scale `153,972`, so the final
+direction is fully critic-dominant after categorical policy saturation.
+
+The frozen all-record aggregator immutably rejects record 2272 because a
+`7.960e-15` policy-total direction has projection sum `.984464`; that record's
+solver, reconstruction and finite checks remain healthy. This is a telemetry
+validator edge under near-zero policy direction, not a training or numerical
+failure, and was not repaired or rerun.
+
+All four Task64 training jobs are now natural terminal PASS/rc0 exact2M. The
+valid BF/Boss/Cave aggregates show that curvature4 makes the metric critic-heavy
+but leaves the coupled post-inverse direction strongly actor-dominant; rewards
+`1.97/.01/1.49/0` do not show a general rescue. Final classification is
+`TERMINAL_TRAINING_COMPLETE_TELEMETRY_AGGREGATION_PARTIAL_FAILURE`. Details are
+in `evidence/final_terminal_coin_campaign_20260828.md`.

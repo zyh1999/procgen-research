@@ -1871,6 +1871,15 @@ did not raise critic direction contribution versus Task63 BF and reward fell
 from5.08 to1.97. Task64 Boss/Cave/Coin remain RUNNING and untouched; status
 `SCIENCE_RUNNING_PARTIAL_TERMINAL`.
 
+# 2026-08-28 Task64 final terminal
+
+Coin19531932 completed naturally `0:0` on node821 with PASS/rc0 exact2M reward0,
+healthy solver/error evidence and checkpoint stat-only. Its frozen aggregate
+hits a near-zero-policy projection-validator edge at record2272 despite finite
+training. All Task64 cells are terminal; final classification
+`TERMINAL_TRAINING_COMPLETE_TELEMETRY_AGGREGATION_PARTIAL_FAILURE`. Curvature4
+did not generally increase post-inverse critic contribution or rescue reward.
+
 # 2026-08-28 Task65 Bede deployment freeze
 
 User authorized Task65's first and only deployment on Bede. Authenticated Bede

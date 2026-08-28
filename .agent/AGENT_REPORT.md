@@ -662,3 +662,13 @@ submitted together exactly once and all four started RUNNING, one V100 each.
 First complete records have strict1024/cross/Cholesky0/finite healthy evidence
 and zero hard errors. No Task64, unrelated job, model, or checkpoint content was
 modified or accessed.
+
+# 2026-08-28 Task64 final delivery
+
+Task64 Coin19531932 completed naturally with exact2M PASS/rc0 reward0 and clean
+solver/hard-error evidence. Its immutable frozen aggregator exposes one
+near-zero-policy projection-validator edge, not a training failure. All four
+Task64 training roots are terminal; BF/Boss/Cave valid aggregates show
+critic-heavy metrics but actor-heavy coupled directions, so curvature4 did not
+provide the intended general critic-direction or reward rescue. Model bytes
+remain remote.
