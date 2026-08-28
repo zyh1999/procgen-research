@@ -567,3 +567,13 @@ TASK62_AGGREGATION_PASS, finite reconstruction, exact exclusive structural
 zeros and no hard errors. Model files remain remote; only size/mode/type stat
 metadata is recorded. Boss1078177 and all Task63 cells remain RUNNING and were
 not modified.
+
+# 2026-08-28 Task62 final delivery
+
+Boss1078177 completed naturally, so all Task62 cells are terminal PASS/rc0 at
+exact2,007,040 and reproduce Paper rewards. Four immutable aggregates cover
+every complete minibatch by Early/Middle/Late thirds and overall. H metric
+actor norm medians remain below.5 in all environments, whereas raw full and
+shared gradient actor medians are generally above.5 and signed projections are
+more actor-heavy, especially Boss/Cave. Reconstruction, structural zeros,
+finite scans and hard-error scans pass. No model bytes or unrelated mutation.

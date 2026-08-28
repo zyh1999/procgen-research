@@ -2,7 +2,7 @@
 
 ## Status
 
-`SCIENCE_RUNNING`
+`TERMINAL_TELEMETRY_COMPLETE`
 
 ## Frozen parent
 
@@ -135,3 +135,41 @@ Each terminal root has one regular non-symlink `model.ckpt`, size `3,766,013`,
 mode `664`. Only this stat metadata is archived; model bytes and content hashes
 remain remote. Task62 remains `SCIENCE_RUNNING` until BossFight terminates.
 Task63 and all unrelated jobs/roots were untouched.
+
+## Final BossFight terminal and four-environment aggregation
+
+BossFight job `1078177` naturally completed `COMPLETED/0:0` after `01:39:16`
+on `gpu002`. Its root is `PASS/rc0` with exact transition `2,007,040`, reward
+`2.92`, 15,744 complete records and `TASK62_AGGREGATION_PASS`. Its checkpoint
+is a regular non-symlink file, size `3,766,013`, mode `664`; only stat metadata
+is recorded.
+
+Task62 is therefore fully terminal. Every environment reproduces the immutable
+Paper seed0 exact-2M reward (`9.28`, `2.92`, `4.45`, `3.70`) and passes the
+instrumentation invariants. Complete Early/Middle/Late/overall median/p10/p90
+tables are archived in
+`evidence/final_aggregate_early_middle_late_20260828.txt`.
+
+Overall medians summarize the level separation:
+
+| Environment | H metric actor norm share | Raw full actor norm/projection | Raw shared actor norm/projection | Full cosine | Clip rate |
+|---|---:|---:|---:|---:|---:|
+| BigFish | `.4289` | `.5233/.5458` | `.5713/.6376` | `.00060` | `.7982` |
+| BossFight | `.4814` | `.5855/.6647` | `.6630/.7904` | `.00534` | `.7754` |
+| CaveFlyer | `.4628` | `.6125/.7112` | `.6526/.7746` | `.00354` | `.7237` |
+| CoinRun | `.4539` | `.5501/.5967` | `.5939/.6788` | `.00126` | `.8109` |
+
+Thus the original RAT H metric is not actor-norm dominated overall in any
+environment, while the raw total and especially shared gradients are generally
+actor dominated after the inverse/RHS/loss path. BossFight and CaveFlyer move
+from critic-heavy early raw gradients to strongly actor-heavy middle/late raw
+gradients; BigFish also becomes more actor-heavy late, while CoinRun declines
+toward a balanced late full gradient. These statements aggregate all complete
+minibatches and do not substitute for Task63 post-inverse decomposition.
+
+All four full traces contain zero nonfinite or finite-scan failures. Maximum H
+reconstruction relative residual is `2.69e-8`, maximum gradient reconstruction
+relative residual is `3.09e-6`, and exclusive structural zeros remain exact.
+Hard-error scans are clean. Final conclusion:
+`TERMINAL_TELEMETRY_COMPLETE`; no reward cancellation, retry, requeue,
+resubmit, tuning or model-byte Git content occurred.

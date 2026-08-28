@@ -1811,3 +1811,14 @@ Each aggregation passed over15,744 complete records with finite/reconstruction
 and exclusive-zero invariants intact; hard-error scans are clean. Checkpoints
 are represented only by regular-file stat metadata. Boss1078177 remains
 RUNNING, so Task62 remains `SCIENCE_RUNNING`; Task63 was not mutated.
+
+# 2026-08-28 Task62 final terminal aggregation
+
+Boss1078177 naturally COMPLETED/0:0 with PASS/rc0, exact2,007,040 and reward
+2.92, making Task62 fully terminal. All four cells have15,744 complete records,
+TASK62_AGGREGATION_PASS and exact Paper rewards. Overall H metric actor norm
+shares are `.4289/.4814/.4628/.4539`, while raw full actor norm shares are
+`.5233/.5855/.6125/.5501` and shared actor shares are
+`.5713/.6630/.6526/.5939`. This separates non-actor-dominant metric rows from
+generally actor-dominant raw full/shared gradients. Final status
+`TERMINAL_TELEMETRY_COMPLETE`; Task63 remains live and untouched.
