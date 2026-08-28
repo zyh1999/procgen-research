@@ -546,3 +546,14 @@ RHS/alpha/direction reconstruction and records full/shared/exclusive
 post-inverse contributions. Parent flat_dir, optimizer, history, clip and KL
 adaptation remain authoritative. Local checks pass and Bede pre-placement is
 clean; sole production gate has not yet been submitted. Task62 is untouched.
+
+# 2026-08-28 Task63 launch delivery
+
+Frozen implementation commit95d3100986e3647662f80f649329fd9fb72591a1 was
+pushed and origin-verified before remote execution. All six remote scientific
+and deployment hashes matched. Sole gate1078180 is COMPLETED/0:0
+PRECHECK_PASS on gpu025. Four one-V100 jobs1078181--1078184 were submitted in
+one action to fresh BF/Boss/Cave/Coin roots and are RUNNING on
+gpu025/gpu025/gpu006/gpu007. Initial root/PID/GPU evidence exists for all
+cells; BF/Boss already record complete finite post-inverse decompositions with
+Cholesky0 and clean hard-error scans. No Task62 or unrelated mutation occurred.

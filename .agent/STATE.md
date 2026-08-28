@@ -1791,3 +1791,14 @@ RHS. The original single-RHS direction remains the sole installed update.
 Local compile/shell/scalar checks pass; Bede campaign and duplicates are absent
 with idle V100 capacity. Status `IMPLEMENTATION_FROZEN_PENDING_GATE`; Task62
 remains untouched and RUNNING.
+
+# 2026-08-28 Task63 gate and science launch
+
+Sole Bede gate1078180 completed0:0 in01:57 on gpu025 with
+`TASK63_GATE_PASS`: one real full update passed RHS/alpha/direction
+reconstruction, structural zeros, finite FP64 Cholesky and installed-update
+identity. BF/Boss/Cave/Coin jobs1078181--1078184 were then submitted together
+once to fresh exact2M roots and are all RUNNING on gpu025/gpu025/gpu006/gpu007.
+Initial complete BF/Boss traces are finite with Cholesky0 and residuals below
+1e-13; precise hard-error scans are clean. Status `SCIENCE_RUNNING`; Task62 is
+untouched and no retry/requeue/resubmit or model-byte Git content occurred.

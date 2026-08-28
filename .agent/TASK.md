@@ -1,6 +1,6 @@
 # Task-ID: PROCGEN-DETERMINISTIC-JOINT2B-ACTOR-CRITIC-DIRECTION-TELEMETRY-2M-S0-20260828-63
 
-Status: IMPLEMENTATION_FROZEN_PENDING_GATE
+Status: SCIENCE_RUNNING
 
 Method: `PAPER_MATCHED_DETERMINISTIC_GGN_ACTOR_CRITIC_DIRECTION_TELEMETRY_ONLY_V1`
 
@@ -15,6 +15,7 @@ and config SHA256
 Preserve the original installed single-RHS direction and every scientific
 control. Add only post-inverse actor/critic RHS solves using the already
 factorized full coupled system, direction/role decomposition telemetry and
-terminal Early/Middle/Late aggregation. One Bede production gate is permitted;
-PASS allows four fresh one-V100 jobs submitted together exactly once. Never
-reward-stop, retry/requeue/resubmit, touch Task62 or commit model bytes.
+terminal Early/Middle/Late aggregation. The sole Bede production gate
+`1078180` passed. Four fresh one-V100 jobs `1078181`--`1078184` were then
+submitted together exactly once and are running. Never reward-stop,
+retry/requeue/resubmit, touch Task62 or commit model bytes.

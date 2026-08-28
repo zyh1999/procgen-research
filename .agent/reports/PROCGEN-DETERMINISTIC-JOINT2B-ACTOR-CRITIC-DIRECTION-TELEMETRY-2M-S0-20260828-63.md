@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTATION_FROZEN_PENDING_GATE`
+`SCIENCE_RUNNING`
 
 ## Frozen parent and only diff
 
@@ -45,5 +45,41 @@ campaign
 was absent, with no Task63 job/process/duplicate. Task62 jobs1078176--1078179
 were RUNNING and are excluded from every Task63 action.
 
-Gate, launch matrix, initial telemetry and final aggregates will be appended
-only after their authorized bounded events.
+## Sole production gate
+
+- Bede job: `1078180`
+- scheduler: `COMPLETED/0:0`, elapsed `00:01:57`, node `gpu025`
+- root: `gate/production`, `PRECHECK_PASS`, rc `0`
+- validation: `TASK63_GATE_PASS`, one complete real minibatch record
+- the gate verified 512 actor plus 512 critic rows, the original single-RHS
+  installed update, RHS/alpha/direction reconstruction, exclusive structural
+  zeros, finite FP64 solve, Cholesky info `0`, and first-update parameter
+  identity.
+- the only stderr text was the environment's benign Gym deprecation notice;
+  no Traceback, OOM, CUDA, NCCL, disk/quota, nonfinite or solver hard error.
+
+## Science launch
+
+All four cells were submitted in one bounded action without dependency, hold,
+throttle, retry, requeue or resubmit:
+
+| Environment | Job | Initial state | Node | Root |
+|---|---:|---|---|---|
+| BigFish | `1078181` | RUNNING | `gpu025` | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_ACTOR_CRITIC_DIRECTION_TELEMETRY_ONLY_V1/bigfish-easy-0-10/seed0/2m` |
+| BossFight | `1078182` | RUNNING | `gpu025` | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_ACTOR_CRITIC_DIRECTION_TELEMETRY_ONLY_V1/bossfight-easy-0-10/seed0/2m` |
+| CaveFlyer | `1078183` | RUNNING | `gpu006` | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_ACTOR_CRITIC_DIRECTION_TELEMETRY_ONLY_V1/caveflyer-easy-0-10/seed0/2m` |
+| CoinRun | `1078184` | RUNNING | `gpu007` | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_ACTOR_CRITIC_DIRECTION_TELEMETRY_ONLY_V1/coinrun-easy-0-10/seed0/2m` |
+
+Every root is fresh and has its own scheduler job, hostname, PID, GPU identity,
+status, command and logs. At the initial verification BigFish and BossFight had
+32 complete telemetry records each. Their latest records retained strict
+1024-row deterministic Joint-2B, Cholesky info `0`, and finite applied-solve
+residuals `7.576e-14` and `9.259e-14`. CaveFlyer and CoinRun had started and
+formed roots/PIDs but had not yet completed their first synchronized artifact
+copy. Focused hard-error scans were clean for all four; the word `inf` inside
+the benign Gym migration URL is not a numerical match.
+
+Task62 jobs `1078176`--`1078179` remained RUNNING and untouched throughout.
+Current bounded conclusion: `SCIENCE_RUNNING`. Terminal aggregation and
+read-only Paper/Task62 reward sanity comparison remain pending exact
+`2,007,040` endpoints; Task63 never reward-early-stops.
