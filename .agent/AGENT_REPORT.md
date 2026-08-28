@@ -586,3 +586,13 @@ Objective coefficient stays `1.0`; no dualtrust, LR, entropy, row, cross,
 history, solver or clip change. Local compile/config/wrapper checks pass and
 CSF3 campaign/duplicate checks are clean. One production gate is pending; no
 Task63 or unrelated mutation and no model bytes/hashes.
+
+# 2026-08-28 Task64 launched
+
+Task64 implementation froze at `122b5ab02203524dcd98330666ec74c015391808`.
+The only production gate19531850 passed one real update with curvature4,
+objective1, strict2B, natural cross, Cholesky0, finite residual/reconstruction
+and installed identity. BF/Boss/Cave/Coin jobs19531929--19531932 were submitted
+together once. BF is RUNNING node823 with healthy trace; the other three are
+PENDING AssocGrpGRES and have no roots. No retry, mutation, early stop or model
+content entered Git.

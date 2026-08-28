@@ -1832,3 +1832,13 @@ KL/LR, history and installed update remain frozen. Local minimal checks pass.
 CSF3 Task64 roots/duplicates are absent; current gpuH safe capacity is one of
 four account slots because three unrelated jobs are running. Status
 `IMPLEMENTATION_FROZEN_PRECHECK_PENDING`; Task63 remains untouched.
+
+# 2026-08-28 Task64 gate PASS and science launch
+
+The sole CSF3 gate19531850 completed `0:0` on node823 with PRECHECK_PASS/rc0:
+curvature4, objective1, strict1024 rows, cross nonzero, Cholesky0, relative
+residual6.827e-16, direction reconstruction4.286e-8 and installed identity
+maxabs0. Four science jobs were submitted together exactly once: BF19531929 is
+RUNNING on node823/H200 with healthy transition16384 telemetry; Boss19531930,
+Cave19531931 and Coin19531932 are naturally PENDING AssocGrpGRES with absent
+roots. Status `SCIENCE_RUNNING_WITH_QUEUED_CELLS`; Task63 remains untouched.

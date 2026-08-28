@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTATION_FROZEN_PRECHECK_PENDING`
+`SCIENCE_RUNNING_WITH_QUEUED_CELLS`
 
 ## Scientific identity
 
@@ -48,6 +48,39 @@ throttling and may queue naturally. The Task64 campaign, roots and duplicate
 jobs are absent. Task63 Bede jobs `1078181`--`1078184` are out of scope and
 remain untouched.
 
-## Gate and science
+## Gate
 
-Pending the sole production gate.
+Implementation/origin freeze commit is
+`122b5ab02203524dcd98330666ec74c015391808`. The sole production gate job
+`19531850` naturally ran on CSF3 `node823` and completed `COMPLETED/0:0` in
+`00:00:18`; root status is `PRECHECK_PASS`, rc `0`, with one complete real
+update. It proves curvature `4.0`, objective coefficient `1.0`, actor/critic
+rows `512/512`, strict system rows `1024`, exact deterministic kernel, nonzero
+natural cross Frobenius `.0231009`, Cholesky info `0`, relative residual
+`6.827e-16`, RHS reconstruction `0`, alpha reconstruction `1.635e-15`,
+direction reconstruction `4.286e-8`, structural zeros, finite telemetry and
+first-update installed identity max-absolute difference `0`. Hard-error scan is
+zero. No gate model/checkpoint was written or archived.
+
+## Science launch
+
+All four seed0 exact-2,007,040 cells were submitted together exactly once,
+without dependencies, holds or throttling:
+
+| Environment | Job | Initial state | Node | Exact root |
+|---|---:|---|---|---|
+| BigFish | `19531929` | RUNNING | node823 | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_CURVATURE4_DIRECTION_TELEMETRY_ONLY_V1/bigfish-easy-0-10/seed0/2m` |
+| BossFight | `19531930` | PENDING `AssocGrpGRES` | none | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_CURVATURE4_DIRECTION_TELEMETRY_ONLY_V1/bossfight-easy-0-10/seed0/2m` |
+| CaveFlyer | `19531931` | PENDING `AssocGrpGRES` | none | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_CURVATURE4_DIRECTION_TELEMETRY_ONLY_V1/caveflyer-easy-0-10/seed0/2m` |
+| CoinRun | `19531932` | PENDING `AssocGrpGRES` | none | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_CURVATURE4_DIRECTION_TELEMETRY_ONLY_V1/coinrun-easy-0-10/seed0/2m` |
+
+BigFish root is RUNNING with trainer PID `2311560` on one H200 and has healthy
+telemetry through transition `16,384`: curvature `4.0`, objective `1.0`, rows
+`1024`, Cholesky info `0`, relative residual `6.584e-15`, direction
+reconstruction `4.364e-8`, full actor norm/projection share `.4968/.4932`,
+shared actor norm/projection share `.5181/.5367`, and hard-error scan zero. The
+other three roots remain absent while queued. No retry/requeue/resubmit or
+unrelated mutation occurred.
+
+Current conclusion is science running with three naturally queued cells. Reward
+comparison is read-only only; no early stop is authorized.
