@@ -1870,3 +1870,14 @@ actor norm-projection `.73590/.92205` and `.73390/.91931`. Curvature4 therefore
 did not raise critic direction contribution versus Task63 BF and reward fell
 from5.08 to1.97. Task64 Boss/Cave/Coin remain RUNNING and untouched; status
 `SCIENCE_RUNNING_PARTIAL_TERMINAL`.
+
+# 2026-08-28 Task64 Boss/Cave terminal archive
+
+Boss19531930 and Cave19531931 naturally completed `0:0` with PASS/rc0 exact2M
+roots, rewards `.01/1.49`, 15,680 trace records each, clean solver/identity/error
+evidence and checkpoint stat metadata only. Their metric actor energy shares
+are `.11703/.08061`, while post-inverse full actor projection shares are
+`.94268/.92628`: critic curvature4 makes the metric critic-heavy but does not
+make the solved direction critic-dominant. Coin19531932 remains RUNNING on
+node821 at transition696,320 and is untouched. Status
+`SCIENCE_RUNNING_PARTIAL_TERMINAL`.

@@ -100,3 +100,24 @@ Checkpoint bytes remain remote; only regular-file size/mode metadata is
 recorded. Boss/Cave remain RUNNING, and Coin has naturally started RUNNING;
 all remain untouched. Model-free details are in
 `evidence/partial_terminal_bigfish_20260828.md`.
+
+## BossFight and CaveFlyer terminal
+
+BossFight `19531930` and CaveFlyer `19531931` naturally completed
+`COMPLETED/0:0` on `node820` and `node821`, with PASS/rc0 roots at exact
+`2,007,040`, 15,680 complete trace records each, checkpoint stat metadata only,
+and zero hard-error matches. Rewards are `0.01` and `1.49`.
+
+Both frozen complete-trace aggregations pass. BossFight's actor metric
+norm/energy shares are `.26690/.11703`, but its post-inverse full actor
+norm/projection shares are `.72938/.94268` and shared shares are
+`.73163/.94311`. CaveFlyer's corresponding values are `.22846/.08061`,
+`.73329/.92628`, and `.73123/.92103`. Thus curvature `4` makes the raw metric
+critic-heavy while the coupled inverse remains strongly actor-dominant in all
+three completed Task64 environments. Relative to curvature `.1`, Boss reward
+falls `.04 -> .01`; Cave improves `0 -> 1.49` but remains below Paper `4.45`.
+
+CoinRun `19531932` naturally started and remains RUNNING on `node821`; at the
+09:57Z refresh it was at transition `696,320`, with finite strict-1024 telemetry,
+and remains untouched. Status is `SCIENCE_RUNNING_PARTIAL_TERMINAL`. Full
+model-free evidence is in `evidence/partial_terminal_boss_cave_20260828.md`.

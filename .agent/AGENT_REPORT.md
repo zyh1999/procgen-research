@@ -617,3 +617,14 @@ passes aggregation; curvature4 yields a critic-heavy metric but strongly
 actor-heavy post-inverse direction and lower reward than Task63 BF. Only
 model-free evidence and checkpoint stat metadata are committed. Task64's
 remaining three cells continue naturally.
+
+# 2026-08-28 Task64 Boss/Cave terminal delivery
+
+Task64 Boss19531930 and Cave19531931 completed naturally at exact2,007,040 with
+PASS/rc0 roots, rewards `.01` and `1.49`, valid all-record frozen aggregates,
+healthy reconstruction/Cholesky/finite scans, and no hard errors. Despite actor
+metric energy shares of only `.11703/.08061`, post-inverse actor signed
+projection shares are `.94268/.92628`; curvature4 therefore strengthens the
+critic metric without increasing critic dominance of the coupled solved
+direction. Coin19531932 remains RUNNING at transition696,320. No scheduler
+mutation, model content, retry, or unrelated root access occurred.
