@@ -645,3 +645,11 @@ No campaign deployment, production gate, science submission, root, or process
 was created. Classification is external-authentication resource placement
 blocked; the frozen RHS40 science remains unexecuted. Task64 Coin was not
 modified.
+
+# 2026-08-28 Task65 Bede recovery authorized
+
+Task65 is now authorized for its first and only deployment on Bede. Live
+authenticated capacity and duplicate/root absence pass. Bede gate/science
+wrappers are frozen at `d0c47d...` and `e903997...`; scientific trainer/config
+bytes are unchanged. One production gate is next. Task64 Coin remains an
+independent live CSF3 negative control and was not touched.

@@ -1,6 +1,6 @@
 # PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS40-DIRECTION-TELEMETRY-2M-S0-20260828-65
 
-Status: `RESOURCE_PLACEMENT_BLOCKED`
+Status: `BEDE_DEPLOYMENT_FROZEN_PRECHECK_PENDING`
 
 Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1`
 
@@ -40,3 +40,16 @@ could be completed, no campaign was deployed, and no gate or science job was
 submitted. This is external authentication/resource-placement blocking, not a
 scientific, numerical, code, or gate failure. Task64 Coin and all unrelated
 jobs remained untouched.
+
+## Authorized Bede recovery
+
+The user authorized Bede as Task65's first and only deployment. The existing
+authenticated Bede connection is live; account `bdman37g`, partition `gpu`,
+and idle V100 capacity are available. The exact Bede campaign and duplicate
+Task65 job/process checks are absent. Deployment-only wrappers are frozen:
+
+- Bede gate wrapper `d0c47d86145650ff7c77439ffad8b32a59954384eebea3fb8cb343ed01601dc0`
+- Bede science wrapper `e903997ba08fbca1a5c6f08427358344c489030645b52f56a12ea4b2f14397fc`
+
+Trainer/config/aggregator bytes and the RHS40 scientific identity are unchanged.
+Task64 Coin remains on CSF3 and is not migrated or duplicated.

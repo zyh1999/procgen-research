@@ -1871,6 +1871,14 @@ did not raise critic direction contribution versus Task63 BF and reward fell
 from5.08 to1.97. Task64 Boss/Cave/Coin remain RUNNING and untouched; status
 `SCIENCE_RUNNING_PARTIAL_TERMINAL`.
 
+# 2026-08-28 Task65 Bede deployment freeze
+
+User authorized Task65's first and only deployment on Bede. Authenticated Bede
+control, `yihe/bdman37g`, V100 capacity and exact campaign/duplicate absence
+are verified. Deployment-only wrappers are frozen while trainer/config hashes
+remain unchanged. Status `BEDE_DEPLOYMENT_FROZEN_PRECHECK_PENDING`; Task64 Coin
+remains on CSF3 untouched.
+
 # 2026-08-28 Task65 implementation freeze
 
 Task65 corrects the user's intended causal variable: Task63 curvature remains
