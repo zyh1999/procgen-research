@@ -1,0 +1,16 @@
+csf3_gate_job=19528173
+csf3_state_before=PENDING
+csf3_reason_before=AssocGrpGRES
+csf3_elapsed_before=00:00:00
+csf3_start_before=Unknown
+csf3_node_before=None
+csf3_gate_root_before=ABSENT
+csf3_gate_process_before=ABSENT
+csf3_cancel_count=1
+csf3_state_after=CANCELLED
+csf3_exit_after=0:0
+csf3_elapsed_after=00:00:00
+csf3_node_after=None
+csf3_gate_root_after=ABSENT
+classification=CANCELLED_FOR_USER_AUTHORIZED_ZERO_STEP_BEDE_MIGRATION
+restore_retry_requeue_resubmit=NONE
