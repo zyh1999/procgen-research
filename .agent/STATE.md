@@ -1879,6 +1879,15 @@ are verified. Deployment-only wrappers are frozen while trainer/config hashes
 remain unchanged. Status `BEDE_DEPLOYMENT_FROZEN_PRECHECK_PENDING`; Task64 Coin
 remains on CSF3 untouched.
 
+# 2026-08-28 Task65 Bede gate PASS and science launch
+
+Sole gate1078982 completed `0:0` PRECHECK_PASS on gpu017 with curvature.1,
+objective40, RHS weight126.4911064, strict1024, cross nonzero, Cholesky0,
+residual7.993e-16 and clean reconstruction/finite/error scans. Four science
+jobs1078983--1078986 were submitted together once and are all RUNNING, one V100
+per cell, on gpu017/gpu022 with distinct roots. Initial transition4096 telemetry
+is finite and exact. Status `SCIENCE_RUNNING`; Task64 Coin remains untouched.
+
 # 2026-08-28 Task65 implementation freeze
 
 Task65 corrects the user's intended causal variable: Task63 curvature remains

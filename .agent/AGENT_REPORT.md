@@ -653,3 +653,12 @@ authenticated capacity and duplicate/root absence pass. Bede gate/science
 wrappers are frozen at `d0c47d...` and `e903997...`; scientific trainer/config
 bytes are unchanged. One production gate is next. Task64 Coin remains an
 independent live CSF3 negative control and was not touched.
+
+# 2026-08-28 Task65 Bede launched
+
+Task65 gate1078982 passed its sole real-update gate with exact curvature.1,
+objective40 and critic RHS weight126.4911064. Science jobs1078983--1078986 were
+submitted together exactly once and all four started RUNNING, one V100 each.
+First complete records have strict1024/cross/Cholesky0/finite healthy evidence
+and zero hard errors. No Task64, unrelated job, model, or checkpoint content was
+modified or accessed.

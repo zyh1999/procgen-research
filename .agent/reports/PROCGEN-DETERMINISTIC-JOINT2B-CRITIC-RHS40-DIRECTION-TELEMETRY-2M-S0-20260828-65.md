@@ -1,6 +1,6 @@
 # PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS40-DIRECTION-TELEMETRY-2M-S0-20260828-65
 
-Status: `BEDE_DEPLOYMENT_FROZEN_PRECHECK_PENDING`
+Status: `SCIENCE_RUNNING`
 
 Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1`
 
@@ -53,3 +53,31 @@ Task65 job/process checks are absent. Deployment-only wrappers are frozen:
 
 Trainer/config/aggregator bytes and the RHS40 scientific identity are unchanged.
 Task64 Coin remains on CSF3 and is not migrated or duplicated.
+
+## Bede gate and science launch
+
+The sole Bede gate `1078982` completed `COMPLETED/0:0` in `00:01:51` on
+`gpu017`, with `PRECHECK_PASS/rc0`. Its one real update proves curvature `.1`,
+objective `40`, critic RHS weight `126.49110640673517`, actor/critic rows
+`512/512`, strict system rows `1024`, natural cross Frobenius `.00365258`,
+Cholesky info `0`, relative residual `7.993e-16`, RHS reconstruction `0`, alpha
+reconstruction `1.332e-15`, direction reconstruction `3.423e-8`, finite PASS,
+and zero hard-error matches.
+
+After a fresh root/duplicate check, all four seed0 exact-2,007,040 jobs were
+submitted together exactly once without dependency, hold or throttle:
+
+| Environment | Job | Initial state | Node | Exact root |
+|---|---:|---|---|---|
+| BigFish | `1078983` | RUNNING | gpu017 | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1/bigfish-easy-0-10/seed0/2m` |
+| BossFight | `1078984` | RUNNING | gpu017 | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1/bossfight-easy-0-10/seed0/2m` |
+| CaveFlyer | `1078985` | RUNNING | gpu022 | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1/caveflyer-easy-0-10/seed0/2m` |
+| CoinRun | `1078986` | RUNNING | gpu022 | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1/coinrun-easy-0-10/seed0/2m` |
+
+Each job owns one V100 and a distinct root. All four produced a complete first
+transition-4096 telemetry record with exact frozen coefficients/1024 rows,
+nonzero cross, Cholesky `0`, finite scan PASS and residuals in
+`[6.256e-16,7.183e-16]`; hard-error scans are zero. The initial full actor norm
+shares are `.0181/.00615/.0122/.00383`, showing the intended RHS40 critic-heavy
+direction at the first update, but this is only an initial snapshot. Reward is
+read-only and never early-stops. Task64 Coin was not touched.
