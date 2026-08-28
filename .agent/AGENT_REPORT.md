@@ -691,3 +691,13 @@ curvature `.1`, objective `10`, actual critic RHS multiplier
 identity are preserved. Minimal local checks pass; one Bede production gate is
 next, followed only on PASS by the exactly-once four-cell launch. No terminal
 history, scheduler state, or model content was touched.
+
+# 2026-08-29 Task66 launched
+
+Task66 gate1084426 passed the sole real-update gate with objective10,
+curvature.1 and RHS weight31.6227766, exact strict2B/full-cross identity and
+healthy FP64 solver/reconstruction evidence. BF/Boss/Cave/Coin jobs
+1084427--1084430 were jointly submitted once. BF/Boss are RUNNING on gpu018
+with finite first updates; Cave/Coin wait naturally in queue. One read-only
+20-minute Task66 automation now binds exactly these jobs/roots. No model bytes,
+retry, scheduler mutation, or Task62--65 access occurred.

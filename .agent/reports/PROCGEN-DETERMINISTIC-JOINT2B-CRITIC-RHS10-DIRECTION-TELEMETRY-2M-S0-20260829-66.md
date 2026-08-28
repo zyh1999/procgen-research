@@ -1,6 +1,6 @@
 # PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS10-DIRECTION-TELEMETRY-2M-S0-20260829-66
 
-Status: `IMPLEMENTATION_FROZEN_PRECHECK_PENDING`
+Status: `SCIENCE_RUNNING_WITH_QUEUED_CELLS`
 
 Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1`
 
@@ -32,4 +32,33 @@ hashes enter Git.
 
 ## Bede gate and launch
 
-Pending the sole authorized production gate.
+Implementation commit `f07a7f1f2027ad0dda4e1675996af1f1db450fe7` was
+pushed and matched `origin/agent-work`. The fresh Bede campaign is:
+
+`/nobackup/projects/bdman37/yihe/procgen_deterministic_joint2b_critic_rhs10_direction_telemetry_2m_s0_20260829_66`
+
+The sole gate `1084426` completed `0:0` in `00:00:52` on `gpu018` with
+`PRECHECK_PASS/rc0`. Its real update reports curvature `.1`, objective `10`,
+RHS weight `31.622776601683793`, actor/critic rows `512/512`, strict system
+rows `1024`, cross Frobenius `.003652576`, Cholesky info `0`, relative residual
+`7.411e-16`, RHS reconstruction `0`, alpha reconstruction `1.280e-15`,
+direction reconstruction `3.273e-8`, installed identity maxabs `0`, finite
+PASS and no refined hard-error match.
+
+After a fresh duplicate/root/capacity check, all four cells were submitted
+together exactly once without dependency, hold or throttle:
+
+| Environment | Job | Initial state | Node | Exact root suffix |
+|---|---:|---|---|---|
+| BigFish | `1084427` | RUNNING | `gpu018` | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/bigfish-easy-0-10/seed0/2m` |
+| BossFight | `1084428` | RUNNING | `gpu018` | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/bossfight-easy-0-10/seed0/2m` |
+| CaveFlyer | `1084429` | PENDING Resources | none | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/caveflyer-easy-0-10/seed0/2m` |
+| CoinRun | `1084430` | PENDING Priority | none | `runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/coinrun-easy-0-10/seed0/2m` |
+
+At the launch archive snapshot, BigFish and BossFight have exact first-update
+transition-4096 traces. Their relative residuals are `7.411e-16/7.339e-16`,
+Cholesky info is `0`, finite scan is PASS, and full actor norm/signed-projection
+shares are `.013345/.000189` and `.284375/.141625`. Cave/Coin remain zero-step
+queued with absent roots and may start naturally. Reward is read-only and never
+early-stops. The sole 20-minute automation is
+`monitor-procgen-task66-rhs10-direction-telemetry`.

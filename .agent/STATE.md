@@ -1943,3 +1943,14 @@ weight is `31.622776601683793`. No-warmup strict1024 full-cross Joint-2B,
 history/adaptive KL-LR/clip and post-inverse telemetry remain unchanged. Local
 compile/config/wrapper/diff checks pass. Status
 `IMPLEMENTATION_FROZEN_PRECHECK_PENDING`; Task62--65 remain untouched.
+
+# 2026-08-29 Task66 gate PASS and science launch
+
+Sole gate1084426 completed `0:0` PRECHECK_PASS on gpu018 with exact
+curvature.1/objective10/RHS31.6227766, strict1024/full-cross, Cholesky0,
+residual7.411e-16, reconstruction/installed identity/finite PASS and clean
+refined error scan. Jobs1084427--1084430 were submitted together exactly once.
+BF/Boss are RUNNING on gpu018 with healthy first-update traces; Cave/Coin are
+naturally PENDING Resources/Priority with absent roots. Status
+`SCIENCE_RUNNING_WITH_QUEUED_CELLS`; the sole Task66 20-minute monitor is
+active and Task62--65 remain untouched.

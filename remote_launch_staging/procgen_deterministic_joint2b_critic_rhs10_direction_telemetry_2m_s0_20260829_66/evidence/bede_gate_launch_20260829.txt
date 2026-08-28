@@ -1,0 +1,43 @@
+Task-ID: PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS10-DIRECTION-TELEMETRY-2M-S0-20260829-66
+Implementation/origin before remote work: f07a7f1f2027ad0dda4e1675996af1f1db450fe7
+Campaign: /nobackup/projects/bdman37/yihe/procgen_deterministic_joint2b_critic_rhs10_direction_telemetry_2m_s0_20260829_66
+
+Duplicate/fresh-root/runtime gate:
+  account yihe/bdman37g, partition gpu, PPC64LE runtime present
+  campaign absent before deployment; exact jobs/processes/roots absent
+  Task65 frozen repository-local closure reused deployment-only
+  Task66 remote hashes exactly match local freeze
+
+Sole production gate:
+  job 1084426; COMPLETED/0:0; elapsed 00:00:52; node gpu018
+  root PRECHECK_PASS; rc0; TASK66_GATE_PASS
+  curvature .1; objective 10; critic_rhs_weight 31.622776601683793
+  actor_rows 512; critic_rows 512; joint_system_rows 1024
+  natural cross Frobenius .0036525762016008548
+  Cholesky info 0; relative residual 7.4108327547192e-16
+  RHS/alpha/direction reconstruction 0/1.2796223487883523e-15/3.272883475347044e-08
+  first-update installed identity maxabs 0; finite PASS; refined hard errors 0
+
+Exactly-once joint science submission:
+  1084427 BigFish root runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/bigfish-easy-0-10/seed0/2m
+  1084428 BossFight root runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/bossfight-easy-0-10/seed0/2m
+  1084429 CaveFlyer root runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/caveflyer-easy-0-10/seed0/2m
+  1084430 CoinRun root runs/PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1/coinrun-easy-0-10/seed0/2m
+  No dependency, hold, throttle, retry, requeue or resubmit.
+
+Initial scheduler snapshot:
+  1084427 RUNNING gpu018
+  1084428 RUNNING gpu018
+  1084429 PENDING Resources, zero-step/root absent
+  1084430 PENDING Priority, zero-step/root absent
+
+First real science updates at transition 4096:
+  BigFish residual 7.4108327547192e-16, Cholesky0, finite1,
+    full actor norm/projection .013344923965632915/.00018931561498902738
+  BossFight residual 7.339342567339832e-16, Cholesky0, finite1,
+    full actor norm/projection .28437525033950806/.14162468910217285
+
+Automation: monitor-procgen-task66-rhs10-direction-telemetry, one 20-minute
+read-only monitor bound only to jobs1084427--1084430 and exact roots.
+
+Model/checkpoint bytes and content hashes are excluded.
