@@ -628,3 +628,11 @@ projection shares are `.94268/.92628`; curvature4 therefore strengthens the
 critic metric without increasing critic dominance of the coupled solved
 direction. Coin19531932 remains RUNNING at transition696,320. No scheduler
 mutation, model content, retry, or unrelated root access occurred.
+
+# 2026-08-28 Task65 implementation freeze
+
+Task65 is frozen from Task63/Task06 with exactly one scientific delta:
+`joint_critic_objective_coef 1 -> 40`; curvature remains `.1`, so the actual
+critic RHS multiplier is `126.49110640673517`, exactly 40x the parent. Local
+compile/config/wrapper checks pass. One CSF3 production gate is next; Task64
+Coin and unrelated work are untouched.
