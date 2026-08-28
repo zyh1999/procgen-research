@@ -557,3 +557,13 @@ one action to fresh BF/Boss/Cave/Coin roots and are RUNNING on
 gpu025/gpu025/gpu006/gpu007. Initial root/PID/GPU evidence exists for all
 cells; BF/Boss already record complete finite post-inverse decompositions with
 Cholesky0 and clean hard-error scans. No Task62 or unrelated mutation occurred.
+
+# 2026-08-28 Task62 partial terminal delivery
+
+The bounded read-only pass archived natural exact2M terminals BF1078176,
+Cave1078178 and Coin1078179. All are scheduler COMPLETED/0:0 and root PASS/rc0
+with exact rewards9.28/4.45/3.70, 15,744 complete records,
+TASK62_AGGREGATION_PASS, finite reconstruction, exact exclusive structural
+zeros and no hard errors. Model files remain remote; only size/mode/type stat
+metadata is recorded. Boss1078177 and all Task63 cells remain RUNNING and were
+not modified.

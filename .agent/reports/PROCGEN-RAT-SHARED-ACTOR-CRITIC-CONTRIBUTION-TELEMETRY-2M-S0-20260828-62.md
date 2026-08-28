@@ -99,3 +99,39 @@ This is an instrumentation campaign, so reward is read-only and no cell may
 be reward-cancelled. Current operational conclusion is `SCIENCE_RUNNING`.
 Terminal Early/Middle/Late aggregation remains pending. No checkpoint/model
 bytes or hashes are included in Git, and no Task51--61 state was touched.
+
+## 2026-08-28 partial terminal archive
+
+The scheduled read-only pass found three natural scheduler-authoritative
+terminals. No monitor cancellation or scheduler mutation occurred:
+
+| Environment | Job | Scheduler | Elapsed | Node | Root | Exact endpoint reward |
+|---|---:|---|---:|---|---|---:|
+| BigFish | `1078176` | `COMPLETED/0:0` | `01:32:15` | `gpu002` | `PASS/rc0` | `9.28` |
+| CaveFlyer | `1078178` | `COMPLETED/0:0` | `01:33:14` | `gpu003` | `PASS/rc0` | `4.45` |
+| CoinRun | `1078179` | `COMPLETED/0:0` | `01:32:47` | `gpu005` | `PASS/rc0` | `3.70` |
+
+All three have exact progress transition `2,007,040`, 15,744 complete
+minibatch telemetry records and `TASK62_AGGREGATION_PASS`. Their rewards match
+the immutable same-environment Paper seed0 exact-2M rows, as expected for this
+instrumentation-only replay. The remaining BossFight job `1078177` was still
+RUNNING and was left untouched.
+
+Overall aggregate medians (`full actor norm share / signed projection share`,
+`shared actor norm share / signed projection share`, metric actor norm share)
+are:
+
+- BigFish: `.5233/.5458`, `.5713/.6376`, `.4289`;
+- CaveFlyer: `.6125/.7112`, `.6526/.7746`, `.4628`;
+- CoinRun: `.5501/.5967`, `.5939/.6788`, `.4539`.
+
+Full-trace validation has zero nonfinite or finite-scan failures. Maximum H
+reconstruction residual is `2.69e-8`; maximum gradient reconstruction relative
+residual is `3.09e-6`; policy-exclusive critic and value-exclusive actor
+gradient norms remain exactly zero. Focused hard-error scans found no
+Traceback, OOM, CUDA, NCCL, disk/quota or numerical failure.
+
+Each terminal root has one regular non-symlink `model.ckpt`, size `3,766,013`,
+mode `664`. Only this stat metadata is archived; model bytes and content hashes
+remain remote. Task62 remains `SCIENCE_RUNNING` until BossFight terminates.
+Task63 and all unrelated jobs/roots were untouched.

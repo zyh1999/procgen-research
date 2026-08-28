@@ -1802,3 +1802,12 @@ once to fresh exact2M roots and are all RUNNING on gpu025/gpu025/gpu006/gpu007.
 Initial complete BF/Boss traces are finite with Cholesky0 and residuals below
 1e-13; precise hard-error scans are clean. Status `SCIENCE_RUNNING`; Task62 is
 untouched and no retry/requeue/resubmit or model-byte Git content occurred.
+
+# 2026-08-28 Task62 partial terminal archive
+
+Read-only monitoring found BF1078176, Cave1078178 and Coin1078179 naturally
+COMPLETED/0:0 with PASS/rc0 roots, exact2,007,040 and rewards9.28/4.45/3.70.
+Each aggregation passed over15,744 complete records with finite/reconstruction
+and exclusive-zero invariants intact; hard-error scans are clean. Checkpoints
+are represented only by regular-file stat metadata. Boss1078177 remains
+RUNNING, so Task62 remains `SCIENCE_RUNNING`; Task63 was not mutated.
