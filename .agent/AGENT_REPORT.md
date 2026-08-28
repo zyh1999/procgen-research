@@ -606,3 +606,14 @@ validator failure at record3808 while its training, Cholesky, residual,
 reconstruction, finite and hard-error evidence remains clean. Model files
 remain remote and only stat metadata is recorded. Boss1078182 and Cave1078183
 continue RUNNING; Task64 and unrelated work were not mutated.
+
+# 2026-08-28 Task63 final and Task64 BigFish terminal delivery
+
+Task63 is fully scheduler-terminal with four PASS/rc0 exact2M training roots.
+BigFish/Cave have valid frozen aggregates; Boss/Coin aggregation validators
+reject one saturated zero/near-zero policy record each, without training,
+solver or infrastructure failure. Task64 BigFish also completed exact2M and
+passes aggregation; curvature4 yields a critic-heavy metric but strongly
+actor-heavy post-inverse direction and lower reward than Task63 BF. Only
+model-free evidence and checkpoint stat metadata are committed. Task64's
+remaining three cells continue naturally.

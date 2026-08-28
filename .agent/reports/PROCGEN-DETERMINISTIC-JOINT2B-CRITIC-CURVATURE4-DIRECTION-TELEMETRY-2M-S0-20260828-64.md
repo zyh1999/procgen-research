@@ -2,7 +2,7 @@
 
 ## Status
 
-`SCIENCE_RUNNING_WITH_QUEUED_CELLS`
+`SCIENCE_RUNNING_PARTIAL_TERMINAL`
 
 ## Scientific identity
 
@@ -84,3 +84,19 @@ unrelated mutation occurred.
 
 Current conclusion is science running with three naturally queued cells. Reward
 comparison is read-only only; no early stop is authorized.
+
+## BigFish terminal
+
+BigFish19531929 naturally completed `COMPLETED/0:0` after00:45:43 on node823.
+The PASS/rc0 root has exact2,007,040, reward1.97, 15,680 records and a clean
+frozen aggregation. Overall actor metric norm/energy is `.24180/.09232`, while
+post-inverse full actor norm/projection is `.73590/.92205` and shared is
+`.73390/.91931`. This is the opposite of the intended critic-contribution
+increase: curvature4 makes the metric critic-heavy but the solved direction
+more actor-dominant than Task63 BigFish (`.44048/.37842`), while reward falls
+from5.08 to1.97. Solver/reconstruction/hard-error evidence is healthy.
+
+Checkpoint bytes remain remote; only regular-file size/mode metadata is
+recorded. Boss/Cave remain RUNNING, and Coin has naturally started RUNNING;
+all remain untouched. Model-free details are in
+`evidence/partial_terminal_bigfish_20260828.md`.

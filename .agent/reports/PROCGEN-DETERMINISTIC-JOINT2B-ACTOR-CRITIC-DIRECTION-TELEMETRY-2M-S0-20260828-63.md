@@ -2,7 +2,7 @@
 
 ## Status
 
-`SCIENCE_RUNNING`
+`TERMINAL_TRAINING_COMPLETE_TELEMETRY_AGGREGATION_PARTIAL_FAILURE`
 
 ## Frozen parent and only diff
 
@@ -115,3 +115,25 @@ and failure evidence are in
 `evidence/partial_terminal_bigfish_coinrun_20260828.md`. BossFight `1078182`
 and CaveFlyer `1078183` remain RUNNING and untouched. Task63 therefore remains
 `SCIENCE_RUNNING_PARTIAL_TERMINAL`.
+
+## Final BossFight and CaveFlyer terminals
+
+BossFight1078182 and CaveFlyer1078183 naturally completed `COMPLETED/0:0` on
+gpu025/gpu006 after02:51:51/02:49:28. Both roots are PASS/rc0 at exact2,007,040
+with15,680 records and endpoint rewards `.04/0` versus Paper `2.92/4.45`.
+CaveFlyer passes the frozen aggregate; overall full actor norm/projection is
+`.62032/.73689` and shared is `.63194/.75562`, rising further actor-heavy in
+the late third (`.70749/.86634` full).
+
+BossFight hits the same frozen validator edge class as CoinRun: at record5952
+the policy direction is exactly zero after entropy falls to `3.39e-39`, so the
+policy projection sum is0. Full/shared/value sums, Cholesky, residual,
+reconstruction, structural zeros and finite scan remain healthy. It is not a
+training or solver failure and was not repaired or rerun.
+
+Task63 is fully scheduler-terminal, but only BigFish and CaveFlyer have valid
+frozen complete aggregates. BossFight and CoinRun have clean scientific runs
+with aggregation-validator failures in zero/near-zero policy subspaces. Final
+classification is
+`TERMINAL_TRAINING_COMPLETE_TELEMETRY_AGGREGATION_PARTIAL_FAILURE`; model-free
+details are in `evidence/final_terminal_boss_cave_campaign_20260828.md`.

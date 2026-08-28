@@ -1854,3 +1854,19 @@ training/solver is finite and clean, but the frozen aggregator stops at record
 sum `.002648`; this is an immutable telemetry-validator failure under actor
 saturation, not a training or solver failure. Boss/Cave remain RUNNING;
 Task64 is untouched. Status `SCIENCE_RUNNING_PARTIAL_TERMINAL`.
+
+# 2026-08-28 Task63 final and Task64 BigFish partial terminal
+
+Task63 Boss1078182 and Cave1078183 also completed naturally, making all four
+Task63 jobs terminal PASS/rc0 at exact2,007,040. Cave passes its full frozen
+aggregate (`.62032/.73689` full actor norm/projection); Boss and Coin expose
+immutable zero/near-zero policy projection validator failures despite clean
+training and solver evidence. Final Task63 classification is
+`TERMINAL_TRAINING_COMPLETE_TELEMETRY_AGGREGATION_PARTIAL_FAILURE`.
+
+Task64 BigFish19531929 completed PASS/rc0 at exact2M with reward1.97 and a
+valid aggregate: metric actor norm share `.24180` but post-inverse full/shared
+actor norm-projection `.73590/.92205` and `.73390/.91931`. Curvature4 therefore
+did not raise critic direction contribution versus Task63 BF and reward fell
+from5.08 to1.97. Task64 Boss/Cave/Coin remain RUNNING and untouched; status
+`SCIENCE_RUNNING_PARTIAL_TERMINAL`.
