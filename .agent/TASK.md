@@ -1,34 +1,20 @@
-# Task-ID: PROCGEN-RAT-SHARED-ACTOR-CRITIC-CONTRIBUTION-TELEMETRY-2M-S0-20260828-62
+# Task-ID: PROCGEN-DETERMINISTIC-JOINT2B-ACTOR-CRITIC-DIRECTION-TELEMETRY-2M-S0-20260828-63
 
-Status: SCIENCE_RUNNING
+Status: IMPLEMENTATION_FROZEN_PENDING_GATE
 
-Method: `RAT_SHARED_PAPER_ACTOR_CRITIC_TELEMETRY_ONLY_V1`
+Method: `PAPER_MATCHED_DETERMINISTIC_GGN_ACTOR_CRITIC_DIRECTION_TELEMETRY_ONLY_V1`
 
-Execute exactly one instrumentation-only replay of frozen original shared
-Procgen Paper RAT for BigFish, BossFight, CaveFlyer and CoinRun, seed0, exact
-`2,007,040`. Parent source commit is
-`2b5affd64cbb3c624b4bc1f4767f449df231ffb2`, trainer SHA256
-`cbcd68118a2901fdcdf3bf2de55841d01b330e7a6cb38996ed8ba791eb2ab1e7`
+Run one instrumentation-only exact-2,007,040 replay of frozen Task06 strict
+deterministic full-shared Joint-2B for BigFish, BossFight, CaveFlyer and
+CoinRun seed0. Parent implementation is
+`da34ce7c7d964765f336ac02111c9fde95aed1ec`, trainer SHA256
+`41334b59aa98e03920571251da8498a1ecb816ea72afff72d8134fa8fd314f9a`
 and config SHA256
-`1ed4eab5bcaf41e6c5fa99e75ab26cf04bbac42107e03f8f4fa12a95b344f6ea`.
+`69d12937debb8ef8b4531e79b8f9613185b26e4e9056a51e67754129b269391d`.
 
-Preserve the stochastic Gaussian critic score, combined B-row H, both parent
-solves, damping `.5`, history correction, ent_coef0, vf_coef1, PopArt, ratio
-clamp, advantage normalization, global clip `.5`, SGD momentum `1e-6`, and
-per-minibatch policy-KL LR controller byte/semantically. The only runtime
-changes are the exact 2M horizon and side-effect-free telemetry: deterministic
-policy-only rows after original H, realized value rows by subtraction,
-side-effect-free actor/value autograd gradients before the unchanged total
-backward, complete role decomposition and JSONL trace. Telemetry must neither
-consume RNG nor populate `.grad` before the original backward.
-
-Run one minimal production gate exactly once. PASS permits four fresh CSF3
-gpuH jobs submitted together once; failure is terminal without retry. Never
-reward-stop this diagnostic, touch Task51--61, create another method/seed, or
-commit checkpoint/model bytes.
-
-The CSF3 gate `19528173` was cancelled exactly once at zero steps under the
-user-authorized Bede migration and is immutable. The sole Bede gate `1078175`
-completed `PRECHECK_PASS`. BigFish/BossFight/CaveFlyer/CoinRun science jobs
-`1078176`--`1078179` were submitted together exactly once and are RUNNING on
-four distinct V100 allocations. Do not duplicate, retry, requeue or resubmit.
+Preserve the original installed single-RHS direction and every scientific
+control. Add only post-inverse actor/critic RHS solves using the already
+factorized full coupled system, direction/role decomposition telemetry and
+terminal Early/Middle/Late aggregation. One Bede production gate is permitted;
+PASS allows four fresh one-V100 jobs submitted together exactly once. Never
+reward-stop, retry/requeue/resubmit, touch Task62 or commit model bytes.

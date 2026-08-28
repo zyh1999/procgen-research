@@ -537,3 +537,12 @@ across gpu002/gpu003/gpu005. Initial complete contribution traces pass finite,
 shape, reconstruction and structural-zero checks; precise hard-error scans are
 zero. Current conclusion is `SCIENCE_RUNNING`. No Task51--61 mutation,
 retry/requeue/resubmit, automation creation or model/checkpoint Git content.
+
+# 2026-08-28 Task63 implementation freeze
+
+Created one telemetry-only Task63 from exact Task06 parent. It reuses the
+already-factorized full 2B system for two read-only RHS columns, proves
+RHS/alpha/direction reconstruction and records full/shared/exclusive
+post-inverse contributions. Parent flat_dir, optimizer, history, clip and KL
+adaptation remain authoritative. Local checks pass and Bede pre-placement is
+clean; sole production gate has not yet been submitted. Task62 is untouched.

@@ -1782,3 +1782,12 @@ gpu002, gpu003 and gpu005 with one V100 each. All roots/PIDs exist, complete
 actor/critic contribution records are accumulating, finite/reconstruction and
 structural-zero invariants pass, and precise hard-error scans are clean.
 Current conclusion: `SCIENCE_RUNNING`; no retry/requeue/resubmit or model bytes.
+
+# 2026-08-28 Task63 implementation freeze
+
+Task63 freezes exact Task06 strict deterministic full-cross Joint-2B and adds
+only telemetry solves for actor/critic partitions of the already-effective
+RHS. The original single-RHS direction remains the sole installed update.
+Local compile/shell/scalar checks pass; Bede campaign and duplicates are absent
+with idle V100 capacity. Status `IMPLEMENTATION_FROZEN_PENDING_GATE`; Task62
+remains untouched and RUNNING.
