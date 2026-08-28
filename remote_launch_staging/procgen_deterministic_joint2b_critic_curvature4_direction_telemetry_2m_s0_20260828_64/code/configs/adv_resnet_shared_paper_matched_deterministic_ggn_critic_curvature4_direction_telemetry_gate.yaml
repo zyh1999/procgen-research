@@ -1,0 +1,42 @@
+algo: adv
+
+algo_config:
+  ent_coef: 0.00
+  norm_obj: adv
+  optimizer: sgd
+  lr: 0.5
+  use_kl_adaptive_lr: True
+  epochs: 4
+  minibatches: 8
+  vf_coef: 1.0
+  with_popart: True
+  adv_type: gae
+  clamp_ratio: True
+  max_ratio: 10.0
+  min_ratio: 0.1
+  sigma_type: 'vector'
+  cg_damping: 0.5
+  max_grad_norm: 0.5
+  joint_critic_curvature_coef: 4.0
+  joint_critic_objective_coef: 1.0
+  fp64_gram_chunk_cols: 32768
+  dual_jacobi_eps: 1.0e-18
+
+env_config:
+  env_name: bigfish-easy-0-10
+  num_envs: 16
+  nsteps: 256
+  norm_ret: False
+  timesteps_per_proc_easy: 0
+  timesteps_per_proc_hard: 0
+
+nets_config:
+  type: resnet
+  norm_obs: False
+  with_bn: False
+  dropout: 0.0
+  hidden_size: 256
+
+log_config:
+  log_interval: 1
+  n_eval_trials: 1

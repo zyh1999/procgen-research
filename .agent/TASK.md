@@ -1,21 +1,19 @@
-# Task-ID: PROCGEN-DETERMINISTIC-JOINT2B-ACTOR-CRITIC-DIRECTION-TELEMETRY-2M-S0-20260828-63
+# Task-ID: PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-CURVATURE4-DIRECTION-TELEMETRY-2M-S0-20260828-64
 
-Status: SCIENCE_RUNNING
+Status: IMPLEMENTATION_FROZEN_PRECHECK_PENDING
 
-Method: `PAPER_MATCHED_DETERMINISTIC_GGN_ACTOR_CRITIC_DIRECTION_TELEMETRY_ONLY_V1`
+Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_CURVATURE4_DIRECTION_TELEMETRY_ONLY_V1`
 
-Run one instrumentation-only exact-2,007,040 replay of frozen Task06 strict
-deterministic full-shared Joint-2B for BigFish, BossFight, CaveFlyer and
-CoinRun seed0. Parent implementation is
-`da34ce7c7d964765f336ac02111c9fde95aed1ec`, trainer SHA256
-`41334b59aa98e03920571251da8498a1ecb816ea72afff72d8134fa8fd314f9a`
-and config SHA256
-`69d12937debb8ef8b4531e79b8f9613185b26e4e9056a51e67754129b269391d`.
+Run one bounded seed0 exact-2,007,040 ablation for BigFish, BossFight,
+CaveFlyer and CoinRun on CSF3. The exact scientific parent is Task63/Task06
+strict deterministic full-shared Joint-2B. Preserve no warmup, actor rows and
+RHS, deterministic critic Jacobian and residual RHS, complete natural cross
+blocks, strict 1024-row solve, objective coefficient 1.0, damping .5, Paper
+history correction, SGD momentum, global clip and per-minibatch adaptive KL/LR.
 
-Preserve the original installed single-RHS direction and every scientific
-control. Add only post-inverse actor/critic RHS solves using the already
-factorized full coupled system, direction/role decomposition telemetry and
-terminal Early/Middle/Late aggregation. The sole Bede production gate
-`1078180` passed. Four fresh one-V100 jobs `1078181`--`1078184` were then
-submitted together exactly once and are running. Never reward-stop,
-retry/requeue/resubmit, touch Task62 or commit model bytes.
+The sole scientific change is
+`joint_critic_curvature_coef: 0.1 -> 4.0`. Task63-compatible post-inverse
+direction telemetry remains read-only and must not alter the installed original
+single-RHS update. Run exactly one production gate; on PASS submit all four
+fresh one-H200 jobs together exactly once. Never reward-stop, retry, requeue,
+resubmit, touch Task63, or copy/commit model/checkpoint bytes or hashes.

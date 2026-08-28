@@ -1822,3 +1822,13 @@ shares are `.4289/.4814/.4628/.4539`, while raw full actor norm shares are
 `.5713/.6630/.6526/.5939`. This separates non-actor-dominant metric rows from
 generally actor-dominant raw full/shared gradients. Final status
 `TERMINAL_TELEMETRY_COMPLETE`; Task63 remains live and untouched.
+
+# 2026-08-28 Task64 implementation freeze
+
+Task64 is the user-authorized clean fixed critic-curvature ablation from
+Task63/Task06. The only scientific delta is critic curvature `.1 -> 4.0` while
+critic objective remains `1.0`; strict 2B, cross blocks, no warmup, adaptive
+KL/LR, history and installed update remain frozen. Local minimal checks pass.
+CSF3 Task64 roots/duplicates are absent; current gpuH safe capacity is one of
+four account slots because three unrelated jobs are running. Status
+`IMPLEMENTATION_FROZEN_PRECHECK_PENDING`; Task63 remains untouched.

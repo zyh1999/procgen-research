@@ -577,3 +577,12 @@ actor norm medians remain below.5 in all environments, whereas raw full and
 shared gradient actor medians are generally above.5 and signed projections are
 more actor-heavy, especially Boss/Cave. Reconstruction, structural zeros,
 finite scans and hard-error scans pass. No model bytes or unrelated mutation.
+
+# 2026-08-28 Task64 implementation freeze
+
+Frozen `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_CURVATURE4_DIRECTION_TELEMETRY_ONLY_V1`
+from Task63 with exactly one scientific change: critic curvature `.1 -> 4.0`.
+Objective coefficient stays `1.0`; no dualtrust, LR, entropy, row, cross,
+history, solver or clip change. Local compile/config/wrapper checks pass and
+CSF3 campaign/duplicate checks are clean. One production gate is pending; no
+Task63 or unrelated mutation and no model bytes/hashes.

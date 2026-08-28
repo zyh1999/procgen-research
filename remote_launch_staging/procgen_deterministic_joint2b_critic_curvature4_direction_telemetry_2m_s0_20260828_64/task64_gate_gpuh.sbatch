@@ -1,0 +1,47 @@
+#!/bin/bash --login
+#SBATCH --job-name=pg64-curv4-gate
+#SBATCH --partition=gpuH
+#SBATCH --account=gpu-h200-fse-pgdr
+#SBATCH --qos=gpu-h200-fse
+#SBATCH --gres=gpu:h200:1
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=64G
+#SBATCH --time=02:00:00
+#SBATCH --no-requeue
+#SBATCH --output=/scratch/h99859yz/procgen_deterministic_joint2b_critic_curvature4_direction_telemetry_2m_s0_20260828_64/scheduler/%x_%j.out
+#SBATCH --error=/scratch/h99859yz/procgen_deterministic_joint2b_critic_curvature4_direction_telemetry_2m_s0_20260828_64/scheduler/%x_%j.err
+
+set -uo pipefail
+CAMPAIGN=/scratch/h99859yz/procgen_deterministic_joint2b_critic_curvature4_direction_telemetry_2m_s0_20260828_64
+CODE="$CAMPAIGN/bundle/code"
+PY=/mnt/iusers01/fatpou01/compsci01/h99859yz/.RLvenv/bin/python
+TRAINER="$CODE/train_shared_paper_matched_deterministic_ggn_critic_curvature4_direction_telemetry_only_v1.py"
+CONFIG="$CODE/configs/adv_resnet_shared_paper_matched_deterministic_ggn_critic_curvature4_direction_telemetry_gate.yaml"
+ROOT="$CAMPAIGN/gate/production"
+[ ! -e "$ROOT" ] || exit 90
+mkdir -p "$ROOT/runtime"
+ln -s "$CODE/configs" "$ROOT/runtime/configs"
+echo PRECHECK_RUNNING > "$ROOT/status"
+printf '%s\n' "$SLURM_JOB_ID" > "$ROOT/job_id"
+hostname -f > "$ROOT/hostname"
+nvidia-smi -L > "$ROOT/gpu.txt" 2>&1
+sha256sum "$TRAINER" "$CONFIG" "$CAMPAIGN/frozen/task64_gate_gpuh.sbatch" "$CAMPAIGN/frozen/aggregate_task64.py" "$CAMPAIGN/frozen/task64_readonly_monitor.py" > "$ROOT/frozen.sha256"
+export PYTHONPATH="$CODE${PYTHONPATH:+:$PYTHONPATH}"
+export OMP_NUM_THREADS=8 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NVIDIA_TF32_OVERRIDE=0 PYTHONHASHSEED=0 TASK64_GATE_MODE=1
+(cd "$ROOT/runtime"; "$PY" -u "$TRAINER" --config "$(basename "$CONFIG")" --env_name bigfish-easy-0-10 --seed 0 --device 0) > "$ROOT/stdout.log" 2> "$ROOT/stderr.log"
+rc=$?
+printf '%s\n' "$rc" > "$ROOT/rc"
+LOGDIR=$(find "$ROOT/runtime/logs" -mindepth 2 -maxdepth 2 -type d -name 'bigfish-easy-0-10.*_0' -print 2>/dev/null | sort | tail -1)
+if [ -n "$LOGDIR" ] && [ -d "$LOGDIR" ]; then
+  printf '%s\n' "$LOGDIR" > "$ROOT/source_log_dir"
+  cp "$LOGDIR/metric_trace.jsonl" "$ROOT/metric_trace.jsonl" 2>/dev/null || true
+fi
+if [ "$rc" -eq 0 ] && "$PY" "$CAMPAIGN/frozen/aggregate_task64.py" "$ROOT/metric_trace.jsonl" --gate > "$ROOT/gate_validation.json"; then
+  echo PRECHECK_PASS > "$ROOT/status"
+  touch "$ROOT/precheck_pass.marker"
+  exit 0
+fi
+echo PRECHECK_FAIL > "$ROOT/status"
+exit 1
