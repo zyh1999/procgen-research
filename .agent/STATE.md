@@ -1935,3 +1935,11 @@ are `.11703/.08061`, while post-inverse full actor projection shares are
 make the solved direction critic-dominant. Coin19531932 remains RUNNING on
 node821 at transition696,320 and is untouched. Status
 `SCIENCE_RUNNING_PARTIAL_TERMINAL`.
+# 2026-08-29 Task66 implementation freeze
+
+Task66 is frozen from terminal Task65 with exactly one scientific delta:
+`joint_critic_objective_coef 40 -> 10`; curvature remains `.1`, so critic RHS
+weight is `31.622776601683793`. No-warmup strict1024 full-cross Joint-2B,
+history/adaptive KL-LR/clip and post-inverse telemetry remain unchanged. Local
+compile/config/wrapper/diff checks pass. Status
+`IMPLEMENTATION_FROZEN_PRECHECK_PENDING`; Task62--65 remain untouched.

@@ -683,3 +683,11 @@ Task64 training roots are terminal; BF/Boss/Cave valid aggregates show
 critic-heavy metrics but actor-heavy coupled directions, so curvature4 did not
 provide the intended general critic-direction or reward rescue. Model bytes
 remain remote.
+# 2026-08-29 Task66 implementation freeze
+
+Task66 derives only the requested RHS10 intervention from terminal Task65:
+curvature `.1`, objective `10`, actual critic RHS multiplier
+`31.622776601683793`. The complete strict deterministic Joint-2B and telemetry
+identity are preserved. Minimal local checks pass; one Bede production gate is
+next, followed only on PASS by the exactly-once four-cell launch. No terminal
+history, scheduler state, or model content was touched.

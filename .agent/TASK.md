@@ -1,23 +1,22 @@
-# Task-ID: PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS40-DIRECTION-TELEMETRY-2M-S0-20260828-65
+# Task-ID: PROCGEN-DETERMINISTIC-JOINT2B-CRITIC-RHS10-DIRECTION-TELEMETRY-2M-S0-20260829-66
 
-Status: SCIENCE_RUNNING
+Status: IMPLEMENTATION_FROZEN_PRECHECK_PENDING
 
-Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS40_DIRECTION_TELEMETRY_ONLY_V1`
+Method: `PAPER_MATCHED_DETERMINISTIC_GGN_CRITIC_RHS10_DIRECTION_TELEMETRY_ONLY_V1`
 
 Run one bounded seed0 exact-2,007,040 ablation for BigFish, BossFight,
-CaveFlyer and CoinRun on CSF3. The exact parent is frozen Task63/Task06 strict
-deterministic full-shared Joint-2B with Task63 read-only post-inverse direction
-telemetry.
+CaveFlyer and CoinRun on Bede. The exact parent is frozen terminal Task65.
 
 Preserve `joint_critic_curvature_coef=0.1`, so
 `H_C=sqrt(0.1) J_C` remains unchanged. The sole scientific change is
-`joint_critic_objective_coef: 1.0 -> 40.0`, making the actual critic RHS
-multiplier `40/sqrt(0.1)=126.49110640673517`, exactly forty times the parent
-`1/sqrt(0.1)=3.1622776601683795`. Preserve no warmup, adaptive KL/LR, history,
-natural cross blocks, strict 1024 rows, damping, clip, actor, seed0,
-evaluation/reward, and exact horizon.
+`joint_critic_objective_coef: 40.0 -> 10.0`, making the actual critic RHS
+multiplier `10/sqrt(0.1)=31.622776601683793`. Preserve no warmup, adaptive
+KL/LR, history, natural cross blocks, strict 1024 rows, damping, clip, actor,
+seed0, evaluation/reward, exact horizon, post-inverse telemetry and aggregator
+semantics.
 
-Run exactly one real production gate and, only on PASS, submit four fresh
-normal one-H200 jobs together exactly once. Do not cancel or modify Task64 Coin
-or any unrelated job. No retry/requeue/resubmit, reward early stop, second
-candidate, or model/checkpoint content/hash in Git.
+Run exactly one real Bede production gate and, only on PASS, submit four fresh
+one-V100 jobs together exactly once. No retry/requeue/resubmit, dependency,
+hold, throttle, reward early stop, online tuning, or Task62--65 mutation. Git
+contains model-free evidence only and never model/checkpoint bytes or content
+hashes.
