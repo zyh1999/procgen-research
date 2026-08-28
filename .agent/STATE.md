@@ -1842,3 +1842,15 @@ maxabs0. Four science jobs were submitted together exactly once: BF19531929 is
 RUNNING on node823/H200 with healthy transition16384 telemetry; Boss19531930,
 Cave19531931 and Coin19531932 are naturally PENDING AssocGrpGRES with absent
 roots. Status `SCIENCE_RUNNING_WITH_QUEUED_CELLS`; Task63 remains untouched.
+
+# 2026-08-28 Task63 partial terminal archive
+
+BigFish1078181 and CoinRun1078184 naturally completed `0:0` with PASS/rc0
+roots at exact2,007,040. Rewards are5.08 and10.00. BigFish passes the frozen
+15,680-record Early/Middle/Late aggregate; overall full/shared actor
+norm-projection medians are `.44048/.37842` and `.44970/.39641`. CoinRun's
+training/solver is finite and clean, but the frozen aggregator stops at record
+3808 because a `5.153e-17` policy-total direction makes its policy projection
+sum `.002648`; this is an immutable telemetry-validator failure under actor
+saturation, not a training or solver failure. Boss/Cave remain RUNNING;
+Task64 is untouched. Status `SCIENCE_RUNNING_PARTIAL_TERMINAL`.

@@ -83,3 +83,35 @@ Task62 jobs `1078176`--`1078179` remained RUNNING and untouched throughout.
 Current bounded conclusion: `SCIENCE_RUNNING`. Terminal aggregation and
 read-only Paper/Task62 reward sanity comparison remain pending exact
 `2,007,040` endpoints; Task63 never reward-early-stops.
+
+## Partial terminal archive: BigFish and CoinRun
+
+The bounded read-only refresh reconciled two natural scheduler-authoritative
+terminals. BigFish `1078181` is `COMPLETED/0:0` after `02:44:51` on `gpu025`;
+CoinRun `1078184` is `COMPLETED/0:0` after `02:45:51` on `gpu007`. Both roots
+are `PASS/rc0`, contain exact transition `2,007,040`, 49 progress rows and
+15,680 complete records. Endpoint rewards are BigFish `5.08` versus immutable
+Paper `9.28`, and CoinRun `10.00` versus Paper `3.70`. This telemetry campaign
+never reward-stops.
+
+BigFish passed the frozen complete Early/Middle/Late/overall aggregation.
+Overall post-inverse full actor norm/projection medians are `.44048/.37842`;
+shared medians are `.44970/.39641`. The result is critic-dominant after the
+inverse despite actor-heavy raw metric rows.
+
+CoinRun training and solver evidence are clean, but the frozen aggregator
+stopped at immutable record 3808 with `policy projection drift`. At that
+record the policy total norm is only `5.153e-17`, actor raw scale is
+`7.786e-32`, entropy is `3.681e-18`, and the policy signed-projection sum is
+`.002648`; full/shared/value sums remain 1, Cholesky is 0, residual is
+`8.811e-14`, reconstruction and structural-zero checks pass. This is a
+telemetry-aggregation validator failure caused by an actor-saturated near-zero
+policy subspace, not a training/solver/GPU/infrastructure failure. It was not
+repaired or rerun.
+
+Each terminal source log has one regular non-symlink checkpoint of 3,766,013
+bytes, mode 664. Only stat metadata is archived. Complete model-free hashes
+and failure evidence are in
+`evidence/partial_terminal_bigfish_coinrun_20260828.md`. BossFight `1078182`
+and CaveFlyer `1078183` remain RUNNING and untouched. Task63 therefore remains
+`SCIENCE_RUNNING_PARTIAL_TERMINAL`.

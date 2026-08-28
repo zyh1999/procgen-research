@@ -596,3 +596,13 @@ and installed identity. BF/Boss/Cave/Coin jobs19531929--19531932 were submitted
 together once. BF is RUNNING node823 with healthy trace; the other three are
 PENDING AssocGrpGRES and have no roots. No retry, mutation, early stop or model
 content entered Git.
+
+# 2026-08-28 Task63 partial terminal delivery
+
+Scheduler-authoritative BigFish1078181 and CoinRun1078184 completed naturally
+with exact2,007,040 PASS/rc0 roots. BigFish frozen aggregation passes all
+15,680 records; CoinRun exposes one immutable near-zero-policy telemetry
+validator failure at record3808 while its training, Cholesky, residual,
+reconstruction, finite and hard-error evidence remains clean. Model files
+remain remote and only stat metadata is recorded. Boss1078182 and Cave1078183
+continue RUNNING; Task64 and unrelated work were not mutated.
