@@ -1,7 +1,7 @@
 # Validation — updated 2026-09-27
 
 Validated with PyTorch 2.4.1 and NumPy 1.26.4 on macOS ARM64 CPU.
-All15 public unit tests pass. All four explicit training entries import with
+All21 public unit tests pass. All six explicit training entries import with
 `--help`; each corresponding shell script passes `bash -n`.
 
 - Full-RHS parameter directions agree with an independently formed dense
@@ -50,6 +50,27 @@ do not establish full8192 ResNet training memory or speed on every GPU.
 No cluster jobs, frozen training sources, checkpoints or existing campaigns
 were changed while packaging. The old combined train.py entry was removed;
 the previous2026-09-26 export zip remains available outside this package.
+
+## Fixed-LR PPO additions
+
+- B512 and B8192 shared PPO streamed gradients, combined norm clip and one
+  Adam step match independent dense mean/B reference losses in FP64
+  (parameter atol1e-12, rtol1e-11; preclip norm and losses agree to11places).
+- One logical minibatch increments every Adam state by exactly one step,
+  independent of physical chunk size; regression fixture uses chunk37.
+- Low/high finite behavior KL never changes LR3e-4. A changed LR is rejected.
+- Nonfinite gradients fail before the optimizer step and preserve parameters.
+- Plain PPO linear value head returns raw values; default RAT PopArt remains
+  enabled, with existing shape/algebra/PopArt invariance tests unchanged.
+- Both fixed PPO profiles have exact endpoints,32updates/rollout,entropy0,
+  no PopArt or adaptive-LR/sampling/ray options.
+- A two-rollout synthetic runner fixture checks driver status,64trace events,
+  constant logged LR, endpoints and checkpoint creation without reading it.
+  This fixture does not instantiate Procgen or start an RL benchmark.
+
+The PPO port uses Task266/278 shared PPO loss/optimizer conventions. It is
+not a completed end-to-end reproduction, and does not include the separate
+no-shared Task284 training implementation. No benchmark results are added.
 
 This checks algebra and extraction fidelity, not learning curves or
 cross-hardware bitwise reproduction. No new short RL run or full benchmark

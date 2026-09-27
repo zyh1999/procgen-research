@@ -1,15 +1,17 @@
 # Shared Procgen: normal batch and B8192
 
-Four explicit training entry points for a shared ResNet actor–critic:
+Six explicit training entry points for a shared ResNet actor–critic:
 **Dual127+1** and **128 real anchor sample coefficients**, each at normal
-minibatch512 or large minibatch8192. Each has a matching shell script.
+minibatch512 or large minibatch8192, plus **fixed-LR PPO** at both sizes.
+Each has a matching shell script.
 
 **Default128 configuration: residual-ray scaling ON**, for both normalB512
 and largeB8192. No extra flag is needed. The127+1 profiles do not apply this
 additional scaling. Use `--residual-ray off` only for an explicitly labeled
 128 ablation; it is never selected automatically.
 
-这里是 **shared** 代码，actor/critic 共享 ResNet[8,16]、hidden256、PopArt。
+这里是 **shared** 代码，actor/critic 共享 ResNet[8,16]、hidden256。
+RAT四个入口使用PopArt；新增PPO两个入口不使用PopArt，学习率固定3e-4。
 大batch参考正常版的同一组方程，只有8192档，采用chunk128流式计算；
 不包含no-shared训练入口，不包含4096或16384大batch入口。
 
@@ -21,13 +23,36 @@ additional scaling. Use `--residual-ray off` only for an explicitly labeled
 | train_normal_128.py | run_normal_128.sh | 512 | 4096 | 6,004,736 |
 | train_large8192_127p1.py | run_large8192_127p1.sh | 8192 | 65,536 | 15,007,744 |
 | train_large8192_128.py | run_large8192_128.sh | 8192 | 65,536 | 15,007,744 |
+| train_normal_ppo.py | run_normal_ppo.sh | 512 | 4096 | 6,004,736 |
+| train_large8192_ppo.py | run_large8192_ppo.sh | 8192 | 65,536 | 15,007,744 |
 
-**All four profiles use system/B, actor reconstruction/B and critic
+**All four RAT profiles use system/B, actor reconstruction/B and critic
 reconstruction/B.** q=128 is the reduced budget, not the denominator.
 127+1 means127 real anchors plus one exact tail aggregate. Coefficient128
 uses128 real anchors with fixed tail coefficients and sample residual-ray
 scaling. The critic has no policy ratio, but is a coefficient-weighted MSE
 branch in the SAME shared model, not an independent Adam critic.
+
+### Fixed-LR PPO baseline
+
+The PPO entries use one shared trunk with ordinary categorical actor and
+linear value heads. Adam LR **3e-4 stays constant**, eps1e-5; no annealing,
+KL adaptation, KL early-stop, PopArt, curvature solve or residual ray.
+KL is logged after each update but never changes LR or the update count.
+Policy loss is the clipped PPO surrogate (ratio clip0.2); value loss is
+**0.5 × mean squared error**, without policy ratio or value clipping.
+Entropy coefficient0. Advantages are centered and normalized by sample std
+over the complete logical minibatch. Both losses divide by actual B.
+Chunk128 accumulates gradients before **one combined global clip0.5 and
+one Adam step**, four epochs × eight minibatches =32 steps/rollout.
+
+PPO loss/optimizer settings are ported from the Task266 shared PPO baseline
+and its Task278 smaller-batch implementation. Normal B512 is the same PPO
+recipe at the normal profile size. These packaging tests do not establish
+new reward results or bitwise reproduction of a historical experiment.
+PPO versus RAT deliberately retains method-specific optimizer, PopArt and
+value-loss settings; it is not a pure curvature-solver ablation. No no-shared
+PPO entry is included here (Task284 is a separate no-shared campaign).
 
 ### Source identity and evidence limits
 
@@ -44,7 +69,7 @@ branch in the SAME shared model, not an independent Adam critic.
 
 The old mixed `train.py --method fullrhs128` entry has been removed to avoid
 ambiguous128 identities. The historical parameter-direction solver remains
-internal for reference tests; the four files above are the supported entries.
+internal for reference tests; the six files above are the supported entries.
 
 Residual scaling is **not established as necessary for good reward**.
 The existing normal-batch coefficient128 no-ray cohort also learns well.
@@ -72,23 +97,25 @@ CUDA_VISIBLE_DEVICES=0 bash scripts/run_normal_127p1.sh --env bigfish --seed 0 -
 CUDA_VISIBLE_DEVICES=0 bash scripts/run_normal_128.sh --env bigfish --seed 0 --out runs/normal_128_bigfish_s0
 CUDA_VISIBLE_DEVICES=0 bash scripts/run_large8192_127p1.sh --env bigfish --seed 0 --out runs/large8192_127p1_bigfish_s0
 CUDA_VISIBLE_DEVICES=0 bash scripts/run_large8192_128.sh --env bigfish --seed 0 --out runs/large8192_128_bigfish_s0
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_normal_ppo.sh --env bigfish --seed 0 --out runs/normal_ppo_bigfish_s0
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_large8192_ppo.sh --env bigfish --seed 0 --out runs/large8192_ppo_bigfish_s0
 
 # Direct invocation; shell scripts also honor PYTHON=/path/to/python.
 python train_normal_128.py --env miner --seed 2 --out runs/normal_128_miner_s2
 python -m unittest discover -s tests -v
 ```
 
-Do not run all four examples concurrently on one card without a capacity
+Do not run all six examples concurrently on one card without a capacity
 check. Large rollouts live in HOST RAM, not VRAM. Allow at least32GiB free
 host/cgroup headroom per process and measure actual peak memory. CPU is
 available with `--device cpu`, but is not recommended for full training.
 
-Uniform/noHT is the default. Normal entries retain optional
+Uniform/noHT is the RAT default. Normal RAT entries retain optional
 `--sampling leverage`: true2000 parameter coordinates, PCA, pivotal PPS.
 This is a distinct sampling variant, not the uniform Task280 cohort.
-B8192 supports uniform only.
+RAT B8192 supports uniform only. PPO has no anchor sampling option.
 
-## Fixed settings
+## Fixed RAT settings
 
 16 environments, easy, start_level0, num_levels10; four epochs times eight
 minibatches =32 updates/rollout; GAE gamma.999/lambda.95; PopArt and
@@ -164,16 +191,20 @@ FP32 accumulation order differs, so bitwise equivalence is not promised.
 ## Output and code map
 
 A new run creates config.json, status, progress.csv, metric_trace.jsonl.gz
-and atomically replaced checkpoint.pt. Checkpoints contain model, PopArt,
-optimizer and rollout, NOT environment/RNG state; no auto resume or retry.
+and atomically replaced checkpoint.pt. Checkpoints contain model, optimizer
+and rollout (including PopArt for RAT only), NOT environment/RNG state;
+no auto resume or retry.
 CSV reward is the latest100 completed-episode mean (NaN before any episode);
 other CSV update metrics are the last minibatch, not rollout averages.
-Normal entropy is preupdate; large entropy is postupdate, labeled in trace.
+RAT normal entropy is preupdate; RAT large and both PPO entropy values are
+postupdate, labeled in trace.
 
 - shared_procgen/update.py: normal real losses and controller.
 - coefficient128.py and subcurvature.py: sample systems.
 - large_update.py, streamed_dual.py and streamed_coefficient128.py: streaming.
 - training.py: common full-run driver and four fixed profiles.
+- ppo.py: fixed-LR PPO mean/B update, single shared clip/Adam step.
+- ppo_training.py: two PPO profiles, ordinary returns and constant LR.
 
 See [VALIDATION.md](VALIDATION.md) and [PROVENANCE.json](PROVENANCE.json).
 No new experiment is launched by packaging/tests. MIT license and upstream

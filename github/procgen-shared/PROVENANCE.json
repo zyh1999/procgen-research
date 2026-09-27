@@ -1,5 +1,5 @@
 {
-  "source_identity": "Shared normal and B8192: Dual127+1 or aligned coefficient128, system/B and loss/B; ray default on; explicit no-ray option",
+  "source_identity": "Shared normal and B8192: Dual127+1 or aligned coefficient128, system/B and loss/B; ray default on; plus fixed-LR shared PPO without PopArt",
   "files": [
     {
       "source": "remote_launch_staging/procgen_shared_rat_subcurv_exactfusion_bnorm_q128_q256_leverage_dual_8env_s0to4_6m_20260922_253/bundle/code/utils/exact_layerwise_gram.py",
@@ -88,6 +88,16 @@
     "shared_procgen/streamed_coefficient128.py": "New chunked implementation of Task280 sample coefficient equations, dense/full-factor/chunk/real-loss checked; not a completed RL cohort",
     "shared_procgen/large_update.py": "Shared-only B/B streamed reconstruction and same normal KL controller",
     "shared_procgen/training.py": "Four fixed profiles; B8192 buffers observations on CPU; simplified adapter/loop not an end-to-end benchmark reproduction claim",
-    "shared_procgen/rollout.py": "Added optional CPU observation storage; normal default unchanged"
+    "shared_procgen/rollout.py": "Added optional CPU observation storage; normal default unchanged",
+    "shared_procgen/model.py": "Optional with_popart=False linear value head for PPO; default RAT PopArt construction unchanged; model_step unnormalizes only PopArt models",
+    "shared_procgen/ppo.py": "Shared clipped PPO loss and constant Adam from Task266/278; mean/B chunk128 accumulation; no PopArt, entropy or KL controller",
+    "shared_procgen/ppo_training.py": "Separate normal512 and large8192 fixed-LR drivers using existing adapter/runner; no end-to-end reward reproduction claim"
+  },
+  "ppo_reference": {
+    "source": "remote_launch_staging/procgen_task278_shared_qconsistent_mb8192_4096_s012_15m_20260925/code/train_large.py",
+    "branch": "shared_ppo",
+    "parent": "Task266 shared PPO",
+    "settings": "Adam lr0.0003 eps0.00001; ratio clip0.2; value coefficient0.5; entropy0; no PopArt; combined norm clip0.5; four epochs; constant LR",
+    "scope": "PPO-only port and synthetic tests, not an exact extraction or historical benchmark result"
   }
 }
