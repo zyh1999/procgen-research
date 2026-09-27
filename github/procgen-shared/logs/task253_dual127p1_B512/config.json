@@ -1,0 +1,41 @@
+{
+  "shared": true,
+  "network": "ResNet[8,16],hidden256",
+  "num_envs": 16,
+  "levels": 10,
+  "start_level": 0,
+  "mode": "easy",
+  "epochs": 4,
+  "updates_per_rollout": 32,
+  "entropy_coef": 0,
+  "global_clip": 0.5,
+  "popart": true,
+  "damping": 0.5,
+  "momentum": 0,
+  "history": false,
+  "critic_ratio": false,
+  "initial_lr": 0.5,
+  "lr_range": [
+    0.0001,
+    0.5
+  ],
+  "kl_band": [
+    0.005,
+    0.04
+  ],
+  "lr_factor": 1.5,
+  "controller": "per_minibatch_postupdate_behavior_kl",
+  "optimizer": "SGD",
+  "task": 253,
+  "minibatch": 512,
+  "rollout": 4096,
+  "endpoint": 6004736,
+  "curvature_rows": 128,
+  "real_anchors": 127,
+  "exact_tail_aggregates": 1,
+  "system_divisor": 512,
+  "actor_reconstruction_divisor": 512,
+  "critic_reconstruction_divisor": 512,
+  "method": "Uniform shared Dual127+1",
+  "code_entry": "train_normal_127p1.py"
+}

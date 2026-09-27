@@ -1,0 +1,42 @@
+{
+  "shared": true,
+  "network": "ResNet[8,16],hidden256",
+  "num_envs": 16,
+  "levels": 10,
+  "start_level": 0,
+  "mode": "easy",
+  "epochs": 4,
+  "updates_per_rollout": 32,
+  "entropy_coef": 0,
+  "global_clip": 0.5,
+  "popart": true,
+  "damping": 0.5,
+  "momentum": 0,
+  "history": false,
+  "critic_ratio": false,
+  "initial_lr": 0.5,
+  "lr_range": [
+    0.0001,
+    0.5
+  ],
+  "kl_band": [
+    0.005,
+    0.04
+  ],
+  "lr_factor": 1.5,
+  "controller": "per_minibatch_postupdate_behavior_kl",
+  "optimizer": "SGD",
+  "task": 281,
+  "minibatch": 4096,
+  "rollout": 32768,
+  "endpoint": 15007744,
+  "curvature_rows": 128,
+  "real_anchors": 127,
+  "exact_tail_aggregates": 1,
+  "system_divisor": 4096,
+  "actor_reconstruction_divisor": 4096,
+  "critic_reconstruction_divisor": 4096,
+  "method": "Uniform shared Dual127+1 B/B, normal-aligned controller",
+  "code_entry": null,
+  "historical_train_sha256": "4145284d3e081b09f113ef924cf4cd48e49de088a1f658f0312255eee9c00d25"
+}

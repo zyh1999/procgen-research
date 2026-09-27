@@ -5,6 +5,12 @@ Six explicit training entry points for a shared ResNet actor–critic:
 minibatch512 or large minibatch8192, plus **fixed-LR PPO** at both sizes.
 Each has a matching shell script.
 
+**Historical training logs:** [curated shared PPO / Full RAT / 127+1 / 128 logs](logs/README.md)
+include 124 completed runs, per-seed scalar trajectories, configurations,
+coverage/provenance notes and a verification script. These are historical
+cohorts, not new runs of the cleaned entry points; see the explicit method
+and batch correspondence before comparing rewards.
+
 **Default128 configuration: residual-ray scaling ON**, for both normalB512
 and largeB8192. No extra flag is needed. The127+1 profiles do not apply this
 additional scaling. Use `--residual-ray off` only for an explicitly labeled
