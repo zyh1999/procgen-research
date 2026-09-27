@@ -1,0 +1,93 @@
+{
+  "source_identity": "Shared normal and B8192: Dual127+1 or aligned coefficient128, system/B and loss/B; ray default on; explicit no-ray option",
+  "files": [
+    {
+      "source": "remote_launch_staging/procgen_shared_rat_subcurv_exactfusion_bnorm_q128_q256_leverage_dual_8env_s0to4_6m_20260922_253/bundle/code/utils/exact_layerwise_gram.py",
+      "sha256": "65bfe44044889f28def9bd9cbabd8f39d51ba4ed9e6c363ef5f8ecede303ffa5",
+      "export": "shared_procgen/algebra.py",
+      "unchanged_definitions": [
+        "LayerwiseIO",
+        "_flatten_batch",
+        "_is_supported_parameter_layer",
+        "exact_selected_kernel_projections_fp32",
+        "exact_selected_kernel_tail_statistics_vectorized_fp32",
+        "exact_weighted_directions_vectorized_fp32",
+        "named_add_fp32",
+        "named_dot_fp64",
+        "named_scale_fp32"
+      ]
+    },
+    {
+      "source": "remote_launch_staging/procgen_shared_rat_subcurv_exactfusion_bnorm_q128_q256_leverage_dual_8env_s0to4_6m_20260922_253/bundle/code/utils/layerwise_subcurvature.py",
+      "sha256": "1b0ffea6a9e13d4e9859f99328f15438ae46ce400ec6c542eed11cffa7960647",
+      "export": "shared_procgen/subcurvature.py",
+      "unchanged_definitions": [
+        "_parameter_layout",
+        "_solve_spd",
+        "approximate_rank_leverage_distribution",
+        "assign_named_gradients",
+        "fixed_size_inclusion_probabilities",
+        "named_from_gradients",
+        "parameter_columns_fp32",
+        "pivotal_sample",
+        "select_anchors",
+        "select_factor_rows",
+        "solve_dual_coefficients_exactfusion",
+        "solve_fullrhs_named_directions_exactfusion"
+      ]
+    },
+    {
+      "source": "remote_launch_staging/procgen_shared_rat_subcurv_exactfusion_bnorm_q128_q256_leverage_dual_8env_s0to4_6m_20260922_253/bundle/code/utils/resnet.py",
+      "sha256": "1add6ddaed433ab62bd28aea3f59f72b66b6854c40c412d61a27fb1d77dcf805",
+      "export": "shared_procgen/resnet.py",
+      "unchanged_definitions": [
+        "ResBlock",
+        "ResNetImpala"
+      ]
+    },
+    {
+      "source": "remote_launch_staging/procgen_shared_rat_subcurv_exactfusion_bnorm_q128_q256_leverage_dual_8env_s0to4_6m_20260922_253/bundle/code/utils/popart.py",
+      "sha256": "e9fb6a2dd920b4baaf035863a060001a57add82a20e27b3c7037db25018d91d3",
+      "export": "shared_procgen/popart.py",
+      "unchanged_definitions": [
+        "PopArt"
+      ]
+    },
+    {
+      "source": "remote_launch_staging/procgen_shared_rat_subcurv_exactfusion_bnorm_q128_q256_leverage_dual_8env_s0to4_6m_20260922_253/bundle/code/utils/runners.py",
+      "sha256": "2a17f6c6808540522cd39cc03360c080f35022d98a3d25549380e62507283df2",
+      "export": "shared_procgen/rollout.py",
+      "unchanged_definitions": [
+        "AbstractEnvRunner",
+        "Runner",
+        "sf01"
+      ]
+    },
+    {
+      "source": "remote_launch_staging/procgen_task280_shared_coeff128_aligned_ray_8env_s012_6m_20260926/bundle/code/utils/coefficient128.py",
+      "sha256": "49477bd31ad4b734c5fa61118c496273ea6dd0c76be767078df581b92ce7c533",
+      "export": "shared_procgen/coefficient128.py",
+      "adaptation": "Frozen function bodies unchanged; package imports only"
+    },
+    {
+      "source": "remote_launch_staging/procgen_task281_shared_dual127p1_bnorm_normalaligned_mb8192_4096_first4_s012_15m_20260926/code/streamed_dual.py",
+      "sha256": "5a921dc008c29eab6878d93e3dad93f7aeac88325708dcb760c8240010f35609",
+      "export": "shared_procgen/streamed_dual.py",
+      "adaptation": "Frozen function bodies unchanged; package imports only"
+    },
+    {
+      "source": "remote_launch_staging/procgen_task280_shared_coeff128_aligned_ray_8env_s012_6m_20260926/bundle/code/utils/exact_layerwise_gram.py",
+      "sha256": "65bfe44044889f28def9bd9cbabd8f39d51ba4ed9e6c363ef5f8ecede303ffa5",
+      "export": "shared_procgen/algebra.py",
+      "adaptation": "Appended dependency-closed exact_kernel_fp32 and exact_projection_mixed unchanged"
+    }
+  ],
+  "release_update": "2026-09-27",
+  "adaptations": {
+    "shared_procgen/update.py": "Added Task280 coefficient solve selection and explicit ray on/off; original Dual and historical FullRHS branches retained for numerical reference",
+    "shared_procgen/streamed_coefficient128.py": "New chunked implementation of Task280 sample coefficient equations, dense/full-factor/chunk/real-loss checked; not a completed RL cohort",
+    "shared_procgen/large_update.py": "Shared-only B/B streamed reconstruction and same normal KL controller",
+    "shared_procgen/training.py": "Four fixed profiles; B8192 buffers observations on CPU; simplified adapter/loop not an end-to-end benchmark reproduction claim",
+    "shared_procgen/rollout.py": "Added optional CPU observation storage; normal default unchanged"
+  }
+}

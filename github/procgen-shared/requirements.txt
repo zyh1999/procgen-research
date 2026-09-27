@@ -1,0 +1,5 @@
+# Linux training runtime; install the appropriate PyTorch CUDA build first.
+torch==2.4.1
+numpy==1.26.4
+procgen==0.10.7
+gym==0.23.1
