@@ -21,6 +21,75 @@ RAT四个入口使用PopArt；新增PPO两个入口不使用PopArt，学习率�
 大batch参考正常版的同一组方程，只有8192档，采用chunk128流式计算；
 不包含no-shared训练入口，不包含4096或16384大batch入口。
 
+## 实验任务总览 / Environment and experiment inventory
+
+本系列使用的 **8个Procgen环境任务**如下；不是每种方法、每种batch都已完成8环境：
+
+| 环境任务 | 环境ID | 本次公开的正常B512记录 | 本次公开的B8192记录 |
+|---|---|---|---|
+| BigFish | `bigfish` | Full RAT、128 coefficient-ray | PPO、127+1 |
+| BossFight | `bossfight` | Full RAT、128 coefficient-ray | PPO、127+1 |
+| StarPilot | `starpilot` | Full RAT、127+1、128 coefficient-ray | PPO、127+1 |
+| CaveFlyer | `caveflyer` | Full RAT、127+1、128 coefficient-ray | PPO、127+1 |
+| CoinRun | `coinrun` | Full RAT、127+1、128 coefficient-ray | 本日志包无完整对应组 |
+| Maze | `maze` | Full RAT、127+1、128 coefficient-ray | 本日志包无完整对应组 |
+| Jumper | `jumper` | Full RAT、128 coefficient-ray | 本日志包无完整对应组 |
+| Miner | `miner` | Full RAT、128 coefficient-ray | 本日志包无完整对应组 |
+
+本次整理并公开了 **5个实验编号、7个方法/batch组、124条完整run**。
+这是精选日志包的总量，**不是所有历史实验的总run数**。
+
+| 实验编号 | 实际训练内容 | Batch | 已公开完整覆盖 | Runs |
+|---|---|---:|---|---:|
+| Task229 | shared Full512 RAT，无history/Kaczmarz | 512 | 8环境×5seed | 40 |
+| Task253 | shared uniform Dual127+1，B/B | 512 | 上表中4环境×3seed；仅完整可用子集 | 12 |
+| Task278 | shared固定LR PPO，Adam3e-4 | 4096、8192 | 各4环境×3seed | 24 |
+| Task280 | shared128 sample coefficient、fixed tail、residual ray | 512 | 8环境×3seed | 24 |
+| Task281 | shared Dual127+1，B/B、normal-aligned controller | 4096、8192 | 各4环境×3seed | 24 |
+
+相关但未纳入此精选日志包的实验包括Task278的q/q EF、Task279的critic-scale
+变体、Task283的parameter-space FullRHS128 q/B，以及独立的no-shared系列。
+它们不是上表方法的别名，也不能补作此处缺失的曲线。
+详见[日志覆盖、来源与限制](logs/README.md)及[逐seed汇总](logs/per_seed_summary.csv)。
+
+## Shared训练曲线 / Training curves
+
+下图均为 **shared ResNet[8,16] hidden256**。为使seed集合一致，图中统一使用
+seed0/1/2；Task229额外的seed3/4仍完整保留在日志包中。每条seed曲线先做
+**向后10个rollout点的均值平滑**，实线为三seed均值，阴影为三seed的sample SEM。
+没有插值、外推或按得分挑seed。纵轴是训练日志`eprewmean`，不是held-out测试回报。
+不同图的batch、rollout、预算不同，不宜直接据此声称某种归一化有因果优势。
+
+### 普通batch：minibatch512，rollout4096，6M
+
+![Shared normal minibatch512 training curves](figures/shared_normal_B512.png)
+
+图中包含Full RAT（Task229）、可用的127+1（Task253）及128 coefficient-ray
+（Task280）。**普通B512 PPO尚无本日志包内的完整对应结果**，因此不画PPO线。
+127+1缺失的4个环境已在对应面板标注，不用其他任务编号的日志替代。
+[SVG矢量图](figures/shared_normal_B512.svg)
+
+### 大batch：minibatch8192，rollout65536，15M
+
+![Shared large minibatch8192 training curves](figures/shared_large_B8192.png)
+
+目前可严格对应的完整结果是固定LR PPO（Task278）与127+1 B/B（Task281），
+覆盖BigFish、BossFight、StarPilot、CaveFlyer，各3seed。
+**新8192 coefficient128-ray入口及8192 Full RAT没有本日志包内的完整训练结果**，
+所以没有这两条线；不能用Task283的parameter-space128结果冒充。
+[SVG矢量图](figures/shared_large_B8192.svg)
+
+图表由已公开日志生成，可复现：
+
+```bash
+python -m pip install matplotlib==3.9.4 numpy==1.26.4
+python logs/verify_logs.py
+python scripts/plot_published_logs.py
+```
+
+[图表逐run来源与校验值](figures/provenance.json)记录所有曲线来源。
+上述曲线是历史训练结果，不是对本仓库新整理入口的端到端复跑证明。
+
 ## Training profiles
 
 | Python entry | Shell script in scripts/ | Minibatch B | Rollout | Full endpoint |
@@ -69,7 +138,7 @@ PPO entry is included here (Task284 is a separate no-shared campaign).
 - Large8192/127+1: Task281 B/B streaming equations with the normal controller.
 - Large8192/128: a new streaming port of the normal Task280 equations.
   Numerical validation does not establish full-training reward performance.
-- Separately queued Task283 FullRHS128 system/q and final direction/B is
+- The separate Task283 FullRHS128 system/q and final direction/B experiment is
   **not this large8192/128 profile**. Task277/278 q/q and Task279 critic
   scaling are also separate experiments.
 

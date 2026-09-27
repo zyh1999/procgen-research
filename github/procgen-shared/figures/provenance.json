@@ -1,0 +1,416 @@
+{
+  "date": "2026-09-27",
+  "architecture": "shared",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "smoothing": "per-seed trailing10 rollout means; min_periods=1",
+  "band": "sample standard deviation across smoothed seeds / sqrt(3)",
+  "metric": "eprewmean: training return, not held-out evaluation",
+  "figures": {
+    "shared_normal_B512": {
+      "horizon": 6000000,
+      "coverage": {
+        "bigfish": [
+          "task229_full_rat_B512",
+          "task280_coeff128_ray_B512"
+        ],
+        "bossfight": [
+          "task229_full_rat_B512",
+          "task280_coeff128_ray_B512"
+        ],
+        "starpilot": [
+          "task229_full_rat_B512",
+          "task253_dual127p1_B512",
+          "task280_coeff128_ray_B512"
+        ],
+        "caveflyer": [
+          "task229_full_rat_B512",
+          "task253_dual127p1_B512",
+          "task280_coeff128_ray_B512"
+        ],
+        "coinrun": [
+          "task229_full_rat_B512",
+          "task253_dual127p1_B512",
+          "task280_coeff128_ray_B512"
+        ],
+        "maze": [
+          "task229_full_rat_B512",
+          "task253_dual127p1_B512",
+          "task280_coeff128_ray_B512"
+        ],
+        "jumper": [
+          "task229_full_rat_B512",
+          "task280_coeff128_ray_B512"
+        ],
+        "miner": [
+          "task229_full_rat_B512",
+          "task280_coeff128_ray_B512"
+        ]
+      },
+      "sources": [
+        {
+          "path": "task229_full_rat_B512/bigfish/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "3cb359466c8630cea9b718ca17a433d303b27626250b5fea27f0abde8bc7db87"
+        },
+        {
+          "path": "task229_full_rat_B512/bigfish/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "8812dd1fea033216273dc0b08c213af0998a6e99560d658aaf3997fd93e09714"
+        },
+        {
+          "path": "task229_full_rat_B512/bigfish/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "ee9d3f261c4f6c396e87b6628e68e672db647781789ac64c2c81affbb05e3fc2"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/bigfish/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "44755239936f03406be0d1c1a2111a86bdcc6468eb8f0b1370efbe05212a967a"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/bigfish/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "9986863a3505814502883757a8916dfa162392d531efc02f17746a66051def7f"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/bigfish/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "796dcbd560aef2910e20437249b490e0ae5af7c95beeca8f03104ef458687d08"
+        },
+        {
+          "path": "task229_full_rat_B512/bossfight/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "7f1175b8d09d9ec8c13dc3ecb4d770dd30d2faa023ca7a2e084f1118ec742e9b"
+        },
+        {
+          "path": "task229_full_rat_B512/bossfight/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "b5ef1f0d62a566f53e3fb41043df0ea75d217d9b8d0b94177075b1cc37bd3973"
+        },
+        {
+          "path": "task229_full_rat_B512/bossfight/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "7e6c264ff094cf3b6806131b59e0dc87848dc1d5884dc33db758310e92a7f974"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/bossfight/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "89186b0356ba4e9f163c98f81a9916f4423794bbf6a5424a8d7d62585f5ff2f4"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/bossfight/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "692cbf6068ad492470e3e2ffba8354b7421171415a341eea2ad05e3948c5a034"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/bossfight/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "bceb0da3173f35b763fbe7efc7f8b768213cc0bfffba61a54f9981341ffcbd7b"
+        },
+        {
+          "path": "task229_full_rat_B512/starpilot/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "64b9e35bdaecaa90ce78a2ee9ea7bd86892e54884bbf826668bdb91dd7d395d5"
+        },
+        {
+          "path": "task229_full_rat_B512/starpilot/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "bf83b9b8257052f432ac2c1454fe94038feef07792853d5fe87781716ad0f329"
+        },
+        {
+          "path": "task229_full_rat_B512/starpilot/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "e310519a14705a03136613db6ae6d832f58bac213dddc0dafe490e6fe355ba00"
+        },
+        {
+          "path": "task253_dual127p1_B512/starpilot/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "8b4f63b3a6d17a9a2c564144223d07c11c0298d081433e06ca5c8166a483660f"
+        },
+        {
+          "path": "task253_dual127p1_B512/starpilot/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "147b5b1655067de5e00c9eef09f7243636f1b6dfabf5d2c057d2c73adaefd8af"
+        },
+        {
+          "path": "task253_dual127p1_B512/starpilot/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "12371a7af45f4189bf342f1a47dbf597fca6b629910f1c80d1def459b34d0f1b"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/starpilot/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "187c69dbb35bb69f7fcb0f14243b2220c35660632d6f6ba02de769d366591f72"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/starpilot/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "35c48aaa69583ee5fd9e0be558f1fd3f00e42cfe7cc9dc732b594b0ca088e266"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/starpilot/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "fced0d08b8f6f043d5cb0f97766e18c2ac39f31ca482faa6673d0ab0890719af"
+        },
+        {
+          "path": "task229_full_rat_B512/caveflyer/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "91eef1ea0c6b89f6c101a479a740664494eb130bee7c86faa70274ff2eb7b10d"
+        },
+        {
+          "path": "task229_full_rat_B512/caveflyer/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "eacd6e9b09dc0e114f69000574f924ee2ff860583329eaa7b67e35039e58f384"
+        },
+        {
+          "path": "task229_full_rat_B512/caveflyer/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "d36a6e32a0a60b90746e8ec0af2df2c57a71181c5fad2972ad7571ef26412a4c"
+        },
+        {
+          "path": "task253_dual127p1_B512/caveflyer/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "e4ef0260735d821d7e794aa3c9838d802d84ba7f1cbb038105d25bb40b682273"
+        },
+        {
+          "path": "task253_dual127p1_B512/caveflyer/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "45cc993d1302c1c3ecdaa4bd6cff09081b898ec1bae3afb5ef6268eae32b9256"
+        },
+        {
+          "path": "task253_dual127p1_B512/caveflyer/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "ee2c66505f3eaec7089f1b00608fd0a8770cdf990137f4ce0ea3362326c7ec2e"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/caveflyer/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "bf2dc8f641dbb6ddcd3b98685052deaa76d9051d14820a2a32e563e1f850e347"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/caveflyer/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "28131af5bb78bf5772f79db9b0a62f2c162a843aa06a1abd0b1c0189a4275308"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/caveflyer/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "1f4dcd4ee09c9267a5daaaf9f55cf6b780f36f07876910760bb43878eaaacd1f"
+        },
+        {
+          "path": "task229_full_rat_B512/coinrun/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "3a485a633d491e852c75328cee3d32130eb7b252f3051da7a2fa05205618935a"
+        },
+        {
+          "path": "task229_full_rat_B512/coinrun/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "e6ba5f4920ba9aefc97fe81b65eb6918e268662a31b779513d9d097da19c3257"
+        },
+        {
+          "path": "task229_full_rat_B512/coinrun/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "4c1414ba932479ed53722a53c5a098dc30f2f313861432d0cb19092cf3e55d35"
+        },
+        {
+          "path": "task253_dual127p1_B512/coinrun/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "67f67965c0ff6fd6002d739d331f4dbbe4bf4b877334ef16f87e08e276e03dcc"
+        },
+        {
+          "path": "task253_dual127p1_B512/coinrun/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "bf21bc8802f90acd4601da6f536b6d8754646911b108e265e44c2cc287fc1dde"
+        },
+        {
+          "path": "task253_dual127p1_B512/coinrun/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "a2948d1241823f14a0359dd6d8566059fc5e5a68c1b82e9897aeca7679984b9d"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/coinrun/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "df1d73b9650dbdc4955c43cde75482945038a5d9dc8a63d5eae0514f32c73482"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/coinrun/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "cdc8045d3737776420554400c58d7e99920355fb642f3e79f7a47712d525546b"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/coinrun/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "cf06080bedd4083a58e8769ec696c5e4381c5a14af23fdcf35f05adf1f5d5095"
+        },
+        {
+          "path": "task229_full_rat_B512/maze/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "334f2420e52a92b940761f2d50c818bba6d8a9707a6188944bb0e3ed6570c06e"
+        },
+        {
+          "path": "task229_full_rat_B512/maze/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "588401ec59bed7451238f1681f91374d278163bc2873c6248c56e37792295689"
+        },
+        {
+          "path": "task229_full_rat_B512/maze/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "7bf47393e3d208ed81956155e9b56a9215f16a35ce5617ba87785b995a817a02"
+        },
+        {
+          "path": "task253_dual127p1_B512/maze/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "1f52903008cddb28ac3078207d4272fef41681edfcaa77de2d914941f555d3f1"
+        },
+        {
+          "path": "task253_dual127p1_B512/maze/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "632536bc02123373dc9325cbd8a5c4d840aa2230d806a998f7a7f5bd5876c13c"
+        },
+        {
+          "path": "task253_dual127p1_B512/maze/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "7e3310805a8a0170af0d9135ecdf8b019b32fda7bb9c769fb30cf3b8a7c5ea65"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/maze/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "35312662f26402224b9279aab1de9594fdb2edcf446959ea1ab37f02c5bbf0ef"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/maze/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "8704b853d5763d48017719606dd90337b54055cd11777f0a3250a570b2168fbd"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/maze/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "ae44415529f2dcb77761eb9fe7760620f552ba2026b33f2b6a0d076d063d73f3"
+        },
+        {
+          "path": "task229_full_rat_B512/jumper/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "59afb0be3460e1dd2ebe57415687a47596f2cc32287cd21ab66daf209b86e191"
+        },
+        {
+          "path": "task229_full_rat_B512/jumper/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "db6c6aeeb5881d44184c6e041b7c62be43e2401be05d706127e3fb51c6342be4"
+        },
+        {
+          "path": "task229_full_rat_B512/jumper/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "6b860e06802f7b9945b9ab12b42e8ea07238216c3c411266b3d397588fa8c8c3"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/jumper/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "b0d0ffedfd3b25625fde409fa09cb80c5bc86c09288364f05ab2e5535c591e3d"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/jumper/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "4675c3c84de6357829dc97c320ee4cf7e87ff2632f22202da601a15d56fc7f27"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/jumper/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "beee782e96a59e91acaaf0cf5537a8dd78e10264b2c8562e73d0980f2560df88"
+        },
+        {
+          "path": "task229_full_rat_B512/miner/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "37219b65948f997c11787478295cdb19e6d3b0fe0f51c5c7f792ef0889ed99fe"
+        },
+        {
+          "path": "task229_full_rat_B512/miner/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "53522c82c544e459da461feb078d2efb776ff53202dca42ff55b7191bc4b671f"
+        },
+        {
+          "path": "task229_full_rat_B512/miner/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "eb17c38f888729a6d5c101461e7ba6f9950e902cdb61cafc684018d05decbfda"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/miner/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "fbd714d57d15a97989e5c2933d24cbb947f6f0272dda47ab0ec92fbf4ef444b5"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/miner/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "a64e726450a596ddcb5e685378d9863e8c24ef6b95598016a57753d770a6d094"
+        },
+        {
+          "path": "task280_coeff128_ray_B512/miner/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "ace71369f2b289a3b25cdd2e10bd4998848b169a9a95306fa885a60139fa3b80"
+        }
+      ]
+    },
+    "shared_large_B8192": {
+      "horizon": 15000000,
+      "coverage": {
+        "bigfish": [
+          "task278_ppo_fixedlr_B8192",
+          "task281_dual127p1_B8192"
+        ],
+        "bossfight": [
+          "task278_ppo_fixedlr_B8192",
+          "task281_dual127p1_B8192"
+        ],
+        "starpilot": [
+          "task278_ppo_fixedlr_B8192",
+          "task281_dual127p1_B8192"
+        ],
+        "caveflyer": [
+          "task278_ppo_fixedlr_B8192",
+          "task281_dual127p1_B8192"
+        ]
+      },
+      "sources": [
+        {
+          "path": "task278_ppo_fixedlr_B8192/bigfish/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "02af64d1090747f821ac5a2c4cef293908d2de12c1d8e8edb8870355b16d0f81"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/bigfish/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "556b19c5508a17a0629014dbacf121c4820e1f3c4fdc0b725e2be6c8201b6c96"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/bigfish/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "182f848b44c5217e3eb01e745686e2ea58889a112027b9b0eaae8319dd9f450a"
+        },
+        {
+          "path": "task281_dual127p1_B8192/bigfish/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "3673fdd3d33cfde333b3c33c7eddf49a1dc5d3d4d6941b622747863f71d110b2"
+        },
+        {
+          "path": "task281_dual127p1_B8192/bigfish/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "dd3667ac5ce4538b8a1a6f85354a026a409d874b0e85183efa78762de472827d"
+        },
+        {
+          "path": "task281_dual127p1_B8192/bigfish/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "98b6aafe670c06d7b19393eda6687c8d00e90bba966ccd02f40748bb31f2e744"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/bossfight/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "f8c83bd600fdc12653e604f4f518dffa4ed0b184ff9581b02e2fa3be101e4c45"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/bossfight/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "81ba01443f4eff23f2ec96c76d1bbdbbb4af7807f54c8dce4f043b8838e695d5"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/bossfight/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "27e557f584a54de02c21ed92e0d71e89b0920ef567fa97ea99bf711badbe98b2"
+        },
+        {
+          "path": "task281_dual127p1_B8192/bossfight/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "8f417127bcebc4b9b56140b8dbce73c02ee8b7ccf8ad192a06bfea81d912c422"
+        },
+        {
+          "path": "task281_dual127p1_B8192/bossfight/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "2146d4fb5268a2cfc0fae50ddbca7965565633e78e00407503284e993095955d"
+        },
+        {
+          "path": "task281_dual127p1_B8192/bossfight/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "542a975a8c7963917b3cd3859d36970e15248e1120d38e14770cca1117767db2"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/starpilot/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "8e6a83a41a678a85541487804d204ab22c9be462d66f72c0d8beaaabd207c85b"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/starpilot/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "ed9daaa55bd56d66613669b612d7918d840b0ad293fadbcde2465f73f3d82cb1"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/starpilot/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "ee8acff2a109da764c29be59a9cb4038adf2c22bd172797567bf1f37b1691669"
+        },
+        {
+          "path": "task281_dual127p1_B8192/starpilot/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "c995b701ff5371a2786b7c2cb051f238c83ef4d17d875effbc76a126f00d96da"
+        },
+        {
+          "path": "task281_dual127p1_B8192/starpilot/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "b0e2aedf164e83f53cd24fa1b7e97a6df34166ecf2d51b8cec5d08406b29d818"
+        },
+        {
+          "path": "task281_dual127p1_B8192/starpilot/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "c1fb1fce2b2642e8d70111497328e7f0b5f8c0d54d33bf46ddff365ecfbfc8be"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/caveflyer/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "98d59c88c4eec28f8267c1e704daab89d05e48e98168de9cfa1142a6cce22627"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/caveflyer/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "6034a1606a0a01ea7fe0dafc0f1b59f45282e600d3c9b33b4a8900069e3836aa"
+        },
+        {
+          "path": "task278_ppo_fixedlr_B8192/caveflyer/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "05e4217d597b1a89c73843661589945db16574d9c22256aa57299fbd558faa6f"
+        },
+        {
+          "path": "task281_dual127p1_B8192/caveflyer/seed0/progress.csv.gz",
+          "scalar_csv_sha256": "67eb8452f499e5f360a986c00be8525e306881c060903e78cd56c4a82e9feadd"
+        },
+        {
+          "path": "task281_dual127p1_B8192/caveflyer/seed1/progress.csv.gz",
+          "scalar_csv_sha256": "44a7853143b8acfb76dcab22f9f08705181436341d23f3e35aac0fde67bcccd6"
+        },
+        {
+          "path": "task281_dual127p1_B8192/caveflyer/seed2/progress.csv.gz",
+          "scalar_csv_sha256": "ea790472cf03bce13fc1f0e847284367dc16f83819dbb9ecd015f942c4873796"
+        }
+      ]
+    }
+  }
+}

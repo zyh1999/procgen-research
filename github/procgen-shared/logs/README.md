@@ -5,6 +5,10 @@ These are **shared actor–critic** results. They are selected historical
 cohorts, **not new training runs from this cleaned GitHub package** and not
 a claim that one method is best on every environment.
 
+The main [README environment inventory and figures](../README.md)
+shows shared normal B512 and large B8192 comparisons. Plots use matched
+seeds 0/1/2; all 124 runs, including Task229 seeds 3/4, remain available here.
+
 | Family | Exact experiment | Batch | Environments | Seeds | Runs | Endpoint |
 |---|---|---:|---:|---|---:|---:|
 | Fixed-LR PPO | Task278 shared PPO | 4096 / 8192 | 4 per batch | 0,1,2 | 24 | 15,007,744 |
